@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //
-import { svgBilling, svgChartVertical, svgHome, svgSetting, svgUser } from 'src/assets/images/svg-icons.constants';
+import { svgBilling, svgChartVertical, svgHome, svgSetting, svgUser,svgCart, svgWallet, svgProduct } from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,16 +13,29 @@ export class SidebarComponent implements OnInit {
   svgBilling = svgBilling;
   svgSetting = svgSetting;
   svgUser = svgUser;
+  svgCart = svgCart;
   svgChartVertical = svgChartVertical;
+  svgWallet = svgWallet;
+  svgProduct = svgProduct;
 
   menuItems = [
+    {
+      name: 'Dashboard',
+      items: [
+        {
+          icon: this.svgCart,
+          name: 'Shopping',
+          link: '/product'
+        },
+      ]
+    },
     {
       name: 'General',
       items: [
         {
           icon: this.svgHome,
           name: 'Home',
-          link: '/product'
+          link: '/profile/home'
         },
         {
           icon: this.svgBilling,
@@ -34,15 +47,11 @@ export class SidebarComponent implements OnInit {
           name: 'Settings',
           link: '/profile/settings'
         },
-        {
-          icon: this.svgChartVertical,
-          name: 'Chart',
-          link: '/chart'
-        }
+
       ]
     },
     {
-      name: 'Account Pages',
+      name: 'Manage Account',
       items: [
         {
           icon: this.svgUser,
@@ -50,7 +59,22 @@ export class SidebarComponent implements OnInit {
           link: '/profile'
         },
       ]
-    }
+    },
+    {
+      name: 'Admin Features',
+      items: [
+        {
+          icon: this.svgProduct,
+          name: 'Products',
+          link: '/seller/products'
+        },
+        {
+          icon: this.svgChartVertical,
+          name: 'Chart',
+          link: '/chart'
+        }
+      ]
+    },
   ];
 
   constructor() { }

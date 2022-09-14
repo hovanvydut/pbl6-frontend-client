@@ -1,32 +1,27 @@
-<mat-accordion class="custom-expansion">
-  <mat-expansion-panel hideToggle header >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span> Phuong Tran </span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <!-- basic-panel -->
-  <ng-container *ngFor="let group of menuItems">
-    <mat-expansion-panel hideToggle header >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <b class="text-center m-auto uppercase"> {{ group.name }} </b>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-    </mat-expansion-panel>
-    <ng-container *ngFor="let item  of group.items">
-      <mat-expansion-panel content hideToggle>
+<div class="sidebar-container">
+  <mat-accordion class="custom-expansion">
+    <ng-container *ngFor="let group of menuItems">
+      <mat-expansion-panel hideToggle header >
         <mat-expansion-panel-header>
-          <mat-panel-title [routerLink]="item.link">
-            <app-svg-icon *ngIf="item.icon"
-                          class="flex h-5 mr-5"
-                          [svgIcon]="item.icon">
-            </app-svg-icon>
-            <span>{{ item.name }}</span>
+          <mat-panel-title>
+            <b class="text-center m-auto uppercase"> {{ group.name }} </b>
           </mat-panel-title>
         </mat-expansion-panel-header>
       </mat-expansion-panel>
+      <ng-container *ngFor="let item  of group.items">
+        <mat-expansion-panel content hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title [routerLink]="item.link">
+              <app-svg-icon *ngIf="item.icon"
+                            class="flex h-5 mr-5"
+                            [svgIcon]="item.icon">
+              </app-svg-icon>
+              <span>{{ item.name }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </ng-container>
     </ng-container>
-  </ng-container>
-</mat-accordion>
+  </mat-accordion>
+
+</div>
