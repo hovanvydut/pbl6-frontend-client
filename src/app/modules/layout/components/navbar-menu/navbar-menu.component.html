@@ -1,0 +1,35 @@
+<div class="flex">
+  <a mat-list-item [matMenuTriggerFor]="notification">
+    <span
+      matBadge="4"
+      matBadgeOverlap="true"
+      matBadgeSize="small"
+      matBadgeColor="warn">
+      <app-svg-icon *ngIf="svgNotification" [svgIcon]="svgNotification"></app-svg-icon>
+    </span>
+  </a>
+  <mat-menu #notification="matMenu">
+    <div mat-menu-item>
+      Hi, you have 1 notification
+    </div>
+  </mat-menu>
+  <a mat-list-item [matMenuTriggerFor]="messageBox">
+    <app-svg-icon *ngIf="svgMessage" [svgIcon]="svgMessage"></app-svg-icon>
+  </a>
+  <mat-menu #messageBox="matMenu">
+    <div mat-menu-item>
+      Hi, you have 1 message
+    </div>
+  </mat-menu>
+  <a mat-list-item [matMenuTriggerFor]="cart" class="cursor-pointer">
+    <app-svg-icon *ngIf="svgCart" [svgIcon]="svgCart"></app-svg-icon>
+  </a>
+  <mat-menu #cart="matMenu">
+    <div mat-menu-item>
+      Sản phảm 1 x 1 = 36000
+    </div>
+    <div mat-menu-item>
+      <a [routerLink]="'/cart'">Xem giỏ hàng</a>
+    </div>
+  </mat-menu>
+</div>

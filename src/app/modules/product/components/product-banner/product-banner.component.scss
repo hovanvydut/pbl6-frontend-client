@@ -1,0 +1,23 @@
+::ng-deep .product__banner {
+  .mat-form-field-wrapper {
+    margin-top: 5px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .mat-button-wrapper {
+    justify-content: center;
+  }
+
+  .product-banner__gallery {
+    max-height: 50vh;
+
+    .product-banner__gallery--left {
+      height: calc(50% - 10px);
+    }
+  }
+
+  .product-banner__swiper {
+    max-width: 600px !important;
+    min-height: 300px;
+  }
+}

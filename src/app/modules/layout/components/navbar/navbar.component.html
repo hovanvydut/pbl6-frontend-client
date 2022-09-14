@@ -1,0 +1,55 @@
+<mat-toolbar>
+  <mat-toolbar-row class="justify-between">
+    <!-- left -->
+    <div class="flex items-center">
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>PBL6</h1>
+    </div>
+    <span class="menu-spacer"></span>
+    <!-- right -->
+    <div class="flex items-center gap-4">
+      <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+
+      <a mat-list-item>
+        <button mat-button [matMenuTriggerFor]="menu">
+          <div class="flex items-center ">
+            <span class="mr-2">Phuong Tran</span>
+            <app-svg-icon
+              *ngIf="svgArrowDown"
+              class="flex h-5"
+              [svgIcon]="svgArrowDown"
+            >
+            </app-svg-icon>
+          </div>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="'/profile'">Profile</button>
+          <button mat-menu-item [routerLink]="'/ordered'">Ordered</button>
+          <button mat-menu-item [routerLink]="'/cart'">Cart</button>
+          <button mat-menu-item [routerLink]="'/logout'">Logout</button>
+        </mat-menu>
+      </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- sidebar -->
+<mat-sidenav-container class="text-xs">
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+      <a mat-list-item [routerLink]="'/profile'"> Profile </a>
+      <a mat-list-item [routerLink]="'/ordered'"> Ordered </a>
+      <a mat-list-item [routerLink]="'/cart'"> Cart </a>
+      <a mat-list-item [routerLink]="'/logout'"> Logout </a>
+      <a mat-list-item (click)="sidenav.toggle()"> Close </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <ng-content></ng-content>
+</mat-sidenav-container>
+
+<ng-template #menuTemplate>
+ <app-navbar-menu></app-navbar-menu>
+</ng-template>

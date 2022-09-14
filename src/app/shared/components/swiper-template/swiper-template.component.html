@@ -1,0 +1,20 @@
+<swiper
+  [slidesPerView]="slidesPerView"
+  [spaceBetween]="spaceBetween"
+  [navigation]="navigation"
+  [pagination]="pagination ?  { clickable: true, dynamicBullets: true } : pagination"
+  [controller]="{ control: controlledSwiper }"
+>
+  <ng-template swiperSlide *ngFor="let item of images">
+      <img [style]="imageStyle"
+           class="swiper-lazy h-full m-auto"
+           [src]="item.url"
+           alt=""
+           srcset="">
+      <!-- <div class="swiper-slide">
+      <div data-background="path/to/picture-2.jpg" class="swiper-lazy">
+        <div class="swiper-lazy-preloader"></div>
+      </div>
+    </div> -->
+  </ng-template>
+</swiper>
