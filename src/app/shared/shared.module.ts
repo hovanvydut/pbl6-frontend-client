@@ -51,13 +51,19 @@ import { CheckBoxListComponent } from './components/check-box-list/check-box-lis
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
 
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { AreaChartComponent } from './components/chart/area-chart/area-chart.component';
+import { LineChartComponent } from './components/chart/line-chart/line-chart.component';
+
 const COMPONENTS: any[] = [
   SvgIconComponent,
   SwiperTemplateComponent,
   ZoomImageComponent,
   CheckBoxListComponent,
   CategoryTreeComponent,
-  CategoryExpansionComponent
+  CategoryExpansionComponent,
+  AreaChartComponent,
+  LineChartComponent
 ];
 
 const MATERIALS: any[] = [
@@ -111,6 +117,7 @@ const PIPES = [
     CommonModule,
     SwiperModule,
     FormsModule,
+    NgApexchartsModule,
     RouterModule.forChild([]),
   ],
   declarations: [...COMPONENTS, ...PIPES],
