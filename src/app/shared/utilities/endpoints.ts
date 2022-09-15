@@ -1,30 +1,31 @@
 export const ENDPOINTS = {
-    DASHBOARD: '',
-    // Admin
-    ADMIN: '/admin',
-    ADMIN_LOGIN: '/admin/login',
-    // Client
-    LOGIN: '/auth/login',
-    SIGN_UP: '/auth/sign-up',
-    FORGOT_PASSWORD: '/auth/forgot-password',
-    FORBIDDEN: '/forbidden',
-    // Product
-    PRODUCT: '/product',
-    // Category
-    CATEGORY: '/category',
-    // Onboarding
-    ONBOARDING: '/onboarding',
+  // Auth
+  LOGIN: '/auth/login',
+  SIGN_UP: '/auth/sign-up',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  FORBIDDEN: '/forbidden',
 
-    // Account Setting
-    SETTING: '/setting',
-    SETTING_EMAIL: '/setting/email',
-    //
-    SETTING_ACCOUNT_INFO: '/setting/info',
-    SETTING_ACCOUNT_INFO_BUSINESS_PROFILE: '/setting/info/business-profile',
-    //
-    SETTING_OTHERS: '/setting/others',
-    //
-    SETTING_PROFILE: '/setting/profile',
-    SETTING_PROFILE_GENERAL_INFO:'/setting/profile/general-info',
-    SETTING_PROFILE_NOTIFICATION:'/setting/profile/notification',
+  // General
+  DASHBOARD: '/product',
+  CATEGORY: '/category',
+  PRODUCT: '/product',
+
+  // Buyer
+  BUYER_PROFILE_INFO: '/profile/info',
+  BUYER_PROFILE_SETTINGS: '/profile/settings',
+  BUYER_NOTIFICATION: '/profile/notification',
+
+  BUYER_ORDERS: '/cart/orders',
+  BUYER_CART: '/cart/shopping-carts',
+  BUYER_BILLINGS: '/cart/billings',
+
+  // Seller
+  SELLER_SETTING_PROFILE: '/seller/business-profile',
+  SELLER_GENERAL: '/seller/general',
+  SELLER_ORDERS: '/seller/orders',
+  SELLER_PRODUCTS: '/seller/products',
+
+  // Admin
+  ADMIN: '/admin',
+  ADMIN_LOGIN: '/admin/login'
 };

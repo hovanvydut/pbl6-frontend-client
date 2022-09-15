@@ -23,6 +23,14 @@ export const routes: Routes = [
       {
         path: 'shopping-carts',
         component: ShoppingCartsComponent
+      },
+      {
+        path: 'billings',
+        component: ShoppingCartsComponent
+      },
+      {
+        path: 'orders',
+        component: ShoppingCartsComponent
       }
     ]
   }

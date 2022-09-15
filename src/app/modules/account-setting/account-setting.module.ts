@@ -13,7 +13,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'info',
+        redirectTo: 'settings',
         pathMatch: 'full'
       },
       {

@@ -8,5 +8,15 @@ export const ALLOWED_PAGE_SIZES = [
 
 export const USER_ROLES = {
   Admin: 'Admin',
-  User: 'User',
+  Seller: 'Seller',
+  Buyer: 'Buyer',
 };
+
+
+export const SIDEBAR_GROUP_NAME = {
+  Dashboard: 'Dashboard',
+  Admin: 'Admin',
+  General: 'General',
+  AccountSetting: 'Account Settings',
+  SellerFeatures: 'Seller Features',
+}

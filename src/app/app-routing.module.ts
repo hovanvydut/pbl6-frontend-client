@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+//
 import { PageNotFoundComponent } from './modules/layout/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -44,6 +45,12 @@ const routes: Routes = [
     data: { preload: false },
   },
   {
+    path: 'seller',
+    loadChildren: () =>
+      import('@app/modules/seller/seller.module').then((m) => m.SellerModule),
+    data: { preload: false },
+  },
+  {
     path: 'profile',
     loadChildren: () =>
       import('@app/modules/account-setting/account-setting.module').then(
@@ -61,6 +68,6 @@ const config: ExtraOptions = {
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, config)],
-  exports: [RouterModule],
+exports: [RouterModule],
 })
 export class AppRoutingModule {}

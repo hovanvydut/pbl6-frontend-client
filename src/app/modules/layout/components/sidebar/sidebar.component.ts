@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { SIDEBAR_GROUP_NAME } from '@app/shared/app.constants';
+import { ENDPOINTS } from '@app/shared/utilities';
 //
-import { svgBilling, svgChartVertical, svgHome, svgSetting, svgUser,svgCart, svgWallet, svgProduct } from 'src/assets/images/svg-icons.constants';
+import {
+  svgBilling,
+  svgChartVertical,
+  svgHome,
+  svgSetting,
+  svgUser,
+  svgShoppingCart,
+  svgWallet,
+  svgProduct
+} from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,78 +19,82 @@ import { svgBilling, svgChartVertical, svgHome, svgSetting, svgUser,svgCart, svg
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  ENDPOINTS = ENDPOINTS;
+  SIDEBAR_GROUP_NAME = SIDEBAR_GROUP_NAME;
   // icon
   svgHome = svgHome;
   svgBilling = svgBilling;
   svgSetting = svgSetting;
   svgUser = svgUser;
-  svgCart = svgCart;
+  svgShoppingCart = svgShoppingCart;
   svgChartVertical = svgChartVertical;
   svgWallet = svgWallet;
   svgProduct = svgProduct;
 
   menuItems = [
     {
-      name: 'Dashboard',
+      name: SIDEBAR_GROUP_NAME.Dashboard,
       items: [
         {
-          icon: this.svgCart,
+          icon: this.svgShoppingCart,
           name: 'Shopping',
-          link: '/product'
-        },
+          link: ENDPOINTS.DASHBOARD
+        }
       ]
     },
     {
-      name: 'General',
+      name: SIDEBAR_GROUP_NAME.General,
       items: [
         {
           icon: this.svgHome,
-          name: 'Home',
-          link: '/profile/home'
+          name: 'Orders',
+          link: ENDPOINTS.BUYER_ORDERS
         },
         {
           icon: this.svgBilling,
-          name: 'Billing',
-          link: '/billing'
-        },
-        {
-          icon: this.svgSetting,
-          name: 'Settings',
-          link: '/profile/settings'
-        },
-
+          name: 'Billings',
+          link: ENDPOINTS.BUYER_BILLINGS
+        }
       ]
     },
     {
-      name: 'Manage Account',
+      name: SIDEBAR_GROUP_NAME.SellerFeatures,
+      items: [
+        {
+          icon: this.svgChartVertical,
+          name: 'Orders',
+          link: ENDPOINTS.SELLER_ORDERS
+        },
+        {
+          icon: this.svgChartVertical,
+          name: 'General',
+          link: ENDPOINTS.SELLER_GENERAL
+        },
+        {
+          icon: this.svgProduct,
+          name: 'Products',
+          link: ENDPOINTS.SELLER_PRODUCTS
+        }
+      ]
+    },
+    {
+      name: SIDEBAR_GROUP_NAME.AccountSetting,
       items: [
         {
           icon: this.svgUser,
           name: 'Profile',
-          link: '/profile'
-        },
-      ]
-    },
-    {
-      name: 'Admin Features',
-      items: [
-        {
-          icon: this.svgProduct,
-          name: 'Products',
-          link: '/seller/products'
+          link: ENDPOINTS.BUYER_PROFILE_INFO
         },
         {
-          icon: this.svgChartVertical,
-          name: 'Chart',
-          link: '/chart'
+          icon: this.svgSetting,
+          name: 'Settings',
+          link: ENDPOINTS.BUYER_PROFILE_SETTINGS
         }
       ]
-    },
+    }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

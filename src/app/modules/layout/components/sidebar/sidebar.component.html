@@ -1,27 +1,17 @@
-<div class="sidebar-container">
-  <mat-accordion class="custom-expansion">
-    <ng-container *ngFor="let group of menuItems">
-      <mat-expansion-panel hideToggle header >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <b class="text-center m-auto uppercase"> {{ group.name }} </b>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-      <ng-container *ngFor="let item  of group.items">
-        <mat-expansion-panel content hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title [routerLink]="item.link">
-              <app-svg-icon *ngIf="item.icon"
-                            class="flex h-5 mr-5"
-                            [svgIcon]="item.icon">
-              </app-svg-icon>
-              <span>{{ item.name }}</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-        </mat-expansion-panel>
-      </ng-container>
+<div class="sidebar-container bg-transparent pr-20 h-full">
+  <ng-container *ngFor="let group of menuItems"
+                class="py-20">
+    <div class="px-10 uppercase mt-20 mb-5 font-bold"> {{ group.name }} </div>
+    <ng-container *ngFor="let item  of group.items">
+      <div class="flex items-center px-20 py-10 my-5 cursor-pointer"
+          [routerLink]="item.link"
+          routerLinkActive="bg-white rounded-15">
+           <app-svg-icon *ngIf="item.icon"
+                          class="flex h-5 mr-5"
+                          [svgIcon]="item.icon">
+            </app-svg-icon>
+            <span>{{ item.name }}</span>
+      </div>
     </ng-container>
-  </mat-accordion>
-
+  </ng-container>
 </div>
