@@ -51,7 +51,6 @@ const COMPONENTS = [
     SharedModule,
     FormsModule,
     LayoutModule,
-    SellerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
