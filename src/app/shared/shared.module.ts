@@ -5,7 +5,11 @@ import {
   StringToDatePipe,
   TimeAgoPipe
 } from './pipes';
-
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -16,7 +20,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -54,6 +57,7 @@ import { CategoryTreeComponent } from './components/category-tree/category-tree.
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AreaChartComponent } from './components/chart/area-chart/area-chart.component';
 import { LineChartComponent } from './components/chart/line-chart/line-chart.component';
+import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -63,7 +67,8 @@ const COMPONENTS: any[] = [
   CategoryTreeComponent,
   CategoryExpansionComponent,
   AreaChartComponent,
-  LineChartComponent
+  LineChartComponent,
+  ConfirmDialogComponent
 ];
 
 const MATERIALS: any[] = [
@@ -117,10 +122,16 @@ const PIPES = [
     CommonModule,
     SwiperModule,
     FormsModule,
+    MatDialogModule,
     NgApexchartsModule,
-    RouterModule.forChild([]),
+    RouterModule.forChild([])
   ],
   declarations: [...COMPONENTS, ...PIPES],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS]
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ]
 })
 export class SharedModule {}
