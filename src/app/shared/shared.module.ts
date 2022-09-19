@@ -59,6 +59,8 @@ import { CategoryExpansionComponent } from './components/category-expansion/cate
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
 import { LineChartComponent, AreaChartComponent } from './components/chart';
 import { FormDialogComponent, ConfirmDialogComponent } from './components/dialog';
+import { SvgIconsRegistryService } from './services/svg-icon-registry.service';
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -118,6 +120,8 @@ const PIPES = [
   LookupValuePipe
 ];
 
+const SVG_ICONS = completeIconSet;
+
 @NgModule({
   imports: [
     ...MATERIALS,
@@ -131,9 +135,14 @@ const PIPES = [
   declarations: [...COMPONENTS, ...PIPES],
   exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
   providers: [
+    SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },
-
     { provide: MAT_DIALOG_DATA, useValue: {} }
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(private svgIconRegistry: SvgIconsRegistryService) {
+    svgIconRegistry.registerIcons(SVG_ICONS);
+  }
+
+}

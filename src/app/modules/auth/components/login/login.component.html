@@ -1,46 +1,59 @@
 <div>
-  <p class="text-36 font-weight-bold"> Sign in </p>
+  <p class="text-36 font-weight-bold">Sign in</p>
   <p class="pt-20px">If you don’t have an account</p>
-  <p> You can
-    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/sign-up'"> Register here ! </a>
+  <p>
+    You can
+    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/sign-up'">
+      Register here !
+    </a>
   </p>
 
   <div class="flex flex-col gap-5px">
     <!-- email -->
     <mat-form-field appearance="standard">
       <mat-label>Enter your email address</mat-label>
-      <input matInput
-             required
-             type="password"
-             placeholder="pat@example.com"
-             [formControl]="login.email">
-      <app-svg-icon *ngIf="svgMessages"
-                    [svgIcon]="svgMessages"
+      <input
+        matInput
+        required
+        type="password"
+        placeholder="pat@example.com"
+        [formControl]="login.email"
+      />
+      <app-svg-icon [name]="'messages'"
+                    [color]="'#999'"
+                    [width]="18"
                     matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="login.email.invalid">
-        {{getEmailErrorMessage()}}
+        {{ getEmailErrorMessage() }}
       </mat-error>
     </mat-form-field>
 
     <!-- pwd -->
     <mat-form-field appearance="standard">
       <mat-label>Enter your Password</mat-label>
-      <input matInput
-            required
-            [type]="hidePwd ? 'password' : 'text'"
-            [(formControl)]="login.password"/>
-      <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hidePwd">
-        <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input
+        matInput
+        required
+        [type]="hidePwd ? 'password' : 'text'"
+        [(formControl)]="login.password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePwd = !hidePwd"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePwd"
+      >
+        <mat-icon>{{ hidePwd ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-      <app-svg-icon *ngIf="svgLock"
-                    [svgIcon]="svgLock"
-                    matPrefix>
+      <app-svg-icon [name]="'lock'"
+            [color]="'#999'"
+            [width]="18"
+            matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="login.password.invalid">
-        {{getPasswordErrorMessage()}}
+        {{ getPasswordErrorMessage() }}
       </mat-error>
     </mat-form-field>
 
@@ -51,9 +64,7 @@
     </div>
 
     <!-- button -->
-    <button mat-raised-button
-           color="primary"
-           (click)="onSignInButtonClicked()">
+    <button mat-raised-button color="primary" (click)="onSignInButtonClicked()">
       Sign in
     </button>
   </div>

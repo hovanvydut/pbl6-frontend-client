@@ -12,6 +12,10 @@ import { AuthComponent } from './auth.component';
 import { AuthLayoutComponent } from '../layout/components/auth-layout/auth-layout.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
+import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+
+const SVG_ICONS = completeIconSet;
 
 export const routes: Routes = [
   {
@@ -70,5 +74,7 @@ const COMPONENTS = [
   providers: [...PROVIDERS]
 })
 export class AuthModule {
-  constructor() {}
+  constructor(private svgIconRegistry: SvgIconsRegistryService) {
+    svgIconRegistry.registerIcons(SVG_ICONS);
+  }
 }

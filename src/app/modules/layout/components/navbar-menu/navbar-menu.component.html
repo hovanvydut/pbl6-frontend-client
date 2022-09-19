@@ -4,8 +4,10 @@
       matBadge="4"
       matBadgeOverlap="true"
       matBadgeSize="small"
-      matBadgeColor="warn">
-      <app-svg-icon *ngIf="svgNotification" [svgIcon]="svgNotification"></app-svg-icon>
+      matBadgeColor="warn"
+    >
+      <app-svg-icon [name]="'notification'" [color]="'black'">
+      </app-svg-icon>
     </span>
   </a>
   <mat-menu #notification="matMenu">
@@ -14,7 +16,8 @@
     </div>
   </mat-menu>
   <a mat-list-item [matMenuTriggerFor]="messageBox">
-    <app-svg-icon *ngIf="svgMessage" [svgIcon]="svgMessage"></app-svg-icon>
+    <app-svg-icon [name]="'message'" [color]="'black'">
+    </app-svg-icon>
   </a>
   <mat-menu #messageBox="matMenu">
     <div mat-menu-item>
@@ -22,7 +25,8 @@
     </div>
   </mat-menu>
   <a mat-list-item [matMenuTriggerFor]="cart" class="cursor-pointer">
-    <app-svg-icon *ngIf="svgCart" [svgIcon]="svgCart"></app-svg-icon>
+    <app-svg-icon [name]="'cart'" [color]="'black'">
+    </app-svg-icon>
   </a>
   <mat-menu #cart="matMenu">
     <div mat-menu-item>

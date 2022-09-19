@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { RegisteredAccountModel } from '@app/modules/account-setting/models';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { isThisSecond } from 'date-fns';
-import { svgMessages, svgLock } from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,8 +17,6 @@ export class SignUpComponent implements OnInit {
   }
 
   RegisteredAccount: RegisteredAccountModel = new RegisteredAccountModel();
-  svgMessages = svgMessages;
-  svgLock = svgLock;
   constructor(private router: Router) { }
 
   ngOnInit() {

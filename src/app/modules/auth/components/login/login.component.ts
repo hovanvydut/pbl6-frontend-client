@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
-import { svgMessages, svgLock } from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +14,6 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   }
   hidePwd: boolean = true;
-
-  svgMessages = svgMessages;
-  svgLock = svgLock;
 
   getEmailErrorMessage() {
     if (this.login.email.hasError('required')) {

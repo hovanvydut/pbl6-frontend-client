@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 //
-import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -8,10 +7,6 @@ import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/i
   styleUrls: ['./navbar-menu.component.scss']
 })
 export class NavbarMenuComponent implements OnInit {
-  svgNotification = svgNotification;
-  svgMessage = svgMessage;
-  svgArrowDown = svgArrowDown;
-  svgCart = svgCart;
 
   constructor() { }
 
