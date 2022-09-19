@@ -68,6 +68,11 @@ export class SidebarComponent implements OnInit {
         },
         {
           icon: 'setting',
+          name: 'Seller Profile',
+          link: ENDPOINTS.SELLER_PROFILE_INFO
+        },
+        {
+          icon: 'setting',
           name: 'Settings',
           link: ENDPOINTS.BUYER_PROFILE_SETTINGS
         }

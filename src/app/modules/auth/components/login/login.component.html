@@ -1,6 +1,6 @@
 <div>
   <p class="text-36 font-weight-bold">Sign in</p>
-  <p class="pt-20px">If you don’t have an account</p>
+  <p class="pt-20">If you don’t have an account</p>
   <p>
     You can
     <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/sign-up'">
@@ -8,7 +8,7 @@
     </a>
   </p>
 
-  <div class="flex flex-col gap-5px">
+  <div class="flex flex-col gap-5">
     <!-- email -->
     <mat-form-field appearance="standard">
       <mat-label>Enter your email address</mat-label>
@@ -19,10 +19,7 @@
         placeholder="pat@example.com"
         [formControl]="login.email"
       />
-      <app-svg-icon [name]="'messages'"
-                    [color]="'#999'"
-                    [width]="18"
-                    matPrefix>
+      <app-svg-icon [name]="'messages'" matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="login.email.invalid">
         {{ getEmailErrorMessage() }}
@@ -47,18 +44,14 @@
       >
         <mat-icon>{{ hidePwd ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-      <app-svg-icon [name]="'lock'"
-            [color]="'#999'"
-            [width]="18"
-            matPrefix>
-      </app-svg-icon>
+      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
       <mat-error *ngIf="login.password.invalid">
         {{ getPasswordErrorMessage() }}
       </mat-error>
     </mat-form-field>
 
     <!-- more option -->
-    <div class="flex justify-between text-xs text-grey-777 mb-20px">
+    <div class="flex justify-between text-xs text-grey-777 mb-20">
       <mat-checkbox color="primary">Remember me</mat-checkbox>
       <span>Forgot Password ?</span>
     </div>
