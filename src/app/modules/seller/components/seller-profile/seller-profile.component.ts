@@ -20,10 +20,6 @@ export class SellerProfileComponent implements OnInit {
       width: '250px',
       data:{
         message: 'Are you sure want to delete?',
-        buttonText: {
-          ok: 'Save',
-          cancel: 'No'
-        }
       }
     });
 

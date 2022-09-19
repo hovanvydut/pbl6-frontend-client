@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SwiperModule } from 'swiper/angular';
+import { RouterModule } from '@angular/router';
+import { NgApexchartsModule } from 'ng-apexcharts';
+//
 import {
   LookupValuePipe,
   SanitizeHtmlPipe,
   StringToDatePipe,
   TimeAgoPipe
 } from './pipes';
+// material
 import {
   MatDialogModule,
   MatDialogRef,
@@ -43,21 +50,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { FormsModule } from '@angular/forms';
-import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
-import { CommonModule } from '@angular/common';
-import { SwiperModule } from 'swiper/angular';
+// components
 import { SwiperTemplateComponent } from './components/swiper-template/swiper-template.component';
-import { RouterModule } from '@angular/router';
+import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 import { ZoomImageComponent } from './components/zoom-image/zoom-image.component';
 import { CheckBoxListComponent } from './components/check-box-list/check-box-list.component';
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
-
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { AreaChartComponent } from './components/chart/area-chart/area-chart.component';
-import { LineChartComponent } from './components/chart/line-chart/line-chart.component';
-import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
+import { LineChartComponent, AreaChartComponent } from './components/chart';
+import { FormDialogComponent, ConfirmDialogComponent } from './components/dialog';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -68,7 +69,8 @@ const COMPONENTS: any[] = [
   CategoryExpansionComponent,
   AreaChartComponent,
   LineChartComponent,
-  ConfirmDialogComponent
+  ConfirmDialogComponent,
+  FormDialogComponent,
 ];
 
 const MATERIALS: any[] = [

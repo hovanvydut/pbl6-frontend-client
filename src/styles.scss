@@ -270,6 +270,7 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 .mat-button-wrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 ::-webkit-scrollbar {

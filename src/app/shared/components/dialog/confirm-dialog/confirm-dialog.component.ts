@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef
 } from '@angular/material/dialog';
+import { DIALOG_BUTTON, DIALOG_MESSAGE } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -11,9 +12,11 @@ import {
   styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent implements OnInit {
-  message: string = 'Are you sure?';
-  confirmButtonText = 'Yes';
-  cancelButtonText = 'Cancel';
+  DIALOG_MESSAGE = DIALOG_MESSAGE;
+
+  message: string = DIALOG_MESSAGE.DELETE_CONFIRM;
+  confirmButtonText = DIALOG_BUTTON.YES;
+  cancelButtonText = DIALOG_BUTTON.NO;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
@@ -27,6 +30,11 @@ export class ConfirmDialogComponent implements OnInit {
       }
     }
   }
+
+  @HostListener('document:keyup.escape') onClose() {
+    this.onCancelClick();
+  }
+
   ngOnInit(): void {}
 
   onConfirmClick(): void {
