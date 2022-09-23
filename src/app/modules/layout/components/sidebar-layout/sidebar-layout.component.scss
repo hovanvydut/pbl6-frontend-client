@@ -2,4 +2,10 @@
 .sidebar-layout-container {
   background-color: #F8F9FA;
   height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.right_panel {
+  overflow-y: scroll ;
+  overflow-x: hidden;
 }

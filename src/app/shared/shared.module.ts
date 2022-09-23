@@ -50,6 +50,8 @@ import { ZoomImageComponent } from './components/zoom-image/zoom-image.component
 import { CheckBoxListComponent } from './components/check-box-list/check-box-list.component';
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
+import { TableComponent } from './components/table/table.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -57,7 +59,12 @@ const COMPONENTS: any[] = [
   ZoomImageComponent,
   CheckBoxListComponent,
   CategoryTreeComponent,
-  CategoryExpansionComponent
+  CategoryExpansionComponent,
+  // AreaChartComponent,
+  // LineChartComponent,
+  // ConfirmDialogComponent,
+  // FormDialogComponent,
+  TableComponent
 ];
 
 const MATERIALS: any[] = [
@@ -113,7 +120,12 @@ const PIPES = [
     FormsModule,
     RouterModule.forChild([]),
   ],
-  declarations: [...COMPONENTS, ...PIPES],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS]
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
+  declarations: [...COMPONENTS, ...PIPES, TableComponent],
+  // providers: [
+  //   SvgIconsRegistryService,
+  //   { provide: MatDialogRef, useValue: {} },
+  //   { provide: MAT_DIALOG_DATA, useValue: {} }
+  // ]
 })
 export class SharedModule {}
