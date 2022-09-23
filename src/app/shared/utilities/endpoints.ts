@@ -20,7 +20,7 @@ export const ENDPOINTS = {
   BUYER_BILLINGS: '/cart/billings',
 
   // Seller
-  SELLER_SETTING_PROFILE: '/seller/business-profile',
+  SELLER_PROFILE_INFO: '/seller/business-profile',
   SELLER_GENERAL: '/seller/general',
   SELLER_ORDERS: '/seller/orders',
   SELLER_PRODUCTS: '/seller/products',

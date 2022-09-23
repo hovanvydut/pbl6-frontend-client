@@ -4,13 +4,22 @@ import { SellerComponent } from './seller.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { SellerProfileComponent } from './components/seller-profile/seller-profile.component';
 import { SidebarLayoutComponent } from '../layout/components/sidebar-layout/sidebar-layout.component';
+import { from } from 'rxjs';
+import {
+  SellerDashboardComponent,
+  SellerOrdersComponent,
+  SellerProductsComponent,
+  SellerProfileComponent
+} from './components';
 
 const COMPONENTS = [
   SellerComponent,
-  SellerProfileComponent
-]
+  SellerProfileComponent,
+  SellerDashboardComponent,
+  SellerOrdersComponent,
+  SellerProductsComponent
+];
 
 export const routes: Routes = [
   {
@@ -28,16 +37,16 @@ export const routes: Routes = [
       },
       {
         path: 'orders',
-        component: SellerProfileComponent
+        component: SellerOrdersComponent
       },
       {
         path: 'products',
-        component: SellerProfileComponent
+        component: SellerProductsComponent
       },
       {
         path: 'general',
-        component: SellerProfileComponent
-      },
+        component: SellerDashboardComponent
+      }
     ]
   }
 ];
@@ -47,9 +56,9 @@ export const routes: Routes = [
     CommonModule,
     SharedModule,
     FormsModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS]
 })
-export class SellerModule { }
+export class SellerModule {}

@@ -2,9 +2,11 @@
   <mat-form-field appearance="outline">
     <mat-label>Select category</mat-label>
     <mat-select [(ngModel)]="selectedCategory" name="category">
-      <mat-option *ngFor="let category of categories"
-                  [value]="category.id"
-                  [routerLink]="ENDPOINTS.CATEGORY + '/' + category.id">
+      <mat-option
+        *ngFor="let category of categories"
+        [value]="category.id"
+        [routerLink]="ENDPOINTS.CATEGORY + '/' + category.id"
+      >
         {{ category.name }}
       </mat-option>
     </mat-select>
@@ -16,15 +18,12 @@
       matInput
       placeholder="Ex. Nike, Adidas, ..."
       [(ngModel)]="searchKeyword"
-      (ngModelChange)="onSearchKeywordChanged($event)"/>
+      (ngModelChange)="onSearchKeywordChanged($event)"
+    />
   </mat-form-field>
   <!-- ----------------------------------------------- -->
-  <button mat-raised-button
-          color="primary"
-          class="search-btn__banner">
-    <app-svg-icon *ngIf="svgSearch"
-                  [svgIcon]="svgSearch"
-                  class="mr-10">
+  <button mat-raised-button color="primary" class="search-btn__banner">
+    <app-svg-icon class="mr-10" [name]="'searc'" [color]="'#999'">
     </app-svg-icon>
     Search
   </button>

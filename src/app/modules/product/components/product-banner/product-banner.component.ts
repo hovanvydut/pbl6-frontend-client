@@ -1,6 +1,5 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SearchPanelComponent } from '@app/modules/layout/components/search-panel/search-panel.component';
-import { svgSearch } from 'src/assets/images/svg-icons.constants';
 import { ProductService } from './../../services/product.service';
 
 @Component({
@@ -82,7 +81,6 @@ export class ProductBannerComponent implements OnInit {
   }
 
   selectedValue: string;
-  svgSearch = svgSearch;
 
   constructor(private productService: ProductService) {}
 

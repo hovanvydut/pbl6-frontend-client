@@ -13,6 +13,10 @@ import { AuthLayoutComponent } from './components/auth-layout/auth-layout.compon
 import { SidebarLayoutComponent } from './components/sidebar-layout/sidebar-layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarMenuComponent } from './components/navbar-menu/navbar-menu.component';
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
+import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+
+const SVG_ICONS = completeIconSet;
 
 const COMPONENTS = [
   LayoutComponent,
@@ -25,16 +29,15 @@ const COMPONENTS = [
   SidebarLayoutComponent,
   SidebarComponent,
   NavbarMenuComponent
-]
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    RouterModule.forChild([]),
-  ],
+  imports: [CommonModule, SharedModule, FormsModule, RouterModule.forChild([])],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS]
 })
-export class LayoutModule { }
+export class LayoutModule {
+  constructor(private svgIconRegistry: SvgIconsRegistryService) {
+    svgIconRegistry.registerIcons(SVG_ICONS);
+  }
+}

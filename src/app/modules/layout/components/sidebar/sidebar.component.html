@@ -1,16 +1,15 @@
 <div class="sidebar-container bg-transparent pr-20 h-full">
-  <ng-container *ngFor="let group of menuItems"
-                class="py-20">
-    <div class="px-10 uppercase mt-20 mb-5 font-bold"> {{ group.name }} </div>
-    <ng-container *ngFor="let item  of group.items">
-      <div class="flex items-center px-20 py-10 my-5 cursor-pointer"
-          [routerLink]="item.link"
-          routerLinkActive="bg-white rounded-15">
-           <app-svg-icon *ngIf="item.icon"
-                          class="flex h-5 mr-5"
-                          [svgIcon]="item.icon">
-            </app-svg-icon>
-            <span>{{ item.name }}</span>
+  <ng-container *ngFor="let group of menuItems" class="py-20">
+    <div class="px-10 uppercase mt-20 mb-5 font-bold">{{ group.name }}</div>
+    <ng-container *ngFor="let item of group.items">
+      <div
+        class="flex items-center px-20 py-10 my-5 cursor-pointer"
+        [routerLink]="item.link"
+        routerLinkActive="bg-white rounded-15"
+      >
+        <app-svg-icon class="mr-5 text-blue-900" [name]="item.icon">
+        </app-svg-icon>
+        <span>{{ item.name }}</span>
       </div>
     </ng-container>
   </ng-container>

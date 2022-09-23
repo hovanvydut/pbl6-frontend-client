@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '@app/shared/components/dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-seller-profile',
@@ -6,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./seller-profile.component.css']
 })
 export class SellerProfileComponent implements OnInit {
+  result: boolean;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data:{
+        message: 'Are you sure want to delete?',
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.result = result;
+      console.log(this.result);
+
+    });
   }
 
 }

@@ -7,6 +7,8 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AccountInfoComponent } from './account-info.component';
 import { AccountInfoDetailComponent } from './components/account-info-detail/account-info-detail.component';
 import { BusinessProfileComponent } from './components/business-profile/business-profile.component';
+import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 
 const routes: Routes = [
   {
@@ -28,6 +30,8 @@ const COMPONENTS = [
   BusinessProfileComponent,
 ];
 
+const SVG_ICONS = completeIconSet;
+
 @NgModule({
   imports: [
     CommonModule,
@@ -37,4 +41,8 @@ const COMPONENTS = [
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS]
 })
-export class AccountInfoModule {}
+export class AccountInfoModule {
+  constructor(private svgIconRegistry: SvgIconsRegistryService) {
+    svgIconRegistry.registerIcons(SVG_ICONS);
+  }
+}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/images/svg-icons.constants';
 
 @Component({
   selector: 'app-main-layout',
@@ -7,10 +6,6 @@ import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/i
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit {
-  svgNotification = svgNotification;
-  svgMessage = svgMessage;
-  svgArrowDown = svgArrowDown;
-  svgCart = svgCart;
 
   constructor() { }
 

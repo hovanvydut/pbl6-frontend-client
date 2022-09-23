@@ -1,68 +1,70 @@
 <div>
-  <p class="text-36 font-weight-bold"> Sign up </p>
-  <p class="pt-20px">If you have an account</p>
-  <p> You can
-    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/login'"> Login here ! </a>
+  <p class="text-36 font-weight-bold">Sign up</p>
+  <p class="pt-20">If you have an account</p>
+  <p>
+    You can
+    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/login'">
+      Login here !
+    </a>
   </p>
-  <div class="flex flex-col gap-5px">
+  <div class="flex flex-col gap-5">
     <!-- email -->
     <mat-form-field appearance="standard">
       <mat-label>Enter your email address</mat-label>
-      <input matInput
-             required
-             placeholder="pat@example.com"
-             [formControl]="signUp.email">
-      <app-svg-icon *ngIf="svgMessages"
-                    [svgIcon]="svgMessages"
-                    matPrefix>
+      <input
+        matInput
+        required
+        placeholder="pat@example.com"
+        [formControl]="signUp.email"
+      />
+      <app-svg-icon [name]="'messages'" matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="signUp.email.invalid">
-        {{getErrorMessage('email')}}
+        {{ getErrorMessage("email") }}
       </mat-error>
     </mat-form-field>
 
     <!-- pwd -->
     <mat-form-field appearance="standard">
       <mat-label>Enter your Password</mat-label>
-      <input matInput
-             required
-             type="password"
-             [(formControl)]="signUp.password" />
-      <app-svg-icon *ngIf="svgLock"
-                    [svgIcon]="svgLock"
-                    matPrefix>
+      <input
+        matInput
+        required
+        type="password"
+        [(formControl)]="signUp.password"
+      />
+
+      <app-svg-icon [name]="'lock'" matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="signUp.password.invalid">
-        {{getErrorMessage('password')}}
+        {{ getErrorMessage("password") }}
       </mat-error>
     </mat-form-field>
 
     <!--confirm pwd -->
     <mat-form-field appearance="standard">
       <mat-label class="">Enter your Confirm Password</mat-label>
-      <input matInput
-             required
-             type="password"
-             [(formControl)]="signUp.password"/>
-      <app-svg-icon *ngIf="svgLock"
-                    [svgIcon]="svgLock"
-                    matPrefix>
+      <input
+        matInput
+        required
+        type="password"
+        [(formControl)]="signUp.password"
+      />
+      <app-svg-icon [name]="'lock'" matPrefix>
       </app-svg-icon>
       <mat-error *ngIf="signUp.password.invalid">
-        {{getErrorMessage('password')}}
+        {{ getErrorMessage("password") }}
       </mat-error>
     </mat-form-field>
 
     <!-- more option -->
-    <div class="flex justify-between text-xs text-grey-777 mb-20px">
+    <div class="flex justify-between text-xs text-grey-777 mb-20">
       <mat-checkbox class="">Remember me</mat-checkbox>
       <span>Forgot Password ?</span>
     </div>
 
     <!-- button -->
-    <button mat-raised-button
-            color="primary"
-            (click)="onSignUpButtonClicked()">
+    <button mat-raised-button color="primary" (click)="onSignUpButtonClicked()">
       Sign up
     </button>
   </div>
