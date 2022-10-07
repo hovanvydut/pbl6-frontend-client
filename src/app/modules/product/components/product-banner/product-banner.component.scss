@@ -3,9 +3,9 @@
     margin-top: 5px !important;
     padding-bottom: 0 !important;
   }
-  
+
   .product-banner__gallery {
-    max-height: 50vh;
+    max-height: 80vh;
 
     .product-banner__gallery--left {
       height: calc(50% - 10px);
@@ -13,7 +13,7 @@
   }
 
   .product-banner__swiper {
-    max-width: 600px !important;
+    max-width: 1060px !important;
     min-height: 300px;
   }
 }

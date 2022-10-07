@@ -5,7 +5,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Nunito, "Helvetica Neue", sans-serif;
   overflow-x: hidden;
 }
 
@@ -30,21 +30,21 @@ body {
 
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap');
 
-$fontConfig: (display-4: mat-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
-  display-3: mat-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
-  display-2: mat-typography-level(45px, 48px, 400, 'Roboto', 0.0000em),
-  display-1: mat-typography-level(34px, 40px, 400, 'Roboto', 0.0074em),
-  headline: mat-typography-level(24px, 32px, 400, 'Roboto', 0.0000em),
-  title: mat-typography-level(20px, 32px, 500, 'Roboto', 0.0075em),
-  subheading-2: mat-typography-level(16px, 28px, 400, 'Roboto', 0.0094em),
-  subheading-1: mat-typography-level(15px, 24px, 500, 'Roboto', 0.0067em),
-  body-2: mat-typography-level(14px, 24px, 500, 'Roboto', 0.0179em),
-  body-1: mat-typography-level(14px, 20px, 400, 'Roboto', 0.0179em),
-  button: mat-typography-level(14px, 14px, 500, 'Roboto', 0.0893em),
-  caption: mat-typography-level(12px, 20px, 400, 'Roboto', 0.0333em),
-  input: mat-typography-level(12px, 1.125, 400, 'Roboto', 1.5px));
+$fontConfig: (display-4: mat-typography-level(112px, 112px, 300, 'Nunito', -0.0134em),
+  display-3: mat-typography-level(56px, 56px, 400, 'Nunito', -0.0089em),
+  display-2: mat-typography-level(45px, 48px, 400, 'Nunito', 0.0000em),
+  display-1: mat-typography-level(34px, 40px, 400, 'Nunito', 0.0074em),
+  headline: mat-typography-level(24px, 32px, 400, 'Nunito', 0.0000em),
+  title: mat-typography-level(20px, 32px, 500, 'Nunito', 0.0075em),
+  subheading-2: mat-typography-level(16px, 28px, 400, 'Nunito', 0.0094em),
+  subheading-1: mat-typography-level(15px, 24px, 500, 'Nunito', 0.0067em),
+  body-2: mat-typography-level(14px, 24px, 500, 'Nunito', 0.0179em),
+  body-1: mat-typography-level(14px, 20px, 400, 'Nunito', 0.0179em),
+  button: mat-typography-level(14px, 14px, 500, 'Nunito', 0.0893em),
+  caption: mat-typography-level(12px, 20px, 400, 'Nunito', 0.0333em),
+  input: mat-typography-level(12px, 1.125, 400, 'Nunito', 1.5px));
 
 // Foreground Elements
 
@@ -256,7 +256,7 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   font-family: 'Material Icons', 'Material Icons';
 
   .mat-badge-content {
-    font-family: 'Roboto';
+    font-family: 'Nunito';
   }
 }
 
