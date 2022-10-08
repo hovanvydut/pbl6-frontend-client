@@ -1,9 +1,0 @@
-<div class="flex justify-center flex-wrap gap-10 my-20">
-  <p *ngIf="products.length === 0">
-    No products found
-  </p>
-  <ng-container *ngFor="let product of products">
-    <app-product-card [product]="product">
-    </app-product-card>
-  </ng-container>
-</div>

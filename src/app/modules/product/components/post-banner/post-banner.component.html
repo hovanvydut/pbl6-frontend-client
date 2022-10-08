@@ -1,0 +1,29 @@
+<div class="flex gap-20 product__banner">
+  <div class="flex flex-col flex-grow">
+    <app-search-panel #searchPanel
+                      (searchKeywordChanged)="updateFilterParams($event)">
+    </app-search-panel>
+    <!--------------------------------------------------------------------->
+    <div class="py-20 post-banner__gallery justify-between">
+      <mat-card class="post-banner__swiper" >
+        <app-swiper-template [images]="images"
+                             [navigation]="false">
+        </app-swiper-template>
+      </mat-card>
+      <!-- <div class="w-2/5 flex flex-col justify-between gap-10 flex-grow">
+        <mat-card class="post-banner__gallery--left">
+          <img class="h-full m-auto w-full"
+               [src]="images[1]?.url"
+               alt=""
+               srcset="">
+        </mat-card>
+        <mat-card class="post-banner__gallery--left">
+          <img class="h-full m-auto w-full"
+               [src]="images[2]?.url"
+               alt=""
+               srcset="">
+        </mat-card>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -17,24 +17,8 @@ const routes: Routes = [
   {
     path: 'product',
     loadChildren: () =>
-      import('@app/modules/product/product.module').then(
-        (m) => m.ProductModule
-      ),
-    data: { preload: false },
-  },
-  {
-    path: 'cart',
-    loadChildren: () =>
-      import('@app/modules/shopping-carts/shopping-carts.module').then(
-        (m) => m.ShoppingCartsModule
-      ),
-    data: { preload: false },
-  },
-  {
-    path: 'category',
-    loadChildren: () =>
-      import('@app/modules/category/category.module').then(
-        (m) => m.CategoryModule
+      import('@app/modules/product/post.module').then(
+        (m) => m.PostModule
       ),
     data: { preload: false },
   },
@@ -42,12 +26,6 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('@app/modules/admin/admin.module').then((m) => m.AdminModule),
-    data: { preload: false },
-  },
-  {
-    path: 'seller',
-    loadChildren: () =>
-      import('@app/modules/seller/seller.module').then((m) => m.SellerModule),
     data: { preload: false },
   },
   {
