@@ -1,0 +1,19 @@
+::ng-deep .post__banner {
+  .mat-form-field-wrapper {
+    margin-top: 5px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .post-banner__gallery {
+    max-height: 80vh;
+
+    .post-banner__gallery--left {
+      height: calc(50% - 10px);
+    }
+  }
+
+  .post-banner__swiper {
+    // max-width: 1360px !important;
+    min-height: 300px;
+  }
+}

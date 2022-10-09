@@ -41,11 +41,10 @@ const COMPONENTS = [
 
 ];
 
-const PIPES = [];
-
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS],
   imports: [SharedModule, RouterModule.forChild(routes)],
+  exports: [...COMPONENTS],
 })
 
 

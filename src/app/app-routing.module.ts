@@ -12,40 +12,47 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('@app/modules/auth/auth.module').then((m) => m.AuthModule),
+      import('@app/modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'landlord',
+    loadChildren: () =>
+      import('@app/modules/landlord/landlord.module').then(
+        m => m.LandlordModule
+      ),
+    data: { preload: false }
   },
   {
     path: 'post',
     loadChildren: () =>
-      import('@app/modules/post/post.module').then(
-        (m) => m.PostModule
-      ),
-    data: { preload: false },
+      import('@app/modules/post/post.module').then(m => m.PostModule),
+    data: { preload: false }
   },
+
   {
     path: 'admin',
     loadChildren: () =>
-      import('@app/modules/admin/admin.module').then((m) => m.AdminModule),
-    data: { preload: false },
+      import('@app/modules/admin/admin.module').then(m => m.AdminModule),
+    data: { preload: false }
   },
   {
     path: 'profile',
     loadChildren: () =>
       import('@app/modules/account-setting/account-setting.module').then(
-        (m) => m.AccountSettingModule
+        m => m.AccountSettingModule
       ),
-    data: { preload: false },
+    data: { preload: false }
   },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 const config: ExtraOptions = {
   useHash: false,
-  enableTracing: false,
+  enableTracing: false
 };
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, config)],
-exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

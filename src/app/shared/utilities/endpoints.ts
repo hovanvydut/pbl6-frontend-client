@@ -9,6 +9,7 @@ export const ENDPOINTS = {
   DASHBOARD: '/post',
   CATEGORY: '/category',
   POST: '/post',
+  POST_DETAIL: '/post/detail',
 
   // Buyer
   PROFILE_INFO: '/profile/info',

@@ -7,6 +7,7 @@ import { PostService } from '@app/modules/post/services/post.service';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
+  @Input() type: 'small' | 'large' = 'small';
   posts: [];
 
   constructor(private postService: PostService) { }

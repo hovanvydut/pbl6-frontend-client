@@ -14,6 +14,10 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostDetailCardComponent } from './components/post-detail-card/post-detail-card.component';
 import { FilterModule } from '../filter/filter.module';
 import { PostComponent } from './post.component';
+import { PostFilterLayoutComponent } from './components/post-filter-layout/post-filter-layout.component';
+import { PostCardHorizontalComponent } from './components/post-card-horizontal/post-card-horizontal.component';
+import { PostRelatedComponent } from './components/post-related/post-related.component';
+import { LandlordModule } from '../landlord/landlord.module';
 //
 
 export const routes: Routes = [
@@ -23,14 +27,18 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: PostComponent,
+        component: PostComponent
       },
       {
-        path: ':postId',
-        component: PostDetailComponent,
+        path: 'filter',
+        component: PostFilterLayoutComponent
       },
-    ],
-  },
+      {
+        path: 'detail/:postId',
+        component: PostDetailComponent
+      }
+    ]
+  }
 ];
 
 const COMPONENTS = [
@@ -39,7 +47,8 @@ const COMPONENTS = [
   PostListComponent,
   PostBannerComponent,
   PostCardComponent,
-  PostDetailCardComponent
+  PostDetailCardComponent,
+  PostFilterLayoutComponent
 ];
 
 const MODULES = [
@@ -47,15 +56,16 @@ const MODULES = [
   SharedModule,
   FormsModule,
   LayoutModule,
-  FilterModule
+  FilterModule,
+  LandlordModule
 ];
 @NgModule({
-  imports: [
-   ...MODULES,
-    RouterModule.forChild(routes)
-  ],
+  imports: [...MODULES, RouterModule.forChild(routes)],
   declarations: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+    PostCardHorizontalComponent,
+    PostRelatedComponent
+  ],
+  exports: [...COMPONENTS]
 })
-export class PostModule { }
+export class PostModule {}

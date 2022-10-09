@@ -1,3 +1,43 @@
-<app-post-detail-card></app-post-detail-card>
-<!-- <app-seller-profile></app-seller-profile> -->
+<div class="post__banner">
+  <div class="flex flex-col flex-grow">
+    <div class="py-20 post-banner__gallery justify-between flex gap-10 w-full">
+      <mat-card class="post-banner__swiper w-3/5">
+        <app-swiper-template [images]="images" [navigation]="false">
+        </app-swiper-template>
+      </mat-card>
+      <div class="w-2/5 flex flex-col justify-between gap-10 flex-grow">
+        <mat-card class="post-banner__gallery--left">
+          <img
+            class="h-full m-auto w-full"
+            [src]="images[1]?.url"
+            alt=""
+            srcset=""
+          />
+        </mat-card>
+        <mat-card class="post-banner__gallery--left">
+          <img
+            class="h-full m-auto w-full"
+            [src]="images[2]?.url"
+            alt=""
+            srcset=""
+          />
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex gap-10">
+  <div class="w-3/5">
+    Chi tiết <app-post-detail-card></app-post-detail-card>
+  </div>
+  <div class="w-2/5 flex flex-col">
+    <div>
+      <app-landlord-info></app-landlord-info>
+    </div>
+    <div>
+      Map
+    </div>
+  </div>
+</div>
 
+<app-post-related></app-post-related>
