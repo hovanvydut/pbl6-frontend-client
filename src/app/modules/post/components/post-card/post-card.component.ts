@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
-import { Product } from 'src/app/modules/product/models/product.model';
+import { Post } from '@app/modules/post/models/post.model';
 
 @Component({
   selector: 'app-post-card',
@@ -10,7 +10,7 @@ import { Product } from 'src/app/modules/product/models/product.model';
   styleUrls: ['./post-card.component.css']
 })
 export class PostCardComponent implements OnInit {
-  @Input() product: Product;
+  @Input() post: Post;
 
   ENDPOINTS = ENDPOINTS;
 

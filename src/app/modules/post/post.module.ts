@@ -7,12 +7,13 @@ import { SharedModule } from '@app/shared/shared.module';
 import { LayoutModule } from '@app/modules/layout/layout.module';
 import { MainLayoutComponent } from '../layout/components/main-layout/main-layout.component';
 
-import { ProductComponent } from './post.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostBannerComponent } from './components/post-banner/post-banner.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostDetailCardComponent } from './components/post-detail-card/post-detail-card.component';
+import { FilterModule } from '../filter/filter.module';
+import { PostComponent } from './post.component';
 //
 
 export const routes: Routes = [
@@ -22,10 +23,10 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProductComponent,
+        component: PostComponent,
       },
       {
-        path: ':productId',
+        path: ':postId',
         component: PostDetailComponent,
       },
     ],
@@ -33,7 +34,7 @@ export const routes: Routes = [
 ];
 
 const COMPONENTS = [
-  ProductComponent,
+  PostComponent,
   PostDetailComponent,
   PostListComponent,
   PostBannerComponent,
@@ -41,12 +42,16 @@ const COMPONENTS = [
   PostDetailCardComponent
 ];
 
+const MODULES = [
+  CommonModule,
+  SharedModule,
+  FormsModule,
+  LayoutModule,
+  FilterModule
+];
 @NgModule({
   imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    LayoutModule,
+   ...MODULES,
     RouterModule.forChild(routes)
   ],
   declarations: [

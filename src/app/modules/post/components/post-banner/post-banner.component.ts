@@ -1,6 +1,6 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SearchPanelComponent } from '@app/modules/layout/components/search-panel/search-panel.component';
-import { ProductService } from '../../services/product.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-banner',
@@ -82,7 +82,7 @@ export class PostBannerComponent implements OnInit {
 
   selectedValue: string;
 
-  constructor(private productService: ProductService) {}
+  constructor(private postService: PostService) {}
 
   ngOnInit() {
     this.initData();

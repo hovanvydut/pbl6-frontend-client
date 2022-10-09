@@ -15,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarMenuComponent } from './components/navbar-menu/navbar-menu.component';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 const SVG_ICONS = completeIconSet;
 
@@ -28,7 +29,8 @@ const COMPONENTS = [
   AuthLayoutComponent,
   SidebarLayoutComponent,
   SidebarComponent,
-  NavbarMenuComponent
+  NavbarMenuComponent,
+  PaginationComponent
 ];
 
 @NgModule({

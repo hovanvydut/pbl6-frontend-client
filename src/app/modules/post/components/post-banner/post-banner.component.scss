@@ -1,4 +1,4 @@
-::ng-deep .product__banner {
+::ng-deep .post__banner {
   .mat-form-field-wrapper {
     margin-top: 5px !important;
     padding-bottom: 0 !important;
@@ -13,7 +13,7 @@
   }
 
   .post-banner__swiper {
-    max-width: 1060px !important;
+    // max-width: 1360px !important;
     min-height: 300px;
   }
 }

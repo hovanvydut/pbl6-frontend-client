@@ -39,37 +39,12 @@ export class SidebarComponent implements OnInit {
       ]
     },
     {
-      name: SIDEBAR_GROUP_NAME.SellerFeatures,
-      items: [
-        {
-          icon: 'chart_vertical',
-          name: 'Orders',
-          link: ENDPOINTS.SELLER_ORDERS
-        },
-        {
-          icon: 'chart_vertical',
-          name: 'General',
-          link: ENDPOINTS.SELLER_GENERAL
-        },
-        {
-          icon: 'product',
-          name: 'Products',
-          link: ENDPOINTS.SELLER_PRODUCTS
-        }
-      ]
-    },
-    {
       name: SIDEBAR_GROUP_NAME.AccountSetting,
       items: [
         {
-          icon: 'user',
-          name: 'Profile',
-          link: ENDPOINTS.BUYER_PROFILE_INFO
-        },
-        {
           icon: 'setting',
           name: 'Seller Profile',
-          link: ENDPOINTS.SELLER_PROFILE_INFO
+          link: ENDPOINTS.PROFILE_INFO
         },
         {
           icon: 'setting',

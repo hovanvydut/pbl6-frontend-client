@@ -1,4 +1,4 @@
-export class Product {
+export class Post {
   id: number;
   name: string;
   description: string;
@@ -11,7 +11,7 @@ export class Product {
   stock: number;
   reviews: Review[];
 
-  public constructor(init?: Partial<Product>) {
+  public constructor(init?: Partial<Post>) {
     Object.assign(this, init);
   }
 }

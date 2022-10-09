@@ -6,24 +6,18 @@ export const ENDPOINTS = {
   FORBIDDEN: '/forbidden',
 
   // General
-  DASHBOARD: '/product',
+  DASHBOARD: '/post',
   CATEGORY: '/category',
-  PRODUCT: '/product',
+  POST: '/post',
 
   // Buyer
-  BUYER_PROFILE_INFO: '/profile/info',
+  PROFILE_INFO: '/profile/info',
   BUYER_PROFILE_SETTINGS: '/profile/settings',
   BUYER_NOTIFICATION: '/profile/notification',
 
   BUYER_ORDERS: '/cart/orders',
   BUYER_CART: '/cart/shopping-carts',
   BUYER_BILLINGS: '/cart/billings',
-
-  // Seller
-  SELLER_PROFILE_INFO: '/seller/business-profile',
-  SELLER_GENERAL: '/seller/general',
-  SELLER_ORDERS: '/seller/orders',
-  SELLER_PRODUCTS: '/seller/products',
 
   // Admin
   ADMIN: '/admin',

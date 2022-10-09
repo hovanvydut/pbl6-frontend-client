@@ -5,7 +5,7 @@ import { BaseService } from 'src/app/core/services/base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class PostService {
   // categories with name of categories and id
   categories = [
     { id: '1', name: 'Electronics' },
@@ -20,7 +20,7 @@ export class ProductService {
     { id: '10', name: 'Automotive' }
   ];
 
-  products = [
+  posts = [
     {
       id: 1,
       name: 'Towels',
@@ -35,13 +35,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -60,14 +60,14 @@ export class ProductService {
 
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
 
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -85,13 +85,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -109,13 +109,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -133,13 +133,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -157,13 +157,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     },
@@ -181,13 +181,13 @@ export class ProductService {
           id: 1,
           name: 'John',
           rating: 4,
-          comment: 'Nice product'
+          comment: 'Nice post'
         },
         {
           id: 2,
           name: 'Smith',
           rating: 5,
-          comment: 'Good product'
+          comment: 'Good post'
         }
       ]
     }
@@ -195,10 +195,10 @@ export class ProductService {
 
   constructor(private baseService: BaseService) {}
 
-  getProducts() {
-    // list from products with random size
-    return of(this.products.slice(0, Math.floor(Math.random() * 10)));
-    // return this.baseService.get(`/products`);
+  getPosts() {
+    // list from posts with random size
+    return of(this.posts.slice(0, Math.floor(Math.random() * 10)));
+    // return this.baseService.get(`/posts`);
   }
 
   getImages() {

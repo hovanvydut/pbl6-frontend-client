@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './modules/layout/components/page-not-foun
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/product',
+    redirectTo: '/post',
     pathMatch: 'full'
   },
   {
@@ -15,9 +15,9 @@ const routes: Routes = [
       import('@app/modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'product',
+    path: 'post',
     loadChildren: () =>
-      import('@app/modules/product/post.module').then(
+      import('@app/modules/post/post.module').then(
         (m) => m.PostModule
       ),
     data: { preload: false },

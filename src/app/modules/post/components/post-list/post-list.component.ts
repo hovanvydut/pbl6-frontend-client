@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/modules/product/services/product.service';
+import { PostService } from '@app/modules/post/services/post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -7,23 +7,23 @@ import { ProductService } from 'src/app/modules/product/services/product.service
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  products: [];
+  posts: [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
     this.initData();
   }
 
   initData() {
-    this.getProducts();
+    this.getPosts();
   }
 
-  getProducts() {
-    this.productService.getProducts().subscribe((data: any) => {
-      this.products = data;
+  getPosts() {
+    this.postService.getPosts().subscribe((data: any) => {
+      this.posts = data;
     });
-    return this.products;
+    return this.posts;
   }
 
 }

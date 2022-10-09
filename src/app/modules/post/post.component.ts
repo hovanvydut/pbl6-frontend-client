@@ -8,9 +8,9 @@ import { PostBannerComponent } from './components/post-banner/post-banner.compon
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class ProductComponent implements OnInit {
-  @ViewChildren('productList') productList: QueryList<PostListComponent>;
-  @ViewChild('productBanner', {static: true} ) productBanner: PostBannerComponent;
+export class PostComponent implements OnInit {
+  @ViewChildren('postList') postList: QueryList<PostListComponent>;
+  @ViewChild('postBanner', {static: true} ) postBanner: PostBannerComponent;
 
   images = [
     {
@@ -92,7 +92,7 @@ export class ProductComponent implements OnInit {
     { id: '10', name: 'Automotive' }
   ];
   selectedCategoryId = this.categories[0].id;
-  products: [];
+  posts: [];
 
   constructor() {}
 
@@ -100,8 +100,8 @@ export class ProductComponent implements OnInit {
 
   onCategoryClicked(id: string) {
     this.selectedCategoryId = id;
-    this.productList.forEach((productListItem) => {
-      productListItem.getProducts();
+    this.postList.forEach((postListItem) => {
+      postListItem.getPosts();
     })
   }
 }
