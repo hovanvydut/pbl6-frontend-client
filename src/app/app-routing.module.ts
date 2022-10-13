@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 //
 import { PageNotFoundComponent } from './modules/layout/components/page-not-found/page-not-found.component';
+import { ViewIconsComponent } from './shared/components/view-icons/view-icons.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
         m => m.AccountSettingModule
       ),
     data: { preload: false }
+  },
+  {
+    path: 'styles/icons',
+    component: ViewIconsComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
