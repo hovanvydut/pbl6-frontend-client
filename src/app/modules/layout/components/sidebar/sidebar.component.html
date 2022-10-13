@@ -1,14 +1,18 @@
 <div class="sidebar-container bg-transparent pr-20 h-full">
+  <h3 class="flex items-center gap-10 border-b pb-10 border-slate-200">
+    <app-svg-icon [name]="'parcel'"></app-svg-icon> <b> HOMIE</b>
+  </h3>
   <ng-container *ngFor="let group of menuItems" class="py-20">
-    <div class="px-10 uppercase mt-20 mb-5 font-bold">{{ group.name }}</div>
     <ng-container *ngFor="let item of group.items">
       <div
-        class="flex items-center px-20 py-10 my-5 cursor-pointer"
+        class="flex items-center px-20 py-10 my-5 cursor-pointer text-gray-500"
         [routerLink]="item.link"
-        routerLinkActive="bg-white rounded-15"
+        routerLinkActive="bg-white rounded-15 text-black-555 nav-active"
       >
-        <app-svg-icon class="mr-5 text-blue-900" [name]="item.icon">
-        </app-svg-icon>
+        <div class="w-30 h-30 rounded-12 mr-8 flex items-center justify-center nav-icon-wrapper">
+          <app-svg-icon class="nav-icon " [name]="item.icon">
+          </app-svg-icon>
+        </div>
         <span>{{ item.name }}</span>
       </div>
     </ng-container>

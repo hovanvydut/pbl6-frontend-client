@@ -6,7 +6,12 @@ export const ENDPOINTS = {
   FORBIDDEN: '/forbidden',
 
   // General
-  DASHBOARD: '/post',
+  DASHBOARD: '/profile',
+  MANAGE_POSTS: '/posts',
+  STATISTICS: '/statistics',
+  COIN:  '/coin',
+  BOOKING_CALENDAR: '/booking-calendar',
+
   CATEGORY: '/category',
   POST: '/post',
   POST_DETAIL: '/post/detail',

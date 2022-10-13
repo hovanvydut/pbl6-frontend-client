@@ -17,42 +17,32 @@ export class SidebarComponent implements OnInit {
       name: SIDEBAR_GROUP_NAME.Dashboard,
       items: [
         {
-          icon: 'shopping_cart',
-          name: 'Shopping',
-          link: ENDPOINTS.DASHBOARD
-        }
-      ]
-    },
-    {
-      name: SIDEBAR_GROUP_NAME.General,
-      items: [
-        {
           icon: 'home',
-          name: 'Orders',
-          link: ENDPOINTS.BUYER_ORDERS
+          name: 'Dashboard',
+          link: ENDPOINTS.DASHBOARD
+        },
+        {
+          icon: 'product',
+          name: 'Quản lý bài đăng',
+          link: ENDPOINTS.MANAGE_POSTS
+        },
+        {
+          icon: 'chart_vertical',
+          name: 'Thống kê',
+          link: ENDPOINTS.STATISTICS
         },
         {
           icon: 'billing',
-          name: 'Billings',
-          link: ENDPOINTS.BUYER_BILLINGS
-        }
-      ]
-    },
-    {
-      name: SIDEBAR_GROUP_NAME.AccountSetting,
-      items: [
-        {
-          icon: 'setting',
-          name: 'Seller Profile',
-          link: ENDPOINTS.PROFILE_INFO
+          name: 'Nạp tiền',
+          link: ENDPOINTS.COIN
         },
         {
-          icon: 'setting',
-          name: 'Settings',
-          link: ENDPOINTS.BUYER_PROFILE_SETTINGS
-        }
+          icon: 'messages',
+          name: 'Lịch hẹn xem trọ',
+          link: ENDPOINTS.BOOKING_CALENDAR
+        },
       ]
-    }
+    },
   ];
 
   constructor() {}
