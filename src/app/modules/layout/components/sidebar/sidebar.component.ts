@@ -24,22 +24,22 @@ export class SidebarComponent implements OnInit {
         {
           icon: 'product',
           name: 'Quản lý bài đăng',
-          link: ENDPOINTS.MANAGE_POSTS
+          link: ENDPOINTS.LANDLOR_MANAGE_POSTS
         },
         {
           icon: 'chart_vertical',
           name: 'Thống kê',
-          link: ENDPOINTS.STATISTICS
+          link: ENDPOINTS.LANDLOR_STATISTICS
         },
         {
           icon: 'billing',
           name: 'Nạp tiền',
-          link: ENDPOINTS.COIN
+          link: ENDPOINTS.USER_COIN
         },
         {
           icon: 'messages',
           name: 'Lịch hẹn xem trọ',
-          link: ENDPOINTS.BOOKING_CALENDAR
+          link: ENDPOINTS.USER_BOOKING_CALENDAR
         },
       ]
     },

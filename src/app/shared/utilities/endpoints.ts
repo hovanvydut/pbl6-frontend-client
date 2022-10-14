@@ -7,13 +7,13 @@ export const ENDPOINTS = {
 
   // General
   DASHBOARD: '/profile',
-  MANAGE_POSTS: '/posts',
-  STATISTICS: '/statistics',
-  COIN:  '/coin',
-  BOOKING_CALENDAR: '/booking-calendar',
+  LANDLOR_MANAGE_POSTS: '/posts/manage-posts',
+  LANDLOR_STATISTICS: '/statistics',
+  USER_COIN:  '/coin',
+  USER_BOOKING_CALENDAR: '/booking-calendar',
 
   CATEGORY: '/category',
-  POST: '/post',
+  POSTS: '/posts',
   POST_DETAIL: '/post/detail',
 
   // Buyer

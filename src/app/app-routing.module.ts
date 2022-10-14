@@ -24,7 +24,7 @@ const routes: Routes = [
     data: { preload: false }
   },
   {
-    path: 'post',
+    path: 'posts',
     loadChildren: () =>
       import('@app/modules/post/post.module').then(m => m.PostModule),
     data: { preload: false }

@@ -20,6 +20,10 @@ export const routes: Routes = [
       {
         path: 'profile/:landlordId',
         component: LandlordComponent
+      },
+      {
+        path: 'manage-posts',
+        // component: ManagePostsComponent
       }
     ]
   }
