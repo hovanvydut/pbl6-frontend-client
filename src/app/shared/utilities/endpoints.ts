@@ -6,11 +6,13 @@ export const ENDPOINTS = {
   FORBIDDEN: '/forbidden',
 
   // General
-  DASHBOARD: '/profile',
-  LANDLOR_MANAGE_POSTS: '/posts/manage-posts',
-  LANDLOR_STATISTICS: '/statistics',
-  USER_COIN:  '/coin',
-  USER_BOOKING_CALENDAR: '/booking-calendar',
+  DASHBOARD: '/user/dashboard',
+  LANDLOR_MANAGE_POSTS: '/user/my-posts',
+  LANDLOR_STATISTICS: '/user/statistics',
+  USER_COIN:  '/user/my-coins',
+  USER_BOOKING_CALENDAR: '/user/my-booking-calendar',
+
+
 
   CATEGORY: '/category',
   POSTS: '/posts',

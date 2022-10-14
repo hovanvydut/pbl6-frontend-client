@@ -7,7 +7,7 @@ import { ViewIconsComponent } from './shared/components/view-icons/view-icons.co
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/post',
+    redirectTo: '/posts',
     pathMatch: 'full'
   },
   {
@@ -37,10 +37,10 @@ const routes: Routes = [
     data: { preload: false }
   },
   {
-    path: 'profile',
+    path: 'user',
     loadChildren: () =>
-      import('@app/modules/account-setting/account-setting.module').then(
-        m => m.AccountSettingModule
+      import('@app/modules/user/user.module').then(
+        m => m.UserModule
       ),
     data: { preload: false }
   },

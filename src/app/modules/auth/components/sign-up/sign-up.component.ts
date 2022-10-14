@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegisteredAccountModel } from '@app/modules/account-setting/models';
 import { ENDPOINTS } from '@app/shared/utilities';
-import { isThisSecond } from 'date-fns';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,7 +14,6 @@ export class SignUpComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   }
 
-  RegisteredAccount: RegisteredAccountModel = new RegisteredAccountModel();
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -39,9 +36,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUpButtonClicked() {
-    // handle signup
     this.router.navigateByUrl(ENDPOINTS.LOGIN).then();
-
   }
 
 }

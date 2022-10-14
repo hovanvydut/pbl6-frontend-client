@@ -36,6 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSignInButtonClicked() {
-    this.router.navigateByUrl(ENDPOINTS.DASHBOARD).then();
+    this.router.navigateByUrl(ENDPOINTS.POSTS).then();
   }
 }
