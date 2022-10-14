@@ -18,6 +18,7 @@ import { PostFilterLayoutComponent } from './components/post-filter-layout/post-
 import { PostCardHorizontalComponent } from './components/post-card-horizontal/post-card-horizontal.component';
 import { PostRelatedComponent } from './components/post-related/post-related.component';
 import { LandlordModule } from '../landlord/landlord.module';
+import { PostTableComponent } from './components/post-table/post-table.component';
 //
 
 export const routes: Routes = [
@@ -64,8 +65,9 @@ const MODULES = [
   declarations: [
     ...COMPONENTS,
     PostCardHorizontalComponent,
-    PostRelatedComponent
+    PostRelatedComponent,
+    PostTableComponent
   ],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS, PostTableComponent]
 })
 export class PostModule {}

@@ -9,6 +9,7 @@ import { CoinsComponent } from './components/coins/coins.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PostModule } from '../post/post.module';
 export const routes: Routes = [
   {
     path: '',
@@ -52,9 +53,11 @@ const COMPONENTS = [
   DashboardComponent
 ];
 
+const MODULES = [SharedModule, RouterModule.forChild(routes), PostModule];
+
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [SharedModule, RouterModule.forChild(routes)],
+  imports: [...MODULES],
   exports: [...COMPONENTS]
 })
 export class UserModule {

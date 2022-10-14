@@ -264,7 +264,8 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   margin-top: 15px;
 }
 
-.mat-drawer-container, .mat-toolbar {
+.mat-drawer-container,
+.mat-toolbar {
   background-color: transparent !important;
 }
 
@@ -284,7 +285,6 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   background-color: var(--primary-color);
   border-radius: 10px;
 }
-
 
 ::ng-deep .category__expansion {
   .mat-expansion-panel-spacing {

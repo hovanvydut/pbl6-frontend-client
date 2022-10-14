@@ -76,7 +76,7 @@ const COMPONENTS: any[] = [
   LineChartComponent,
   ConfirmDialogComponent,
   FormDialogComponent,
-  ViewIconsComponent
+  ViewIconsComponent,
 ];
 
 const MATERIALS: any[] = [
@@ -137,7 +137,7 @@ const SVG_ICONS = completeIconSet;
     RouterModule.forChild([])
   ],
   exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
-  declarations: [...COMPONENTS, ...PIPES, ViewIconsComponent, ],
+  declarations: [...COMPONENTS, ...PIPES],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },
