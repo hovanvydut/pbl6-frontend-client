@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { menuItems } from '../../const/menu.const';
 
 @Component({
   selector: 'app-main-layout',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit {
-
+  menuItems = menuItems;
   constructor() { }
 
   ngOnInit() {

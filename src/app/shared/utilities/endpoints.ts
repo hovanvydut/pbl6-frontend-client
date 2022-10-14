@@ -12,10 +12,10 @@ export const ENDPOINTS = {
   USER_COIN:  '/user/my-coins',
   USER_BOOKING_CALENDAR: '/user/my-booking-calendar',
 
+  HOME: '/posts',
 
 
   CATEGORY: '/category',
-  POSTS: '/posts',
   POST_DETAIL: '/post/detail',
 
   // Buyer

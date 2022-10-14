@@ -1,5 +1,5 @@
 <div class="sidebar-container bg-transparent pr-20 h-full">
-  <h3 class="flex items-center gap-10 border-b pb-10 border-slate-200">
+  <h3 [routerLink]="ENDPOINTS.HOME" class="flex items-center gap-10 border-b pb-10 border-slate-200 cursor-pointer">
     <app-svg-icon [name]="'parcel'"></app-svg-icon> <b> HOMIE</b>
   </h3>
   <ng-container *ngFor="let group of menuItems" class="py-20">
