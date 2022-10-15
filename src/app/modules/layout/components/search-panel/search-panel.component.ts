@@ -10,6 +10,7 @@ import { svgSearch } from 'src/assets/images/svg-icons.constants';
   styleUrls: ['./search-panel.component.scss']
 })
 export class SearchPanelComponent implements OnInit {
+  @Input() searchOnInput: boolean = false;
   @Output() searchKeywordChanged = new EventEmitter<string>();
   @Output() selectedCategoryChanged = new EventEmitter<string>();
 

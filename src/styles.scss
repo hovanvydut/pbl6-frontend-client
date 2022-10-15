@@ -242,7 +242,11 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   margin: 0 .65em;
   min-width: 3em;
   line-height: 36.4px;
-  border-radius: 15px !important;
+  border-radius: 10px !important;
+
+  &.square-btn {
+    border-radius: 8px !important;
+  }
 
 }
 

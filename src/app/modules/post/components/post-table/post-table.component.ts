@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./post-table.component.scss']
 })
 export class PostTableComponent implements OnInit {
-  tableName: string = "Bài đăng của tôi";
+  tableName: string = "Tất cả bài đăng";
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<{
     name: string;

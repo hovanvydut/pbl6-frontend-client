@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 //
@@ -19,6 +19,7 @@ import { PostCardHorizontalComponent } from './components/post-card-horizontal/p
 import { PostRelatedComponent } from './components/post-related/post-related.component';
 import { LandlordModule } from '../landlord/landlord.module';
 import { PostTableComponent } from './components/post-table/post-table.component';
+import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
 //
 
 export const routes: Routes = [
@@ -56,6 +57,7 @@ const MODULES = [
   CommonModule,
   SharedModule,
   FormsModule,
+  ReactiveFormsModule,
   LayoutModule,
   FilterModule,
   LandlordModule
@@ -66,8 +68,9 @@ const MODULES = [
     ...COMPONENTS,
     PostCardHorizontalComponent,
     PostRelatedComponent,
-    PostTableComponent
+    PostTableComponent,
+    PostDetailFormComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent]
 })
 export class PostModule {}
