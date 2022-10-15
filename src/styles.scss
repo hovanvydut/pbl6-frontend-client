@@ -273,6 +273,11 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   background-color: transparent !important;
 }
 
+.mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .mat-button-wrapper {
   display: flex;
   align-items: center;

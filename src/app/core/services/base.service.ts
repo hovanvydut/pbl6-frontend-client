@@ -15,7 +15,8 @@ import { environment } from '@environment';
 })
 export class BaseService {
   public baseURL = environment.baseUrl;
-  ERROR_SOMETHING_BAD_HAPPENED: string = 'Something bad happened. Please try again later.';
+  ERROR_SOMETHING_BAD_HAPPENED: string =
+    'Something bad happened. Please try again later.';
 
   get accessToken(): string {
     return localStorage.getItem('accessToken');
