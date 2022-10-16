@@ -43,13 +43,11 @@ export class BaseService {
   get<T>(url: string): Observable<T> {
     return this.httpClient
       .get<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(error => this.handleError(error)));
   }
 
   async getAsync<T>(url: string): Promise<T> {
     return await this.httpClient
       .get<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(error => this.handleError(error)))
       .toPromise();
   }
   //#endregion
@@ -58,9 +56,6 @@ export class BaseService {
   post<T>(url: string, data: any, isCatchError: boolean = true): Observable<T> {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(
-        catchError(isCatchError ? this.handleError : error => throwError(error))
-      );
   }
 
   async postAsync<T>(
@@ -70,9 +65,6 @@ export class BaseService {
   ): Promise<T> {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(
-        catchError(isCatchError ? this.handleError : error => throwError(error))
-      )
       .toPromise();
   }
 
@@ -83,7 +75,6 @@ export class BaseService {
 
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, formData, httpOptions)
-      .pipe(catchError(error => this.handleError(error)));
   }
   //#endregion
 
@@ -91,7 +82,6 @@ export class BaseService {
   put<T>(url: string, data: any): Observable<T> {
     return this.httpClient
       .put<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(catchError(this.handleError));
   }
 
   putFile<T>(url: string, data: any): Observable<T> {
@@ -100,7 +90,6 @@ export class BaseService {
     const httpOptions = configuration.value;
     return this.httpClient
       .put<T>(`${this.baseURL}/${url}`, formData, httpOptions)
-      .pipe(catchError(error => this.handleError(error)));
   }
   //#endregion
 
@@ -108,7 +97,6 @@ export class BaseService {
   delete<T>(url: string): Observable<T> {
     return this.httpClient
       .delete<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(this.handleError));
   }
   //#endregion
 

@@ -48,7 +48,7 @@
   <div class="mt-15">
     <div class="flex flex-wrap gap-10 mt-10">
       <div
-        class="w-210 h-210 border border-gray-500 border-dashed flex flex-col items-center justify-center text-center text-gray-400 rounded-12 p-10"
+        class="w-180 h-130 border border-gray-500 border-dashed flex flex-col items-center justify-center text-center text-gray-400 rounded-12 p-10"
         (click)="uploadImg.click()"
       >
         <img class="w-30 h-30" src="assets/images/default/upload_icon.png" />
@@ -62,7 +62,7 @@
       </div>
       <div *ngFor="let img of previews">
         <img
-          class="object-contain w-210 h-210 border border-gray-500 rounded-12"
+          class="object-cover w-180 h-130 border border-gray-500 rounded-12"
           [src]="img"
         />
       </div>

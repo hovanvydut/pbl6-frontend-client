@@ -18,22 +18,25 @@ export class SelectFieldComponent implements OnInit {
       value: value
     });
   }
-  private _items: { text: string, value: string}[];
+  private _items: { id: string, name: string}[];
   @Input() get items() {
     return this._items;
   };
-  set items( data:  { text: string, value: string}[] ) {
+  set items( data:  { id: string, name: string}[] ) {
     this._items = data;
-    let index = data.findIndex( item => item.value === this.selectedValue)
-    if( index > -1 ){
-      this.selectedItem = this._items[index];
+    if(data.length > 0) {
+      let index = data.findIndex( item => item.id === this.selectedValue)
+      if( index > -1 ){
+        this.selectedItem = this._items[index].id;
+      }
     }
+
   }
   @Input() type: string;
   @Input() label: string;
   @Input() customClass: string;
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'fill';
-  selectedItem: {text: string, value: string};
+  selectedItem: string;
 
   @Output() onValueChanged = new EventEmitter<{ type: string, value: string}>();
   constructor() { }
@@ -41,8 +44,8 @@ export class SelectFieldComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSelectedItemChanged( item:  { text: string, value: string}) {
-    this.selectedValue = item.value
+  onSelectedItemChanged( ) {
+    this.selectedValue = this.selectedItem
   }
 
 }

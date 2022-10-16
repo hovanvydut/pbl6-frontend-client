@@ -6,7 +6,9 @@ import {
   Validators
 } from '@angular/forms';
 import { CommonService } from '@app/core/services/common.service';
+import { finalize } from 'rxjs';
 import { PostRequestModel } from '../../models/post.model';
+import { PostGeneralService } from './../../../user/services/post-general.service';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -19,41 +21,19 @@ export class PostDetailFormComponent implements OnInit {
   selectedFiles?: FileList;
 
   // properties
-  tenantTypes: any[] = [
-    {
-      text: '1',
-      value: '1'
-    }
-  ];
-  roomTypes: any[] = [
-    {
-      text: '1',
-      value: '1'
-    }
-  ];
-  districts: any[] = [
-    {
-      text: '1',
-      value: '1'
-    }
-  ];
-  provinces: any[] = [
-    {
-      text: '1',
-      value: '1'
-    }
-  ];
-  wards: any[] = [
-    {
-      text: '1',
-      value: '1'
-    }
-  ];
-  constructor(private fb: FormBuilder, private commonService: CommonService) {}
+  tenantTypes: any[] = [];
+  roomTypes: any[] = [];
+  districts: any[] = [];
+  provinces: any[] = [];
+  wards: any[] = [];
+  constructor(private fb: FormBuilder, private commonService: CommonService,
+    private postGeneralService: PostGeneralService) {}
 
   ngOnInit() {
-    this.commonService.getProvince().subscribe(val => {
+    this.commonService.getProvince().pipe( finalize( () => {
+    })).subscribe(val => {
       this.provinces = val;
+      this.formControl[1].items[0].properties = this.provinces;
     });
   }
 
@@ -109,7 +89,7 @@ export class PostDetailFormComponent implements OnInit {
           properties: this.districts
         },
         {
-          name: 'ward',
+          name: 'addressWardId',
           label: 'Phường/Xã',
           placeholder: 'Chọn phường/xã',
           require: true,
@@ -135,7 +115,7 @@ export class PostDetailFormComponent implements OnInit {
       groupName: 'Thông tin chi tiết',
       items: [
         {
-          name: 'roomType',
+          name: 'categoryId',
           label: 'Loại phòng',
           placeholder: 'Chọn loại phòng',
           require: true,
@@ -171,7 +151,7 @@ export class PostDetailFormComponent implements OnInit {
       groupName: 'Thông tin thêm',
       items: [
         {
-          name: 'totalAcceptedPeople',
+          name: 'limitTenant',
           label: 'Số người tối đa',
           placeholder: 'Nhập số người tối đa',
           require: true,
@@ -192,7 +172,7 @@ export class PostDetailFormComponent implements OnInit {
           properties: this.tenantTypes
         },
         {
-          name: 'deposit',
+          name: 'prePaidPrice',
           label: 'Tiền cọc',
           placeholder: 'Nhập tiền cọc',
           require: true,
@@ -214,7 +194,6 @@ export class PostDetailFormComponent implements OnInit {
         data[item.name] = item.value.value;
       });
     });
-    console.log(data);
   }
 
   onFileSelected(e) {

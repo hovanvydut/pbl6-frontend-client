@@ -41,16 +41,18 @@ export class Review {
 
 export class PostRequestModel {
   title: string;
-  đescription: string;
+  description: string;
   address: string;
-  roomType: string;
+  addressWardId: string;
+  categoryId: string;
   area: number;
   price: number;
-  totalAcceptedPeople: number;
+  limitTenant: number;
   tenantType: string;
-  deposit: number;
+  prePaidPrice: number;
   nearbyPlaces: string[];
   otherUtilitíes: string[];
+  properties: any[];
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);

@@ -11,7 +11,7 @@ export class CommonService {
   //#region Address
 
   getProvince(): Observable<any> {
-    return this.baseService.get<any>('Address/province');
+    return this.baseService.get<any>('address/province');
   }
 
   getDistrict(provinceId: any): Observable<any> {
@@ -29,8 +29,15 @@ export class CommonService {
 
   //#region upload image
   uploadImage(file: File): Observable<string> {
-    return this.baseService.post<string>('FileControler/upload', file, false);
+    return this.baseService.post<string>('fileControler/upload', file, false);
   }
 
   // #endregion
+
+  //#region
+  getRoomCategory(): Observable<any[]>{
+    return this.baseService.get<any[]>('category/house-type');
+
+  }
+  //#endregion
 }
