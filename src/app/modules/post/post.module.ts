@@ -17,7 +17,6 @@ import { PostComponent } from './post.component';
 import { PostFilterLayoutComponent } from './components/post-filter-layout/post-filter-layout.component';
 import { PostCardHorizontalComponent } from './components/post-card-horizontal/post-card-horizontal.component';
 import { PostRelatedComponent } from './components/post-related/post-related.component';
-import { LandlordModule } from '../landlord/landlord.module';
 import { PostTableComponent } from './components/post-table/post-table.component';
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
 //
@@ -60,7 +59,6 @@ const MODULES = [
   ReactiveFormsModule,
   LayoutModule,
   FilterModule,
-  LandlordModule
 ];
 @NgModule({
   imports: [...MODULES, RouterModule.forChild(routes)],

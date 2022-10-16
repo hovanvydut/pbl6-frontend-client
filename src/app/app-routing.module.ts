@@ -15,14 +15,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/modules/auth/auth.module').then(m => m.AuthModule)
   },
-  {
-    path: 'landlord',
-    loadChildren: () =>
-      import('@app/modules/landlord/landlord.module').then(
-        m => m.LandlordModule
-      ),
-    data: { preload: false }
-  },
+
   {
     path: 'posts',
     loadChildren: () =>

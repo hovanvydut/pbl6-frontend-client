@@ -10,6 +10,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PostModule } from '../post/post.module';
+import { ProfileModule } from '../profile/profile.module';
 export const routes: Routes = [
   {
     path: '',
@@ -53,7 +54,12 @@ const COMPONENTS = [
   DashboardComponent
 ];
 
-const MODULES = [SharedModule, RouterModule.forChild(routes), PostModule];
+const MODULES = [
+  RouterModule.forChild(routes),
+  SharedModule,
+  PostModule,
+  ProfileModule
+];
 
 @NgModule({
   declarations: [...COMPONENTS],
