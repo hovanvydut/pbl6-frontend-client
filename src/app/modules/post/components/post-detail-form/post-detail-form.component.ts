@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { CommonService } from '@app/core/services/common.service';
 import { PostRequestModel } from '../../models/post.model';
 
 @Component({
@@ -16,9 +17,45 @@ export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
   previews: string[] = [];
   selectedFiles?: FileList;
-  constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {}
+  // properties
+  tenantTypes: any[] = [
+    {
+      text: '1',
+      value: '1'
+    }
+  ];
+  roomTypes: any[] = [
+    {
+      text: '1',
+      value: '1'
+    }
+  ];
+  districts: any[] = [
+    {
+      text: '1',
+      value: '1'
+    }
+  ];
+  provinces: any[] = [
+    {
+      text: '1',
+      value: '1'
+    }
+  ];
+  wards: any[] = [
+    {
+      text: '1',
+      value: '1'
+    }
+  ];
+  constructor(private fb: FormBuilder, private commonService: CommonService) {}
+
+  ngOnInit() {
+    this.commonService.getProvince().subscribe(val => {
+      this.provinces = val;
+    });
+  }
 
   formControl = [
     {
@@ -30,7 +67,8 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Tiên đề bài đăng',
           require: true,
           value: new FormControl(''),
-          type: 'textarea',
+          inputType: 'text',
+          fieldType: 'textarea',
           width: 'full'
         },
         {
@@ -39,9 +77,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập mô tả về trọ',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'text',
+          fieldType: 'input',
           width: 'full'
-        },
+        }
       ]
     },
     {
@@ -53,8 +92,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Chọn thành phố',
           require: true,
           value: new FormControl(''),
-          type: 'input',
-          width: '1/3'
+          inputType: 'text',
+          fieldType: 'select',
+          width: '1/3',
+          properties: this.provinces
         },
         {
           name: 'district',
@@ -62,8 +103,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Chọn quận/huyện',
           require: true,
           value: new FormControl(''),
-          type: 'input',
-          width: '1/3'
+          inputType: 'text',
+          fieldType: 'select',
+          width: '1/3',
+          properties: this.districts
         },
         {
           name: 'ward',
@@ -71,8 +114,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Chọn phường/xã',
           require: true,
           value: new FormControl(''),
-          type: 'input',
-          width: '1/3'
+          inputType: 'text',
+          fieldType: 'select',
+          width: '1/3',
+          properties: this.wards
         },
         {
           name: 'street',
@@ -80,9 +125,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập địa chỉ số nhà, đường',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'text',
+          fieldType: 'input',
           width: 'full'
-        },
+        }
       ]
     },
     {
@@ -94,8 +140,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Chọn loại phòng',
           require: true,
           value: new FormControl(''),
-          type: 'input',
-          width: '1/3'
+          inputType: 'text',
+          fieldType: 'select',
+          width: '1/3',
+          properties: this.roomTypes
         },
         {
           name: 'price',
@@ -103,7 +151,8 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập giá',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'number',
+          fieldType: 'input',
           width: '1/3'
         },
         {
@@ -112,9 +161,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập diện tích',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'number',
+          fieldType: 'input',
           width: '1/3'
-        },
+        }
       ]
     },
     {
@@ -126,7 +176,8 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập số người tối đa',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'number',
+          fieldType: 'input',
           width: '1/3'
         },
         {
@@ -135,8 +186,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Chọn đối tượng cho thuê',
           require: true,
           value: new FormControl(''),
-          type: 'input',
-          width: '1/3'
+          inputType: 'text',
+          fieldType: 'select',
+          width: '1/3',
+          properties: this.tenantTypes
         },
         {
           name: 'deposit',
@@ -144,9 +197,10 @@ export class PostDetailFormComponent implements OnInit {
           placeholder: 'Nhập tiền cọc',
           require: true,
           value: new FormControl(''),
-          type: 'input',
+          inputType: 'number',
+          fieldType: 'input',
           width: '1/3'
-        },
+        }
       ]
     }
   ];
@@ -161,7 +215,6 @@ export class PostDetailFormComponent implements OnInit {
       });
     });
     console.log(data);
-
   }
 
   onFileSelected(e) {
@@ -175,6 +228,22 @@ export class PostDetailFormComponent implements OnInit {
         };
         reader.readAsDataURL(this.selectedFiles[i]);
       }
+    }
+  }
+
+  onSelectedFieldChanged(item: { type: string; value: string }) {
+    switch (item.type) {
+      case 'city':
+        this.formControl[1].items[0].value.setValue(item.value);
+        break;
+      case 'district':
+        this.formControl[1].items[1].value.setValue(item.value);
+        break;
+      case 'ward':
+        this.formControl[1].items[2].value.setValue(item.value);
+        break;
+      default:
+        break;
     }
   }
 }

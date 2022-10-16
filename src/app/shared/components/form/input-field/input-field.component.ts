@@ -18,6 +18,7 @@ export class InputFieldComponent implements OnInit {
   @Input() icon: string;
   @Input() label: string;
   @Input() placeholder: string;
+  @Input() type: string;
   @Input() required: boolean;
   @Input() customClass: string;
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'fill';
