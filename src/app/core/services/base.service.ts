@@ -18,6 +18,19 @@ export class BaseService {
   ERROR_SOMETHING_BAD_HAPPENED: string =
     'Something bad happened. Please try again later.';
 
+  public storeLoggedUser(userInfo: any) {
+    localStorage.setItem('userInfo', userInfo);
+  }
+
+  get currentUser() {
+    const localUser = localStorage.getItem('userInfo');
+    return localUser
+  }
+
+  get isLoggedIn(): boolean {
+    return localStorage.getItem('accessToken') != null;
+  }
+
   get accessToken(): string {
     return localStorage.getItem('accessToken');
   }
@@ -41,8 +54,7 @@ export class BaseService {
 
   //#region GET Methods
   get<T>(url: string): Observable<T> {
-    return this.httpClient
-      .get<T>(`${this.baseURL}/${url}`, this.options)
+    return this.httpClient.get<T>(`${this.baseURL}/${url}`, this.options);
   }
 
   async getAsync<T>(url: string): Promise<T> {
@@ -54,8 +66,11 @@ export class BaseService {
 
   //#region POST Methods
   post<T>(url: string, data: any, isCatchError: boolean = true): Observable<T> {
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data, this.options)
+    return this.httpClient.post<T>(
+      `${this.baseURL}/${url}`,
+      data,
+      this.options
+    );
   }
 
   async postAsync<T>(
@@ -73,30 +88,34 @@ export class BaseService {
     const formData = configuration.key;
     const httpOptions = configuration.value;
 
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, formData, httpOptions)
+    return this.httpClient.post<T>(
+      `${this.baseURL}/${url}`,
+      formData,
+      httpOptions
+    );
   }
   //#endregion
 
   //#region PUT Methods
   put<T>(url: string, data: any): Observable<T> {
-    return this.httpClient
-      .put<T>(`${this.baseURL}/${url}`, data, this.options)
+    return this.httpClient.put<T>(`${this.baseURL}/${url}`, data, this.options);
   }
 
   putFile<T>(url: string, data: any): Observable<T> {
     const configuration = this.initialDataOption(data);
     const formData = configuration.key as any;
     const httpOptions = configuration.value;
-    return this.httpClient
-      .put<T>(`${this.baseURL}/${url}`, formData, httpOptions)
+    return this.httpClient.put<T>(
+      `${this.baseURL}/${url}`,
+      formData,
+      httpOptions
+    );
   }
   //#endregion
 
   //#region DELETE Methods
   delete<T>(url: string): Observable<T> {
-    return this.httpClient
-      .delete<T>(`${this.baseURL}/${url}`, this.options)
+    return this.httpClient.delete<T>(`${this.baseURL}/${url}`, this.options);
   }
   //#endregion
 

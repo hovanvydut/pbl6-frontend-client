@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+//
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -31,13 +32,11 @@ export class CommonService {
   uploadImage(file: File): Observable<string> {
     return this.baseService.post<string>('fileControler/upload', file, false);
   }
-
   // #endregion
 
   //#region
-  getRoomCategory(): Observable<any[]>{
+  getRoomCategory(): Observable<any[]> {
     return this.baseService.get<any[]>('category/house-type');
-
   }
   //#endregion
 }

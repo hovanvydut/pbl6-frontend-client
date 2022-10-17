@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+//
 import { BaseService } from '@app/core/services/base.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private baseService: BaseService) { }
+  constructor(private baseService: BaseService) {}
 
   login(data: any): Observable<any> {
-    return this.baseService.post<any>('Auth/Login', data);
+    // return this.baseService.post<any>('Auth/Login', data);
+    return of(true);
   }
 
   register(data: any): Observable<any> {
-    return this.baseService.post<any>('Auth/Register', data);
+    // return this.baseService.post<any>('Auth/Register', data);
+    return of(true);
   }
-
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileDetailFormComponent } from './../profile-detail-form/profile-detail-form.component';
+import { ProfileService } from './../../profile.service';
 
 @Component({
   selector: 'app-general-profile',
@@ -10,10 +11,15 @@ import { ProfileDetailFormComponent } from './../profile-detail-form/profile-det
 export class GeneralProfileComponent implements OnInit {
   private profileDetailFormComponent = ProfileDetailFormComponent;
   dialogRef: any;
+  profileGeneralInfo: any = {};
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private profileService: ProfileService) { }
 
   ngOnInit(): void {
+    this.profileService.getProfileGeneralInfo().subscribe((res: any) => {
+      this.profileGeneralInfo = res;
+    });
   }
 
   onEditProfileButtonClicked() {

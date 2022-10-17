@@ -30,7 +30,6 @@
 
       <ng-container *ngIf="item.fieldType === 'select'">
         <app-select-field
-          *ngIf="item.properties.length > 0"
           [label]="item.label"
           [(selectedValue)]="item.value"
           [items]="item.properties"

@@ -6,7 +6,7 @@
       <div class="avatar h-80 w-80 relative">
         <img
           class="w-full h-full rounded-15 object-cover"
-          src="https://i.pinimg.com/236x/56/98/ac/5698ac3f37f7e5c727436d2335fa9df5.jpg"
+          [src]="profileGeneralInfo.avatar"
           alt=""
         />
         <div
@@ -16,19 +16,19 @@
         </div>
       </div>
       <div class="info">
-        <b class="text-20"> Phuong Tran </b>
-        <p class="text-gray-500 text-10">phuong@gmail.com</p>
+        <b class="text-20"> {{ profileGeneralInfo.fullname }}</b>
+        <p class="text-gray-500 text-10">{{ profileGeneralInfo.email }}</p>
       </div>
     </div>
     <div class="flex gap-10 flex-wrap">
       <button mat-raised-button>
-        Tổng bài đăng: 12
+        Tổng bài đăng: {{ profileGeneralInfo.totalPosts }}
       </button>
       <button mat-raised-button>
-        Điểm uy tín: 12
+        Điểm uy tín: {{ profileGeneralInfo.reputation }}
       </button>
       <button mat-raised-button>
-        Lượt đánh giá: 12
+        Lượt đánh giá: {{ profileGeneralInfo.totalReviews }}
       </button>
     </div>
   </div>
