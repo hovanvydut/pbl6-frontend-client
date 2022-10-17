@@ -8,33 +8,54 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class PostTableComponent implements OnInit {
   tableName: string = "Tất cả bài đăng";
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<{
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-  }>([
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-    {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-    {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-    {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-    {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-    {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-    {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-    {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-    {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-    {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-    {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+  displayedColumns: string[] = ['id', 'title', 'price', 'address'];
+  columns: [
+    {
+      id: '1',
+      name: 'id',
+      title: 'ID',
+      sortText: 'Sort by ID',
+    },
+    {
+      id: '2',
+      name: 'title',
+      title: 'Tiêu đề',
+      sortText: 'Sort by title',
+    },
+    {
+      id: '3',
+      name: 'price',
+      title: 'Giá',
+      sortText: 'Sort by price',
+    },
+    {
+      id: '4',
+      name: 'address',
+      title: 'Địa chỉ',
+      sortText: 'Sort by address',
+    },
+  ]
+  dataSource = new MatTableDataSource<any>([
+    {id: 1, title: 'Hydrogen', price: 1.0079, address: 'H'},
+    {id: 2, title: 'Helium', price: 4.0026, address: 'He'},
+    {id: 3, title: 'Lithium', price: 6.941, address: 'Li'},
+    {id: 4, title: 'Beryllium', price: 9.0122, address: 'Be'},
+    {id: 5, title: 'Boron', price: 10.811, address: 'B'},
+    {id: 6, title: 'Carbon', price: 12.0107, address: 'C'},
+    {id: 7, title: 'Nitrogen', price: 14.0067, address: 'N'},
+    {id: 8, title: 'Oxygen', price: 15.9994, address: 'O'},
+    {id: 9, title: 'Fluorine', price: 18.9984, address: 'F'},
+    {id: 10, title: 'Neon', price: 20.1797, address: 'Ne'},
+    {id: 11, title: 'Sodium', price: 22.9897, address: 'Na'},
+    {id: 12, title: 'Magnesium', price: 24.305, address: 'Mg'},
+    {id: 13, title: 'Aluminum', price: 26.9815, address: 'Al'},
+    {id: 14, title: 'Silicon', price: 28.0855, address: 'Si'},
+    {id: 15, title: 'Phosphorus', price: 30.9738, address: 'P'},
+    {id: 16, title: 'Sulfur', price: 32.065, address: 'S'},
+    {id: 17, title: 'Chlorine', price: 35.453, address: 'Cl'},
+    {id: 18, title: 'Argon', price: 39.948, address: 'Ar'},
+    {id: 19, title: 'Potassium', price: 39.0983, address: 'K'},
+    {id: 20, title: 'Calcium', price: 40.078, address: 'Ca'},
   ]);
 
 

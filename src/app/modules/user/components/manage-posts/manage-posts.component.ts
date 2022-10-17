@@ -17,15 +17,15 @@ export class ManagePostsComponent implements OnInit {
     private commonService: CommonService) {}
 
   ngOnInit(): void {
-    this.postGeneralService.getPostProperty().subscribe(res => {
-      console.log(res);
-    });
-    this.commonService.getProvince().subscribe(res => {
-      console.log(res);
-    });
-    this.commonService.getDistrict(1).subscribe(res => {
-      console.log(res);
-    });
+    // this.postGeneralService.getPostProperty().subscribe(res => {
+    //   console.log(res);
+    // });
+    // this.commonService.getProvince().subscribe(res => {
+    //   console.log(res);
+    // });
+    // this.commonService.getDistrict(1).subscribe(res => {
+    //   console.log(res);
+    // });
   }
 
   onAddNewPostButtonClicked() {
