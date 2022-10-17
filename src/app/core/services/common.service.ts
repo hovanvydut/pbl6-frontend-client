@@ -30,7 +30,7 @@ export class CommonService {
 
   //#region upload image
   uploadImage(file: File): Observable<string> {
-    return this.baseService.post<string>('fileControler/upload', file, false);
+    return this.baseService.post<string>('filecontroler/upload', file, false);
   }
   // #endregion
 
