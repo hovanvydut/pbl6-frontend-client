@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
+import { ProfileBaseModel, ProfileModel } from './models/profile.model';
+import { BaseModel } from './../../shared/models/base.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +12,12 @@ export class ProfileService {
 
   constructor(private baseService: BaseService) { }
 
-  getProfileInfo(): Observable<any>{
-    return this.baseService.get<any>('user/profile');
+  getProfileInfo(): Observable<BaseModel<ProfileModel>>{
+    return this.baseService.get<BaseModel<ProfileModel>>('user/personal?userId=1');
   }
 
-  getProfileGeneralInfo(): Observable<any>{
-    // return this.baseService.get<any>('user/profile/general-info');
-    return of( {
-      "id": 1,
-      "email": "admin@localhost",
-      "fullname": "Administrator",
-      "avatar": "https://picsum.photos/200/300",
-      "totalPosts": 100,
-      "reputation": 10,
-      "totalReviews": 1
-    })
+  getProfileGeneralInfo(): Observable<BaseModel<ProfileBaseModel>>{
+    return this.baseService.get<BaseModel<ProfileBaseModel>>('user/personal?userId=1');
   }
 
   updateProfileInfo(data: any): Observable<any>{

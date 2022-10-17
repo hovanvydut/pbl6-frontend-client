@@ -1,14 +1,11 @@
 <div class="h-160 w-full bg-blue-500 relative rounded-15">
-  <div
-    class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center"
-  >
+  <div class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center">
     <div class="flex items-center gap-10">
       <div class="avatar h-80 w-80 relative">
-        <img
-          class="w-full h-full rounded-15 object-cover"
-          [src]="profileGeneralInfo.avatar"
-          alt=""
-        />
+        <img class="w-full h-full rounded-15 object-cover" [src]="
+            profileGeneralInfo.avatar ||
+            'https://fridaycat.com.vn/wp-content/uploads/2021/04/meo-muop-giong-meo-pho-bien-tren-the-gioi.jpg'
+          " />
         <div
           class="w-24 h-24 absolute -bottom-8 -right-8 rounded-5 shadow-sm flex justify-center items-center bg-white text-blue-700 p-5 cursor-pointer"
           (click)="onEditProfileButtonClicked()">
@@ -16,19 +13,21 @@
         </div>
       </div>
       <div class="info">
-        <b class="text-20"> {{ profileGeneralInfo.fullname }}</b>
-        <p class="text-gray-500 text-10">{{ profileGeneralInfo.email }}</p>
+        <b class="text-20"> {{ profileGeneralInfo.displayName }}</b>
+        <p class="text-gray-500 text-10">
+          {{ profileGeneralInfo.userAccountEmail }}
+        </p>
       </div>
     </div>
     <div class="flex gap-10 flex-wrap">
       <button mat-raised-button>
-        Tổng bài đăng: {{ profileGeneralInfo.totalPosts }}
+        Tổng bài đăng: {{ profileGeneralInfo.totalPosts || 0 }}
       </button>
       <button mat-raised-button>
-        Điểm uy tín: {{ profileGeneralInfo.reputation }}
+        Điểm uy tín: {{ profileGeneralInfo.reputation || 0 }}
       </button>
       <button mat-raised-button>
-        Lượt đánh giá: {{ profileGeneralInfo.totalReviews }}
+        Lượt đánh giá: {{ profileGeneralInfo.totalReviews || 0 }}
       </button>
     </div>
   </div>
