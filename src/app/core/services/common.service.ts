@@ -11,26 +11,32 @@ export class CommonService {
 
   //#region Address
 
-  getProvince(): Observable<any> {
+  getProvinces(): Observable<any> {
     return this.baseService.get<any>('address/province');
   }
 
-  getDistrict(provinceId: any): Observable<any> {
-    return this.baseService.get<any>(`district/provinceId=${provinceId}`);
+  getDistricts(provinceId: any): Observable<any> {
+    return this.baseService.get<any>(
+      `address/district?provinceId=${provinceId}`
+    );
   }
 
-  getWard(districtId: any): Observable<any> {
-    return this.baseService.get<any>(`ward/districtId=${districtId}`);
+  getWards(districtId: any): Observable<any> {
+    return this.baseService.get<any>(`address/ward?districtId=${districtId}`);
   }
 
   getAddressString(addressId: any): Observable<any> {
-    return this.baseService.get<any>(`address-string/wardId=${addressId}`);
+    return this.baseService.get<any>(
+      `address/full-address?wardId=${addressId}`
+    );
   }
   // #endregion
 
   //#region upload image
   uploadImage(file: File): Observable<string> {
-    return this.baseService.post<string>('filecontroler/upload', file, false);
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.baseService.postForm<string>('filecontroler/upload', formData);
   }
   // #endregion
 
@@ -39,7 +45,7 @@ export class CommonService {
     return this.baseService.get<any[]>('category/house-type');
   }
 
-  getPostProperty(): Observable<any>{
+  getPostProperty(): Observable<any> {
     return this.baseService.get<any>('property');
   }
   //#endregion
