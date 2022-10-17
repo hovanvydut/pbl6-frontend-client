@@ -27,7 +27,7 @@ export class SelectFieldComponent implements OnInit {
     if(data.length > 0) {
       let index = data.findIndex( item => item.id === this.selectedValue)
       if( index > -1 ){
-        this.selectedItem = this._items[index].id;
+        this.selectedValue = this._items[index].id;
       }
     }
 
@@ -36,16 +36,10 @@ export class SelectFieldComponent implements OnInit {
   @Input() label: string;
   @Input() customClass: string;
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'fill';
-  selectedItem: string;
-
   @Output() onValueChanged = new EventEmitter<{ type: string, value: string}>();
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onSelectedItemChanged( ) {
-    this.selectedValue = this.selectedItem
   }
 
 }

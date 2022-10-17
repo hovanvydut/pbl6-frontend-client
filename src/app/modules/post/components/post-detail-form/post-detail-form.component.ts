@@ -8,7 +8,8 @@ import {
 import { CommonService } from '@app/core/services/common.service';
 import { finalize } from 'rxjs';
 import { PostRequestModel } from '../../models/post.model';
-import { PostGeneralService } from './../../../user/services/post-general.service';
+import { PostService } from '@app/modules/post/services/post.service';
+import { PropertyEnum } from '../../enums/property.enum';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -19,24 +20,60 @@ export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
   previews: string[] = [];
   selectedFiles?: FileList;
+  PropertyEnum = PropertyEnum;
 
   // properties
   tenantTypes: any[] = [];
+  nearbyPlaces: any[] = [];
+  otherProperties: any[] = [];
+
   roomTypes: any[] = [];
+
   districts: any[] = [];
   provinces: any[] = [];
   wards: any[] = [];
-  constructor(private fb: FormBuilder, private commonService: CommonService,
-    private postGeneralService: PostGeneralService) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private commonService: CommonService,
+    private postService: PostService
+  ) {}
 
   ngOnInit() {
-    this.commonService.getProvince().pipe( finalize( () => {
-    })).subscribe(val => {
-      this.provinces = val;
-      this.formControl[1].items[0].properties = this.provinces;
+    this.commonService
+      .getProvince()
+      .pipe(finalize(() => {}))
+      .subscribe(val => {
+        this.provinces = val;
+        this.formControl[1].items[0].properties = this.provinces;
+      });
+
+    this.commonService.getRoomCategory().subscribe(val => {
+      this.roomTypes = val;
+      this.formControl[2].items[0].properties = this.roomTypes;
+    });
+
+    this.commonService.getPostProperty().subscribe(res => {
+      res.forEach(property => {
+        switch (property.id) {
+          case PropertyEnum.OtherProperties:
+            this.formControl[3].items[2].properties = property.properties;
+            break;
+          case PropertyEnum.TenantTypes:
+            this.formControl[3].items[3].properties = property.properties;
+            break;
+          case PropertyEnum.NearbyPlaces:
+            this.formControl[3].items[4].properties = property.properties;
+            break;
+        }
+      });
     });
   }
 
+  // group 0: thông tin chung
+  // group 1: địa chỉ
+  // group 2: thông tin chi tiết
+  // group 3: thông tin thêm
   formControl = [
     {
       groupName: 'Thông tin chung',
@@ -68,10 +105,10 @@ export class PostDetailFormComponent implements OnInit {
       items: [
         {
           name: 'city',
-          label: 'Thành phố',
+          label: 'Tỉnh/Thành phố',
           placeholder: 'Chọn thành phố',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('1'),
           inputType: 'text',
           fieldType: 'select',
           width: '1/3',
@@ -158,18 +195,7 @@ export class PostDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'number',
           fieldType: 'input',
-          width: '1/3'
-        },
-        {
-          name: 'tenantType',
-          label: 'Đối tượng cho thuê',
-          placeholder: 'Chọn đối tượng cho thuê',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
-          width: '1/3',
-          properties: this.tenantTypes
+          width: '1/2'
         },
         {
           name: 'prePaidPrice',
@@ -179,20 +205,67 @@ export class PostDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'number',
           fieldType: 'input',
-          width: '1/3'
+          width: '1/2'
+        },
+        {
+          id: PropertyEnum.OtherProperties,
+          name: 'otherProperties',
+          label: 'Tiện ích khác',
+          placeholder: 'Chọn tiện ích khác',
+          require: true,
+          value: new FormControl([]),
+          inputType: 'text',
+          fieldType: 'property',
+          width: 'full',
+          properties: this.otherProperties
+        },
+        {
+          id: PropertyEnum.TenantTypes,
+          name: 'tenantType',
+          label: 'Đối tượng cho thuê',
+          placeholder: 'Chọn đối tượng cho thuê',
+          require: true,
+          value: new FormControl([]),
+          inputType: 'text',
+          fieldType: 'property',
+          width: 'full',
+          properties: this.tenantTypes
+        },
+        {
+          id: PropertyEnum.NearbyPlaces,
+          name: 'nearbyPlaces',
+          label: 'Địa điểm gần đó',
+          placeholder: 'Chọn địa điểm gần đó',
+          require: true,
+          value: new FormControl([]),
+          inputType: 'text',
+          fieldType: 'property',
+          width: 'full',
+          properties: this.nearbyPlaces
         }
       ]
     }
   ];
-
   validateUsername(value: any) {}
 
   onCreateNewPost() {
     let data: PostRequestModel = new PostRequestModel();
     this.formControl.forEach(group => {
       group.items.forEach(item => {
-        data[item.name] = item.value.value;
+        if (item.fieldType === 'property') {
+          data.properties = [...data.properties,
+            ...item.value.value.map(el => {
+              return el.id;
+            })
+          ];
+        } else {
+          data[item.name] = item.value.value;
+        }
       });
+    });
+    console.log(data);
+    this.postService.createNewPost(data).subscribe(res => {
+      console.log(res);
     });
   }
 
@@ -210,7 +283,9 @@ export class PostDetailFormComponent implements OnInit {
     }
   }
 
-  onSelectedFieldChanged(item: { type: string; value: string }) {
+  onSelectedFieldChanged(item: { type: string; value: any }) {
+    console.log(item);
+
     switch (item.type) {
       case 'city':
         this.formControl[1].items[0].value.setValue(item.value);
@@ -220,6 +295,18 @@ export class PostDetailFormComponent implements OnInit {
         break;
       case 'ward':
         this.formControl[1].items[2].value.setValue(item.value);
+        break;
+      case 'categoryId':
+        this.formControl[2].items[0].value.setValue(item.value);
+        break;
+      case 'otherProperties':
+        this.formControl[3].items[2].value.setValue(item.value);
+        break;
+      case 'tenantType':
+        this.formControl[3].items[3].value.setValue(item.value);
+        break;
+      case 'nearbyPlaces':
+        this.formControl[3].items[4].value.setValue(item.value);
         break;
       default:
         break;

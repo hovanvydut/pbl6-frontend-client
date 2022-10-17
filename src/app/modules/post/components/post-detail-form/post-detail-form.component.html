@@ -31,11 +31,22 @@
       <ng-container *ngIf="item.fieldType === 'select'">
         <app-select-field
           [label]="item.label"
-          [(selectedValue)]="item.value"
+          [(selectedValue)]="item.value.value"
           [items]="item.properties"
           [type]="item.name"
           (onValueChanged)="onSelectedFieldChanged($event)"
         ></app-select-field>
+      </ng-container>
+
+      <ng-container *ngIf="item.fieldType === 'property'">
+        <app-chips-field
+          [label]="item.label"
+          [selectedItems]="item.value.value"
+          [allItems]="item.properties"
+          [type]="item.name"
+          (onSelectedItemsChanged)="onSelectedFieldChanged($event)"
+        >
+        </app-chips-field>
       </ng-container>
     </div>
   </div>

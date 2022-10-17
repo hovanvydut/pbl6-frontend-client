@@ -1,6 +1,6 @@
 <mat-form-field class="w-full pr-5" [appearance]="appearance" [class]="customClass">
   <mat-label>{{label}}</mat-label>
-  <mat-select [(ngModel)]="selectedItem"  (selectionChange)="onSelectedItemChanged()">
+  <mat-select [(ngModel)]="selectedValue">
     <mat-option *ngFor="let item of items" [value]="item.id">
       {{item.name}}
     </mat-option>

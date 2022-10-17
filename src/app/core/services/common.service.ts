@@ -38,5 +38,9 @@ export class CommonService {
   getRoomCategory(): Observable<any[]> {
     return this.baseService.get<any[]>('category/house-type');
   }
+
+  getPostProperty(): Observable<any>{
+    return this.baseService.get<any>('property');
+  }
   //#endregion
 }

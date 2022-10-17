@@ -52,7 +52,7 @@ export class PostRequestModel {
   prePaidPrice: number;
   nearbyPlaces: string[];
   otherUtilitíes: string[];
-  properties: any[];
+  properties: any[] = [];
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);

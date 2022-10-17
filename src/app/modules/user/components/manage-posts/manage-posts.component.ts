@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonService } from '@app/core/services/common.service';
-import { PostGeneralService } from '../../services/post-general.service';
 import { PostDetailFormComponent } from './../../../post/components/post-detail-form/post-detail-form.component';
 
 @Component({
@@ -13,7 +12,6 @@ export class ManagePostsComponent implements OnInit {
   private postDetailFormComponent = PostDetailFormComponent;
   dialogRef: any;
   constructor(public dialog: MatDialog,
-    private postGeneralService: PostGeneralService,
     private commonService: CommonService) {}
 
   ngOnInit(): void {
