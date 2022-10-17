@@ -11,7 +11,7 @@
         />
         <div
           class="w-24 h-24 absolute -bottom-8 -right-8 rounded-5 shadow-sm flex justify-center items-center bg-white text-blue-700 p-5 cursor-pointer"
-        >
+          (click)="onEditProfileButtonClicked()">
           <app-svg-icon [name]="'edit'"> </app-svg-icon>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <p class="text-gray-500 text-10">phuong@gmail.com</p>
       </div>
     </div>
-    <div class="flex gap-10">
+    <div class="flex gap-10 flex-wrap">
       <button mat-raised-button>
         Tổng bài đăng: 12
       </button>
