@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://6232be0a8364d63035c2cf3b.mockapi.io',
+  baseUrl: 'http://node-1.silk-cat.software:7133/api',
   webSocketEndpoint: 'wss://',
   googleClientId: '',
 };

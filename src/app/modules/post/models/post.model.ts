@@ -38,3 +38,23 @@ export class Review {
     Object.assign(this, init);
   }
 }
+
+export class PostRequestModel {
+  title: string;
+  description: string;
+  address: string;
+  addressWardId: string;
+  categoryId: string;
+  area: number;
+  price: number;
+  limitTenant: number;
+  tenantType: string;
+  prePaidPrice: number;
+  nearbyPlaces: string[];
+  otherUtilitíes: string[];
+  properties: any[] = [];
+
+  public constructor(init?: Partial<PostRequestModel>) {
+    Object.assign(this, init);
+  }
+}

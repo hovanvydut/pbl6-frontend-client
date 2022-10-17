@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegisteredAccountModel } from '@app/modules/account-setting/models';
 import { ENDPOINTS } from '@app/shared/utilities';
-import { isThisSecond } from 'date-fns';
+import { AuthService } from './../../services/auth.service';
+import { AppNotify } from './../../../../shared/utilities/notification-helper';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,14 +13,15 @@ import { isThisSecond } from 'date-fns';
 export class SignUpComponent implements OnInit {
   signUp = {
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  }
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6)
+    ])
+  };
 
-  RegisteredAccount: RegisteredAccountModel = new RegisteredAccountModel();
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getErrorMessage(type) {
     if (type === 'email') {
@@ -33,15 +34,23 @@ export class SignUpComponent implements OnInit {
       if (this.signUp.password.hasError('required')) {
         return 'You must enter a value';
       }
-      return this.signUp.password.hasError('minLength') ? 'Please enter password min length 6' : '';
+      return this.signUp.password.hasError('minLength')
+        ? 'Please enter password min length 6'
+        : '';
     }
     return null;
   }
 
   onSignUpButtonClicked() {
-    // handle signup
-    this.router.navigateByUrl(ENDPOINTS.LOGIN).then();
-
+    this.authService.login(this.signUp).subscribe(
+      res => {
+        if (res) {
+          this.router.navigateByUrl(ENDPOINTS.LOGIN).then();
+        }
+      },
+      err => {
+        AppNotify.error('Có lỗi xảy ra, vui lòng thử lại!');
+      }
+    );
   }
-
 }

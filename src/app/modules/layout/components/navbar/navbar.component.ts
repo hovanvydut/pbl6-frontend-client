@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/images/svg-icons.constants';
+import { ENDPOINTS } from '@app/shared/utilities';
+import { menuItems } from '../../const/menu.const';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +13,8 @@ export class NavbarComponent implements OnInit {
   svgMessage = svgMessage;
   svgArrowDown = svgArrowDown;
   svgCart = svgCart;
+
+  menuItems = menuItems;
 
   constructor() { }
 

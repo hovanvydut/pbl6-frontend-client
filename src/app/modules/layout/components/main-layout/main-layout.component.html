@@ -25,10 +25,7 @@
           </div>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'/profile'">Profile</button>
-          <button mat-menu-item [routerLink]="'/ordered'">Ordered</button>
-          <button mat-menu-item [routerLink]="'/cart'">Cart</button>
-          <button mat-menu-item [routerLink]="'/logout'">Logout</button>
+          <button *ngFor="let item of menuItems" mat-menu-item [routerLink]="item.link">{{ item.name }}</button>
         </mat-menu>
       </a>
     </div>
@@ -40,10 +37,7 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a mat-list-item [routerLink]="'/profile'"> Profile </a>
-      <a mat-list-item [routerLink]="'/ordered'"> Ordered </a>
-      <a mat-list-item [routerLink]="'/cart'"> Cart </a>
-      <a mat-list-item [routerLink]="'/logout'"> Logout </a>
+      <a *ngFor="let item of menuItems" mat-list-item  [routerLink]="item.link"> {{ item.name }} </a>
       <a mat-list-item (click)="sidenav.toggle()"> Close </a>
     </mat-nav-list>
   </mat-sidenav>

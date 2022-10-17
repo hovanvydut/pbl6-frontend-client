@@ -242,7 +242,11 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   margin: 0 .65em;
   min-width: 3em;
   line-height: 36.4px;
-  border-radius: 15px !important;
+  border-radius: 10px !important;
+
+  &.square-btn {
+    border-radius: 8px !important;
+  }
 
 }
 
@@ -264,8 +268,32 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   margin-top: 15px;
 }
 
-.mat-drawer-container, .mat-toolbar {
+.mat-drawer-container,
+.mat-toolbar {
   background-color: transparent !important;
+}
+
+.mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mat-dialog-title {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-top: 24px !important;
+  background: white !important;
+}
+
+.mat-dialog-container {
+  padding: 0 24px 24px 24px !important;
+}
+
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .mat-button-wrapper {
@@ -284,7 +312,6 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   background-color: var(--primary-color);
   border-radius: 10px;
 }
-
 
 ::ng-deep .category__expansion {
   .mat-expansion-panel-spacing {

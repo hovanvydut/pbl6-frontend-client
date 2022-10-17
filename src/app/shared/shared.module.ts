@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
@@ -59,9 +59,17 @@ import { CategoryExpansionComponent } from './components/category-expansion/cate
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
 import { TableComponent } from './components/table/table.component';
 import { LineChartComponent, AreaChartComponent } from './components/chart';
-import { FormDialogComponent, ConfirmDialogComponent } from './components/dialog';
+import {
+  FormDialogComponent,
+  ConfirmDialogComponent
+} from './components/dialog';
 import { SvgIconsRegistryService } from './services/svg-icon-registry.service';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
+import { ViewIconsComponent } from './components/view-icons/view-icons.component';
+import { TextareaFieldComponent } from './components/form/textarea-field/textarea-field.component';
+import { InputFieldComponent } from './components/form/input-field/input-field.component';
+import { SelectFieldComponent } from './components/form/select-field/select-field.component';
+import { ChipsFieldComponent } from './components/form/chips-field/chips-field.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -75,6 +83,9 @@ const COMPONENTS: any[] = [
   LineChartComponent,
   ConfirmDialogComponent,
   FormDialogComponent,
+  ViewIconsComponent,
+  InputFieldComponent,
+  TextareaFieldComponent
 ];
 
 const MATERIALS: any[] = [
@@ -131,11 +142,12 @@ const SVG_ICONS = completeIconSet;
     SwiperModule,
     FormsModule,
     MatDialogModule,
+    ReactiveFormsModule,
     NgApexchartsModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
-  declarations: [...COMPONENTS, ...PIPES, ],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, SelectFieldComponent, ChipsFieldComponent],
+  declarations: [...COMPONENTS, ...PIPES, SelectFieldComponent, ChipsFieldComponent],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },
@@ -146,7 +158,4 @@ export class SharedModule {
   constructor(private svgIconRegistry: SvgIconsRegistryService) {
     svgIconRegistry.registerIcons(SVG_ICONS);
   }
-
 }
-
-

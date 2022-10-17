@@ -1,0 +1,97 @@
+<h2 mat-dialog-title class="text-20">
+  Đăng bài mới
+</h2>
+<mat-dialog-content
+  *ngFor="let group of formControl"
+  class="flex flex-col gap-10 w-full"
+>
+  <b class="text-16"> {{ group.groupName }}</b>
+  <div class="flex flex-wrap w-full justify-between">
+    <div *ngFor="let item of group.items" [class]="'w-' + item.width">
+      <app-input-field
+        cdkFocusInitial
+        *ngIf="item.fieldType === 'input'"
+        [required]="item.required"
+        [placeholder]="item.placeholder"
+        [value]="item.value"
+        [label]="item.label"
+        [type]="item.inputType"
+      >
+      </app-input-field>
+      <app-textarea-field
+        cdkFocusInitial
+        *ngIf="item.fieldType === 'textarea'"
+        [required]="item.required"
+        [placeholder]="item.placeholder"
+        [value]="item.value"
+        [label]="item.label"
+      >
+      </app-textarea-field>
+
+      <ng-container *ngIf="item.fieldType === 'select'">
+        <app-select-field
+          [label]="item.label"
+          [(selectedValue)]="item.value.value"
+          [items]="item.properties"
+          [type]="item.name"
+          (onValueChanged)="onSelectedFieldChanged($event)"
+        ></app-select-field>
+      </ng-container>
+
+      <ng-container *ngIf="item.fieldType === 'property'">
+        <app-chips-field
+          [label]="item.label"
+          [selectedItems]="item.value.value"
+          [allItems]="item.properties"
+          [type]="item.name"
+          (onSelectedItemsChanged)="onSelectedFieldChanged($event)"
+        >
+        </app-chips-field>
+      </ng-container>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<!-- upload hình ảnh -->
+<div>
+  <b class="text-16"> Hình ảnh trọ</b>
+  <div class="mt-15">
+    <div class="flex flex-wrap gap-10 mt-10">
+      <div
+        class="w-180 h-130 border border-gray-500 border-dashed flex flex-col items-center justify-center text-center text-gray-400 rounded-12 p-10"
+        (click)="uploadImg.click()"
+      >
+        <img class="w-30 h-30" src="assets/images/default/upload_icon.png" />
+        <span class="text-10">Tải hình ảnh lên</span>
+        <span class="text-8">
+          Định dạng được hỗ trợ: JPEG, PNG, SVG.
+        </span>
+        <span class="text-8">
+          Kích thước tối đa: 5MB.
+        </span>
+      </div>
+      <div *ngFor="let img of previews">
+        <img
+          class="object-cover w-180 h-130 border border-gray-500 rounded-12"
+          [src]="img"
+        />
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>
+      Hủy
+    </button>
+    <button mat-raised-button color="primary" (click)="onCreateNewPost()">
+      Hoàn tất
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<input
+  #uploadImg
+  type="file"
+  hidden
+  (change)="onFileSelected($event)"
+  multiple
+/>

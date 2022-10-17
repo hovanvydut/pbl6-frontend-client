@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 //
 import { PageNotFoundComponent } from './modules/layout/components/page-not-found/page-not-found.component';
+import { ViewIconsComponent } from './shared/components/view-icons/view-icons.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/post',
+    redirectTo: '/posts',
     pathMatch: 'full'
   },
   {
@@ -14,16 +15,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/modules/auth/auth.module').then(m => m.AuthModule)
   },
+
   {
-    path: 'landlord',
-    loadChildren: () =>
-      import('@app/modules/landlord/landlord.module').then(
-        m => m.LandlordModule
-      ),
-    data: { preload: false }
-  },
-  {
-    path: 'post',
+    path: 'posts',
     loadChildren: () =>
       import('@app/modules/post/post.module').then(m => m.PostModule),
     data: { preload: false }
@@ -36,12 +30,16 @@ const routes: Routes = [
     data: { preload: false }
   },
   {
-    path: 'profile',
+    path: 'user',
     loadChildren: () =>
-      import('@app/modules/account-setting/account-setting.module').then(
-        m => m.AccountSettingModule
+      import('@app/modules/user/user.module').then(
+        m => m.UserModule
       ),
     data: { preload: false }
+  },
+  {
+    path: 'styles/icons',
+    component: ViewIconsComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];

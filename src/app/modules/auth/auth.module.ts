@@ -36,10 +36,6 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
       },
-      // {
-      //   // path: 'access/:userId/:token',
-      //   // component: AutoLoginComponent
-      // },
       {
         path: 'forgot-password',
         component: ForgotPasswordComponent

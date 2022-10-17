@@ -15,7 +15,21 @@ import { environment } from '@environment';
 })
 export class BaseService {
   public baseURL = environment.baseUrl;
-  ERROR_SOMETHING_BAD_HAPPENED: string = 'Something bad happened. Please try again later.';
+  ERROR_SOMETHING_BAD_HAPPENED: string =
+    'Something bad happened. Please try again later.';
+
+  public storeLoggedUser(userInfo: any) {
+    localStorage.setItem('userInfo', userInfo);
+  }
+
+  get currentUser() {
+    const localUser = localStorage.getItem('userInfo');
+    return localUser
+  }
+
+  get isLoggedIn(): boolean {
+    return localStorage.getItem('accessToken') != null;
+  }
 
   get accessToken(): string {
     return localStorage.getItem('accessToken');
@@ -40,26 +54,23 @@ export class BaseService {
 
   //#region GET Methods
   get<T>(url: string): Observable<T> {
-    return this.httpClient
-      .get<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.httpClient.get<T>(`${this.baseURL}/${url}`, this.options);
   }
 
   async getAsync<T>(url: string): Promise<T> {
     return await this.httpClient
       .get<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(error => this.handleError(error)))
       .toPromise();
   }
   //#endregion
 
   //#region POST Methods
   post<T>(url: string, data: any, isCatchError: boolean = true): Observable<T> {
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(
-        catchError(isCatchError ? this.handleError : error => throwError(error))
-      );
+    return this.httpClient.post<T>(
+      `${this.baseURL}/${url}`,
+      data,
+      this.options
+    );
   }
 
   async postAsync<T>(
@@ -69,9 +80,6 @@ export class BaseService {
   ): Promise<T> {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(
-        catchError(isCatchError ? this.handleError : error => throwError(error))
-      )
       .toPromise();
   }
 
@@ -80,34 +88,34 @@ export class BaseService {
     const formData = configuration.key;
     const httpOptions = configuration.value;
 
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, formData, httpOptions)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.httpClient.post<T>(
+      `${this.baseURL}/${url}`,
+      formData,
+      httpOptions
+    );
   }
   //#endregion
 
   //#region PUT Methods
   put<T>(url: string, data: any): Observable<T> {
-    return this.httpClient
-      .put<T>(`${this.baseURL}/${url}`, data, this.options)
-      .pipe(catchError(this.handleError));
+    return this.httpClient.put<T>(`${this.baseURL}/${url}`, data, this.options);
   }
 
   putFile<T>(url: string, data: any): Observable<T> {
     const configuration = this.initialDataOption(data);
     const formData = configuration.key as any;
     const httpOptions = configuration.value;
-    return this.httpClient
-      .put<T>(`${this.baseURL}/${url}`, formData, httpOptions)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.httpClient.put<T>(
+      `${this.baseURL}/${url}`,
+      formData,
+      httpOptions
+    );
   }
   //#endregion
 
   //#region DELETE Methods
   delete<T>(url: string): Observable<T> {
-    return this.httpClient
-      .delete<T>(`${this.baseURL}/${url}`, this.options)
-      .pipe(catchError(this.handleError));
+    return this.httpClient.delete<T>(`${this.baseURL}/${url}`, this.options);
   }
   //#endregion
 
