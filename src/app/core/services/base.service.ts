@@ -73,6 +73,13 @@ export class BaseService {
     );
   }
 
+  postForm<T>(url: string, data: any): Observable<T> {
+    return this.httpClient.post<T>(
+      `${this.baseURL}/${url}`,
+      data,
+    ).pipe(catchError(error => this.handleError(error)));
+  }
+
   async postAsync<T>(
     url: string,
     data: any,
@@ -182,9 +189,6 @@ export class BaseService {
   private handleError = (error: HttpErrorResponse) => {
     switch (error.status) {
       case 401:
-        // UserStorage.removeLocalStorage();
-        // UserStorage.removeSessionStorage();
-        //
         if (window.location.hostname !== 'localhost') {
           window.location.href = window.location.origin + '/login';
         }

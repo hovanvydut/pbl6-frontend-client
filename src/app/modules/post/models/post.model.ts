@@ -48,11 +48,9 @@ export class PostRequestModel {
   area: number;
   price: number;
   limitTenant: number;
-  tenantType: string;
   prePaidPrice: number;
-  nearbyPlaces: string[];
-  otherUtilitíes: string[];
   properties: any[] = [];
+  medias: any[] = [];
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);

@@ -32,6 +32,7 @@ export class PostDetailFormComponent implements OnInit {
   districts: any[] = [];
   provinces: any[] = [];
   wards: any[] = [];
+  streets: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class PostDetailFormComponent implements OnInit {
 
   ngOnInit() {
     this.commonService
-      .getProvince()
+      .getProvinces()
       .pipe(finalize(() => {}))
       .subscribe(val => {
         this.provinces = val;
@@ -263,6 +264,11 @@ export class PostDetailFormComponent implements OnInit {
         }
       });
     });
+    data.medias = this.previews.map(el => {
+      return {
+        url: el,
+      };
+    });
     console.log(data);
     this.postService.createNewPost(data).subscribe(res => {
       console.log(res);
@@ -272,26 +278,24 @@ export class PostDetailFormComponent implements OnInit {
   onFileSelected(e) {
     this.selectedFiles = e.target.files;
     if (this.selectedFiles && this.selectedFiles[0]) {
-      const numberOfFiles = this.selectedFiles.length;
-      for (let i = 0; i < numberOfFiles; i++) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.previews.push(e.target.result);
-        };
-        reader.readAsDataURL(this.selectedFiles[i]);
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.commonService.uploadImage(this.selectedFiles[i]).subscribe(res => {
+          this.previews.push(res);
+        });
       }
     }
   }
 
   onSelectedFieldChanged(item: { type: string; value: any }) {
     console.log(item);
-
     switch (item.type) {
       case 'city':
         this.formControl[1].items[0].value.setValue(item.value);
+        this.handleCitySelected(item.value);
         break;
       case 'district':
         this.formControl[1].items[1].value.setValue(item.value);
+        this.handleDistrictSelected(item.value);
         break;
       case 'ward':
         this.formControl[1].items[2].value.setValue(item.value);
@@ -311,5 +315,20 @@ export class PostDetailFormComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  handleCitySelected(cityId: string) {
+    this.commonService.getDistricts(cityId).subscribe(res => {
+      console.log(res);
+      this.districts = res.addressDistricts;
+      this.formControl[1].items[1].properties = res.addressDistricts;
+    });
+  }
+
+  handleDistrictSelected(districtId: string) {
+    this.commonService.getWards(districtId).subscribe(res => {
+      this.wards = res.addressWards;
+      this.formControl[1].items[2].properties = res.addressWards;
+    });
   }
 }
