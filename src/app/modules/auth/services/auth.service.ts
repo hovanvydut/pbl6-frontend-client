@@ -10,8 +10,7 @@ export class AuthService {
   constructor(private baseService: BaseService) {}
 
   login(data: any): Observable<any> {
-    // return this.baseService.post<any>('Auth/Login', data);
-    return of(true);
+    return this.baseService.post<any>('auth/login', data);
   }
 
   register(data: any): Observable<any> {

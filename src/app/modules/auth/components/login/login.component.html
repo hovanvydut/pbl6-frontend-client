@@ -1,64 +1,46 @@
 <div>
-  <p class="text-36 font-weight-bold">Sign in</p>
-  <p class="pt-20">If you don’t have an account</p>
+  <p class="text-36 font-weight-bold">Đăng nhập</p>
+  <p class="pt-20">Nếu bạn chưa có tài khoản</p>
   <p>
-    You can
+    Hãy đăng kí tại
     <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/sign-up'">
-      Register here !
+      đây!
     </a>
   </p>
 
   <div class="flex flex-col gap-5">
-    <!-- email -->
-    <mat-form-field appearance="standard">
-      <mat-label>Enter your email address</mat-label>
-      <input
-        matInput
-        required
-        type="password"
-        placeholder="pat@example.com"
-        [formControl]="login.email"
-      />
-      <app-svg-icon [name]="'messages'" matPrefix>
+    <span *ngIf="errorMessage" class="text-11 text-red-700">
+      {{ errorMessage }}
+    </span>
+    <app-input-field cdkFocusInitial [required]="true" [placeholder]="'Nhập email'" [value]="login.email"
+      [label]="'Email'" [type]="'email'">
+      <app-svg-icon slot="iconLabel" [name]="'messages'" class="mr-5" matPrefix>
       </app-svg-icon>
-      <mat-error *ngIf="login.email.invalid">
+      <mat-error slot="error" *ngIf="login.email.invalid">
         {{ getEmailErrorMessage() }}
       </mat-error>
-    </mat-form-field>
+    </app-input-field>
 
-    <!-- pwd -->
-    <mat-form-field appearance="standard">
-      <mat-label>Enter your Password</mat-label>
-      <input
-        matInput
-        required
-        [type]="hidePwd ? 'password' : 'text'"
-        [(formControl)]="login.password"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hidePwd = !hidePwd"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hidePwd"
-      >
+    <app-input-field [required]="true" [placeholder]="'Nhập password'" [value]="login.password" [label]="'Mật khẩu'"
+      [type]="hidePwd ? 'password' : 'text'">
+      <app-svg-icon slot="iconLabel" [name]="'lock'" class="mr-5" matPrefix> </app-svg-icon>
+      <button slot="icon" mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePwd">
         <mat-icon>{{ hidePwd ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
-      <mat-error *ngIf="login.password.invalid">
+      <mat-error slot="error" *ngIf="login.password.invalid">
         {{ getPasswordErrorMessage() }}
       </mat-error>
-    </mat-form-field>
+    </app-input-field>
 
     <!-- more option -->
-    <div class="flex justify-between text-xs text-grey-777 mb-20">
-      <mat-checkbox color="primary">Remember me</mat-checkbox>
+    <div class="flex justify-end text-xs text-grey-777 mb-20">
       <span>Forgot Password ?</span>
     </div>
 
     <!-- button -->
     <button mat-raised-button color="primary" (click)="onSignInButtonClicked()">
-      Sign in
+      Đăng nhập
     </button>
   </div>
 </div>

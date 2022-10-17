@@ -19,10 +19,14 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)
     ])
   };
+  errorMessage: string;
   hidePwd: boolean = true;
 
-  constructor(private router: Router, private authService: AuthService,
-    private baseService: BaseService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private baseService: BaseService
+  ) {}
 
   ngOnInit() {}
 
@@ -43,17 +47,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSignInButtonClicked() {
-    this.authService.login(this.login).subscribe(
-      res => {
-        if (res) {
-          this.baseService.storeLoggedUser(res);
-          this.router.navigateByUrl(ENDPOINTS.HOME).then();
-          // TODO: save user data to local storages
-        }
-      },
-      err => {
-        AppNotify.error('Có lỗi xảy ra, vui lòng thử lại!');
+    let data: any = {};
+    data.login = this.login.email.value;
+    data.password = this.login.password.value;
+    this.authService.login(data).subscribe(res => {
+      if (res.Success) {
+        this.baseService.storeLoggedUser(res);
+        this.router.navigateByUrl(ENDPOINTS.HOME).then();
+        // TODO: save user data to local storages
+      } else {
+        AppNotify.error(res.Message);
+        this.errorMessage = res.Message;
       }
-    );
+    });
   }
 }
