@@ -19,41 +19,47 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)
     ])
   };
+  errorMessage: string;
   hidePwd: boolean = true;
 
-  constructor(private router: Router, private authService: AuthService,
-    private baseService: BaseService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private baseService: BaseService
+  ) {}
 
   ngOnInit() {}
 
   getEmailErrorMessage() {
     if (this.login.email.hasError('required')) {
-      return 'You must enter a value';
+      return 'Hãy nhập email của bạn!';
     }
-    return this.login.email.hasError('email') ? 'Not a valid email' : '';
+    return this.login.email.hasError('email') ? 'Sai định dạng email' : '';
   }
 
   getPasswordErrorMessage() {
     if (this.login.password.hasError('required')) {
-      return 'You must enter a value';
+      return 'Hãy nhập mật khẩu!';
     }
     return this.login.password.hasError('minLength')
-      ? 'Please enter password min length 6'
+      ? 'Mật khẩu phải dài hơn 6 kí tự!'
       : '';
   }
 
   onSignInButtonClicked() {
-    this.authService.login(this.login).subscribe(
-      res => {
-        if (res) {
-          this.baseService.storeLoggedUser(res);
-          this.router.navigateByUrl(ENDPOINTS.HOME).then();
-          // TODO: save user data to local storages
-        }
-      },
-      err => {
-        AppNotify.error('Có lỗi xảy ra, vui lòng thử lại!');
+    this.errorMessage = '';
+    let data: any = {};
+    data.email = this.login.email.value;
+    data.password = this.login.password.value;
+    this.authService.login(data).subscribe(res => {
+      if (res.success) {
+        this.baseService.storeLoggedUser(res.data);
+        this.baseService.storeToken(res.data.accessToken);
+        this.router.navigateByUrl(ENDPOINTS.HOME).then();
+      } else {
+        AppNotify.error(res.message);
+        this.errorMessage = res.message;
       }
-    );
+    });
   }
 }

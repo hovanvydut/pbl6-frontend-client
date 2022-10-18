@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from './../../services/auth.service';
 import { AppNotify } from './../../../../shared/utilities/notification-helper';
+import { RegisterAccountModel } from '../../models/auth.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,6 +19,8 @@ export class SignUpComponent implements OnInit {
       Validators.minLength(6)
     ])
   };
+
+  signUpInfo: RegisterAccountModel = new RegisterAccountModel();
 
   constructor(private router: Router, private authService: AuthService) {}
 
