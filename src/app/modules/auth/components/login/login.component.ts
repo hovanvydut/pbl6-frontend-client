@@ -32,32 +32,33 @@ export class LoginComponent implements OnInit {
 
   getEmailErrorMessage() {
     if (this.login.email.hasError('required')) {
-      return 'You must enter a value';
+      return 'Hãy nhập email của bạn!';
     }
-    return this.login.email.hasError('email') ? 'Not a valid email' : '';
+    return this.login.email.hasError('email') ? 'Sai định dạng email' : '';
   }
 
   getPasswordErrorMessage() {
     if (this.login.password.hasError('required')) {
-      return 'You must enter a value';
+      return 'Hãy nhập mật khẩu!';
     }
     return this.login.password.hasError('minLength')
-      ? 'Please enter password min length 6'
+      ? 'Mật khẩu phải dài hơn 6 kí tự!'
       : '';
   }
 
   onSignInButtonClicked() {
+    this.errorMessage = '';
     let data: any = {};
-    data.login = this.login.email.value;
+    data.email = this.login.email.value;
     data.password = this.login.password.value;
     this.authService.login(data).subscribe(res => {
-      if (res.Success) {
-        this.baseService.storeLoggedUser(res);
+      if (res.success) {
+        this.baseService.storeLoggedUser(res.data);
+        this.baseService.storeToken(res.data.accessToken);
         this.router.navigateByUrl(ENDPOINTS.HOME).then();
-        // TODO: save user data to local storages
       } else {
-        AppNotify.error(res.Message);
-        this.errorMessage = res.Message;
+        AppNotify.error(res.message);
+        this.errorMessage = res.message;
       }
     });
   }

@@ -4,35 +4,55 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, ReplaySubject, throwError } from 'rxjs';
 //
 import { AppNotify } from '@app/shared/utilities';
 import { AppErrorCode } from '@app/shared/app.enum';
 import { environment } from '@environment';
+import { AccountModel } from '@app/modules/auth/models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
+  LOGGED_USER = 'userInfo';
+  TOKEN = 'token';
   public baseURL = environment.baseUrl;
   ERROR_SOMETHING_BAD_HAPPENED: string =
     'Something bad happened. Please try again later.';
 
-  public storeLoggedUser(userInfo: any) {
-    localStorage.setItem('userInfo', userInfo);
+  public _userInfo: ReplaySubject<AccountModel> = new ReplaySubject<
+    AccountModel
+  >();
+
+  public storeLoggedUser(accountModel: AccountModel) {
+    localStorage.setItem(
+      this.LOGGED_USER,
+      btoa(encodeURIComponent(JSON.stringify(accountModel)))
+    );
+    this._userInfo.next(accountModel);
   }
 
-  get currentUser() {
-    const localUser = localStorage.getItem('userInfo');
-    return localUser
+  public storeToken(token: string) {
+    localStorage.setItem(this.TOKEN, token);
+  }
+
+  get currentUser(): AccountModel {
+    const localUser = localStorage.getItem(this.LOGGED_USER);
+    const localUserJson =
+      localUser != null && JSON.parse(decodeURIComponent(atob(localUser)));
+    if (localUserJson) {
+      let user: AccountModel = new AccountModel(localUserJson);
+      return user;
+    } else return null;
   }
 
   get isLoggedIn(): boolean {
-    return localStorage.getItem('accessToken') != null;
+    return localStorage.getItem(this.TOKEN) != null;
   }
 
   get accessToken(): string {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem(this.TOKEN);
   }
 
   get bearerAuthentication(): string {
@@ -74,10 +94,9 @@ export class BaseService {
   }
 
   postForm<T>(url: string, data: any): Observable<T> {
-    return this.httpClient.post<T>(
-      `${this.baseURL}/${url}`,
-      data,
-    ).pipe(catchError(error => this.handleError(error)));
+    return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   async postAsync<T>(

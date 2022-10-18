@@ -11,23 +11,28 @@
     <!-- right -->
     <div class="flex items-center gap-10">
       <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a mat-list-item>
+      <a *ngIf="accountInfo" mat-list-item>
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center ">
-            <span class="mr-5">Phuong Tran</span>
-
-            <app-svg-icon
-              [name]="'arrow_down'"
-              [color]="'#999'"
-              matPrefix
-            >
+            <span class="mr-5">{{ accountInfo.email }}</span>
+            <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
             </app-svg-icon>
           </div>
+
         </button>
         <mat-menu #menu="matMenu">
           <button *ngFor="let item of menuItems" mat-menu-item [routerLink]="item.link">{{ item.name }}</button>
         </mat-menu>
       </a>
+      <div mat-list-item *ngIf="!accountInfo" class="text-14 text-blue-4882C7">
+        <a [routerLink]="'/auth/sign-in'">
+          Đăng nhập
+        </a>
+        <span class="mx-2">|</span>
+        <a [routerLink]="'/auth/sign-up'">
+          Đăng ký
+        </a>
+      </div>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -37,7 +42,7 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a *ngFor="let item of menuItems" mat-list-item  [routerLink]="item.link"> {{ item.name }} </a>
+      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link"> {{ item.name }} </a>
       <a mat-list-item (click)="sidenav.toggle()"> Close </a>
     </mat-nav-list>
   </mat-sidenav>

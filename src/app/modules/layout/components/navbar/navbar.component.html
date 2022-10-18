@@ -5,7 +5,7 @@
       <button mat-icon-button>
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
-      <h1>PBL6</h1>
+      <h1>HOMIE</h1>
     </div>
     <span class="menu-spacer"></span>
     <!-- right -->
@@ -15,7 +15,7 @@
       <a mat-list-item>
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center ">
-            <span class="mr-2">Phuong Tran</span>
+            <span class="mr-2"> {{ accountInfo.email }}</span>
             <app-svg-icon
               [name]="'arrow_down'"
               [color]="'#999'"

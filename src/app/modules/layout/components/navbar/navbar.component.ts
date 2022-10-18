@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { svgNotification, svgMessage, svgArrowDown, svgCart } from 'src/assets/images/svg-icons.constants';
+//
 import { ENDPOINTS } from '@app/shared/utilities';
 import { menuItems } from '../../const/menu.const';
+import { BaseService } from '@app/core/services/base.service';
+import { AccountModel } from '@app/modules/auth/models/auth.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +11,12 @@ import { menuItems } from '../../const/menu.const';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  svgNotification = svgNotification;
-  svgMessage = svgMessage;
-  svgArrowDown = svgArrowDown;
-  svgCart = svgCart;
-
   menuItems = menuItems;
+  accountInfo: AccountModel = new AccountModel();
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private baseService: BaseService) {
+    this.accountInfo = this.baseService.currentUser;
   }
 
+  ngOnInit() {}
 }
