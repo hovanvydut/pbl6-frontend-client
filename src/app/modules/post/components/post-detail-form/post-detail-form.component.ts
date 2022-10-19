@@ -10,6 +10,7 @@ import { finalize } from 'rxjs';
 import { PostRequestModel } from '../../models/post.model';
 import { PostService } from '@app/modules/post/services/post.service';
 import { PropertyEnum } from '../../enums/property.enum';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -36,6 +37,7 @@ export class PostDetailFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private dialog: Dialog,
     private commonService: CommonService,
     private postService: PostService
   ) {}
@@ -196,7 +198,7 @@ export class PostDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'number',
           fieldType: 'input',
-          width: '1/2'
+          width: '1/3'
         },
         {
           name: 'prePaidPrice',
@@ -206,7 +208,7 @@ export class PostDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'number',
           fieldType: 'input',
-          width: '1/2'
+          width: '1/3'
         },
         {
           id: PropertyEnum.OtherProperties,
@@ -270,8 +272,10 @@ export class PostDetailFormComponent implements OnInit {
       };
     });
     console.log(data);
-    this.postService.createNewPost(data).subscribe(res => {
-      console.log(res);
+    this.postService.createNewPost(new PostRequestModel({
+      ...data
+    })).subscribe(res => {
+      this.dialog.closeAll();
     });
   }
 
@@ -281,7 +285,10 @@ export class PostDetailFormComponent implements OnInit {
       for (let i = 0; i < this.selectedFiles.length; i++) {
         this.commonService.uploadImage(this.selectedFiles[i]).subscribe(res => {
           this.previews.push(res);
-        });
+          console.log(res)
+        },err => {
+          console.log(err)
+        } );
       }
     }
   }
@@ -297,7 +304,7 @@ export class PostDetailFormComponent implements OnInit {
         this.formControl[1].items[1].value.setValue(item.value);
         this.handleDistrictSelected(item.value);
         break;
-      case 'ward':
+      case 'addressWardId':
         this.formControl[1].items[2].value.setValue(item.value);
         break;
       case 'categoryId':

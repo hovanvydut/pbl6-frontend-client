@@ -96,7 +96,7 @@ export class BaseService {
   postForm<T>(url: string, data: any): Observable<T> {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data)
-      .pipe(catchError(error => this.handleError(error)));
+      // .pipe(catchError(error => this.handleError(error)));
   }
 
   async postAsync<T>(
