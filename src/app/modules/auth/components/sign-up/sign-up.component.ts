@@ -5,6 +5,8 @@ import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from './../../services/auth.service';
 import { AppNotify } from './../../../../shared/utilities/notification-helper';
 import { RegisterAccountModel } from '../../models/auth.model';
+import { isEqual } from 'lodash-es';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,43 +19,96 @@ export class SignUpComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
-    ])
+    ]),
+    confirmPassword: new FormControl('', [Validators.required]),
+    displayName: new FormControl('', [Validators.required])
   };
-
   signUpInfo: RegisterAccountModel = new RegisterAccountModel();
-
-  constructor(private router: Router, private authService: AuthService) {}
+  errorMessage: string;
+  constructor(
+    private router: Router,
+    public snackBar: MatSnackBar,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {}
 
   getErrorMessage(type) {
     if (type === 'email') {
       if (this.signUp.email.hasError('required')) {
-        return 'You must enter a value';
+        return 'Hãy nhập email của bạn!';
       }
-      return this.signUp.email.hasError('email') ? 'Not a valid email' : '';
+      return this.signUp.email.hasError('email') ? 'Sai định dạng email' : '';
     }
+
     if (type === 'password') {
       if (this.signUp.password.hasError('required')) {
-        return 'You must enter a value';
+        return 'Hãy nhập mật khẩu!';
       }
       return this.signUp.password.hasError('minLength')
-        ? 'Please enter password min length 6'
+        ? 'Mật khẩu phải dài hơn 6 kí tự!'
         : '';
+    }
+
+    if (type === 'confirmPassword') {
+      if (this.signUp.confirmPassword.hasError('required')) {
+        return 'Hãy xác nhận mật khẩu!';
+      }
     }
     return null;
   }
 
   onSignUpButtonClicked() {
-    this.authService.login(this.signUp).subscribe(
-      res => {
-        if (res) {
-          this.router.navigateByUrl(ENDPOINTS.LOGIN).then();
+    if (
+      !isEqual(this.signUp.password.value, this.signUp.confirmPassword.value)
+    ) {
+      this.notify('Mật khẩu không khớp!');
+      return;
+    }
+
+    if (
+      this.signUp.email.invalid ||
+      this.signUp.password.invalid ||
+      this.signUp.confirmPassword.invalid
+    ) {
+      this.notify('Hãy nhập đầy đủ thông tin!');
+      return;
+    }
+
+    if (
+      this.signUp.email.valid &&
+      this.signUp.password.valid &&
+      this.signUp.confirmPassword.valid
+    ) {
+      this.signUpInfo = new RegisterAccountModel({
+        email: this.signUp.email.value,
+        password: this.signUp.password.value,
+        displayName: this.signUp.displayName.value,
+        address: 'Hà Nội',
+        addressWardId: '1',
+        identityNumber:  Math.floor(Math.random() * 1000000000) + '1',
+        phoneNumber: Math.floor(Math.random() * 1000000000) + '1',
+        roleId: '1'
+      });
+      this.authService.register(this.signUpInfo).subscribe(res => {
+        if( res.success) {
+          this.notify(
+            'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
+          );
+          this.router.navigate([ENDPOINTS.LOGIN]);
+        } else {
+          this.notify('Đăng ký thất bại!');
+          this.errorMessage = res.Message;
         }
-      },
-      err => {
-        AppNotify.error('Có lỗi xảy ra, vui lòng thử lại!');
-      }
-    );
+      });
+
+      // random phone number
+    }
+  }
+
+  notify(message) {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
 }

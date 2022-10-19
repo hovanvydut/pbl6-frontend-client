@@ -14,7 +14,7 @@
       <a *ngIf="accountInfo" mat-list-item>
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center ">
-            <span class="mr-5">{{ accountInfo.email }}</span>
+            <span class="mr-5">{{ accountInfo.displayName }}</span>
             <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
             </app-svg-icon>
           </div>

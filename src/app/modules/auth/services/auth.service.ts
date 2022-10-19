@@ -16,7 +16,6 @@ export class AuthService {
   }
 
   register(data: any): Observable<any> {
-    // return this.baseService.post<any>('Auth/Register', data);
-    return of(true);
+    return this.baseService.post<any>('auth/register', data);
   }
 }
