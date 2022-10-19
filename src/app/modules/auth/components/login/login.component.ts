@@ -5,6 +5,7 @@ import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from '../../services/auth.service';
 import { AppNotify } from './../../../../shared/utilities/notification-helper';
 import { BaseService } from '@app/core/services/base.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public snackBar: MatSnackBar,
     private authService: AuthService,
     private baseService: BaseService
   ) {}
@@ -57,9 +59,15 @@ export class LoginComponent implements OnInit {
         this.baseService.storeToken(res.data.accessToken);
         this.router.navigateByUrl(ENDPOINTS.HOME).then();
       } else {
-        AppNotify.error(res.message);
-        this.errorMessage = res.message;
+        this.notify(res.Message);
+        this.errorMessage = res.Message;
       }
+    });
+  }
+
+  notify(message) {
+    this.snackBar.open(message, '', {
+      duration: 2000
     });
   }
 }

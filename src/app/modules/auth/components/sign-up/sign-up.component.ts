@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
     displayName: new FormControl('', [Validators.required])
   };
   signUpInfo: RegisterAccountModel = new RegisterAccountModel();
-
+  errorMessage: string;
   constructor(
     private router: Router,
     public snackBar: MatSnackBar,
@@ -86,19 +86,23 @@ export class SignUpComponent implements OnInit {
         displayName: this.signUp.displayName.value,
         address: 'Hà Nội',
         addressWardId: '1',
-        identityNumber: '123456789',
-        phoneNumber: '0123456789',
+        identityNumber:  Math.floor(Math.random() * 1000000000) + '1',
+        phoneNumber: Math.floor(Math.random() * 1000000000) + '1',
         roleId: '1'
       });
       this.authService.register(this.signUpInfo).subscribe(res => {
-        this.notify(
-          'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
-        );
-        this.router.navigate([ENDPOINTS.LOGIN]);
-        err => {
+        if( res.success) {
+          this.notify(
+            'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
+          );
+          this.router.navigate([ENDPOINTS.LOGIN]);
+        } else {
           this.notify('Đăng ký thất bại!');
-        };
+          this.errorMessage = res.Message;
+        }
       });
+
+      // random phone number
     }
   }
 

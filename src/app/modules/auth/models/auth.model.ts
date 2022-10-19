@@ -17,6 +17,7 @@ export class AccountModel {
   accessToken: string;
   email: string;
   id: string;
+  displayName: string;
 
   public constructor(init?: Partial<AccountModel>) {
     Object.assign(this, init);
