@@ -1,5 +1,5 @@
 <div class="h-160 w-full bg-blue-500 relative rounded-15">
-  <div class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center">
+  <div *ngIf="profileGeneralInfo" class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center">
     <div class="flex items-center gap-10">
       <div class="avatar h-80 w-80 relative">
         <img class="w-full h-full rounded-15 object-cover" [src]="
