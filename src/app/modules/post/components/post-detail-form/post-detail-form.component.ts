@@ -28,7 +28,7 @@ export class PostDetailFormComponent implements OnInit {
   // properties
   tenantTypes: any[] = [];
   nearbyPlaces: any[] = [];
-  otherProperties: any[] = [];
+  properties: any[] = [];
 
   roomTypes: any[] = [];
 
@@ -40,7 +40,7 @@ export class PostDetailFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: Dialog,
-    @Inject(MAT_DIALOG_DATA) public data: {postId: string},
+    @Inject(MAT_DIALOG_DATA) public data: { postId: string },
     private commonService: CommonService,
     private postService: PostService
   ) {}
@@ -75,11 +75,11 @@ export class PostDetailFormComponent implements OnInit {
       });
     });
 
-    if(this.data?.postId) {
+    if (this.data?.postId) {
       this.postService.getPostById(this.data.postId).subscribe(res => {
         this.postDetail = res;
-        // this.convertPostToFormControl();
-        console.log(res)
+        this.convertPostToFormControl();
+        console.log(res);
         this.previews = res.medias.map(el => el.url);
       });
     }
@@ -119,7 +119,7 @@ export class PostDetailFormComponent implements OnInit {
       groupName: 'Địa chỉ',
       items: [
         {
-          name: 'city',
+          name: 'province',
           label: 'Tỉnh/Thành phố',
           placeholder: 'Chọn thành phố',
           require: true,
@@ -224,7 +224,7 @@ export class PostDetailFormComponent implements OnInit {
         },
         {
           id: PropertyEnum.OtherProperties,
-          name: 'otherProperties',
+          name: 'properties',
           label: 'Tiện ích khác',
           placeholder: 'Chọn tiện ích khác',
           require: true,
@@ -232,7 +232,7 @@ export class PostDetailFormComponent implements OnInit {
           inputType: 'text',
           fieldType: 'property',
           width: 'full',
-          properties: this.otherProperties
+          properties: this.properties
         },
         {
           id: PropertyEnum.TenantTypes,
@@ -268,7 +268,8 @@ export class PostDetailFormComponent implements OnInit {
     this.formControl.forEach(group => {
       group.items.forEach(item => {
         if (item.fieldType === 'property') {
-          data.properties = [...data.properties,
+          data.properties = [
+            ...data.properties,
             ...item.value.value.map(el => {
               return el.id;
             })
@@ -280,32 +281,46 @@ export class PostDetailFormComponent implements OnInit {
     });
     data.medias = this.previews.map(el => {
       return {
-        url: el,
+        url: el
       };
     });
     console.log(data);
-    this.postService.createNewPost(new PostRequestModel({
-      ...data
-    })).subscribe(res => {
-      this.dialog.closeAll();
-    });
+    this.postService
+      .createNewPost(
+        new PostRequestModel({
+          ...data
+        })
+      )
+      .subscribe(res => {
+        this.dialog.closeAll();
+      });
   }
 
   convertPostToFormControl() {
+    this.previews = [...this.post.medias];
     this.formControl.forEach(group => {
       group.items.forEach(item => {
-        if (item.fieldType === 'property') {
-          item.properties.forEach(property => {
-            if (this.post.properties.includes(property.id)) {
-              item.value.value.push(property);
-            }
-          });
+        // handle address
+        if (item.name === 'province' || item.name === 'district') {
+          item.value.setValue(this.postDetail.address[item.name].id);
         } else {
-          item.value.setValue(this.post[item.name]);
+          if (item.name === 'addressWardId') {
+            item.value.setValue(this.postDetail.address['ward'].id);
+          } else {
+            if (item.name !== 'properties') {
+              item.value.setValue(this.postDetail[item.name]);
+              if (item.name === 'categoryId') {
+                item.value.setValue(this.postDetail.category.id);
+              }
+            }
+          }
         }
+        // handle properties
+        // TODO:
       });
     });
   }
+  handleMapAddress() {}
 
   onFileSelected(e) {
     this.selectedFiles = e.target.files;
@@ -313,18 +328,14 @@ export class PostDetailFormComponent implements OnInit {
       for (let i = 0; i < this.selectedFiles.length; i++) {
         this.commonService.uploadImage(this.selectedFiles[i]).subscribe(res => {
           this.previews.push(res);
-          console.log(res)
-        },err => {
-          console.log(err)
-        } );
+        });
       }
     }
   }
 
   onSelectedFieldChanged(item: { type: string; value: any }) {
-    console.log(item);
     switch (item.type) {
-      case 'city':
+      case 'province':
         this.formControl[1].items[0].value.setValue(item.value);
         this.handleCitySelected(item.value);
         break;
@@ -338,7 +349,7 @@ export class PostDetailFormComponent implements OnInit {
       case 'categoryId':
         this.formControl[2].items[0].value.setValue(item.value);
         break;
-      case 'otherProperties':
+      case 'properties':
         this.formControl[3].items[2].value.setValue(item.value);
         break;
       case 'tenantType':
@@ -354,7 +365,6 @@ export class PostDetailFormComponent implements OnInit {
 
   handleCitySelected(cityId: string) {
     this.commonService.getDistricts(cityId).subscribe(res => {
-      console.log(res);
       this.districts = res.addressDistricts;
       this.formControl[1].items[1].properties = res.addressDistricts;
     });

@@ -21,7 +21,7 @@
     <mat-option
       *ngFor="let item of filteredItems | async"
       [value]="item"
-      [class.hidden]="selectedItems.includes(item)"
+      [class.hidden]="selectedItems && selectedItems.includes(item)"
     >
       {{ item.displayName }}
     </mat-option>
