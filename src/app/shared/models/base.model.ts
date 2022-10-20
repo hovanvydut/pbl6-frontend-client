@@ -1,6 +1,6 @@
 export class BaseModel<T> {
   data: T;
-  Message: string;
+  message: string;
   statusCode: number;
   success: boolean;
 

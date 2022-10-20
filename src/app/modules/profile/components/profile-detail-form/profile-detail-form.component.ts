@@ -5,8 +5,9 @@ import { finalize } from 'rxjs';
 //
 import { AppNotify } from '@app/shared/utilities';
 import { BaseModel } from '@app/shared/models/base.model';
-import { ProfileModel } from '../../models/profile.model';
+import { ProfileModel, ProfileUpdateModel } from '../../models/profile.model';
 import { ProfileService } from '../../profile.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-detail-form',
@@ -16,7 +17,6 @@ import { ProfileService } from '../../profile.service';
 export class ProfileDetailFormComponent implements OnInit {
   formControl = [
     {
-      groupName: '',
       items: [
         {
           name: 'avatar',
@@ -38,16 +38,7 @@ export class ProfileDetailFormComponent implements OnInit {
           fieldType: 'input',
           width: 'full'
         },
-        {
-          name: 'userAccountEmail',
-          label: 'Địa chỉ email',
-          placeholder: 'Nhập địa chỉ email',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'email',
-          fieldType: 'input',
-          width: 'full'
-        },
+
         {
           name: 'phoneNumber',
           label: 'Số điện thoại',
@@ -57,38 +48,38 @@ export class ProfileDetailFormComponent implements OnInit {
           inputType: 'text',
           fieldType: 'input',
           width: 'full'
-        }
-      ]
-    },
-    {
-      groupName: 'Thông tin thêm',
-      items: [
+        },
         {
           name: 'identityNumber',
           label: 'Căn cước công dân',
           placeholder: 'Nhập số căn cước công dân',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl({ value: '', disabled: true }),
           inputType: 'text',
           fieldType: 'input',
-          width: '1/2'
+          width: 'full',
+          disable: true
         },
         {
-          name: 'currentCredit',
-          label: 'Mã số ngân hàng',
-          placeholder: 'Nhập mã số ngân hàng',
+          name: 'userAccountEmail',
+          label: 'Địa chỉ email',
+          placeholder: 'Nhập địa chỉ email',
           require: true,
-          value: new FormControl(''),
-          inputType: 'text',
+          value: new FormControl({ value: '', disabled: true }),
+          inputType: 'email',
           fieldType: 'input',
-          width: '1/2'
+          width: 'full',
+          disable: true
         }
       ]
     }
   ];
 
-
-  constructor(private dialog: Dialog, private profileService: ProfileService) {}
+  constructor(
+    private dialog: Dialog,
+    private snackBar: MatSnackBar,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.profileService
@@ -105,26 +96,27 @@ export class ProfileDetailFormComponent implements OnInit {
   }
 
   onUpdateProfileInfo() {
-    let data: any = {};
+    let data: any = {} as ProfileUpdateModel;
     this.formControl.forEach(group => {
       group.items.forEach(item => {
         data[item.name] = item.value.value;
       });
     });
-    console.log(data);
     this.profileService
-      .updateProfileInfo(data)
+      .updateProfileInfo(new ProfileUpdateModel({
+        displayName: data.displayName,
+        phoneNumber: data.phoneNumber,
+        address: '123',
+        addressWardId: '1',
+      }))
       .pipe(finalize(() => {}))
-      .subscribe(
-        res => {
-          if (res) {
-            this.dialog.closeAll();
-          }
-        },
-        err => {
-          AppNotify.error('Có lỗi xảy ra, vui lòng thử lại!');
+      .subscribe(res => {
+        if (res.success) {
+          this.dialog.closeAll();
+        } else {
+          this.notify(res.message);
         }
-      );
+      });
   }
 
   onUpdateAvatar(e: any) {
@@ -139,5 +131,11 @@ export class ProfileDetailFormComponent implements OnInit {
         this.formControl[0].items[0].value.setValue(e.target.result);
       };
     }
+  }
+
+  notify(message) {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
 }

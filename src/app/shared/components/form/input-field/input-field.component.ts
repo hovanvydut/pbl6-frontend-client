@@ -21,6 +21,7 @@ export class InputFieldComponent implements OnInit {
   @Input() type: string;
   @Input() required: boolean;
   @Input() customClass: string;
+  @Input() disabled: boolean = false;
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'fill';
 
   constructor() { }

@@ -15,8 +15,8 @@ export class ConfirmDialogComponent implements OnInit {
   DIALOG_MESSAGE = DIALOG_MESSAGE;
 
   message: string = DIALOG_MESSAGE.DELETE_CONFIRM;
-  confirmButtonText = DIALOG_BUTTON.YES;
-  cancelButtonText = DIALOG_BUTTON.NO;
+  confirmButtonText = DIALOG_BUTTON.OK;
+  cancelButtonText = DIALOG_BUTTON.CANCEL;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,

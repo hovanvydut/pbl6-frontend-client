@@ -48,7 +48,7 @@ export class BaseService {
   }
 
   get isLoggedIn(): boolean {
-    return localStorage.getItem(this.TOKEN) != null;
+    return localStorage.getItem(this.TOKEN) !== null;
   }
 
   get accessToken(): string {
@@ -62,6 +62,12 @@ export class BaseService {
   get headers(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
+      Authorization: this.bearerAuthentication
+    });
+  }
+
+  get formHeaders(): HttpHeaders {
+    return new HttpHeaders({
       Authorization: this.bearerAuthentication
     });
   }
@@ -95,8 +101,12 @@ export class BaseService {
 
   postForm<T>(url: string, data: any): Observable<T> {
     return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data)
-      .pipe(catchError(error => this.handleError(error)));
+      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders})
+  }
+
+  postFile<T>(url: string, data: any): Observable<T> {
+    return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders, responseType: 'text' as 'json' })
   }
 
   async postAsync<T>(
@@ -107,18 +117,6 @@ export class BaseService {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, this.options)
       .toPromise();
-  }
-
-  postFile<T>(url: string, data: any): Observable<T> {
-    const configuration = this.initialDataOption(data);
-    const formData = configuration.key;
-    const httpOptions = configuration.value;
-
-    return this.httpClient.post<T>(
-      `${this.baseURL}/${url}`,
-      formData,
-      httpOptions
-    );
   }
   //#endregion
 

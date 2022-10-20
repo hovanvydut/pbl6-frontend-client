@@ -4,10 +4,10 @@
 <mat-dialog-content class="flex flex-col gap-10 w-full">
   <div class="flex gap-10 items-center mb-20">
     <ng-container>
-      <div class="avatar h-210 w-1/3 relative">
+      <div class="avatar h-full w-1/3 relative">
         <img class="w-full h-full rounded-15 object-cover" [src]="
             formControl[0].items[0].value.value ||
-            'https://fridaycat.com.vn/wp-content/uploads/2021/04/meo-muop-giong-meo-pho-bien-tren-the-gioi.jpg'
+            'assets/images/default/default_avatar.png'
           " />
         <div
           class="w-30 h-30 absolute -bottom-8 -right-8 rounded-5 shadow-sm flex justify-center items-center bg-white text-blue-700 p-5 cursor-pointer"
@@ -21,8 +21,6 @@
       </ng-container>
     </div>
   </div>
-  <ng-container *ngTemplateOutlet="formGroup; context: { group: formControl[1] }">
-  </ng-container>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
@@ -43,6 +41,7 @@
         <app-input-field cdkFocusInitial
           *ngIf="item.fieldType === 'input'"
           [required]="item.required"
+          [disabled]="item.disabled"
           [placeholder]="item.placeholder"
           [value]="item.value"
           [label]="item.label"

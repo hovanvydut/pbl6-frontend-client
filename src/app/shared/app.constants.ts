@@ -48,8 +48,8 @@ export const DIALOG_MESSAGE = {
 }
 
 export const DIALOG_BUTTON = {
-  OK: 'OK',
-  CANCEL: 'Cancel',
+  OK: 'Có',
+  CANCEL: 'Để tui coi lại',
   YES: 'Yes',
   NO: 'No',
   SAVE: 'Save',

@@ -11,6 +11,7 @@ import { ManagePostsComponent } from './components/manage-posts/manage-posts.com
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PostModule } from '../post/post.module';
 import { ProfileModule } from '../profile/profile.module';
+import { AuthGuard } from '@app/core/guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -23,23 +24,28 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'my-posts',
-        component: ManagePostsComponent
+        component: ManagePostsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'statistics',
-        component: StatisticsComponent
+        component: StatisticsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'my-coins',
-        component: CoinsComponent
+        component: CoinsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'my-booking-calendar',
-        component: BookingCalendarComponent
+        component: BookingCalendarComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }

@@ -40,6 +40,7 @@ export class Review {
 }
 
 export class PostRequestModel {
+  id: string;
   title: string;
   description: string;
   address: string;
