@@ -48,7 +48,7 @@ export class BaseService {
   }
 
   get isLoggedIn(): boolean {
-    return localStorage.getItem(this.TOKEN) != null;
+    return localStorage.getItem(this.TOKEN) !== null;
   }
 
   get accessToken(): string {

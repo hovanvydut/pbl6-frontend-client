@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from '../../services/auth.service';
-import { AppNotify } from './../../../../shared/utilities/notification-helper';
 import { BaseService } from '@app/core/services/base.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -22,13 +21,19 @@ export class LoginComponent implements OnInit {
   };
   errorMessage: string;
   hidePwd: boolean = true;
+  returnUrl: string;
 
   constructor(
     private router: Router,
     public snackBar: MatSnackBar,
     private authService: AuthService,
-    private baseService: BaseService
-  ) {}
+    private baseService: BaseService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.returnUrl = params['returnUrl'] || ENDPOINTS.HOME;
+    });
+  }
 
   ngOnInit() {}
 
@@ -57,7 +62,7 @@ export class LoginComponent implements OnInit {
       if (res.success) {
         this.baseService.storeLoggedUser(res.data);
         this.baseService.storeToken(res.data.accessToken);
-        this.router.navigateByUrl(ENDPOINTS.HOME).then();
+        this.router.navigateByUrl(this.returnUrl).then();
       } else {
         this.notify(res.message);
         this.errorMessage = res.message;
