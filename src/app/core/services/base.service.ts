@@ -63,6 +63,7 @@ export class BaseService {
     });
   }
 
+  // Note: for file upload, dont add Content-Type
   get formHeaders(): HttpHeaders {
     return new HttpHeaders({
       Authorization: this.bearerAuthentication
@@ -102,6 +103,7 @@ export class BaseService {
     });
   }
 
+  // NOTE: post file image => return url as json text
   postFile<T>(url: string, data: any): Observable<T> {
     return this.httpClient.post<T>(`${this.baseURL}/${url}`, data, {
       headers: this.formHeaders,
@@ -124,17 +126,6 @@ export class BaseService {
   put<T>(url: string, data: any): Observable<T> {
     return this.httpClient.put<T>(`${this.baseURL}/${url}`, data, this.options);
   }
-
-  putFile<T>(url: string, data: any): Observable<T> {
-    const configuration = this.initialDataOption(data);
-    const formData = configuration.key as any;
-    const httpOptions = configuration.value;
-    return this.httpClient.put<T>(
-      `${this.baseURL}/${url}`,
-      formData,
-      httpOptions
-    );
-  }
   //#endregion
 
   //#region DELETE Methods
@@ -144,64 +135,8 @@ export class BaseService {
   //#endregion
 
   //#region File and FormData
-  downLoadFile(
-    data: any,
-    type: string,
-    fileName: string,
-    fileExtension: string
-  ) {
-    const blob = new Blob([data], { type });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName + '.' + fileExtension;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
 
-  private initialDataOption(data: any) {
-    const formData: FormData = new FormData();
-
-    this.addDataToFormData(formData, data);
-    //
-    // Important note: Don't add 'Content-Type' in request header.
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: this.bearerAuthentication
-      })
-    };
-
-    const result = {
-      key: formData,
-      value: httpOptions
-    };
-
-    return result;
-  }
-
-  //#region Helper
-
-  private addDataToFormData(formData: FormData, data, name: string = null) {
-    for (const property in data) {
-      if (data.hasOwnProperty(property)) {
-        let formName = name ? `${name}[${property}]` : property;
-        if (data[property] instanceof File) {
-          // Add a file name to mark this field is File field
-          formName = name ? `${name}` : property;
-          formData.append(
-            formName,
-            data[property],
-            data[property].name ? data[property].name : null
-          );
-        } else if (typeof data[property] === 'object') {
-          this.addDataToFormData(formData, data[property], formName);
-        } else {
-          formData.append(formName, data[property]);
-        }
-      }
-    }
-  }
+  //#region Helpers
 
   private handleError = (error: HttpErrorResponse) => {
     switch (error.status) {
@@ -219,46 +154,7 @@ export class BaseService {
       case 417:
         return throwError(error.error.message);
     }
-
-    let messageError = '';
-    messageError =
-      !!error.error && !!error.error.message
-        ? error.error.message
-        : this.ERROR_SOMETHING_BAD_HAPPENED;
-
-    switch (error?.error?.errorCode) {
-      case AppErrorCode.Error:
-        if (error.error instanceof ErrorEvent) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.error('An error occurred:', error.error.message);
-        } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong,
-          console.error(
-            `Backend returned code ${error.status}, ` +
-              `body was: ${JSON.stringify(error.error)}`
-          );
-        }
-
-        // AppNotify.error(messageError);
-        break;
-      case AppErrorCode.Warning:
-        // AppNotify.warning(messageError);
-        break;
-      case AppErrorCode.Info:
-        // AppNotify.info(error.error.message);
-        break;
-      default:
-        // AppNotify.error(messageError);
-    }
-
-    // return an observable with a user-facing error message
-    return throwError(messageError);
+    return throwError(error.error);
   };
-
-  public httpRequestHandleError(err: HttpErrorResponse) {
-
-    return throwError(err.error);
-  }
   //#endregion
 }
