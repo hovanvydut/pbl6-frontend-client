@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PostService } from './../../services/post.service';
+import { ConfirmDialogComponent } from './../../../../shared/components/dialog/confirm-dialog/confirm-dialog.component';
+import { outputAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-post-table',
@@ -9,14 +11,34 @@ import { PostService } from './../../services/post.service';
 })
 export class PostTableComponent implements OnInit {
   tableName: string = 'Tất cả bài đăng';
-  displayedColumns: string[] = ['medias', 'title', 'area', 'price', 'category', 'address'];
+  displayedColumns: string[] = ['medias', 'title', 'area', 'price', 'category', 'address', 'action'];
   dataSource: MatTableDataSource<any>;
+  @Output() onEditPost = new EventEmitter<string>();
 
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  getPosts() {
     this.postService.getPosts().subscribe(data => {
       this.dataSource = new MatTableDataSource<any>(data);
     });
+  }
+
+  deletePost(id: number) {
+    if( id )  {
+      this.postService.deletePost(id).subscribe(data => {
+        this.getPosts();
+      });
+    }
+    this.postService.deletePost(id).subscribe(data => {
+      this.getPosts();
+    });
+  }
+
+  editPost(id: string) {
+    this.onEditPost.emit(id);
   }
 }

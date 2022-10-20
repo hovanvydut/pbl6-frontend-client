@@ -66,6 +66,12 @@ export class BaseService {
     });
   }
 
+  get formHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: this.bearerAuthentication
+    });
+  }
+
   get options() {
     return { headers: this.headers };
   }
@@ -95,8 +101,7 @@ export class BaseService {
 
   postForm<T>(url: string, data: any): Observable<T> {
     return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data)
-      // .pipe(catchError(error => this.handleError(error)));
+      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders, responseType: 'text' as 'json' })
   }
 
   async postAsync<T>(

@@ -8,4 +8,4 @@
     <app-svg-icon [name]="'plus'"> </app-svg-icon>
   </div>
 </div>
-<app-post-table></app-post-table>
+<app-post-table (onEditPost)="handleEditPost($event)"></app-post-table>

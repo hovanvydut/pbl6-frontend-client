@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,6 +11,7 @@ import { PostRequestModel } from '../../models/post.model';
 import { PostService } from '@app/modules/post/services/post.service';
 import { PropertyEnum } from '../../enums/property.enum';
 import { Dialog } from '@angular/cdk/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -19,6 +20,7 @@ import { Dialog } from '@angular/cdk/dialog';
 })
 export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
+  postDetail: any;
   previews: string[] = [];
   selectedFiles?: FileList;
   PropertyEnum = PropertyEnum;
@@ -38,6 +40,7 @@ export class PostDetailFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: Dialog,
+    @Inject(MAT_DIALOG_DATA) public data: {postId: string},
     private commonService: CommonService,
     private postService: PostService
   ) {}
@@ -71,6 +74,15 @@ export class PostDetailFormComponent implements OnInit {
         }
       });
     });
+
+    if(this.data?.postId) {
+      this.postService.getPostById(this.data.postId).subscribe(res => {
+        this.postDetail = res;
+        // this.convertPostToFormControl();
+        console.log(res)
+        this.previews = res.medias.map(el => el.url);
+      });
+    }
   }
 
   // group 0: thông tin chung
@@ -276,6 +288,22 @@ export class PostDetailFormComponent implements OnInit {
       ...data
     })).subscribe(res => {
       this.dialog.closeAll();
+    });
+  }
+
+  convertPostToFormControl() {
+    this.formControl.forEach(group => {
+      group.items.forEach(item => {
+        if (item.fieldType === 'property') {
+          item.properties.forEach(property => {
+            if (this.post.properties.includes(property.id)) {
+              item.value.value.push(property);
+            }
+          });
+        } else {
+          item.value.setValue(this.post[item.name]);
+        }
+      });
     });
   }
 

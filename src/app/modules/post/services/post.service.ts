@@ -26,6 +26,14 @@ export class PostService {
     return this.baseService.get(`post`);
   }
 
+  getPostById(id: string): Observable<any>{
+    return this.baseService.get(`post/${id}`);
+  }
+
+  deletePost(id: number) {
+    return this.baseService.delete(`post/${id}`);
+  }
+
   createNewPost(post: any) {
     return this.baseService.post(`post`, post);
   }
