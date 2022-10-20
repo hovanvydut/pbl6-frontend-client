@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit {
         this.baseService.storeToken(res.data.accessToken);
         this.router.navigateByUrl(ENDPOINTS.HOME).then();
       } else {
-        this.notify(res.Message);
-        this.errorMessage = res.Message;
+        this.notify(res.message);
+        this.errorMessage = res.message;
       }
     });
   }

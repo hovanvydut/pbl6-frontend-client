@@ -16,7 +16,6 @@ import { ProfileService } from '../../profile.service';
 export class ProfileDetailFormComponent implements OnInit {
   formControl = [
     {
-      groupName: '',
       items: [
         {
           name: 'avatar',
@@ -46,7 +45,8 @@ export class ProfileDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'email',
           fieldType: 'input',
-          width: 'full'
+          width: 'full',
+          disable: true,
         },
         {
           name: 'phoneNumber',
@@ -56,13 +56,8 @@ export class ProfileDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'text',
           fieldType: 'input',
-          width: 'full'
-        }
-      ]
-    },
-    {
-      groupName: 'Thông tin thêm',
-      items: [
+          width: '1/2'
+        },
         {
           name: 'identityNumber',
           label: 'Căn cước công dân',
@@ -71,20 +66,11 @@ export class ProfileDetailFormComponent implements OnInit {
           value: new FormControl(''),
           inputType: 'text',
           fieldType: 'input',
-          width: '1/2'
+          width: '1/2',
+          disable: true,
         },
-        {
-          name: 'currentCredit',
-          label: 'Mã số ngân hàng',
-          placeholder: 'Nhập mã số ngân hàng',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
-          width: '1/2'
-        }
       ]
-    }
+    },
   ];
 
 

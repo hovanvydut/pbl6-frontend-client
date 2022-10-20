@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PostService } from './../../services/post.service';
 import { ConfirmDialogComponent } from './../../../../shared/components/dialog/confirm-dialog/confirm-dialog.component';
-import { outputAst } from '@angular/compiler';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-post-table',
@@ -15,7 +15,7 @@ export class PostTableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   @Output() onEditPost = new EventEmitter<string>();
 
-  constructor(private postService: PostService) {}
+  constructor(private dialog: MatDialog, private postService: PostService) {}
 
   ngOnInit(): void {
     this.getPosts();
@@ -29,13 +29,23 @@ export class PostTableComponent implements OnInit {
 
   deletePost(id: number) {
     if( id )  {
-      this.postService.deletePost(id).subscribe(data => {
-        this.getPosts();
+      let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '250px',
+        data:{
+          message: 'Xác nhận xoá',
+        }
+      });
+      dialogRef.afterClosed().subscribe(confirm => {
+        if(confirm) {
+          this.postService.deletePost(id).subscribe(data => {
+            this.getPosts();
+          });
+          this.postService.deletePost(id).subscribe(data => {
+            this.getPosts();
+          });
+        }
       });
     }
-    this.postService.deletePost(id).subscribe(data => {
-      this.getPosts();
-    });
   }
 
   editPost(id: string) {

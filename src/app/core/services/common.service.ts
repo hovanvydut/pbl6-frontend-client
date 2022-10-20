@@ -36,7 +36,7 @@ export class CommonService {
   uploadImage(file: File): Observable<string> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.baseService.postForm<string>('filecontroler/upload', formData);
+    return this.baseService.postFile<string>('filecontroler/upload', formData);
   }
   // #endregion
 

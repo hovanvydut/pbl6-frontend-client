@@ -179,6 +179,7 @@ module.exports = {
       width: {
         auto: "auto",
         unset: "unset",
+        "50%": "50%",
         "1/2": "50%",
         "3/4": "75%",
         "210": "210px",

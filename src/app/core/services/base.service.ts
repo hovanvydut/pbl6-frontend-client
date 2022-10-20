@@ -101,6 +101,11 @@ export class BaseService {
 
   postForm<T>(url: string, data: any): Observable<T> {
     return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders})
+  }
+
+  postFile<T>(url: string, data: any): Observable<T> {
+    return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders, responseType: 'text' as 'json' })
   }
 
@@ -112,18 +117,6 @@ export class BaseService {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, this.options)
       .toPromise();
-  }
-
-  postFile<T>(url: string, data: any): Observable<T> {
-    const configuration = this.initialDataOption(data);
-    const formData = configuration.key;
-    const httpOptions = configuration.value;
-
-    return this.httpClient.post<T>(
-      `${this.baseURL}/${url}`,
-      formData,
-      httpOptions
-    );
   }
   //#endregion
 
