@@ -36,3 +36,15 @@ export class ProfileModel extends ProfileBaseModel {
     Object.assign(this, init);
   }
 }
+
+export class ProfileUpdateModel {
+  avatar: string;
+  phoneNumber: string;
+  displayName: string;
+  address: string;
+  addressWardId: string;
+
+  constructor(init?: Partial<ProfileUpdateModel>) {
+    Object.assign(this, init);
+  }
+}
