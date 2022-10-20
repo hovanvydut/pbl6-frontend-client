@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   SIGN_UP: '/auth/sign-up',
   FORGOT_PASSWORD: '/auth/forgot-password',
   FORBIDDEN: '/forbidden',
+  LOGOUT: '/auth/logout',
 
   // General
   DASHBOARD: '/user/dashboard',

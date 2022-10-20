@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const SVG_ICONS = completeIconSet;
 
@@ -42,6 +43,10 @@ export const routes: Routes = [
       {
         path: 'forbidden',
         component: ForbiddenComponent
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent
       }
     ]
   }
@@ -54,7 +59,8 @@ const COMPONENTS = [
   SignUpComponent,
   LoginComponent,
   ForgotPasswordComponent,
-  ForbiddenComponent
+  ForbiddenComponent,
+  LogoutComponent
 ];
 @NgModule({
   declarations: [...COMPONENTS],
@@ -65,7 +71,7 @@ const COMPONENTS = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  exports: [...COMPONENTS],
+  exports: [...COMPONENTS ],
   providers: [...PROVIDERS]
 })
 export class AuthModule {

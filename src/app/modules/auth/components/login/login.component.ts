@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ENDPOINTS } from '@app/shared/utilities';
-import { AuthService } from '../../services/auth.service';
-import { BaseService } from '@app/core/services/base.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+//
+import { ENDPOINTS } from '@app/shared/utilities';
+import { BaseService } from '@app/core/services/base.service';
+import { AuthService } from '../../services/auth.service';
+import { LoginModel } from '../../models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  login = {
+  loginFormControl = {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -38,26 +40,27 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   getEmailErrorMessage() {
-    if (this.login.email.hasError('required')) {
+    if (this.loginFormControl.email.hasError('required')) {
       return 'Hãy nhập email của bạn!';
     }
-    return this.login.email.hasError('email') ? 'Sai định dạng email' : '';
+    return this.loginFormControl.email.hasError('email') ? 'Sai định dạng email' : '';
   }
 
   getPasswordErrorMessage() {
-    if (this.login.password.hasError('required')) {
+    if (this.loginFormControl.password.hasError('required')) {
       return 'Hãy nhập mật khẩu!';
     }
-    return this.login.password.hasError('minLength')
+    return this.loginFormControl.password.hasError('minLength')
       ? 'Mật khẩu phải dài hơn 6 kí tự!'
       : '';
   }
 
   onSignInButtonClicked() {
     this.errorMessage = '';
-    let data: any = {};
-    data.email = this.login.email.value;
-    data.password = this.login.password.value;
+    let data: LoginModel = new LoginModel({
+      email: this.loginFormControl.email.value,
+      password: this.loginFormControl.password.value
+    });
     this.authService.login(data).subscribe(res => {
       if (res.success) {
         this.baseService.storeLoggedUser(res.data);

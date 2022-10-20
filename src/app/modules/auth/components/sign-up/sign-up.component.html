@@ -14,31 +14,43 @@
     <!-- email -->
     <mat-form-field appearance="standard">
       <mat-label>Nhập email</mat-label>
-      <input matInput required placeholder="pat@example.com" [formControl]="signUp.email" />
-      <app-svg-icon [name]="'messages'" matPrefix>
-      </app-svg-icon>
-      <mat-error *ngIf="signUp.email.invalid">
+      <input
+        matInput
+        required
+        placeholder="pat@example.com"
+        [formControl]="signUpFormControl.email"
+      />
+      <app-svg-icon [name]="'messages'" matPrefix> </app-svg-icon>
+      <mat-error *ngIf="signUpFormControl.email.invalid">
         {{ getErrorMessage("email") }}
       </mat-error>
     </mat-form-field>
     <!-- email -->
     <mat-form-field appearance="standard">
       <mat-label>Nhập tên</mat-label>
-      <input matInput required placeholder="Trần A" [formControl]="signUp.displayName " />
-      <app-svg-icon [name]="'user'" matPrefix>
-      </app-svg-icon>
-      <mat-error *ngIf="signUp.displayName.invalid">
+      <input
+        matInput
+        required
+        placeholder="Trần A"
+        [formControl]="signUpFormControl.displayName"
+      />
+      <app-svg-icon [name]="'user'" matPrefix> </app-svg-icon>
+      <mat-error *ngIf="signUpFormControl.displayName.invalid">
         {{ getErrorMessage("displayName") }}
       </mat-error>
     </mat-form-field>
     <!-- pwd -->
     <mat-form-field appearance="standard">
       <mat-label>Nhập mật khẩu</mat-label>
-      <input matInput required type="password" [(formControl)]="signUp.password" />
+      <input
+        matInput
+        required
+        type="password"
+        [(formControl)]="signUpFormControl.password"
+      />
 
-      <app-svg-icon [name]="'lock'" matPrefix>
-      </app-svg-icon>
-      <mat-error *ngIf="signUp.password.invalid">
+      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
+      <mat-error *ngIf="signUpFormControl.password.invalid">
         {{ getErrorMessage("password") }}
       </mat-error>
     </mat-form-field>
@@ -46,17 +58,30 @@
     <!--confirm pwd -->
     <mat-form-field appearance="standard">
       <mat-label class="">Xác nhận lại mật khẩu</mat-label>
-      <input matInput required type="password" [(formControl)]="signUp.confirmPassword" />
-      <app-svg-icon [name]="'lock'" matPrefix>
-      </app-svg-icon>
-      <mat-error *ngIf="signUp.confirmPassword.invalid">
+      <input
+        matInput
+        required
+        type="password"
+        [(formControl)]="signUpFormControl.confirmPassword"
+      />
+      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
+      <mat-error *ngIf="signUpFormControl.confirmPassword.invalid">
         {{ getErrorMessage("confirmPassword") }}
       </mat-error>
     </mat-form-field>
 
     <!-- button -->
-    <button [disabled]="signUp.confirmPassword.invalid || signUp.email.invalid || signUp.password.invalid"
-      mat-raised-button color="primary" class="mt-20" (click)="onSignUpButtonClicked()">
+    <button
+      [disabled]="
+        signUpFormControl.confirmPassword.invalid ||
+        signUpFormControl.email.invalid ||
+        signUpFormControl.password.invalid
+      "
+      mat-raised-button
+      color="primary"
+      class="mt-20"
+      (click)="onSignUpButtonClicked()"
+    >
       Sign up
     </button>
   </div>

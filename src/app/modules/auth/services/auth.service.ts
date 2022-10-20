@@ -18,4 +18,8 @@ export class AuthService {
   register(data: any): Observable<any> {
     return this.baseService.post<any>('auth/register', data);
   }
+
+  logout() {
+    this.baseService.removeLoggedUser();
+  }
 }

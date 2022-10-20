@@ -34,6 +34,15 @@ export class BaseService {
     localStorage.setItem(this.TOKEN, token);
   }
 
+  public removeLoggedUser() {
+    localStorage.removeItem(this.LOGGED_USER);
+    this.removeToken();
+  }
+
+  public removeToken() {
+    localStorage.removeItem(this.TOKEN);
+  }
+
   get currentUser(): AccountModel {
     const localUser = localStorage.getItem(this.LOGGED_USER);
     const localUserJson =
