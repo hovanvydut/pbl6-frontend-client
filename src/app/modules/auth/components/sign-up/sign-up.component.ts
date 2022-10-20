@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from './../../services/auth.service';
-import { AppNotify } from './../../../../shared/utilities/notification-helper';
 import { RegisterAccountModel } from '../../models/auth.model';
 import { isEqual } from 'lodash-es';
 import { MatSnackBar } from '@angular/material/snack-bar';

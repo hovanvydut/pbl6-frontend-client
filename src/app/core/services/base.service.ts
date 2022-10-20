@@ -6,7 +6,6 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, ReplaySubject, throwError } from 'rxjs';
 //
-import { AppNotify } from '@app/shared/utilities';
 import { AppErrorCode } from '@app/shared/app.enum';
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
@@ -18,9 +17,7 @@ export class BaseService {
   LOGGED_USER = 'userInfo';
   TOKEN = 'token';
   public baseURL = environment.baseUrl;
-  ERROR_SOMETHING_BAD_HAPPENED: string =
-    'Something bad happened. Please try again later.';
-
+  ERROR_SOMETHING_BAD_HAPPENED: string = 'Bạn thử lại nhen, có lỗi xảy ra rồi!';
   public _userInfo: ReplaySubject<AccountModel> = new ReplaySubject<
     AccountModel
   >();
@@ -100,13 +97,16 @@ export class BaseService {
   }
 
   postForm<T>(url: string, data: any): Observable<T> {
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders})
+    return this.httpClient.post<T>(`${this.baseURL}/${url}`, data, {
+      headers: this.formHeaders
+    });
   }
 
   postFile<T>(url: string, data: any): Observable<T> {
-    return this.httpClient
-      .post<T>(`${this.baseURL}/${url}`, data, { headers: this.formHeaders, responseType: 'text' as 'json' })
+    return this.httpClient.post<T>(`${this.baseURL}/${url}`, data, {
+      headers: this.formHeaders,
+      responseType: 'text' as 'json'
+    });
   }
 
   async postAsync<T>(
@@ -240,16 +240,16 @@ export class BaseService {
           );
         }
 
-        AppNotify.error(messageError);
+        // AppNotify.error(messageError);
         break;
       case AppErrorCode.Warning:
-        AppNotify.warning(messageError);
+        // AppNotify.warning(messageError);
         break;
       case AppErrorCode.Info:
-        AppNotify.info(error.error.message);
+        // AppNotify.info(error.error.message);
         break;
       default:
-        AppNotify.error(messageError);
+        // AppNotify.error(messageError);
     }
 
     // return an observable with a user-facing error message
@@ -257,7 +257,6 @@ export class BaseService {
   };
 
   public httpRequestHandleError(err: HttpErrorResponse) {
-    AppNotify.error('An error has occurred: ' + err.message);
 
     return throwError(err.error);
   }

@@ -6,6 +6,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { BaseService } from '@app/core/services/base.service';
+import { ENDPOINTS } from '@app/shared/utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AuthGuard implements CanActivate {
     }
     //
     this._router
-      .navigate(['/auth/login'], { queryParams: { returnUrl: state.url } })
+      .navigate([ENDPOINTS.LOGIN], { queryParams: { returnUrl: state.url } })
       .then();
     return false;
   }

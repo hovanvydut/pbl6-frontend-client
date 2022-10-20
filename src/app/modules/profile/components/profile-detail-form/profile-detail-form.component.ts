@@ -3,7 +3,6 @@ import { Dialog } from '@angular/cdk/dialog';
 import { FormControl } from '@angular/forms';
 import { finalize } from 'rxjs';
 //
-import { AppNotify } from '@app/shared/utilities';
 import { BaseModel } from '@app/shared/models/base.model';
 import { ProfileModel, ProfileUpdateModel } from '../../models/profile.model';
 import { ProfileService } from '../../profile.service';
@@ -122,7 +121,7 @@ export class ProfileDetailFormComponent implements OnInit {
   onUpdateAvatar(e: any) {
     let images = e.target.files;
     if (images && images.length > 1) {
-      AppNotify.error('Chỉ được chọn 1 ảnh!');
+
     } else {
       let image = images[0];
       let reader = new FileReader();

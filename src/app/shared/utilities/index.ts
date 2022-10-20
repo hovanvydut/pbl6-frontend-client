@@ -1,6 +1,5 @@
 export * from './regex-objects';
 export * from './format-string';
-export * from './notification-helper';
 export * from './storage';
 export * from './dom-helper';
 export * from './endpoints';
