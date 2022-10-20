@@ -38,6 +38,10 @@ export class PostService {
     return this.baseService.post(`post`, post);
   }
 
+  updatePost(post: any) {
+    return this.baseService.put(`post/${post.id}`, post);
+  }
+
   getImages() {
     return this.baseService.get(`/images`);
   }

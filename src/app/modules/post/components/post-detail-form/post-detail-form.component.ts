@@ -284,9 +284,11 @@ export class PostDetailFormComponent implements OnInit {
         url: el
       };
     });
-    console.log(data);
+    if (this.data.postId) {
+      data.id = this.data.postId;
+    }
     this.postService
-      .createNewPost(
+      .updatePost(
         new PostRequestModel({
           ...data
         })

@@ -79,6 +79,7 @@ export class ChipsFieldComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    if( !this.selectedItems ) this.selectedItems = [];
     this.selectedItems.push(event.option.value);
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);
