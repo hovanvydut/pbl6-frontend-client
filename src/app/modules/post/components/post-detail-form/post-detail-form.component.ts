@@ -268,12 +268,14 @@ export class PostDetailFormComponent implements OnInit {
     this.formControl.forEach(group => {
       group.items.forEach(item => {
         if (item.fieldType === 'property') {
-          data.properties = [
-            ...data.properties,
-            ...item.value.value.map(el => {
-              return el.id;
-            })
-          ];
+          if (item.value.value && item.value.value.length > 0) {
+            data.properties = [
+              ...data.properties,
+              ...item.value.value.map(el => {
+                return el.id;
+              })
+            ];
+          }
         } else {
           data[item.name] = item.value.value;
         }
