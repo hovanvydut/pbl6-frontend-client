@@ -1,16 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PostService } from './../../services/post.service';
 import { ConfirmDialogComponent } from './../../../../shared/components/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDetailFormComponent } from './../post-detail-form/post-detail-form.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-post-table',
   templateUrl: './post-table.component.html',
   styleUrls: ['./post-table.component.scss']
 })
-export class PostTableComponent implements OnInit {
+export class PostTableComponent implements OnInit, AfterViewInit {
   tableName: string = 'Tất cả bài đăng';
   displayedColumns: string[] = [
     'medias',
@@ -21,7 +23,8 @@ export class PostTableComponent implements OnInit {
     'address',
     'action'
   ];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  @ViewChild('matPaginator') paginator: MatPaginator;
   private _forceUpdate: boolean = false;
   @Input() set forceUpdate(value: boolean) {
     if (value) {
@@ -29,7 +32,6 @@ export class PostTableComponent implements OnInit {
     }
     this._forceUpdate = false;
   }
-
   @Output() onEditPost = new EventEmitter<string>();
   private postDetailFormComponent = PostDetailFormComponent;
 
@@ -37,6 +39,10 @@ export class PostTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPosts();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   getPosts() {

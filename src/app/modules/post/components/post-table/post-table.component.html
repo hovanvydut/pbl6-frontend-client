@@ -16,7 +16,7 @@
               [imageStyle]="'border-radius: 15px'">
             </app-swiper-template>
             <img *ngIf="element.medias.length === 0" src="assets/images/default/house_default.png" alt="Hình ảnh"
-              class="h-44 rounded-5 m-3">
+              class="h-56 rounded-5 m-auto">
           </div>
         </td>
       </ng-container>
@@ -36,7 +36,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <p class="mx-5 w-100">
-            {{ element.area }}
+            {{ element.area }} m<sup>2</sup>
           </p>
         </td>
       </ng-container>
@@ -46,7 +46,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <p class="mx-5 w-100">
-            {{ element.price }}
+            {{ element.price | currency: "VND" }}
           </p>
         </td>
       </ng-container>

@@ -40,10 +40,12 @@ table {
     position: sticky;
     top: 0;
     background: white;
+    width: 100%;
   }
 
   tr.mat-header-row {
     height: 50px !important;
+    width: 100%;
 }
 }
 
