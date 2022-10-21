@@ -12,47 +12,20 @@ module.exports = {
         black: "black",
         white: "white",
         blue: {
-          "00AFFF": "#00AFFF",
-          "4882C7": "#4882C7",
-          "39A0D3": "#39A0D3",
-          E1F6FF: "#E1F6FF",
-          EBF2F8: "#EBF2F8",
           "30BEFF": "#30BEFF",
-          "3577A2": "#3577A2",
-          ECFAFF: "#ECFAFF",
-          "61BBE7": "#61BBE7",
-          "000842": "#000842",
-          "0C21C1": "0C21C1"
+          "000842": "#000842"
         },
         grey: {
-          "999": "#999",
-          CCC: "#CCC",
-          "777": "#777",
-          DDD: "#DDD",
-          D3D3D3: "#D3D3D3",
-          E2E7ED: "#E2E7ED",
-          EAF0F6: "#EAF0F6",
-          E5E8EC: "#E5E8EC",
-          E7E7E7: "#E7E7E7",
-          FAFAFA: "#FAFAFA",
-          F5F5F5: "#F5F5F5",
-          F3F3F3: "#F3F3F3",
-          EEE: "#EEE",
-          FCFCFD: "#FCFCFD",
-          E6E6E6: "#E6E6E6",
-          B7B7B7: "#B7B7B7"
+          FCFCFD: "#FCFCFD"
         },
         black: {
           "555": "#555"
         },
         green: {
-          "89CD7F": "#89CD7F",
           BFFEE7: "#BFFEE7"
         },
         red: {
-          E57979: "#E57979",
-          CE1818: "#CE1818",
-          DC6565: "#DC6565"
+          E57979: "#E57979"
         },
         yellow: {
           F9AC30: "#F9AC30"
@@ -106,6 +79,7 @@ module.exports = {
         "4": "4px",
         "5": "5px",
         "6": "6px",
+        "9": "9px",
         "12": "12px",
         "15": "15px",
         "20": "20px",
@@ -194,10 +168,10 @@ module.exports = {
       },
       zIndex: {
         "1": "1",
-        "2": "2"
+        "2": "2",
+        "10": "10"
       },
       boxShadow: {
-        "0_1_4_black-15%": "0px 1px 4px rgba(0, 0, 0, 0.15)",
         "0_0_0_1_ccc": "0px 0px 0px 1px #ccc"
       },
       gridTemplateColumns: {

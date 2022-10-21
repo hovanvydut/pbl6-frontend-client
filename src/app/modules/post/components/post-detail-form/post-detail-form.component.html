@@ -1,5 +1,5 @@
 <h2 mat-dialog-title class="text-20">
-  {{ data.postId ? 'Chỉnh sửa bài đăng' : 'Đăng bài mới'}}
+  {{ data?.postId ? 'Chỉnh sửa bài đăng' : 'Đăng bài mới'}}
 </h2>
 <mat-dialog-content
   *ngFor="let group of formControl"
@@ -59,11 +59,16 @@
       <app-upload-image
         (onImageUploaded)="onFileSelected($event)">
       </app-upload-image>
-      <div *ngFor="let img of previews">
-        <img
-          class="object-cover w-180 h-130 border border-gray-500 rounded-12"
-          [src]="img"
-        />
+      <div *ngFor="let url of previews">
+        <div class="h-130 w-180 relative">
+          <img class="w-full h-full rounded-15 object-cover"
+            [src]="url" />
+          <div
+            class="w-25 h-25 absolute -top-8 -right-8 rounded-9 shadow-sm flex bg-white justify-center items-center text-blue-700 cursor-pointer"
+            (click)="onFileRemoved(url)">
+            <app-svg-icon [name]="'close'"> </app-svg-icon>
+          </div>
+        </div>
       </div>
     </div>
   </div>

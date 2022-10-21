@@ -438,6 +438,10 @@ export class PostDetailFormComponent implements OnInit {
     this.previews.push(url);
   }
 
+  onFileRemoved(url: string) {
+    this.previews = this.previews.filter(el => el !== url);
+  }
+
   onSelectedFieldChanged(item: { type: string; value: any }) {
     switch (item.type) {
       case PostFieldNameEnum.Province:
