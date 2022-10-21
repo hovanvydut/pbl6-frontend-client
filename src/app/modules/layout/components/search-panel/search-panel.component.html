@@ -1,27 +1,15 @@
 <div class="flex items-center search-panel__container">
-  <!-- <mat-form-field appearance="outline">
-    <mat-label>Select category</mat-label>
-    <mat-select [(ngModel)]="selectedCategory" name="category">
-      <mat-option
-        *ngFor="let category of categories"
-        [value]="category.id"
-        [routerLink]="ENDPOINTS.CATEGORY + '/' + category.id"
-      >
-        {{ category.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->
-  <!----------------------------------------------------->
   <mat-form-field class="flex-grow" appearance="outline">
-    <mat-label>What are you looking for?</mat-label>
+    <mat-label>Bạn muốn tìm phòng ?</mat-label>
     <input
       matInput
-      placeholder="Ex. Nike, Adidas, ..."
+      placeholder="Liên chiểu, Hoà Khánh..."
       [(ngModel)]="searchKeyword"
       (ngModelChange)="onSearchKeywordChanged($event)"
     />
   </mat-form-field>
-  <!-- ----------------------------------------------- -->
+
+
   <button *ngIf="!searchOnInput" mat-raised-button color="primary" class="search-btn__banner">
     <app-svg-icon class="mr-10" [name]="'searc'" [color]="'#999'">
     </app-svg-icon>

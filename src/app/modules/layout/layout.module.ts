@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutComponent } from './layout.component';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '@app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+//
+import { completeIconSet } from 'src/assets/images/svg-icons.constants';
+import { SharedModule } from '@app/shared/shared.module';
+// component
+import { LayoutComponent } from './layout.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -13,9 +16,9 @@ import { AuthLayoutComponent } from './components/auth-layout/auth-layout.compon
 import { SidebarLayoutComponent } from './components/sidebar-layout/sidebar-layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarMenuComponent } from './components/navbar-menu/navbar-menu.component';
-import { completeIconSet } from 'src/assets/images/svg-icons.constants';
-import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
+// serivce
+import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
 
 const SVG_ICONS = completeIconSet;
 
@@ -33,8 +36,12 @@ const COMPONENTS = [
   PaginationComponent
 ];
 
+const MODULES = [
+  CommonModule, SharedModule, FormsModule, RouterModule.forChild([])
+]
+
 @NgModule({
-  imports: [CommonModule, SharedModule, FormsModule, RouterModule.forChild([])],
+  imports: [...MODULES],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS]
 })

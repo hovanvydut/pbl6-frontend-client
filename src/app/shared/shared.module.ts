@@ -70,6 +70,7 @@ import { TextareaFieldComponent } from './components/form/textarea-field/textare
 import { InputFieldComponent } from './components/form/input-field/input-field.component';
 import { SelectFieldComponent } from './components/form/select-field/select-field.component';
 import { ChipsFieldComponent } from './components/form/chips-field/chips-field.component';
+import { AddressPipe } from './pipes/address.pipe';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -148,8 +149,8 @@ const SVG_ICONS = completeIconSet;
     NgApexchartsModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
-  declarations: [...COMPONENTS, ...PIPES],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },

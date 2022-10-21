@@ -1,4 +1,3 @@
-
 ::ng-deep .table-container {
   background-color: white;
   border-radius: 15px;
@@ -41,6 +40,7 @@ table {
     top: 0;
     background: white;
     width: 100%;
+    z-index: 10;
   }
 
   tr.mat-header-row {

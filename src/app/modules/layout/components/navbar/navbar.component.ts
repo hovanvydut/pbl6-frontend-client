@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 //
-import { ENDPOINTS } from '@app/shared/utilities';
 import { menuItems } from '../../const/menu.const';
 import { BaseService } from '@app/core/services/base.service';
 import { AccountModel } from '@app/modules/auth/models/auth.model';

@@ -1,6 +1,9 @@
-export class RegisterAccountModel {
+export class AuthModel {
   email: string;
   password: string;
+}
+
+export class RegisterAccountModel extends AuthModel {
   displayName: string;
   phoneNumber: string;
   identityNumber: string;
@@ -9,6 +12,14 @@ export class RegisterAccountModel {
   roleId: string;
 
   public constructor(init?: Partial<RegisterAccountModel>) {
+    super();
+    Object.assign(this, init);
+  }
+}
+
+export class LoginModel extends AuthModel {
+  public constructor(init?: Partial<LoginModel>) {
+    super();
     Object.assign(this, init);
   }
 }
@@ -20,15 +31,6 @@ export class AccountModel {
   displayName: string;
 
   public constructor(init?: Partial<AccountModel>) {
-    Object.assign(this, init);
-  }
-}
-
-export class LoginModel {
-  email: string;
-  password: string;
-
-  public constructor(init?: Partial<LoginModel>) {
     Object.assign(this, init);
   }
 }

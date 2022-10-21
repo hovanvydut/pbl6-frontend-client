@@ -5,7 +5,7 @@ import { ConfirmDialogComponent } from './../../../../shared/components/dialog/c
 import { MatDialog } from '@angular/material/dialog';
 import { PostDetailFormComponent } from './../post-detail-form/post-detail-form.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { PostBaseModel } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-table',
@@ -13,6 +13,17 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./post-table.component.scss']
 })
 export class PostTableComponent implements OnInit, AfterViewInit {
+  @ViewChild('matPaginator') paginator: MatPaginator;
+  private _forceUpdate: boolean = false;
+  @Input() set forceUpdate(value: boolean) {
+    if (value) {
+      this.getPosts();
+    }
+    this._forceUpdate = false;
+  }
+  @Output() onEditPost = new EventEmitter<string>();
+
+  postDetailFormComponent = PostDetailFormComponent;
   tableName: string = 'Tất cả bài đăng';
   displayedColumns: string[] = [
     'medias',
@@ -23,19 +34,12 @@ export class PostTableComponent implements OnInit, AfterViewInit {
     'address',
     'action'
   ];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  @ViewChild('matPaginator') paginator: MatPaginator;
-  private _forceUpdate: boolean = false;
-  @Input() set forceUpdate(value: boolean) {
-    if (value) {
-      this.getPosts();
-    }
-    this._forceUpdate = false;
-  }
-  @Output() onEditPost = new EventEmitter<string>();
-  private postDetailFormComponent = PostDetailFormComponent;
+  dataSource: MatTableDataSource<PostBaseModel> = new MatTableDataSource();
 
-  constructor(private dialog: MatDialog, private postService: PostService) {}
+  constructor(
+    private dialog: MatDialog,
+    private postService: PostService)
+  {}
 
   ngOnInit(): void {
     this.getPosts();
@@ -47,12 +51,12 @@ export class PostTableComponent implements OnInit, AfterViewInit {
 
   getPosts() {
     this.postService.getPosts().subscribe(data => {
-      this.dataSource = new MatTableDataSource<any>(data);
+      this.dataSource = new MatTableDataSource<PostBaseModel>(data);
     });
   }
 
-  deletePost(id: number) {
-    if (id) {
+  onDeletePostButtonClicked(postId: string) {
+    if (postId) {
       let dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '250px',
         data: {
@@ -61,10 +65,10 @@ export class PostTableComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe(confirm => {
         if (confirm) {
-          this.postService.deletePost(id).subscribe(data => {
+          this.postService.deletePost(postId).subscribe(data => {
             this.getPosts();
           });
-          this.postService.deletePost(id).subscribe(data => {
+          this.postService.deletePost(postId).subscribe(data => {
             this.getPosts();
           });
         }
@@ -72,7 +76,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  editPost(postId: any) {
+  onEditPostButtonClicked(postId: string) {
     if (postId) {
       let dialogRef = this.dialog.open(this.postDetailFormComponent, {
         width: '70vw',
