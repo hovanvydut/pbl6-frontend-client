@@ -20,6 +20,8 @@ export class ItemBaseModel {
 
 export class ItemModel extends ItemBaseModel {
   displayName: string;
+  propertyGroupId?: string;
+
   constructor(init?: Partial<ItemModel>) {
     super();
     super(init);

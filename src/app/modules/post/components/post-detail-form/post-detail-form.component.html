@@ -1,5 +1,5 @@
 <h2 mat-dialog-title class="text-20">
-  Đăng bài mới
+  {{ data.postId ? 'Chỉnh sửa bài đăng' : 'Đăng bài mới'}}
 </h2>
 <mat-dialog-content
   *ngFor="let group of formControl"
@@ -9,7 +9,7 @@
     <div *ngFor="let item of group.items" [class]="'w-' + item.width">
       <app-input-field
         cdkFocusInitial
-        *ngIf="item.fieldType === 'input'"
+        *ngIf="item.fieldType === FieldType.Input"
         [required]="item.required"
         [placeholder]="item.placeholder"
         [value]="item.value"
@@ -19,7 +19,7 @@
       </app-input-field>
       <app-textarea-field
         cdkFocusInitial
-        *ngIf="item.fieldType === 'textarea'"
+        *ngIf="item.fieldType === FieldType.Textarea"
         [required]="item.required"
         [placeholder]="item.placeholder"
         [value]="item.value"
@@ -27,7 +27,7 @@
       >
       </app-textarea-field>
 
-      <ng-container *ngIf="item.fieldType === 'select'">
+      <ng-container *ngIf="item.fieldType === FieldType.Select">
         <app-select-field
           [label]="item.label"
           [(selectedValue)]="item.value.value"
@@ -37,7 +37,7 @@
         ></app-select-field>
       </ng-container>
 
-      <ng-container *ngIf="item.fieldType === 'property'">
+      <ng-container *ngIf="item.fieldType === FieldType.Property">
         <app-chips-field
           [label]="item.label"
           [selectedItems]="item.value.value"
@@ -71,7 +71,7 @@
     <button mat-raised-button mat-dialog-close>
       Hủy
     </button>
-    <button mat-raised-button color="primary" (click)="onCreateNewPost()">
+    <button mat-raised-button color="primary" (click)="onSaveButtonClicked()">
       Hoàn tất
     </button>
   </mat-dialog-actions>
