@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,7 @@ import { isEqual } from 'lodash-es';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from './../../services/auth.service';
 import { RegisterAccountModel } from '../../models/auth.model';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -27,7 +28,7 @@ export class SignUpComponent implements OnInit {
   errorMessage: string;
   constructor(
     private router: Router,
-    public snackBar: MatSnackBar,
+    private notifyService: NotifyService,
     private authService: AuthService
   ) {}
 
@@ -62,7 +63,7 @@ export class SignUpComponent implements OnInit {
     if (
       !isEqual(this.signUpFormControl.password.value, this.signUpFormControl.confirmPassword.value)
     ) {
-      this.notify('Mật khẩu không khớp!');
+      this.notifyService.notify('Mật khẩu không khớp!');
       return;
     }
 
@@ -71,7 +72,7 @@ export class SignUpComponent implements OnInit {
       this.signUpFormControl.password.invalid ||
       this.signUpFormControl.confirmPassword.invalid
     ) {
-      this.notify('Hãy nhập đầy đủ thông tin!');
+      this.notifyService.notify('Hãy nhập đầy đủ thông tin!');
       return;
     }
 
@@ -92,23 +93,17 @@ export class SignUpComponent implements OnInit {
       });
       this.authService.register(this.signUp).subscribe(res => {
         if( res.success) {
-          this.notify(
+          this.notifyService.notify(
             'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
           );
           this.router.navigate([ENDPOINTS.LOGIN]);
         } else {
-          this.notify('Đăng ký thất bại!');
+          this.notifyService.notify('Đăng ký thất bại!');
           this.errorMessage = res.Message;
         }
       });
 
       // random phone number
     }
-  }
-
-  notify(message) {
-    this.snackBar.open(message, '', {
-      duration: 2000
-    });
   }
 }

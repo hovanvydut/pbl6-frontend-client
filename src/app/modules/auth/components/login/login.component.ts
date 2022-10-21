@@ -7,6 +7,7 @@ import { ENDPOINTS } from '@app/shared/utilities';
 import { BaseService } from '@app/core/services/base.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginModel } from '../../models/auth.model';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public snackBar: MatSnackBar,
+    private notifyService: NotifyService,
     private authService: AuthService,
     private baseService: BaseService,
     private activatedRoute: ActivatedRoute
@@ -67,15 +68,9 @@ export class LoginComponent implements OnInit {
         this.baseService.storeToken(res.data.accessToken);
         this.router.navigateByUrl(this.returnUrl).then();
       } else {
-        this.notify(res.message);
+        this.notifyService.notify(res.message);
         this.errorMessage = res.message;
       }
-    });
-  }
-
-  notify(message) {
-    this.snackBar.open(message, '', {
-      duration: 2000
     });
   }
 }

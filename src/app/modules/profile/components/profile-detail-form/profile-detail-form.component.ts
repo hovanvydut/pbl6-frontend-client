@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonService } from '@app/core/services/common.service';
 import { InputType } from '@app/shared/app.enum';
 import { FieldType } from '@app/modules/post/enums/post.enum';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-profile-detail-form',
@@ -81,7 +82,7 @@ export class ProfileDetailFormComponent implements OnInit {
 
   constructor(
     private dialog: Dialog,
-    private snackBar: MatSnackBar,
+    private notifyService: NotifyService,
     private profileService: ProfileService,
     private commonService: CommonService
   ) {}
@@ -123,7 +124,7 @@ export class ProfileDetailFormComponent implements OnInit {
         if (res.success) {
           this.dialog.closeAll();
         } else {
-          this.notify(res.message);
+          this.notifyService.notify(res.message);
         }
       });
   }
@@ -137,11 +138,5 @@ export class ProfileDetailFormComponent implements OnInit {
         this.avatarUrl = res;
       });
     }
-  }
-
-  notify(message) {
-    this.snackBar.open(message, '', {
-      duration: 2000
-    });
   }
 }

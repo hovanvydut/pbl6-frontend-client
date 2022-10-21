@@ -3,9 +3,13 @@ import { Dialog } from '@angular/cdk/dialog';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { groupBy } from 'lodash-es'
+import { groupBy } from 'lodash-es';
 //
-import { PostFieldEnum, PostFieldNameEnum, PropertyEnum } from '../../enums/property.enum';
+import {
+  PostFieldEnum,
+  PostFieldNameEnum,
+  PropertyEnum
+} from '../../enums/property.enum';
 import { FieldType, PostGroupName } from '../../enums/post.enum';
 import { InputType } from '@app/shared/app.enum';
 import { PostRequestModel } from '../../models/post.model';
@@ -13,6 +17,7 @@ import { ItemModel } from './../../../../shared/models/base.model';
 import { FormControlBaseModel } from '@app/shared/models/form.model';
 import { PostService } from '@app/modules/post/services/post.service';
 import { CommonService } from '@app/core/services/common.service';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -230,6 +235,7 @@ export class PostDetailFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { postId: string },
     private dialog: Dialog,
+    private notifyService: NotifyService,
     private commonService: CommonService,
     private postService: PostService
   ) {
@@ -331,13 +337,19 @@ export class PostDetailFormComponent implements OnInit {
       res.forEach(property => {
         switch (property.id) {
           case PropertyEnum.OtherProperties:
-            this.formControl[this.additionalInfoGroupIndex].items[this.otherPropertiesIndex].properties = property.properties;
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.otherPropertiesIndex
+            ].properties = property.properties;
             break;
           case PropertyEnum.TenantTypes:
-            this.formControl[this.additionalInfoGroupIndex].items[this.tenantTypeIndex].properties = property.properties;
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.tenantTypeIndex
+            ].properties = property.properties;
             break;
           case PropertyEnum.NearbyPlaces:
-            this.formControl[this.additionalInfoGroupIndex].items[this.nearbyPlacesIndex].properties = property.properties;
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.nearbyPlacesIndex
+            ].properties = property.properties;
             break;
         }
       });
@@ -377,31 +389,41 @@ export class PostDetailFormComponent implements OnInit {
 
   updatePost(data: PostRequestModel) {
     this.postService
-        .updatePost(
-          new PostRequestModel({
-            ...data
-          })
-        )
-        .subscribe(res => {
+      .updatePost(
+        new PostRequestModel({
+          ...data
+        })
+      )
+      .subscribe(res => {
+        if (!res.success) {
+          this.notifyService.notify(res.message);
+        } else {
           this.dialog.closeAll();
-        });
+        }
+      });
   }
 
   createPost(data: PostRequestModel) {
     this.postService
-    .createNewPost(
-      new PostRequestModel({
-        ...data
-      })
-    )
-    .subscribe(res => {
-      this.dialog.closeAll();
-    });
+      .createNewPost(
+        new PostRequestModel({
+          ...data
+        })
+      )
+      .subscribe(res => {
+        if (!res.success) {
+          this.notifyService.notify(res.message);
+        } else {
+          this.dialog.closeAll();
+        }
+      });
   }
 
   convertPostToFormControl() {
     this.previews = [...this.postDetail.medias.map(el => el.url)];
-    const seperatedProperties = groupBy(this.postDetail.properties, function(n) {
+    const seperatedProperties = groupBy(this.postDetail.properties, function(
+      n
+    ) {
       return n.propertyGroupId;
     });
     this.formControl.forEach(group => {
@@ -418,7 +440,9 @@ export class PostDetailFormComponent implements OnInit {
             item.value.setValue(this.postDetail.category.id);
             break;
           case PostFieldNameEnum.OtherProperties:
-            item.value.setValue(seperatedProperties[PropertyEnum.OtherProperties]);
+            item.value.setValue(
+              seperatedProperties[PropertyEnum.OtherProperties]
+            );
             break;
           case PostFieldNameEnum.TenantType:
             item.value.setValue(seperatedProperties[PropertyEnum.TenantTypes]);
@@ -445,27 +469,27 @@ export class PostDetailFormComponent implements OnInit {
   onSelectedFieldChanged(item: { type: string; value: any }) {
     switch (item.type) {
       case PostFieldNameEnum.Province:
-        this.formControl[1].items[0].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[this.provinceIndex].value.setValue(item.value);
         this.handleCitySelected(item.value);
         break;
       case PostFieldNameEnum.District:
-        this.formControl[1].items[1].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[this.districtIndex].value.setValue(item.value);
         this.handleDistrictSelected(item.value);
         break;
       case PostFieldNameEnum.AddressWardId:
-        this.formControl[1].items[2].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[this.wardIndex].value.setValue(item.value);
         break;
       case PostFieldNameEnum.CategoryId:
-        this.formControl[2].items[0].value.setValue(item.value);
+        this.formControl[this.detailInfoGroupIndex].items[this.roomTypeIndex].value.setValue(item.value);
         break;
       case PostFieldNameEnum.Properties:
-        this.formControl[3].items[2].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[this.otherPropertiesIndex].value.setValue(item.value);
         break;
       case PostFieldNameEnum.TenantType:
-        this.formControl[3].items[3].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[this.tenantTypeIndex].value.setValue(item.value);
         break;
       case PostFieldNameEnum.NearbyPlaces:
-        this.formControl[3].items[4].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[this.nearbyPlacesIndex].value.setValue(item.value);
         break;
       default:
         break;
@@ -475,14 +499,18 @@ export class PostDetailFormComponent implements OnInit {
   handleCitySelected(cityId: string) {
     this.commonService.getDistricts(cityId).subscribe(res => {
       this.districts = res.addressDistricts;
-      this.formControl[this.addressGroupIndex].items[this.districtIndex].properties = res.addressDistricts;
+      this.formControl[this.addressGroupIndex].items[
+        this.districtIndex
+      ].properties = res.addressDistricts;
     });
   }
 
   handleDistrictSelected(districtId: string) {
     this.commonService.getWards(districtId).subscribe(res => {
       this.wards = res.addressWards;
-      this.formControl[this.addressGroupIndex].items[this.wardIndex].properties = res.addressWards;
+      this.formControl[this.addressGroupIndex].items[
+        this.wardIndex
+      ].properties = res.addressWards;
     });
   }
 }

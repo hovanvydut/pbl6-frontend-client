@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BaseModel } from '@app/shared/models/base.model';
 import { of, Observable } from 'rxjs';
 //
 import { BaseService } from 'src/app/core/services/base.service';
@@ -14,7 +15,7 @@ export class PostService {
     return this.baseService.get(`post`);
   }
 
-  getPostById(id: string): Observable<PostBaseModel>{
+  getPostById(id: string): Observable<PostBaseModel> {
     return this.baseService.get<PostBaseModel>(`post/${id}`);
   }
 
@@ -22,11 +23,11 @@ export class PostService {
     return this.baseService.delete(`post/${id}`);
   }
 
-  createNewPost(post: PostRequestModel) {
+  createNewPost(post: PostRequestModel): Observable<BaseModel<void>> {
     return this.baseService.post(`post`, post);
   }
 
-  updatePost(post: PostRequestModel) {
+  updatePost(post: PostRequestModel): Observable<BaseModel<void>> {
     return this.baseService.put(`post/${post.id}`, post);
   }
 }
