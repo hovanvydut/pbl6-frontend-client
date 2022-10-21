@@ -71,6 +71,7 @@ import { InputFieldComponent } from './components/form/input-field/input-field.c
 import { SelectFieldComponent } from './components/form/select-field/select-field.component';
 import { ChipsFieldComponent } from './components/form/chips-field/chips-field.component';
 import { AddressPipe } from './pipes/address.pipe';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -149,8 +150,8 @@ const SVG_ICONS = completeIconSet;
     NgApexchartsModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, UploadImageComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, UploadImageComponent],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },

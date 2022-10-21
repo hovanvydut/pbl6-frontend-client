@@ -3,8 +3,7 @@
 </h2>
 <mat-dialog-content
   *ngFor="let group of formControl"
-  class="flex flex-col gap-10 w-full"
->
+  class="flex flex-col gap-10 w-full">
   <b class="text-16"> {{ group.groupName }}</b>
   <div class="flex flex-wrap w-full justify-start">
     <div *ngFor="let item of group.items" [class]="'w-' + item.width">
@@ -57,19 +56,9 @@
   <b class="text-16"> Hình ảnh trọ</b>
   <div class="mt-15">
     <div class="flex flex-wrap gap-10 mt-10">
-      <div
-        class="w-180 h-130 border border-gray-500 border-dashed flex flex-col items-center justify-center text-center text-gray-400 rounded-12 p-10"
-        (click)="uploadImg.click()"
-      >
-        <img class="w-30 h-30" src="assets/images/default/upload_icon.png" />
-        <span class="text-10">Tải hình ảnh lên</span>
-        <span class="text-8">
-          Định dạng được hỗ trợ: JPEG, PNG, SVG.
-        </span>
-        <span class="text-8">
-          Kích thước tối đa: 5MB.
-        </span>
-      </div>
+      <app-upload-image
+        (onImageUploaded)="onFileSelected($event)">
+      </app-upload-image>
       <div *ngFor="let img of previews">
         <img
           class="object-cover w-180 h-130 border border-gray-500 rounded-12"
@@ -87,11 +76,3 @@
     </button>
   </mat-dialog-actions>
 </div>
-
-<input
-  #uploadImg
-  type="file"
-  hidden
-  (change)="onFileSelected($event)"
-  multiple
-/>

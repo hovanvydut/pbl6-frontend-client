@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { BaseService } from 'src/app/core/services/base.service';
 import { PostRequestModel, PostBaseModel } from './../models/post.model';
-import { BaseModel } from '@app/shared/models/base.model';
 
 @Injectable({
   providedIn: 'root'

@@ -286,10 +286,9 @@ export class PostDetailFormComponent implements OnInit {
         url: el
       };
     });
-    if (this.data.postId) {
+    if (this.data?.postId) {
       data.id = this.data.postId;
-    }
-    this.postService
+      this.postService
       .updatePost(
         new PostRequestModel({
           ...data
@@ -298,6 +297,18 @@ export class PostDetailFormComponent implements OnInit {
       .subscribe(res => {
         this.dialog.closeAll();
       });
+    } else {
+      this.postService
+      .createNewPost(
+        new PostRequestModel({
+          ...data
+        })
+      )
+      .subscribe(res => {
+        this.dialog.closeAll();
+      });
+    }
+
   }
 
   convertPostToFormControl() {
@@ -326,15 +337,8 @@ export class PostDetailFormComponent implements OnInit {
   }
   handleMapAddress() {}
 
-  onFileSelected(e) {
-    this.selectedFiles = e.target.files;
-    if (this.selectedFiles && this.selectedFiles[0]) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.commonService.uploadImage(this.selectedFiles[i]).subscribe(res => {
-          this.previews.push(res);
-        });
-      }
-    }
+  onFileSelected(url) {
+    this.previews.push(url);
   }
 
   onSelectedFieldChanged(item: { type: string; value: any }) {
