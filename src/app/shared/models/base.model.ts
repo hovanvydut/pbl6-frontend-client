@@ -8,3 +8,22 @@ export class BaseModel<T> {
     Object.assign(this, init);
   }
 }
+
+export class ItemBaseModel {
+  id: string;
+  name: string;
+
+  constructor(init?: Partial<ItemBaseModel>) {
+    Object.assign(this, init);
+  }
+}
+
+export class ItemModel extends ItemBaseModel {
+  displayName: string;
+  propertyGroupId?: string;
+
+  constructor(init?: Partial<ItemModel>) {
+    super();
+    super(init);
+  }
+}

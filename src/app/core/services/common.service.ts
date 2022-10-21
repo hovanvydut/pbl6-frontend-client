@@ -10,7 +10,6 @@ export class CommonService {
   constructor(private baseService: BaseService) {}
 
   //#region Address
-
   getProvinces(): Observable<any> {
     return this.baseService.get<any>('address/province');
   }
@@ -30,7 +29,7 @@ export class CommonService {
       `address/full-address?wardId=${addressId}`
     );
   }
-  // #endregion
+  //#endregion
 
   //#region upload image
   uploadImage(file: File): Observable<string> {
@@ -38,14 +37,14 @@ export class CommonService {
     formData.append('file', file);
     return this.baseService.postFile<string>('filecontroler/upload', formData);
   }
-  // #endregion
+  //#endregion
 
-  //#region
+  //#region Property
   getRoomCategory(): Observable<any[]> {
     return this.baseService.get<any[]>('category/house-type');
   }
 
-  getPostProperty(): Observable<any> {
+  getProperties(): Observable<any> {
     return this.baseService.get<any>('property');
   }
   //#endregion

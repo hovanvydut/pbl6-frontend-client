@@ -1,32 +1,7 @@
-export enum AppColor {
-  DefaultColor = '#00AFFF'
-}
-
-export enum Feature {
-  AccountInfo = 'AccountInfo',
-  Users = 'Users',
-  ManagedAccount = 'ManagedAccount',
-}
-
 export enum AppEnvironments {
   Local = 'local',
   Dev = 'dev',
-  QA = 'qa',
   Prod = 'prod'
-}
-
-export enum AppErrorCode {
-  Error,
-  Warning,
-  Info
-}
-
-export enum UserPageName {
-  conversation = 'Conversation',
-  AccountSetting = 'AccountSetting',
-  Users = 'Users',
-  ManageAccount = 'ManageAccount',
-  //
 }
 
 export enum Days {
@@ -62,4 +37,27 @@ export enum DateFormatTypes {
 export enum SortingTypes {
   Ascending = 'asc',
   Descending = 'desc',
+}
+
+export enum InputType {
+  Text = 'text',
+  Number = 'number',
+  Date = 'date',
+  Time = 'time',
+  DateTime = 'datetime',
+  Email = 'email',
+  Password = 'password',
+  Checkbox = 'checkbox',
+  Radio = 'radio',
+  Select = 'select',
+  TextArea = 'textarea',
+  File = 'file',
+  Image = 'image',
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset',
+  Range = 'range',
+  Color = 'color',
+  Url = 'url',
+  Tel = 'tel',
 }

@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 //
 import { SharedModule } from '@app/shared/shared.module';
 //
-//
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';

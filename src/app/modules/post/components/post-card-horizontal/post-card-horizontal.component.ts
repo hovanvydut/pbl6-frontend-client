@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
-import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-card-horizontal',
@@ -10,7 +9,7 @@ import { Post } from '../../models/post.model';
 })
 export class PostCardHorizontalComponent implements OnInit {
 
-  @Input() post: Post;
+  @Input() post: any;
 
   ENDPOINTS = ENDPOINTS;
 

@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   Output,
   ViewChild,
   EventEmitter
@@ -11,6 +10,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+
 import { Observable, startWith, map } from 'rxjs';
 import { isEqual } from 'date-fns';
 

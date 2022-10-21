@@ -55,6 +55,13 @@ export const svgCheckbox: {
   name: 'checkbox',
   data: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75H7.66549C4.64449 2.75 2.75049 4.889 2.75049 7.916V16.084C2.75049 19.111 4.63549 21.25 7.66549 21.25H16.3335C19.3645 21.25 21.2505 19.111 21.2505 16.084V7.916C21.2505 4.889 19.3645 2.75 16.3345 2.75Z" stroke="#FF7643" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.43994 12L10.8139 14.373L15.5599 9.62695" stroke="#FF7643" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 };
+export const svgClose: {
+  name: 'close';
+  data: string;
+} = {
+  name: 'close',
+  data: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.3945 9.59473L9.60254 14.3867" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.3996 14.3928L9.59961 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.75 12C2.75 18.937 5.063 21.25 12 21.25C18.937 21.25 21.25 18.937 21.25 12C21.25 5.063 18.937 2.75 12 2.75C5.063 2.75 2.75 5.063 2.75 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+};
 export const svgDelete: {
   name: 'delete';
   data: string;
@@ -260,6 +267,7 @@ export type svgIcon =
   | 'cart'
   | 'chart_vertical'
   | 'checkbox'
+  | 'close'
   | 'delete'
   | 'dollar'
   | 'edit_nowrap'
@@ -304,6 +312,7 @@ export const completeIconSet = [
   svgCart,
   svgChartVertical,
   svgCheckbox,
+  svgClose,
   svgDelete,
   svgDollar,
   svgEditNowrap,

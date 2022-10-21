@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
-//
+//pipes
 import {
   LookupValuePipe,
   SanitizeHtmlPipe,
@@ -70,6 +70,8 @@ import { TextareaFieldComponent } from './components/form/textarea-field/textare
 import { InputFieldComponent } from './components/form/input-field/input-field.component';
 import { SelectFieldComponent } from './components/form/select-field/select-field.component';
 import { ChipsFieldComponent } from './components/form/chips-field/chips-field.component';
+import { AddressPipe } from './pipes/address.pipe';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -85,7 +87,9 @@ const COMPONENTS: any[] = [
   FormDialogComponent,
   ViewIconsComponent,
   InputFieldComponent,
-  TextareaFieldComponent
+  TextareaFieldComponent,
+  SelectFieldComponent,
+  ChipsFieldComponent
 ];
 
 const MATERIALS: any[] = [
@@ -146,8 +150,8 @@ const SVG_ICONS = completeIconSet;
     NgApexchartsModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, SelectFieldComponent, ChipsFieldComponent],
-  declarations: [...COMPONENTS, ...PIPES, SelectFieldComponent, ChipsFieldComponent],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, UploadImageComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, UploadImageComponent],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },

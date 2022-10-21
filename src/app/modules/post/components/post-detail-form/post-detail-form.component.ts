@@ -1,17 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { CommonService } from '@app/core/services/common.service';
-import { finalize } from 'rxjs';
-import { PostRequestModel } from '../../models/post.model';
-import { PostService } from '@app/modules/post/services/post.service';
-import { PropertyEnum } from '../../enums/property.enum';
 import { Dialog } from '@angular/cdk/dialog';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { finalize } from 'rxjs';
+import { groupBy } from 'lodash-es';
+//
+import {
+  PostFieldEnum,
+  PostFieldNameEnum,
+  PropertyEnum
+} from '../../enums/property.enum';
+import { FieldType, PostGroupName } from '../../enums/post.enum';
+import { InputType } from '@app/shared/app.enum';
+import { PostRequestModel } from '../../models/post.model';
+import { ItemModel } from './../../../../shared/models/base.model';
+import { FormControlBaseModel } from '@app/shared/models/form.model';
+import { PostService } from '@app/modules/post/services/post.service';
+import { CommonService } from '@app/core/services/common.service';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -20,254 +26,341 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
-  postDetail: any;
+  postDetail: PostRequestModel = new PostRequestModel();
   previews: string[] = [];
   selectedFiles?: FileList;
   PropertyEnum = PropertyEnum;
+  FieldType = FieldType;
 
   // properties
-  tenantTypes: any[] = [];
-  nearbyPlaces: any[] = [];
+  tenantTypes: ItemModel[] = [];
+  nearbyPlaces: ItemModel[] = [];
+  roomTypes: ItemModel[] = [];
   properties: any[] = [];
 
-  roomTypes: any[] = [];
+  provinces: ItemModel[] = [];
+  districts: ItemModel[] = [];
+  wards: ItemModel[] = [];
+  streets: ItemModel[] = [];
 
-  districts: any[] = [];
-  provinces: any[] = [];
-  wards: any[] = [];
-  streets: any[] = [];
-
-  constructor(
-    private fb: FormBuilder,
-    private dialog: Dialog,
-    @Inject(MAT_DIALOG_DATA) public data: { postId: string },
-    private commonService: CommonService,
-    private postService: PostService
-  ) {}
-
-  ngOnInit() {
-    this.commonService
-      .getProvinces()
-      .pipe(finalize(() => {}))
-      .subscribe(val => {
-        this.provinces = val;
-        this.formControl[1].items[0].properties = this.provinces;
-      });
-
-    this.commonService.getRoomCategory().subscribe(val => {
-      this.roomTypes = val;
-      this.formControl[2].items[0].properties = this.roomTypes;
-    });
-
-    this.commonService.getPostProperty().subscribe(res => {
-      res.forEach(property => {
-        switch (property.id) {
-          case PropertyEnum.OtherProperties:
-            this.formControl[3].items[2].properties = property.properties;
-            break;
-          case PropertyEnum.TenantTypes:
-            this.formControl[3].items[3].properties = property.properties;
-            break;
-          case PropertyEnum.NearbyPlaces:
-            this.formControl[3].items[4].properties = property.properties;
-            break;
-        }
-      });
-    });
-
-    if (this.data?.postId) {
-      this.postService.getPostById(this.data.postId).subscribe(res => {
-        this.postDetail = res;
-        this.convertPostToFormControl();
-        console.log(res);
-        this.previews = res.medias.map(el => el.url);
-      });
-    }
-  }
-
-  // group 0: thông tin chung
-  // group 1: địa chỉ
-  // group 2: thông tin chi tiết
-  // group 3: thông tin thêm
-  formControl = [
+  formControl: FormControlBaseModel[] = [
     {
-      groupName: 'Thông tin chung',
+      groupName: PostGroupName.GeneralInfo,
       items: [
         {
-          name: 'title',
+          name: PostFieldNameEnum.Title,
           label: 'Tiên đề bài đăng',
           placeholder: 'Tiên đề bài đăng',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'textarea',
+          inputType: InputType.Text,
+          fieldType: FieldType.Textarea,
           width: 'full'
         },
         {
-          name: 'description',
+          name: PostFieldNameEnum.Description,
           label: 'Mô tả chung',
           placeholder: 'Nhập mô tả về trọ',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
           width: 'full'
         }
       ]
     },
     {
-      groupName: 'Địa chỉ',
+      groupName: PostGroupName.Address,
       items: [
         {
-          name: 'province',
+          id: PostFieldEnum.Province,
+          name: PostFieldNameEnum.Province,
           label: 'Tỉnh/Thành phố',
           placeholder: 'Chọn thành phố',
           require: true,
           value: new FormControl('1'),
-          inputType: 'text',
-          fieldType: 'select',
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
           width: '1/3',
           properties: this.provinces
         },
         {
-          name: 'district',
+          id: PostFieldEnum.District,
+          name: PostFieldNameEnum.District,
           label: 'Quận/Huyện',
           placeholder: 'Chọn quận/huyện',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
           width: '1/3',
           properties: this.districts
         },
         {
-          name: 'addressWardId',
+          id: PostFieldEnum.AddressWardId,
+          name: PostFieldNameEnum.AddressWardId,
           label: 'Phường/Xã',
           placeholder: 'Chọn phường/xã',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
           width: '1/3',
           properties: this.wards
         },
         {
-          name: 'street',
+          name: PostFieldNameEnum.Address,
           label: 'Đường',
           placeholder: 'Nhập địa chỉ số nhà, đường',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
           width: 'full'
         }
       ]
     },
     {
-      groupName: 'Thông tin chi tiết',
+      groupName: PostGroupName.DetailInfo,
       items: [
         {
-          name: 'categoryId',
+          id: PostFieldEnum.RoomTypes,
+          name: PostFieldNameEnum.CategoryId,
           label: 'Loại phòng',
           placeholder: 'Chọn loại phòng',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
           width: '1/3',
           properties: this.roomTypes
         },
         {
-          name: 'price',
+          name: PostFieldNameEnum.Price,
           label: 'Giá',
           placeholder: 'Nhập giá',
           require: true,
           value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
           width: '1/3'
         },
         {
-          name: 'area',
+          name: PostFieldNameEnum.Area,
           label: 'Diện tích',
           placeholder: 'Nhập diện tích',
           require: true,
           value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
           width: '1/3'
         }
       ]
     },
     {
-      groupName: 'Thông tin thêm',
+      groupName: PostGroupName.AdditionalInfo,
       items: [
         {
-          name: 'limitTenant',
+          name: PostFieldNameEnum.LimitTenant,
           label: 'Số người tối đa',
           placeholder: 'Nhập số người tối đa',
           require: true,
           value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
           width: '1/3'
         },
         {
-          name: 'prePaidPrice',
+          name: PostFieldNameEnum.PrePaidPrice,
           label: 'Tiền cọc',
           placeholder: 'Nhập tiền cọc',
           require: true,
           value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
           width: '1/3'
         },
         {
           id: PropertyEnum.OtherProperties,
-          name: 'properties',
+          name: PostFieldNameEnum.OtherProperties,
           label: 'Tiện ích khác',
           placeholder: 'Chọn tiện ích khác',
           require: true,
           value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
           width: 'full',
           properties: this.properties
         },
         {
           id: PropertyEnum.TenantTypes,
-          name: 'tenantType',
+          name: PostFieldNameEnum.TenantType,
           label: 'Đối tượng cho thuê',
           placeholder: 'Chọn đối tượng cho thuê',
           require: true,
           value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
           width: 'full',
           properties: this.tenantTypes
         },
         {
           id: PropertyEnum.NearbyPlaces,
-          name: 'nearbyPlaces',
+          name: PostFieldNameEnum.NearbyPlaces,
           label: 'Địa điểm gần đó',
           placeholder: 'Chọn địa điểm gần đó',
           require: true,
           value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
           width: 'full',
           properties: this.nearbyPlaces
         }
       ]
     }
   ];
-  validateUsername(value: any) {}
 
-  onCreateNewPost() {
+  addressGroupIndex: number;
+  generalInfoGroupIndex: number;
+  additionalInfoGroupIndex: number;
+  detailInfoGroupIndex: number;
+  provinceIndex: number;
+  districtIndex: number;
+  wardIndex: number;
+  roomTypeIndex: number;
+  otherPropertiesIndex: number;
+  tenantTypeIndex: number;
+  nearbyPlacesIndex: number;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { postId: string },
+    private dialog: Dialog,
+    private notifyService: NotifyService,
+    private commonService: CommonService,
+    private postService: PostService
+  ) {
+    this.handleFormFieldIndex();
+  }
+
+  ngOnInit() {
+    this.getAddress();
+    this.getRoomCategory();
+    this.getProperties();
+
+    if (this.data?.postId) {
+      this.getEditPostInfo(this.data.postId);
+    }
+  }
+
+  getEditPostInfo(postId: string) {
+    this.postService.getPostById(postId).subscribe(res => {
+      this.postDetail = res;
+      this.convertPostToFormControl();
+    });
+  }
+
+  handleFormFieldIndex() {
+    this.formControl.forEach((group, idx) => {
+      switch (group.groupName) {
+        case PostGroupName.Address:
+          this.addressGroupIndex = idx;
+          group.items.forEach((item, idx) => {
+            switch (item.id) {
+              case PostFieldEnum.Province:
+                this.provinceIndex = idx;
+                break;
+              case PostFieldEnum.District:
+                this.districtIndex = idx;
+                break;
+              case PostFieldEnum.AddressWardId:
+                this.wardIndex = idx;
+                break;
+            }
+          });
+          break;
+        case PostGroupName.GeneralInfo:
+          this.generalInfoGroupIndex = idx;
+          break;
+        case PostGroupName.AdditionalInfo:
+          this.additionalInfoGroupIndex = idx;
+          group.items.forEach((item, idx) => {
+            switch (item.id) {
+              case PropertyEnum.OtherProperties:
+                this.otherPropertiesIndex = idx;
+                break;
+              case PropertyEnum.TenantTypes:
+                this.tenantTypeIndex = idx;
+                break;
+              case PropertyEnum.NearbyPlaces:
+                this.nearbyPlacesIndex = idx;
+                break;
+            }
+          });
+          break;
+        case PostGroupName.DetailInfo:
+          this.detailInfoGroupIndex = idx;
+          group.items.forEach((item, idx) => {
+            switch (item.id) {
+              case PostFieldEnum.RoomTypes:
+                this.roomTypeIndex = idx;
+                break;
+            }
+          });
+          break;
+      }
+    });
+  }
+
+  getAddress() {
+    this.commonService
+      .getProvinces()
+      .pipe(finalize(() => {}))
+      .subscribe(val => {
+        this.provinces = val;
+        this.formControl[this.addressGroupIndex].items[
+          this.provinceIndex
+        ].properties = this.provinces;
+      });
+  }
+
+  getRoomCategory() {
+    this.commonService.getRoomCategory().subscribe(val => {
+      this.roomTypes = val;
+      this.formControl[this.detailInfoGroupIndex].items[
+        this.roomTypeIndex
+      ].properties = this.roomTypes;
+    });
+  }
+
+  getProperties() {
+    this.commonService.getProperties().subscribe(res => {
+      res.forEach(property => {
+        switch (property.id) {
+          case PropertyEnum.OtherProperties:
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.otherPropertiesIndex
+            ].properties = property.properties;
+            break;
+          case PropertyEnum.TenantTypes:
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.tenantTypeIndex
+            ].properties = property.properties;
+            break;
+          case PropertyEnum.NearbyPlaces:
+            this.formControl[this.additionalInfoGroupIndex].items[
+              this.nearbyPlacesIndex
+            ].properties = property.properties;
+            break;
+        }
+      });
+    });
+  }
+
+  onSaveButtonClicked() {
     let data: PostRequestModel = new PostRequestModel();
     this.formControl.forEach(group => {
       group.items.forEach(item => {
-        if (item.fieldType === 'property') {
+        if (item.fieldType === FieldType.Property) {
           if (item.value.value && item.value.value.length > 0) {
             data.properties = [
               ...data.properties,
@@ -286,9 +379,15 @@ export class PostDetailFormComponent implements OnInit {
         url: el
       };
     });
-    if (this.data.postId) {
+    if (this.data?.postId) {
       data.id = this.data.postId;
+      this.updatePost(data);
+    } else {
+      this.createPost(data);
     }
+  }
+
+  updatePost(data: PostRequestModel) {
     this.postService
       .updatePost(
         new PostRequestModel({
@@ -296,71 +395,101 @@ export class PostDetailFormComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        this.dialog.closeAll();
+        if (!res.success) {
+          this.notifyService.notify(res.message);
+        } else {
+          this.dialog.closeAll();
+        }
+      });
+  }
+
+  createPost(data: PostRequestModel) {
+    this.postService
+      .createNewPost(
+        new PostRequestModel({
+          ...data
+        })
+      )
+      .subscribe(res => {
+        if (!res.success) {
+          this.notifyService.notify(res.message);
+        } else {
+          this.dialog.closeAll();
+        }
       });
   }
 
   convertPostToFormControl() {
-    this.previews = [...this.post.medias];
+    this.previews = [...this.postDetail.medias.map(el => el.url)];
+    const seperatedProperties = groupBy(this.postDetail.properties, function(
+      n
+    ) {
+      return n.propertyGroupId;
+    });
     this.formControl.forEach(group => {
       group.items.forEach(item => {
-        // handle address
-        if (item.name === 'province' || item.name === 'district') {
-          item.value.setValue(this.postDetail.address[item.name].id);
-        } else {
-          if (item.name === 'addressWardId') {
+        switch (item.name) {
+          case PostFieldNameEnum.AddressWardId:
             item.value.setValue(this.postDetail.address['ward'].id);
-          } else {
-            if (item.name !== 'properties') {
-              item.value.setValue(this.postDetail[item.name]);
-              if (item.name === 'categoryId') {
-                item.value.setValue(this.postDetail.category.id);
-              }
-            }
-          }
+            break;
+          case PostFieldNameEnum.Province:
+          case PostFieldNameEnum.District:
+            item.value.setValue(this.postDetail.address[item.name].id);
+            break;
+          case PostFieldNameEnum.CategoryId:
+            item.value.setValue(this.postDetail.category.id);
+            break;
+          case PostFieldNameEnum.OtherProperties:
+            item.value.setValue(
+              seperatedProperties[PropertyEnum.OtherProperties]
+            );
+            break;
+          case PostFieldNameEnum.TenantType:
+            item.value.setValue(seperatedProperties[PropertyEnum.TenantTypes]);
+            break;
+          case PostFieldNameEnum.NearbyPlaces:
+            item.value.setValue(seperatedProperties[PropertyEnum.NearbyPlaces]);
+            break;
+          default:
+            item.value.setValue(this.postDetail[item.name]);
+            break;
         }
-        // handle properties
-        // TODO:
       });
     });
   }
-  handleMapAddress() {}
 
-  onFileSelected(e) {
-    this.selectedFiles = e.target.files;
-    if (this.selectedFiles && this.selectedFiles[0]) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.commonService.uploadImage(this.selectedFiles[i]).subscribe(res => {
-          this.previews.push(res);
-        });
-      }
-    }
+  onFileSelected(url: string) {
+    this.previews.push(url);
+  }
+
+  onFileRemoved(url: string) {
+    this.previews = this.previews.filter(el => el !== url);
   }
 
   onSelectedFieldChanged(item: { type: string; value: any }) {
     switch (item.type) {
-      case 'province':
-        this.formControl[1].items[0].value.setValue(item.value);
+      case PostFieldNameEnum.Province:
+        this.formControl[this.addressGroupIndex].items[this.provinceIndex].value.setValue(item.value);
         this.handleCitySelected(item.value);
         break;
-      case 'district':
-        this.formControl[1].items[1].value.setValue(item.value);
+      case PostFieldNameEnum.District:
+        this.formControl[this.addressGroupIndex].items[this.districtIndex].value.setValue(item.value);
         this.handleDistrictSelected(item.value);
         break;
-      case 'addressWardId':
-        this.formControl[1].items[2].value.setValue(item.value);
+      case PostFieldNameEnum.AddressWardId:
+        this.formControl[this.addressGroupIndex].items[this.wardIndex].value.setValue(item.value);
         break;
-      case 'categoryId':
-        this.formControl[2].items[0].value.setValue(item.value);
+      case PostFieldNameEnum.CategoryId:
+        this.formControl[this.detailInfoGroupIndex].items[this.roomTypeIndex].value.setValue(item.value);
         break;
-      case 'properties':
-        this.formControl[3].items[2].value.setValue(item.value);
+      case PostFieldNameEnum.Properties:
+        this.formControl[this.additionalInfoGroupIndex].items[this.otherPropertiesIndex].value.setValue(item.value);
         break;
-      case 'tenantType':
-        this.formControl[3].items[3].value.setValue(item.value);
+      case PostFieldNameEnum.TenantType:
+        this.formControl[this.additionalInfoGroupIndex].items[this.tenantTypeIndex].value.setValue(item.value);
         break;
-      case 'nearbyPlaces':
-        this.formControl[3].items[4].value.setValue(item.value);
+      case PostFieldNameEnum.NearbyPlaces:
+        this.formControl[this.additionalInfoGroupIndex].items[this.nearbyPlacesIndex].value.setValue(item.value);
         break;
       default:
         break;
@@ -370,14 +499,18 @@ export class PostDetailFormComponent implements OnInit {
   handleCitySelected(cityId: string) {
     this.commonService.getDistricts(cityId).subscribe(res => {
       this.districts = res.addressDistricts;
-      this.formControl[1].items[1].properties = res.addressDistricts;
+      this.formControl[this.addressGroupIndex].items[
+        this.districtIndex
+      ].properties = res.addressDistricts;
     });
   }
 
   handleDistrictSelected(districtId: string) {
     this.commonService.getWards(districtId).subscribe(res => {
       this.wards = res.addressWards;
-      this.formControl[1].items[2].properties = res.addressWards;
+      this.formControl[this.addressGroupIndex].items[
+        this.wardIndex
+      ].properties = res.addressWards;
     });
   }
 }
