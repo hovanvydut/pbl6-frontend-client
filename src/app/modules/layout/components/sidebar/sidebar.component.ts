@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SIDEBAR_GROUP_NAME } from '@app/shared/app.constants';
 import { ENDPOINTS } from '@app/shared/utilities';
 //
 @Component({
@@ -9,12 +8,9 @@ import { ENDPOINTS } from '@app/shared/utilities';
 })
 export class SidebarComponent implements OnInit {
   ENDPOINTS = ENDPOINTS;
-  SIDEBAR_GROUP_NAME = SIDEBAR_GROUP_NAME;
-  // icon
-
   menuItems = [
     {
-      name: SIDEBAR_GROUP_NAME.Dashboard,
+      name: 'Dashboard',
       items: [
         {
           icon: 'home',
@@ -40,6 +36,11 @@ export class SidebarComponent implements OnInit {
           icon: 'messages',
           name: 'Lịch hẹn xem trọ',
           link: ENDPOINTS.USER_BOOKING_CALENDAR
+        },
+        {
+          icon: 'logout',
+          name: 'Đăng xuất',
+          link: ENDPOINTS.LOGOUT
         },
       ]
     },

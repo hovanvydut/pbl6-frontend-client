@@ -1,32 +1,7 @@
-export enum AppColor {
-  DefaultColor = '#00AFFF'
-}
-
-export enum Feature {
-  AccountInfo = 'AccountInfo',
-  Users = 'Users',
-  ManagedAccount = 'ManagedAccount',
-}
-
 export enum AppEnvironments {
   Local = 'local',
   Dev = 'dev',
-  QA = 'qa',
   Prod = 'prod'
-}
-
-export enum AppErrorCode {
-  Error,
-  Warning,
-  Info
-}
-
-export enum UserPageName {
-  conversation = 'Conversation',
-  AccountSetting = 'AccountSetting',
-  Users = 'Users',
-  ManageAccount = 'ManageAccount',
-  //
 }
 
 export enum Days {

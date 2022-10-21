@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
 import { BaseModel } from '@app/shared/models/base.model';

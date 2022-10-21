@@ -59,7 +59,7 @@ export class PostDetailFormComponent implements OnInit {
       this.formControl[2].items[0].properties = this.roomTypes;
     });
 
-    this.commonService.getPostProperty().subscribe(res => {
+    this.commonService.getProperties().subscribe(res => {
       res.forEach(property => {
         switch (property.id) {
           case PropertyEnum.OtherProperties:

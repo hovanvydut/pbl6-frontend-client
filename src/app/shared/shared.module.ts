@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
-//
+//pipes
 import {
   LookupValuePipe,
   SanitizeHtmlPipe,
@@ -85,7 +85,9 @@ const COMPONENTS: any[] = [
   FormDialogComponent,
   ViewIconsComponent,
   InputFieldComponent,
-  TextareaFieldComponent
+  TextareaFieldComponent,
+  SelectFieldComponent,
+  ChipsFieldComponent
 ];
 
 const MATERIALS: any[] = [
@@ -146,8 +148,8 @@ const SVG_ICONS = completeIconSet;
     NgApexchartsModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, SelectFieldComponent, ChipsFieldComponent],
-  declarations: [...COMPONENTS, ...PIPES, SelectFieldComponent, ChipsFieldComponent],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS],
+  declarations: [...COMPONENTS, ...PIPES],
   providers: [
     SvgIconsRegistryService,
     { provide: MatDialogRef, useValue: {} },

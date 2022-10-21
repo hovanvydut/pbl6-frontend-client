@@ -24,7 +24,6 @@ export class AccountModel {
   }
 }
 
-
 export class LoginModel {
   email: string;
   password: string;

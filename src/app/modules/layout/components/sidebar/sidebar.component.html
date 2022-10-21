@@ -2,6 +2,7 @@
   <h3 [routerLink]="ENDPOINTS.HOME" class="flex items-center gap-10 border-b pb-10 border-slate-200 cursor-pointer">
     <app-svg-icon [name]="'parcel'"></app-svg-icon> <b> HOMIE</b>
   </h3>
+  <!-- list tab -->
   <ng-container *ngFor="let group of menuItems" class="py-20">
     <ng-container *ngFor="let item of group.items">
       <div

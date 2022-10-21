@@ -1,12 +1,10 @@
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, ReplaySubject, throwError } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 //
-import { AppErrorCode } from '@app/shared/app.enum';
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
 
@@ -141,29 +139,5 @@ export class BaseService {
   delete<T>(url: string): Observable<T> {
     return this.httpClient.delete<T>(`${this.baseURL}/${url}`, this.options);
   }
-  //#endregion
-
-  //#region File and FormData
-
-  //#region Helpers
-
-  private handleError = (error: HttpErrorResponse) => {
-    switch (error.status) {
-      case 401:
-        if (window.location.hostname !== 'localhost') {
-          window.location.href = window.location.origin + '/login';
-        }
-        break;
-      case 403:
-        // Navigate to forbidden page
-        if (window.location.hostname !== 'localhost') {
-          window.location.href = window.location.origin + '/forbidden';
-        }
-        break;
-      case 417:
-        return throwError(error.error.message);
-    }
-    return throwError(error.error);
-  };
   //#endregion
 }
