@@ -7,6 +7,9 @@ import { BaseModel } from '@app/shared/models/base.model';
 import { ProfileModel, ProfileUpdateModel } from '../../models/profile.model';
 import { ProfileService } from '../../profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonService } from '@app/core/services/common.service';
+import { InputType } from '@app/shared/app.enum';
+import { FieldType } from '@app/modules/post/enums/post.enum';
 
 @Component({
   selector: 'app-profile-detail-form',
@@ -14,6 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./profile-detail-form.component.scss']
 })
 export class ProfileDetailFormComponent implements OnInit {
+  FieldType = FieldType;
+  avatarUrl: string = '';
   formControl = [
     {
       items: [
@@ -23,8 +28,8 @@ export class ProfileDetailFormComponent implements OnInit {
           placeholder: 'Tải lên ảnh đại diện',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'image',
+          inputType: InputType.Text,
+          fieldType: FieldType.Image,
           width: '1/3'
         },
         {
@@ -33,8 +38,8 @@ export class ProfileDetailFormComponent implements OnInit {
           placeholder: 'Nhập họ và tên',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
           width: 'full'
         },
 
@@ -44,8 +49,8 @@ export class ProfileDetailFormComponent implements OnInit {
           placeholder: 'Nhập số điện thoại',
           require: true,
           value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
           width: 'full'
         },
         {
@@ -54,8 +59,8 @@ export class ProfileDetailFormComponent implements OnInit {
           placeholder: 'Nhập số căn cước công dân',
           require: true,
           value: new FormControl({ value: '', disabled: true }),
-          inputType: 'text',
-          fieldType: 'input',
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
           width: 'full',
           disable: true
         },
@@ -66,7 +71,7 @@ export class ProfileDetailFormComponent implements OnInit {
           require: true,
           value: new FormControl({ value: '', disabled: true }),
           inputType: 'email',
-          fieldType: 'input',
+          fieldType: FieldType.Input,
           width: 'full',
           disable: true
         }
@@ -77,7 +82,8 @@ export class ProfileDetailFormComponent implements OnInit {
   constructor(
     private dialog: Dialog,
     private snackBar: MatSnackBar,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +95,7 @@ export class ProfileDetailFormComponent implements OnInit {
             group.items.forEach(item => {
               item.value.setValue(res.data[item.name]);
             });
+            this.avatarUrl = res.data.avatar;
           });
         }
       });
@@ -102,12 +109,15 @@ export class ProfileDetailFormComponent implements OnInit {
       });
     });
     this.profileService
-      .updateProfileInfo(new ProfileUpdateModel({
-        displayName: data.displayName,
-        phoneNumber: data.phoneNumber,
-        address: '123',
-        addressWardId: '1',
-      }))
+      .updateProfileInfo(
+        new ProfileUpdateModel({
+          displayName: data.displayName,
+          phoneNumber: data.phoneNumber,
+          address: '123',
+          addressWardId: '1',
+          avatar: this.avatarUrl
+        })
+      )
       .pipe(finalize(() => {}))
       .subscribe(res => {
         if (res.success) {
@@ -118,17 +128,14 @@ export class ProfileDetailFormComponent implements OnInit {
       });
   }
 
-  onUpdateAvatar(e: any) {
+  onUpdateAvatar(e) {
     let images = e.target.files;
     if (images && images.length > 1) {
-
     } else {
       let image = images[0];
-      let reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (e: any) => {
-        this.formControl[0].items[0].value.setValue(e.target.result);
-      };
+      this.commonService.uploadImage(image).subscribe(res => {
+        this.avatarUrl = res;
+      });
     }
   }
 

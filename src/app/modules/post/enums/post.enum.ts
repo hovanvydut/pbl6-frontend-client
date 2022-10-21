@@ -10,4 +10,5 @@ export enum FieldType {
   Textarea = 'textarea',
   Input = 'input',
   Select = 'select',
+  Image = 'image',
 }

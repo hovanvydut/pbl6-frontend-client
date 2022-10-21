@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
 import { ProfileBaseModel, ProfileModel, ProfileUpdateModel } from './models/profile.model';
@@ -9,7 +9,6 @@ import { BaseModel } from './../../shared/models/base.model';
   providedIn: 'root'
 })
 export class ProfileService {
-
   constructor(private baseService: BaseService) { }
 
   getProfileInfo(): Observable<BaseModel<ProfileModel>>{

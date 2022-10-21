@@ -28,24 +28,6 @@ export class PostRequestModel extends PostBaseModel {
   }
 }
 
-export class Post {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: Category;
-  createdDate: Date;
-  updatedDate: Date;
-  rating: number;
-  stock: number;
-  reviews: Review[];
-
-  public constructor(init?: Partial<Post>) {
-    Object.assign(this, init);
-  }
-}
-
 export class Category {
   id: number;
   name: string;

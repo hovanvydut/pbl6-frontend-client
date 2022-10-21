@@ -12,7 +12,6 @@ import { ProfileDetailFormComponent } from './../profile-detail-form/profile-det
   styleUrls: ['./general-profile.component.scss']
 })
 export class GeneralProfileComponent implements OnInit {
-  dialogRef: any;
   private profileDetailFormComponent = ProfileDetailFormComponent;
   profileGeneralInfo: ProfileGeneralInfoModel = new ProfileGeneralInfoModel();
 
@@ -22,6 +21,10 @@ export class GeneralProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getProfile();
+  }
+
+  getProfile() {
     this.profileService
       .getProfileGeneralInfo()
       .subscribe((res: BaseModel<ProfileGeneralInfoModel>) => {
@@ -30,9 +33,12 @@ export class GeneralProfileComponent implements OnInit {
   }
 
   onEditProfileButtonClicked() {
-    this.dialogRef = this.dialog.open(this.profileDetailFormComponent, {
+    const dialogRef = this.dialog.open(this.profileDetailFormComponent, {
       width: '70vw',
       maxHeight: '90vh'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
 }

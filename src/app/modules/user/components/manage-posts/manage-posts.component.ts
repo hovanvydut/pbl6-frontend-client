@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommonService } from '@app/core/services/common.service';
+//
 import { PostDetailFormComponent } from './../../../post/components/post-detail-form/post-detail-form.component';
-import { finalize } from 'rxjs';
 import { PostTableComponent } from '@app/modules/post/components/post-table/post-table.component';
+import { CommonService } from '@app/core/services/common.service';
 
 @Component({
   selector: 'app-manage-posts',
@@ -12,13 +12,12 @@ import { PostTableComponent } from '@app/modules/post/components/post-table/post
 })
 export class ManagePostsComponent implements OnInit {
   @ViewChild('postTable') postTableComponent: PostTableComponent;
-  private postDetailFormComponent = PostDetailFormComponent;
+  postDetailFormComponent = PostDetailFormComponent;
   forceUpdate: boolean = false;
 
   constructor(
-    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { hasUpdate: boolean },
-    private commonService: CommonService
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {}
