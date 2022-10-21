@@ -17,3 +17,11 @@ export class ItemBaseModel {
     Object.assign(this, init);
   }
 }
+
+export class ItemModel extends ItemBaseModel {
+  displayName: string;
+  constructor(init?: Partial<ItemModel>) {
+    super();
+    super(init);
+  }
+}

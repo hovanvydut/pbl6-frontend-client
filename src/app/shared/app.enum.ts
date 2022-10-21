@@ -38,3 +38,26 @@ export enum SortingTypes {
   Ascending = 'asc',
   Descending = 'desc',
 }
+
+export enum InputType {
+  Text = 'text',
+  Number = 'number',
+  Date = 'date',
+  Time = 'time',
+  DateTime = 'datetime',
+  Email = 'email',
+  Password = 'password',
+  Checkbox = 'checkbox',
+  Radio = 'radio',
+  Select = 'select',
+  TextArea = 'textarea',
+  File = 'file',
+  Image = 'image',
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset',
+  Range = 'range',
+  Color = 'color',
+  Url = 'url',
+  Tel = 'tel',
+}

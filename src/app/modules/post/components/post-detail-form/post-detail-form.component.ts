@@ -1,17 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { CommonService } from '@app/core/services/common.service';
-import { finalize } from 'rxjs';
-import { PostRequestModel } from '../../models/post.model';
-import { PostService } from '@app/modules/post/services/post.service';
-import { PropertyEnum } from '../../enums/property.enum';
 import { Dialog } from '@angular/cdk/dialog';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { finalize } from 'rxjs';
+//
+import { PropertyEnum } from '../../enums/property.enum';
+import { FieldType, PostGroupName } from '../../enums/post.enum';
+import { PostRequestModel } from '../../models/post.model';
+import { CommonService } from '@app/core/services/common.service';
+import { PostService } from '@app/modules/post/services/post.service';
+import { ItemModel } from './../../../../shared/models/base.model';
+import { FormControlBaseModel } from '@app/shared/models/form.model';
+import { InputType } from '@app/shared/app.enum';
 
 @Component({
   selector: 'app-post-detail-form',
@@ -20,30 +20,205 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
-  postDetail: any;
+  postDetail: PostRequestModel = new PostRequestModel();
   previews: string[] = [];
   selectedFiles?: FileList;
   PropertyEnum = PropertyEnum;
 
   // properties
-  tenantTypes: any[] = [];
-  nearbyPlaces: any[] = [];
+  tenantTypes: ItemModel[] = [];
+  nearbyPlaces: ItemModel[] = [];
+  roomTypes: ItemModel[] = [];
   properties: any[] = [];
 
-  roomTypes: any[] = [];
-
-  districts: any[] = [];
-  provinces: any[] = [];
-  wards: any[] = [];
-  streets: any[] = [];
+  provinces: ItemModel[] = [];
+  districts: ItemModel[] = [];
+  wards: ItemModel[] = [];
+  streets: ItemModel[] = [];
 
   constructor(
-    private fb: FormBuilder,
-    private dialog: Dialog,
     @Inject(MAT_DIALOG_DATA) public data: { postId: string },
+    private dialog: Dialog,
     private commonService: CommonService,
     private postService: PostService
   ) {}
+
+  // group 0: thông tin chung
+  // group 1: địa chỉ
+  // group 2: thông tin chi tiết
+  // group 3: thông tin thêm
+  formControl: FormControlBaseModel[] = [
+    {
+      groupName: PostGroupName.GeneralInfo,
+      items: [
+        {
+          name: 'title',
+          label: 'Tiên đề bài đăng',
+          placeholder: 'Tiên đề bài đăng',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Textarea,
+          width: 'full',
+        },
+        {
+          name: 'description',
+          label: 'Mô tả chung',
+          placeholder: 'Nhập mô tả về trọ',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
+          width: 'full',
+        }
+      ]
+    },
+    {
+      groupName: PostGroupName.Address,
+      items: [
+        {
+          name: 'province',
+          label: 'Tỉnh/Thành phố',
+          placeholder: 'Chọn thành phố',
+          require: true,
+          value: new FormControl('1'),
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
+          width: '1/3',
+          properties: this.provinces
+        },
+        {
+          name: 'district',
+          label: 'Quận/Huyện',
+          placeholder: 'Chọn quận/huyện',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
+          width: '1/3',
+          properties: this.districts
+        },
+        {
+          name: 'addressWardId',
+          label: 'Phường/Xã',
+          placeholder: 'Chọn phường/xã',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
+          width: '1/3',
+          properties: this.wards
+        },
+        {
+          name: 'street',
+          label: 'Đường',
+          placeholder: 'Nhập địa chỉ số nhà, đường',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Input,
+          width: 'full',
+        }
+      ]
+    },
+    {
+      groupName: PostGroupName.DetailInfo,
+      items: [
+        {
+          name: 'categoryId',
+          label: 'Loại phòng',
+          placeholder: 'Chọn loại phòng',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Text,
+          fieldType: FieldType.Select,
+          width: '1/3',
+          properties: this.roomTypes
+        },
+        {
+          name: 'price',
+          label: 'Giá',
+          placeholder: 'Nhập giá',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
+          width: '1/3',
+        },
+        {
+          name: 'area',
+          label: 'Diện tích',
+          placeholder: 'Nhập diện tích',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
+          width: '1/3',
+        }
+      ]
+    },
+    {
+      groupName: PostGroupName.AdditionalInfo,
+      items: [
+        {
+          name: 'limitTenant',
+          label: 'Số người tối đa',
+          placeholder: 'Nhập số người tối đa',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
+          width: '1/3',
+        },
+        {
+          name: 'prePaidPrice',
+          label: 'Tiền cọc',
+          placeholder: 'Nhập tiền cọc',
+          require: true,
+          value: new FormControl(''),
+          inputType: InputType.Number,
+          fieldType: FieldType.Input,
+          width: '1/3',
+        },
+        {
+          id: PropertyEnum.OtherProperties,
+          name: 'properties',
+          label: 'Tiện ích khác',
+          placeholder: 'Chọn tiện ích khác',
+          require: true,
+          value: new FormControl([]),
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
+          width: 'full',
+          properties: this.properties
+        },
+        {
+          id: PropertyEnum.TenantTypes,
+          name: 'tenantType',
+          label: 'Đối tượng cho thuê',
+          placeholder: 'Chọn đối tượng cho thuê',
+          require: true,
+          value: new FormControl([]),
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
+          width: 'full',
+          properties: this.tenantTypes
+        },
+        {
+          id: PropertyEnum.NearbyPlaces,
+          name: 'nearbyPlaces',
+          label: 'Địa điểm gần đó',
+          placeholder: 'Chọn địa điểm gần đó',
+          require: true,
+          value: new FormControl([]),
+          inputType: InputType.Text,
+          fieldType: FieldType.Property,
+          width: 'full',
+          properties: this.nearbyPlaces
+        }
+      ]
+    }
+  ];
 
   ngOnInit() {
     this.commonService
@@ -85,189 +260,11 @@ export class PostDetailFormComponent implements OnInit {
     }
   }
 
-  // group 0: thông tin chung
-  // group 1: địa chỉ
-  // group 2: thông tin chi tiết
-  // group 3: thông tin thêm
-  formControl = [
-    {
-      groupName: 'Thông tin chung',
-      items: [
-        {
-          name: 'title',
-          label: 'Tiên đề bài đăng',
-          placeholder: 'Tiên đề bài đăng',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'textarea',
-          width: 'full'
-        },
-        {
-          name: 'description',
-          label: 'Mô tả chung',
-          placeholder: 'Nhập mô tả về trọ',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
-          width: 'full'
-        }
-      ]
-    },
-    {
-      groupName: 'Địa chỉ',
-      items: [
-        {
-          name: 'province',
-          label: 'Tỉnh/Thành phố',
-          placeholder: 'Chọn thành phố',
-          require: true,
-          value: new FormControl('1'),
-          inputType: 'text',
-          fieldType: 'select',
-          width: '1/3',
-          properties: this.provinces
-        },
-        {
-          name: 'district',
-          label: 'Quận/Huyện',
-          placeholder: 'Chọn quận/huyện',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
-          width: '1/3',
-          properties: this.districts
-        },
-        {
-          name: 'addressWardId',
-          label: 'Phường/Xã',
-          placeholder: 'Chọn phường/xã',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
-          width: '1/3',
-          properties: this.wards
-        },
-        {
-          name: 'street',
-          label: 'Đường',
-          placeholder: 'Nhập địa chỉ số nhà, đường',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'input',
-          width: 'full'
-        }
-      ]
-    },
-    {
-      groupName: 'Thông tin chi tiết',
-      items: [
-        {
-          name: 'categoryId',
-          label: 'Loại phòng',
-          placeholder: 'Chọn loại phòng',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'text',
-          fieldType: 'select',
-          width: '1/3',
-          properties: this.roomTypes
-        },
-        {
-          name: 'price',
-          label: 'Giá',
-          placeholder: 'Nhập giá',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
-          width: '1/3'
-        },
-        {
-          name: 'area',
-          label: 'Diện tích',
-          placeholder: 'Nhập diện tích',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
-          width: '1/3'
-        }
-      ]
-    },
-    {
-      groupName: 'Thông tin thêm',
-      items: [
-        {
-          name: 'limitTenant',
-          label: 'Số người tối đa',
-          placeholder: 'Nhập số người tối đa',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
-          width: '1/3'
-        },
-        {
-          name: 'prePaidPrice',
-          label: 'Tiền cọc',
-          placeholder: 'Nhập tiền cọc',
-          require: true,
-          value: new FormControl(''),
-          inputType: 'number',
-          fieldType: 'input',
-          width: '1/3'
-        },
-        {
-          id: PropertyEnum.OtherProperties,
-          name: 'properties',
-          label: 'Tiện ích khác',
-          placeholder: 'Chọn tiện ích khác',
-          require: true,
-          value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
-          width: 'full',
-          properties: this.properties
-        },
-        {
-          id: PropertyEnum.TenantTypes,
-          name: 'tenantType',
-          label: 'Đối tượng cho thuê',
-          placeholder: 'Chọn đối tượng cho thuê',
-          require: true,
-          value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
-          width: 'full',
-          properties: this.tenantTypes
-        },
-        {
-          id: PropertyEnum.NearbyPlaces,
-          name: 'nearbyPlaces',
-          label: 'Địa điểm gần đó',
-          placeholder: 'Chọn địa điểm gần đó',
-          require: true,
-          value: new FormControl([]),
-          inputType: 'text',
-          fieldType: 'property',
-          width: 'full',
-          properties: this.nearbyPlaces
-        }
-      ]
-    }
-  ];
-  validateUsername(value: any) {}
-
   onCreateNewPost() {
     let data: PostRequestModel = new PostRequestModel();
     this.formControl.forEach(group => {
       group.items.forEach(item => {
-        if (item.fieldType === 'property') {
+        if (item.fieldType === FieldType.Property) {
           if (item.value.value && item.value.value.length > 0) {
             data.properties = [
               ...data.properties,
@@ -289,26 +286,25 @@ export class PostDetailFormComponent implements OnInit {
     if (this.data?.postId) {
       data.id = this.data.postId;
       this.postService
-      .updatePost(
-        new PostRequestModel({
-          ...data
-        })
-      )
-      .subscribe(res => {
-        this.dialog.closeAll();
-      });
+        .updatePost(
+          new PostRequestModel({
+            ...data
+          })
+        )
+        .subscribe(res => {
+          this.dialog.closeAll();
+        });
     } else {
       this.postService
-      .createNewPost(
-        new PostRequestModel({
-          ...data
-        })
-      )
-      .subscribe(res => {
-        this.dialog.closeAll();
-      });
+        .createNewPost(
+          new PostRequestModel({
+            ...data
+          })
+        )
+        .subscribe(res => {
+          this.dialog.closeAll();
+        });
     }
-
   }
 
   convertPostToFormControl() {

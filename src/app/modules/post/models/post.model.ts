@@ -1,3 +1,4 @@
+import { ItemBaseModel } from '@app/shared/models/base.model';
 import { AddressModel } from './../../../shared/models/address.model';
 export class PostBaseModel {
   id: string;
@@ -12,27 +13,17 @@ export class PostBaseModel {
   prePaidPrice: number;
   properties: any[] = [];
   medias: any[] = [];
+  category: ItemBaseModel;
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);
   }
 }
 
-export class PostRequestModel {
-  id: string;
-  title: string;
-  description: string;
-  address: string;
-  addressWardId: string;
-  categoryId: string;
-  area: number;
-  price: number;
-  limitTenant: number;
-  prePaidPrice: number;
-  properties: any[] = [];
-  medias: any[] = [];
+export class PostRequestModel extends PostBaseModel {
 
   public constructor(init?: Partial<PostRequestModel>) {
+    super();
     Object.assign(this, init);
   }
 }
