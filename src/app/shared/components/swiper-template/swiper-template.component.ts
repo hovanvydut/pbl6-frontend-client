@@ -41,6 +41,7 @@ export class SwiperTemplateComponent implements OnInit {
   set images(images: []) {
     this._images = images;
   }
+  @Input() onlyText: boolean = false;
 
   @Input() type: string;
   @Input() imageStyle: string = '';

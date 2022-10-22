@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseModel } from '@app/shared/models/base.model';
+import { BaseModel, DatasourceBaseModel } from '@app/shared/models/base.model';
 import { of, Observable } from 'rxjs';
 //
 import { BaseService } from 'src/app/core/services/base.service';
@@ -11,7 +11,7 @@ import { PostRequestModel, PostBaseModel } from './../models/post.model';
 export class PostService {
   constructor(private baseService: BaseService) {}
 
-  getPosts(): Observable<PostBaseModel[]> {
+  getPosts(): Observable<DatasourceBaseModel<PostBaseModel>> {
     return this.baseService.get(`post`);
   }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostService } from '@app/modules/post/services/post.service';
+import { PostService } from '../../services/post.service';
+import { PostBaseModel } from './../../models/post.model';
 
 @Component({
   selector: 'app-post-list',
@@ -8,21 +9,17 @@ import { PostService } from '@app/modules/post/services/post.service';
 })
 export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';
-  posts: [];
+  posts: PostBaseModel[] = [];
 
   constructor(private postService: PostService) { }
 
   ngOnInit() {
-    this.initData();
-  }
-
-  initData() {
     this.getPosts();
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe((data: any) => {
-      this.posts = data;
+    this.postService.getPosts().subscribe((res) => {
+      this.posts = res.records;
     });
     return this.posts;
   }
