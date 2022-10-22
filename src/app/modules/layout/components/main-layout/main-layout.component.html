@@ -25,11 +25,11 @@
         </mat-menu>
       </a>
       <div mat-list-item *ngIf="!accountInfo" class="text-14 text-blue-4882C7">
-        <a [routerLink]="'/auth/sign-in'">
+        <a [routerLink]="ENDPOINTS.LOGIN">
           Đăng nhập
         </a>
         <span class="mx-2">|</span>
-        <a [routerLink]="'/auth/sign-up'">
+        <a [routerLink]="ENDPOINTS.SIGN_UP">
           Đăng ký
         </a>
       </div>

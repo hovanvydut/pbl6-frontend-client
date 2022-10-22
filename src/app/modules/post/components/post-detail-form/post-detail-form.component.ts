@@ -394,13 +394,15 @@ export class PostDetailFormComponent implements OnInit {
           ...data
         })
       )
-      .subscribe(res => {
-        if (!res.success) {
-          this.notifyService.notify(res.message);
-        } else {
+      .subscribe(
+        () => {
           this.dialog.closeAll();
+          this.notifyService.notify('Cập nhật bài đăng thành công');
+        },
+        (err) => {
+          this.notifyService.notify(err);
         }
-      });
+      );
   }
 
   createPost(data: PostRequestModel) {
@@ -410,13 +412,15 @@ export class PostDetailFormComponent implements OnInit {
           ...data
         })
       )
-      .subscribe(res => {
-        if (!res.success) {
-          this.notifyService.notify(res.message);
-        } else {
+      .subscribe(
+        () => {
           this.dialog.closeAll();
+          this.notifyService.notify('Tạo bài đăng thành công');
+        },
+        (err) => {
+          this.notifyService.notify(err);
         }
-      });
+      );
   }
 
   convertPostToFormControl() {
@@ -469,27 +473,41 @@ export class PostDetailFormComponent implements OnInit {
   onSelectedFieldChanged(item: { type: string; value: any }) {
     switch (item.type) {
       case PostFieldNameEnum.Province:
-        this.formControl[this.addressGroupIndex].items[this.provinceIndex].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[
+          this.provinceIndex
+        ].value.setValue(item.value);
         this.handleCitySelected(item.value);
         break;
       case PostFieldNameEnum.District:
-        this.formControl[this.addressGroupIndex].items[this.districtIndex].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[
+          this.districtIndex
+        ].value.setValue(item.value);
         this.handleDistrictSelected(item.value);
         break;
       case PostFieldNameEnum.AddressWardId:
-        this.formControl[this.addressGroupIndex].items[this.wardIndex].value.setValue(item.value);
+        this.formControl[this.addressGroupIndex].items[
+          this.wardIndex
+        ].value.setValue(item.value);
         break;
       case PostFieldNameEnum.CategoryId:
-        this.formControl[this.detailInfoGroupIndex].items[this.roomTypeIndex].value.setValue(item.value);
+        this.formControl[this.detailInfoGroupIndex].items[
+          this.roomTypeIndex
+        ].value.setValue(item.value);
         break;
       case PostFieldNameEnum.Properties:
-        this.formControl[this.additionalInfoGroupIndex].items[this.otherPropertiesIndex].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[
+          this.otherPropertiesIndex
+        ].value.setValue(item.value);
         break;
       case PostFieldNameEnum.TenantType:
-        this.formControl[this.additionalInfoGroupIndex].items[this.tenantTypeIndex].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[
+          this.tenantTypeIndex
+        ].value.setValue(item.value);
         break;
       case PostFieldNameEnum.NearbyPlaces:
-        this.formControl[this.additionalInfoGroupIndex].items[this.nearbyPlacesIndex].value.setValue(item.value);
+        this.formControl[this.additionalInfoGroupIndex].items[
+          this.nearbyPlacesIndex
+        ].value.setValue(item.value);
         break;
       default:
         break;
