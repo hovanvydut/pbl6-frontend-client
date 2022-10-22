@@ -11,16 +11,16 @@ import { BaseModel } from './../../shared/models/base.model';
 export class ProfileService {
   constructor(private baseService: BaseService) { }
 
-  getProfileInfo(): Observable<BaseModel<ProfileModel>>{
-    return this.baseService.get<BaseModel<ProfileModel>>('user/personal');
+  getProfileInfo(): Observable<ProfileModel>{
+    return this.baseService.get<ProfileModel>('user/personal');
   }
 
-  getProfileGeneralInfo(): Observable<BaseModel<ProfileBaseModel>>{
-    return this.baseService.get<BaseModel<ProfileBaseModel>>('user/personal');
+  getProfileGeneralInfo(): Observable<ProfileBaseModel>{
+    return this.baseService.get<ProfileBaseModel>('user/personal');
   }
 
-  updateProfileInfo(data: ProfileUpdateModel): Observable<BaseModel<boolean>>{
-    return this.baseService.put<BaseModel<boolean>>('user/personal', data);
+  updateProfileInfo(data: ProfileUpdateModel): Observable<boolean>{
+    return this.baseService.put<boolean>('user/personal', data);
   }
 
   changePassword(data: any): Observable<any>{

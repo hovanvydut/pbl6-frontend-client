@@ -1,3 +1,5 @@
+import { PropertyEnum } from "@app/modules/post/enums/property.enum";
+
 export class BaseModel<T> {
   data: T;
   message: string;
@@ -10,7 +12,7 @@ export class BaseModel<T> {
 }
 
 export class ItemBaseModel {
-  id: string;
+  id: string | PropertyEnum;
   name: string;
 
   constructor(init?: Partial<ItemBaseModel>) {
@@ -27,3 +29,4 @@ export class ItemModel extends ItemBaseModel {
     super(init);
   }
 }
+

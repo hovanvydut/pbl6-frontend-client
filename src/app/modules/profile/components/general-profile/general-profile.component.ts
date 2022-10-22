@@ -5,6 +5,7 @@ import { ProfileGeneralInfoModel } from '../../models/profile.model';
 import { BaseModel } from '@app/shared/models/base.model';
 import { ProfileService } from './../../profile.service';
 import { ProfileDetailFormComponent } from './../profile-detail-form/profile-detail-form.component';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-general-profile',
@@ -17,7 +18,8 @@ export class GeneralProfileComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private notifyService: NotifyService
   ) {}
 
   ngOnInit(): void {
@@ -27,8 +29,10 @@ export class GeneralProfileComponent implements OnInit {
   getProfile() {
     this.profileService
       .getProfileGeneralInfo()
-      .subscribe((res: BaseModel<ProfileGeneralInfoModel>) => {
-        this.profileGeneralInfo = res.data;
+      .subscribe((res: ProfileGeneralInfoModel) => {
+        this.profileGeneralInfo = res;
+      }, (err) => {
+        this.notifyService.notify(err);
       });
   }
 

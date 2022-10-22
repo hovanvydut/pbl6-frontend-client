@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit {
     if (this.loginFormControl.email.hasError('required')) {
       return 'Hãy nhập email của bạn!';
     }
-    return this.loginFormControl.email.hasError('email') ? 'Sai định dạng email' : '';
+    return this.loginFormControl.email.hasError('email')
+      ? 'Sai định dạng email'
+      : '';
   }
 
   getPasswordErrorMessage() {
@@ -62,15 +64,18 @@ export class LoginComponent implements OnInit {
       email: this.loginFormControl.email.value,
       password: this.loginFormControl.password.value
     });
-    this.authService.login(data).subscribe(res => {
-      if (res.success) {
-        this.baseService.storeLoggedUser(res.data);
-        this.baseService.storeToken(res.data.accessToken);
-        this.router.navigateByUrl(this.returnUrl).then();
-      } else {
-        this.notifyService.notify(res.message);
-        this.errorMessage = res.message;
+    this.authService.login(data).subscribe(
+      res => {
+        if (res) {
+          this.baseService.storeLoggedUser(res);
+          this.baseService.storeToken(res.accessToken);
+          this.router.navigateByUrl(this.returnUrl).then();
+        }
+      },
+      err => {
+        this.notifyService.notify(err);
+        this.errorMessage = err.message;
       }
-    });
+    );
   }
 }

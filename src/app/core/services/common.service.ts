@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //
 import { BaseService } from './base.service';
+import { DistrictModel, AddressModel } from './../../shared/models/address.model';
+import { ItemModel } from '@app/shared/models/base.model';
+import { WardModel } from '@app/shared/models/address.model';
+import { PropertiesModel } from '@app/shared/models/property.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +14,22 @@ export class CommonService {
   constructor(private baseService: BaseService) {}
 
   //#region Address
-  getProvinces(): Observable<any> {
-    return this.baseService.get<any>('address/province');
+  getProvinces(): Observable<ItemModel[]> {
+    return this.baseService.get<ItemModel[]>('address/province');
   }
 
-  getDistricts(provinceId: any): Observable<any> {
-    return this.baseService.get<any>(
+  getDistricts(provinceId: string): Observable<DistrictModel> {
+    return this.baseService.get<DistrictModel>(
       `address/district?provinceId=${provinceId}`
     );
   }
 
-  getWards(districtId: any): Observable<any> {
-    return this.baseService.get<any>(`address/ward?districtId=${districtId}`);
+  getWards(districtId: string): Observable<WardModel> {
+    return this.baseService.get<WardModel>(`address/ward?districtId=${districtId}`);
   }
 
-  getAddressString(addressId: any): Observable<any> {
-    return this.baseService.get<any>(
+  getAddressString(addressId: string): Observable<AddressModel> {
+    return this.baseService.get<AddressModel>(
       `address/full-address?wardId=${addressId}`
     );
   }
@@ -40,12 +44,12 @@ export class CommonService {
   //#endregion
 
   //#region Property
-  getRoomCategory(): Observable<any[]> {
-    return this.baseService.get<any[]>('category/house-type');
+  getRoomCategory(): Observable<ItemModel[]> {
+    return this.baseService.get<ItemModel[]>('category/house-type');
   }
 
-  getProperties(): Observable<any> {
-    return this.baseService.get<any>('property');
+  getProperties(): Observable<PropertiesModel[]> {
+    return this.baseService.get<PropertiesModel[]>('property');
   }
   //#endregion
 }

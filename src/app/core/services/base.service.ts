@@ -1,9 +1,6 @@
-import {
-  HttpClient,
-  HttpHeaders
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, throwError, map, of } from 'rxjs';
 //
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
@@ -85,7 +82,15 @@ export class BaseService {
 
   //#region GET Methods
   get<T>(url: string): Observable<T> {
-    return this.httpClient.get<T>(`${this.baseURL}/${url}`, this.options);
+    return this.httpClient.get<T>(`${this.baseURL}/${url}`, this.options).pipe(
+      map((res: any) => {
+        if (res.success) {
+          return res.data;
+        } else {
+          throw new Error(res.message);
+        }
+      })
+    );
   }
 
   async getAsync<T>(url: string): Promise<T> {
@@ -97,25 +102,50 @@ export class BaseService {
 
   //#region POST Methods
   post<T>(url: string, data: any, isCatchError: boolean = true): Observable<T> {
-    return this.httpClient.post<T>(
-      `${this.baseURL}/${url}`,
-      data,
-      this.options
-    );
+    return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data, this.options)
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.data;
+          } else {
+            throw new Error(res.message);
+          }
+        })
+      );
   }
 
   postForm<T>(url: string, data: any): Observable<T> {
-    return this.httpClient.post<T>(`${this.baseURL}/${url}`, data, {
-      headers: this.formHeaders
-    });
+    return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data, {
+        headers: this.formHeaders
+      })
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.data;
+          } else {
+            throw new Error(res.message);
+          }
+        })
+      );
   }
 
   // NOTE: post file image => return url as json text
   postFile<T>(url: string, data: any): Observable<T> {
-    return this.httpClient.post<T>(`${this.baseURL}/${url}`, data, {
-      headers: this.formHeaders,
-      responseType: 'text' as 'json'
-    });
+    return this.httpClient
+      .post<T>(`${this.baseURL}/${url}`, data, {
+        headers: this.formHeaders,
+      })
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.data;
+          } else {
+            throw new Error(res.message);
+          }
+        })
+      );
   }
 
   async postAsync<T>(
@@ -131,13 +161,33 @@ export class BaseService {
 
   //#region PUT Methods
   put<T>(url: string, data: any): Observable<T> {
-    return this.httpClient.put<T>(`${this.baseURL}/${url}`, data, this.options);
+    return this.httpClient
+      .put<T>(`${this.baseURL}/${url}`, data, this.options)
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.data;
+          } else {
+            throw new Error(res.message);
+          }
+        })
+      );
   }
   //#endregion
 
   //#region DELETE Methods
   delete<T>(url: string): Observable<T> {
-    return this.httpClient.delete<T>(`${this.baseURL}/${url}`, this.options);
+    return this.httpClient
+      .delete<T>(`${this.baseURL}/${url}`, this.options)
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.data;
+          } else {
+            throw new Error(res.message);
+          }
+        })
+      );
   }
   //#endregion
 }

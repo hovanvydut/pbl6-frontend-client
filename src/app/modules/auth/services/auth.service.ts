@@ -11,8 +11,8 @@ import { AccountModel } from '../models/auth.model';
 export class AuthService {
   constructor(private baseService: BaseService) {}
 
-  login(data: any):  Observable<BaseModel<AccountModel>> {
-    return this.baseService.postForm<BaseModel<AccountModel>>('auth/login', data);
+  login(data: any):  Observable<AccountModel> {
+    return this.baseService.postForm<AccountModel>('auth/login', data);
   }
 
   register(data: any): Observable<any> {

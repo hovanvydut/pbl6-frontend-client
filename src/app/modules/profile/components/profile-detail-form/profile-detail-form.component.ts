@@ -90,15 +90,17 @@ export class ProfileDetailFormComponent implements OnInit {
   ngOnInit(): void {
     this.profileService
       .getProfileInfo()
-      .subscribe((res: BaseModel<ProfileModel>) => {
-        if (res.data) {
+      .subscribe((res: ProfileModel) => {
+        if (res) {
           this.formControl.forEach(group => {
             group.items.forEach(item => {
-              item.value.setValue(res.data[item.name]);
+              item.value.setValue(res[item.name]);
             });
-            this.avatarUrl = res.data.avatar;
+            this.avatarUrl = res.avatar;
           });
         }
+      }, (err) => {
+        this.notifyService.notify(err);
       });
   }
 
@@ -120,13 +122,15 @@ export class ProfileDetailFormComponent implements OnInit {
         })
       )
       .pipe(finalize(() => {}))
-      .subscribe(res => {
-        if (res.success) {
+      .subscribe(
+        () => {
           this.dialog.closeAll();
-        } else {
-          this.notifyService.notify(res.message);
+          this.notifyService.notify('Cập nhật thông tin thành công');
+        },
+        (err) => {
+          this.notifyService.notify(err);
         }
-      });
+      );
   }
 
   onUpdateAvatar(e) {

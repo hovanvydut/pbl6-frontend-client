@@ -39,7 +39,9 @@ export class SignUpComponent implements OnInit {
       if (this.signUpFormControl.email.hasError('required')) {
         return 'Hãy nhập email của bạn!';
       }
-      return this.signUpFormControl.email.hasError('email') ? 'Sai định dạng email' : '';
+      return this.signUpFormControl.email.hasError('email')
+        ? 'Sai định dạng email'
+        : '';
     }
 
     if (type === 'password') {
@@ -61,7 +63,10 @@ export class SignUpComponent implements OnInit {
 
   onSignUpButtonClicked() {
     if (
-      !isEqual(this.signUpFormControl.password.value, this.signUpFormControl.confirmPassword.value)
+      !isEqual(
+        this.signUpFormControl.password.value,
+        this.signUpFormControl.confirmPassword.value
+      )
     ) {
       this.notifyService.notify('Mật khẩu không khớp!');
       return;
@@ -87,22 +92,24 @@ export class SignUpComponent implements OnInit {
         displayName: this.signUpFormControl.displayName.value,
         address: 'Hà Nội',
         addressWardId: '1',
-        identityNumber:  Math.floor(Math.random() * 1000000000) + '1',
+        identityNumber: Math.floor(Math.random() * 1000000000) + '1',
         phoneNumber: Math.floor(Math.random() * 1000000000) + '1',
         roleId: '1'
       });
-      this.authService.register(this.signUp).subscribe(res => {
-        if( res.success) {
-          this.notifyService.notify(
-            'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
-          );
-          this.router.navigate([ENDPOINTS.LOGIN]);
-        } else {
+      this.authService.register(this.signUp).subscribe(
+        res => {
+          if (res) {
+            this.notifyService.notify(
+              'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
+            );
+            this.router.navigate([ENDPOINTS.LOGIN]);
+          }
+        },
+        error => {
           this.notifyService.notify('Đăng ký thất bại!');
-          this.errorMessage = res.Message;
+          this.errorMessage = error;
         }
-      });
-
+      );
       // random phone number
     }
   }

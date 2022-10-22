@@ -23,11 +23,11 @@ export class PostService {
     return this.baseService.delete(`post/${id}`);
   }
 
-  createNewPost(post: PostRequestModel): Observable<BaseModel<void>> {
+  createNewPost(post: PostRequestModel): Observable<void> {
     return this.baseService.post(`post`, post);
   }
 
-  updatePost(post: PostRequestModel): Observable<BaseModel<void>> {
+  updatePost(post: PostRequestModel): Observable<void> {
     return this.baseService.put(`post/${post.id}`, post);
   }
 }
