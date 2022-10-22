@@ -4,12 +4,11 @@
 <mat-dialog-content>
   <div
     *ngFor="let group of formControl"
-    class="flex flex-col gap-10 w-full">
+    class="flex flex-col w-full mt-5">
     <b class="text-16"> {{ group.groupName }}</b>
     <div class="flex flex-wrap w-full justify-start">
       <div *ngFor="let item of group.items" [class]="'w-' + item.width">
         <app-input-field
-          cdkFocusInitial
           *ngIf="item.fieldType === FieldType.Input"
           [required]="item.required"
           [placeholder]="item.placeholder"
@@ -19,7 +18,6 @@
         >
         </app-input-field>
         <app-textarea-field
-          cdkFocusInitial
           *ngIf="item.fieldType === FieldType.Textarea"
           [required]="item.required"
           [placeholder]="item.placeholder"
@@ -34,6 +32,7 @@
             [(selectedValue)]="item.value.value"
             [items]="item.properties"
             [type]="item.name"
+            [disabled]="item.disabled"
             (onValueChanged)="onSelectedFieldChanged($event)"
           ></app-select-field>
         </ng-container>

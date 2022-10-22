@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { groupBy } from 'lodash-es';
@@ -52,7 +52,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Tiên đề bài đăng',
           placeholder: 'Tiên đề bài đăng',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Textarea,
           width: 'full'
@@ -62,7 +62,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Mô tả chung',
           placeholder: 'Nhập mô tả về trọ',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Input,
           width: 'full'
@@ -78,11 +78,12 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Tỉnh/Thành phố',
           placeholder: 'Chọn thành phố',
           require: true,
-          value: new FormControl('1'),
+          value: new FormControl({ value: 32, disabled: true }, Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
-          properties: this.provinces
+          properties: this.provinces,
+          disabled: true,
         },
         {
           id: PostFieldEnum.District,
@@ -90,11 +91,11 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Quận/Huyện',
           placeholder: 'Chọn quận/huyện',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl(32, Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
-          properties: this.districts
+          properties: this.districts,
         },
         {
           id: PostFieldEnum.AddressWardId,
@@ -102,7 +103,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Phường/Xã',
           placeholder: 'Chọn phường/xã',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
@@ -113,7 +114,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Đường',
           placeholder: 'Nhập địa chỉ số nhà, đường',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Input,
           width: 'full'
@@ -129,7 +130,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Loại phòng',
           placeholder: 'Chọn loại phòng',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl(1, Validators.required),
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
@@ -140,7 +141,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Giá',
           placeholder: 'Nhập giá',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Number,
           fieldType: FieldType.Input,
           width: '1/3'
@@ -150,7 +151,7 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Diện tích',
           placeholder: 'Nhập diện tích',
           require: true,
-          value: new FormControl(''),
+          value: new FormControl('', Validators.required),
           inputType: InputType.Number,
           fieldType: FieldType.Input,
           width: '1/3'

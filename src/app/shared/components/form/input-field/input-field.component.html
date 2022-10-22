@@ -1,8 +1,7 @@
-<mat-form-field class="w-full pr-5 flex" [appearance]="appearance" [class]="customClass">
+<mat-form-field class="w-full pr-5 mb-5 flex" [appearance]="appearance" [class]="customClass">
   <mat-label>{{ label }} </mat-label>
   <ng-content select="[slot=iconLabel]"></ng-content>
   <input matInput [type]="type" [required]="required" [placeholder]="placeholder" [formControl]="value" />
-
   <mat-error *ngIf="value.invalid && value.touched">
     <ng-container *ngIf="value.errors.required">
       {{ label }} không được để trống

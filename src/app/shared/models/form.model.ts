@@ -15,6 +15,7 @@ export class FormBaseModel {
   fieldType: FieldType;
   width: string;
   properties?: ItemModel[];
+  disabled?: boolean = false;
 
   constructor(init?: Partial<FormBaseModel>) {
     Object.assign(this, init);

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-select-field',
@@ -30,10 +31,10 @@ export class SelectFieldComponent implements OnInit {
         this.selectedValue = this._items[index].id;
       }
     }
-
   }
   @Input() type: string;
   @Input() label: string;
+  @Input() disabled: boolean = false;
   @Input() customClass: string;
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline' = 'fill';
   @Output() onValueChanged = new EventEmitter<{ type: string, value: string}>();
