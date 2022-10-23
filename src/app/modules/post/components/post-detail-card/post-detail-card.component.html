@@ -1,6 +1,10 @@
-<div class="flex flex-col gap-20 w-full m-auto">
+<div class="flex flex-col gap-30 w-full m-auto">
   <mat-card class="flex-auto p-20">
-    <mat-card-title> Thông tin phòng </mat-card-title>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'home_large'" class="w-52"></app-svg-icon> <a> Thông tin phòng </a>
+      </div>
+    </mat-card-title>
     <div class="grid grid-cols-3 gap-5 my-20">
       <div>
         <p class="text-14 text-gray-500 uppercase"> Giá </p>
@@ -22,7 +26,12 @@
   </mat-card>
 
   <mat-card>
-    <mat-card-title> Tiện ích </mat-card-title>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'ultilities'" class="w-52"></app-svg-icon> <a> Tiện ích </a>
+      </div>
+    </mat-card-title>
+
     <div class="grid grid-cols-4 gap-10 my-20">
       <div *ngFor="let item of post.properties; index as i"
         class="flex gap-10 items-start">
@@ -35,7 +44,12 @@
   </mat-card>
 
   <mat-card>
-    <mat-card-title> Chú ý </mat-card-title>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'warning'" class="w-52"></app-svg-icon> <a>  Chú ý</a>
+      </div>
+    </mat-card-title>
+
     <div class="grid grid-cols-2 gap-5 my-20">
       <div>
         <p class="text-14 text-gray-500 uppercase"> Giới hạn số lượng người / phòng </p>
@@ -44,17 +58,21 @@
     </div>
   </mat-card>
   <mat-card>
-    <mat-card-title> Mô tả thêm </mat-card-title>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'draw'" class="w-52"></app-svg-icon> <a>Mô tả thêm</a>
+      </div>
+    </mat-card-title>
+
     <div>
       <div>
         <p class="text-14 text-gray-500 uppercase">  </p>
         <p class="text-16"> {{ post.title }} </p>
       </div>
       <div>
-        <p class="text-14 text-gray-500 uppercase">  </p>
+        <p class="text-14 text-gray-500 uppercase"> Mô tả chung </p>
         <p class="text-16"> {{ post.description }} </p>
       </div>
-
     </div>
   </mat-card>
 </div>
