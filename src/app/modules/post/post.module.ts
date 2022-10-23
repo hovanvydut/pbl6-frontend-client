@@ -21,6 +21,7 @@ import { PostTableComponent } from './components/post-table/post-table.component
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
 import { ProfileModule } from '../profile/profile.module';
 import { SwiperModule } from 'swiper/angular';
+import { PostSwiperComponent } from './components/post-swiper/post-swiper.component';
 //
 
 export const routes: Routes = [
@@ -72,8 +73,9 @@ const MODULES = [
     PostCardHorizontalComponent,
     PostRelatedComponent,
     PostTableComponent,
-    PostDetailFormComponent
+    PostDetailFormComponent,
+    PostSwiperComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent]
 })
 export class PostModule {}
