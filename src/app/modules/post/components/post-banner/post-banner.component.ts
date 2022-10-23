@@ -10,7 +10,14 @@ import { PostService } from '../../services/post.service';
 })
 export class PostBannerComponent implements OnInit {
   @ViewChild('searchPanel') searchPanel: SearchPanelComponent;
-  images = [];
+  images = [
+    {
+      url: 'assets/images/default/home_1.jpg',
+    },
+    {
+      url: 'assets/images/default/home_2.jpg',
+    }
+  ];
 
   filterParams = {
     searchKeyword: '',

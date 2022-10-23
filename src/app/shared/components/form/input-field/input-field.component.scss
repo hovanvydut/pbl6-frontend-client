@@ -1,8 +1,10 @@
-::ng-deep .mat-form-field-infix {
-  display: flex !important;
-  flex-wrap: wrap !important;
+::ng-deep .input-field {
+  .mat-form-field-infix {
+    display: flex !important;
+    flex-wrap: wrap !important;
 
-  .mat-input-element {
-    width: 84% !important;
+    .mat-input-element {
+      width: 84% !important;
+    }
   }
 }

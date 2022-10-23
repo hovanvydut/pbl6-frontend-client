@@ -17,7 +17,7 @@ export const ENDPOINTS = {
 
 
   CATEGORY: '/category',
-  POST_DETAIL: '/post/detail',
+  POST_DETAIL: '/posts/detail',
 
   // Buyer
   PROFILE_INFO: '/profile/info',

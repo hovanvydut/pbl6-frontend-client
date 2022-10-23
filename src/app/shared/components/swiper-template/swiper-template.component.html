@@ -6,10 +6,18 @@
   [controller]="{ control: controlledSwiper }"
 >
   <ng-template swiperSlide *ngFor="let item of images">
-      <img [style]="imageStyle"
-           class="swiper-lazy h-full m-auto"
-           [src]="item.url || 'assets/images/default/default_avatar.png'"
-           alt="Hình ảnh"
-           srcset="">
+      <img *ngIf="!onlyText"
+            [style]="imageStyle"
+            class="swiper-lazy h-full w-full m-auto object-cover"
+            [src]="item.url || 'assets/images/default/default_avatar.png'"
+            alt="Hình ảnh"
+            srcset="">
+
+      <div *ngIf="onlyText"
+            class="h-130 w-149 p-5">
+        <div class="rounded-12 w-full h-full border border-gray-200 flex justify-center items-center">
+          {{ item.name }}
+        </div>
+      </div>
   </ng-template>
 </swiper>

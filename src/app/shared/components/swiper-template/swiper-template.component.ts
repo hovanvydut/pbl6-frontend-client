@@ -34,16 +34,14 @@ SwiperCore.use([
 })
 export class SwiperTemplateComponent implements OnInit {
   @ViewChild('swiperRef', { static: false }) swiperRef?: SwiperComponent;
-  // @Input()  images: [];
   private _images: [];
   @Input()  get images(): [] {
     return this._images;
   }
-
   set images(images: []) {
     this._images = images;
-    // console.log('images changed - log from setter');
   }
+  @Input() onlyText: boolean = false;
 
   @Input() type: string;
   @Input() imageStyle: string = '';

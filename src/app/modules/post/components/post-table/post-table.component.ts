@@ -51,7 +51,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
 
   getPosts() {
     this.postService.getPosts().subscribe(data => {
-      this.dataSource = new MatTableDataSource<PostBaseModel>(data);
+      this.dataSource = new MatTableDataSource<PostBaseModel>(data.records);
     });
   }
 
@@ -83,7 +83,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
         maxHeight: '90vh',
         data: { postId: postId }
       });
-      dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
         this.getPosts();
       });
     }
