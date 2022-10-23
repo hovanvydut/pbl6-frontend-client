@@ -19,6 +19,8 @@ import { PostCardHorizontalComponent } from './components/post-card-horizontal/p
 import { PostRelatedComponent } from './components/post-related/post-related.component';
 import { PostTableComponent } from './components/post-table/post-table.component';
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
+import { ProfileModule } from '../profile/profile.module';
+import { SwiperModule } from 'swiper/angular';
 //
 
 export const routes: Routes = [
@@ -53,15 +55,18 @@ const COMPONENTS = [
 ];
 
 const MODULES = [
+  RouterModule.forChild(routes),
+  ProfileModule,
   CommonModule,
   SharedModule,
   FormsModule,
   ReactiveFormsModule,
   LayoutModule,
   FilterModule,
+  SwiperModule
 ];
 @NgModule({
-  imports: [...MODULES, RouterModule.forChild(routes)],
+  imports: [...MODULES],
   declarations: [
     ...COMPONENTS,
     PostCardHorizontalComponent,

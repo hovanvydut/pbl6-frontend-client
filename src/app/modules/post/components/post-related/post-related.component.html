@@ -1,1 +1,27 @@
-<p>post-related works!</p>
+<swiper
+    [slidesPerView]="1"
+    [spaceBetween]="10"
+    [pagination]="false"
+    [breakpoints]="{
+      '640': {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      '768': {
+        slidesPerView: 3,
+        spaceBetween: 40
+      },
+      '1024': {
+        slidesPerView: 4,
+        spaceBetween: 50
+      }
+    }"
+  >
+
+<ng-template swiperSlide *ngFor="let post of posts" >
+  <app-post-card [post]="post">
+  </app-post-card>
+</ng-template>
+
+</swiper>
+
