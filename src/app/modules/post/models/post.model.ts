@@ -4,7 +4,8 @@ export class PostBaseModel {
   id: string;
   title: string;
   description: string;
-  address: AddressModel;
+  address: string;
+  fullAddress: AddressModel;
   addressWardId: string;
   categoryId: string;
   area: number;
