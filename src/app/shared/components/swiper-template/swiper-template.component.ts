@@ -51,7 +51,7 @@ export class SwiperTemplateComponent implements OnInit {
   @Input() dynamicBullets: boolean = true;
   @Input() pagination: boolean = true;
   @Input() navigation: boolean = true;
-
+  @Input() imageContain: boolean = false;
   slides$ = new BehaviorSubject<string[]>(['']);
   thumbs: any;
   show: boolean;

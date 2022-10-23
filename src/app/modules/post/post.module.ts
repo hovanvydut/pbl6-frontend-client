@@ -21,6 +21,9 @@ import { PostTableComponent } from './components/post-table/post-table.component
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
 import { ProfileModule } from '../profile/profile.module';
 import { SwiperModule } from 'swiper/angular';
+import { PostSwiperComponent } from './components/post-swiper/post-swiper.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
+import { PostBookingComponent } from './components/post-booking/post-booking.component';
 //
 
 export const routes: Routes = [
@@ -72,8 +75,11 @@ const MODULES = [
     PostCardHorizontalComponent,
     PostRelatedComponent,
     PostTableComponent,
-    PostDetailFormComponent
+    PostDetailFormComponent,
+    PostSwiperComponent,
+    PostReviewComponent,
+    PostBookingComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent]
 })
 export class PostModule {}

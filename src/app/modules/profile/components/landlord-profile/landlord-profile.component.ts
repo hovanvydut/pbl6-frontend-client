@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PostBookingComponent } from '@app/modules/post/components/post-booking/post-booking.component';
 
 @Component({
   selector: 'app-landlord-profile',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandlordProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
+  onBookingCalendarButtonClicked() {
+    let dialogRef = this.dialog.open( PostBookingComponent, {
+      width: '99vw',
+      maxHeight: '99vh',
+      data: {
+        postId: 1
+      }
+    });
+  }
 }
