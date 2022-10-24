@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { PostBaseModel } from './../../models/post.model';
+import { PostBaseModel, QueryParams } from './../../models/post.model';
 
 @Component({
   selector: 'app-post-list',
@@ -10,7 +10,11 @@ import { PostBaseModel } from './../../models/post.model';
 export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';
   posts: PostBaseModel[] = [];
-
+  queryParams: QueryParams = new QueryParams({
+    pageNumber: 1,
+    pageSize: 10
+  })
+  totalPosts: number = 0;
   constructor(private postService: PostService) { }
 
   ngOnInit() {
@@ -18,9 +22,15 @@ export class PostListComponent implements OnInit {
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe((res) => {
+    this.postService.getPosts(this.queryParams).subscribe((res) => {
       this.posts = res.records;
+      this.totalPosts = res.totalRecords;
     });
   }
 
+  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+    this.queryParams.pageSize = event.pageSize;
+    this.queryParams.pageNumber = event.pageIndex + 1;
+    this.getPosts();
+  }
 }
