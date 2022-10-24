@@ -51,3 +51,21 @@ export class Review {
     Object.assign(this, init);
   }
 }
+
+
+export class QueryParams {
+  pageNumber: number;
+  pageSize: number;
+
+  minPrice?: number;
+  maxPrice?: number;
+  minArea?: number;
+  maxArea?: number;
+  addressWardId?: string;
+  categoryId?: string;
+  searchValue?: string;
+
+  public constructor(init?: Partial<QueryParams>) {
+    Object.assign(this, init);
+  }
+}

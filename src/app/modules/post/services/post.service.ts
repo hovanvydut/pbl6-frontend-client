@@ -3,7 +3,7 @@ import { BaseModel, DatasourceBaseModel } from '@app/shared/models/base.model';
 import { of, Observable } from 'rxjs';
 //
 import { BaseService } from 'src/app/core/services/base.service';
-import { PostRequestModel, PostBaseModel } from './../models/post.model';
+import { PostRequestModel, PostBaseModel, QueryParams } from './../models/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,15 @@ import { PostRequestModel, PostBaseModel } from './../models/post.model';
 export class PostService {
   constructor(private baseService: BaseService) {}
 
-  getPosts(): Observable<DatasourceBaseModel<PostBaseModel>> {
-    return this.baseService.get(`post`);
+  getPosts(params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+      })
+      .join('&');
+    return this.baseService.get(`post${queryString}`);
   }
 
   getPostById(id: string): Observable<PostBaseModel> {

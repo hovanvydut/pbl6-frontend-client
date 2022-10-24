@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostBaseModel } from '../../models/post.model';
+import { PostBaseModel, QueryParams } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 // swiper
 import { SwiperComponent } from "swiper/angular";
@@ -35,6 +35,10 @@ SwiperCore.use([
 })
 export class PostRelatedComponent implements OnInit {
   posts: PostBaseModel[] = [];
+  queryParams: QueryParams = new QueryParams({
+    pageNumber: 0,
+    pageSize: 4
+  })
 
   constructor(private postService: PostService) { }
 
@@ -43,7 +47,7 @@ export class PostRelatedComponent implements OnInit {
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe((res) => {
+    this.postService.getPosts(this.queryParams).subscribe((res) => {
       this.posts = res.records;
     });
   }
