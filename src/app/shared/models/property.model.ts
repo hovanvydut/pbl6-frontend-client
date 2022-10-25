@@ -3,6 +3,7 @@ import { ItemBaseModel } from '@app/shared/models/base.model';
 import { ItemModel } from './base.model';
 export class PropertiesModel extends ItemBaseModel {
   properties: ItemModel[];
+  value: string[] = [];
 
   constructor(init?: Partial<PropertiesModel>) {
     super();

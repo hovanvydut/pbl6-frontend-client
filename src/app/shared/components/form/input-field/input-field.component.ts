@@ -13,6 +13,7 @@ export class InputFieldComponent implements OnInit {
   }
   set value(val) {
     this._value = val;
+    console.log(val)
   }
 
   @Input() icon: string;

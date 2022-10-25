@@ -24,6 +24,7 @@ export class ChipsFieldComponent {
   @Input() label: string;
   @Input() type: string;
   @Input() appearance: 'outline' | 'fill' = 'fill';
+  @Input() onlyView: boolean = true;
 
   private _allItems: any[] = [];
   @Input() get allItems() {
