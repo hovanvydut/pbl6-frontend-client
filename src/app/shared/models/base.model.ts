@@ -37,6 +37,6 @@ export class ItemModel extends ItemBaseModel {
 
   constructor(init?: Partial<ItemModel>) {
     super();
-    super(init);
+    Object.assign(this, init);
   }
 }

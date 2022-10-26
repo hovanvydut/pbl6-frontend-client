@@ -1,10 +1,12 @@
-<div class="text-left">
+<div *ngIf="filterParams && queryParams" class="text-left">
   <div class="my-20">
     <span class="text-16 font-bold text-left text-gray-700"> Phân loại phòng </span>
-    <div class="flex flex-wrap gap-10">
+    <div class="flex flex-wrap gap-10 py-10">
       <div *ngFor="let item of roomTypes"
         class="w-fit border text-14 rounded-15 px-10 py-5 text-center cursor-pointer"
         [class.bg-blue-700]="queryParams.categoryId === item.id"
+        [class.text-white]="queryParams.categoryId === item.id"
+
         (click)="onCategorySelected(item.id)">
         {{ item.name }}
       </div>
@@ -84,7 +86,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="flex gap-10">
     <button mat-raised-button mat-dialog-close>
       Hủy
     </button>

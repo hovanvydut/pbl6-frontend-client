@@ -1,7 +1,6 @@
 import { PropertyEnum } from '@app/modules/post/enums/property.enum';
-import { ItemBaseModel } from '@app/shared/models/base.model';
 import { ItemModel } from './base.model';
-export class PropertiesModel extends ItemBaseModel {
+export class PropertiesModel extends ItemModel {
   properties: ItemModel[];
   value: string[] = [];
 

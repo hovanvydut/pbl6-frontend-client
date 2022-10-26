@@ -46,10 +46,6 @@ export class ChipsFieldComponent {
   }
   set selectedItems(value: string[]) {
     this._selectedItems = value;
-    this.onSelectedItemsChanged.emit({
-      type: this.type,
-      value: this._selectedItems
-    });
   }
 
   @Output() onSelectedItemsChanged = new EventEmitter<{
@@ -67,6 +63,7 @@ export class ChipsFieldComponent {
     const value = (event.value || '').trim();
     if (value) {
       this.selectedItems.push(value);
+      this.updateSelectedItems();
     }
     event.chipInput!.clear();
     this.itemCtrl.setValue(null);
@@ -76,12 +73,15 @@ export class ChipsFieldComponent {
     const index = this.selectedItems.indexOf(item);
     if (index >= 0) {
       this.selectedItems.splice(index, 1);
+      this.updateSelectedItems();
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if( !this.selectedItems ) this.selectedItems = [];
+    if (!this.selectedItems) this.selectedItems = [];
+    console.log(event.option.value)
     this.selectedItems.push(event.option.value);
+    this.updateSelectedItems();
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);
   }
@@ -89,5 +89,12 @@ export class ChipsFieldComponent {
   private _filter(value: any): any[] {
     const filterValue = value;
     return this.allItems.filter(item => isEqual(filterValue, item));
+  }
+
+  updateSelectedItems() {
+    this.onSelectedItemsChanged.emit({
+      type: this.type,
+      value: this.selectedItems
+    });
   }
 }
