@@ -6,7 +6,6 @@
         class="w-fit border text-14 rounded-15 px-10 py-5 text-center cursor-pointer"
         [class.bg-blue-700]="queryParams.categoryId === item.id"
         [class.text-white]="queryParams.categoryId === item.id"
-
         (click)="onCategorySelected(item.id)">
         {{ item.name }}
       </div>

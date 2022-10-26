@@ -7,6 +7,8 @@ import { QueryParams } from '../post/models/post.model';
 import { FormControl } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { FilterService } from './filter.service';
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { ENDPOINTS } from '@app/shared/utilities';
 
 @Component({
   selector: 'app-filter',
@@ -44,7 +46,8 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private commonService: CommonService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private router: Router,
   ) {
     this.subscription.add(
       this.filterService._queryParams.subscribe(params => {
@@ -83,12 +86,13 @@ export class FilterComponent implements OnInit {
   }
 
   onSelectedFieldChanged(params) {
+    console.log(params)
     // check if the property is already selected
     if (params.value) {
       //  update properties value
       this.properties.findIndex(property => {
         if (property.id === params.type) {
-          property.value.push(params.value);
+          property.value = params.value;
         }
       });
     }
@@ -96,7 +100,7 @@ export class FilterComponent implements OnInit {
 
   onCategorySelected(id: string) {
     this.queryParams.categoryId = id;
-    this.filterParams$.next();
+    this.onValueChanged();
   }
 
   onFilterButtonClicked() {
@@ -104,13 +108,14 @@ export class FilterComponent implements OnInit {
     this.queryParams.minArea = this.filterParams.minArea.value;
     this.queryParams.maxPrice = this.filterParams.maxPrice.value;
     this.queryParams.minPrice = this.filterParams.minPrice.value;
+    this.queryParams.properties = [];
     this.properties.forEach(property => {
       if (property.value.length > 0) {
         this.queryParams.properties.push(property.id as string);
       }
     });
     this.filterService.setQueryParams(this.queryParams);
-    console.log(this.queryParams);
+    this.onValueChanged();
   }
 
   formatLabel(value: number) {
@@ -119,5 +124,12 @@ export class FilterComponent implements OnInit {
     }
 
     return value;
+  }
+
+  onValueChanged() {
+    this.filterParams$.next();
+    if (this.router.url !== ENDPOINTS.POSTS_FILTER) {
+      this.router.navigateByUrl(ENDPOINTS.POSTS_FILTER).then();
+    }
   }
 }
