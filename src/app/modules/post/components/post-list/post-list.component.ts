@@ -57,7 +57,7 @@ export class PostListComponent implements OnInit {
       });
   }
 
-  pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
+  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
     this.queryParams.pageNumber = event.pageIndex + 1;
     this.getPosts();
