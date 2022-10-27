@@ -10,7 +10,8 @@
   </mat-form-field>
 
 
-  <button *ngIf="!searchOnInput" mat-raised-button color="primary" class="search-btn__banner">
+  <button *ngIf="!searchOnInput" mat-raised-button color="primary" class="search-btn__banner"
+    (click)="onSearch()">
     <app-svg-icon class="mr-10" [name]="'searc'" [color]="'#999'">
     </app-svg-icon>
     Search
