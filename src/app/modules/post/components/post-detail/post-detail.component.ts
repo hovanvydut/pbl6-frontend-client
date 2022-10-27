@@ -32,12 +32,14 @@ export class PostDetailComponent implements OnInit {
   }
 
   viewFullScreen() {
-    let dialogRef = this.dialog.open( PostSwiperComponent, {
-      width: '99vw',
-      maxHeight: '99vh',
-      data: {
-        images: this.post.medias
-      }
-    });
+    if (this.post.medias.length > 0) {
+      let dialogRef = this.dialog.open(PostSwiperComponent, {
+        width: '99vw',
+        maxHeight: '99vh',
+        data: {
+          images: this.post.medias
+        }
+      });
+    }
   }
 }
