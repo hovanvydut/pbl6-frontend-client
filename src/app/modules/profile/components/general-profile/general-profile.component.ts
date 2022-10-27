@@ -6,6 +6,7 @@ import { BaseModel } from '@app/shared/models/base.model';
 import { ProfileService } from './../../profile.service';
 import { ProfileDetailFormComponent } from './../profile-detail-form/profile-detail-form.component';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { PaymentComponent } from '@app/modules/user/components/payment/payment.component';
 
 @Component({
   selector: 'app-general-profile',
@@ -43,6 +44,13 @@ export class GeneralProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getProfile();
+    });
+  }
+
+  onRechargeButtonClicked() {
+    let dialogRef = this.dialog.open(PaymentComponent, {
+      width: '99vw',
+      maxHeight: '99vh',
     });
   }
 }
