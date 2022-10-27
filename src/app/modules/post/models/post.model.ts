@@ -65,6 +65,8 @@ export class QueryParams {
   categoryId?: string;
   searchValue?: string;
 
+  properties: string[] = [];
+
   public constructor(init?: Partial<QueryParams>) {
     Object.assign(this, init);
   }

@@ -16,7 +16,10 @@ export class PostService {
     '?' +
     Object.keys(params)
       .map(key => {
-        return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
       })
       .join('&');
     return this.baseService.get(`post${queryString}`);

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     private notifyService: NotifyService,
     private authService: AuthService,
     private baseService: BaseService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.returnUrl = params['returnUrl'] || ENDPOINTS.HOME;

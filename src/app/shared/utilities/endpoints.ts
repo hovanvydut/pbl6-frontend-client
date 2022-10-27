@@ -14,7 +14,7 @@ export const ENDPOINTS = {
   USER_BOOKING_CALENDAR: '/user/my-booking-calendar',
 
   HOME: '/posts',
-
+  POSTS_FILTER: '/posts/filter',
 
   CATEGORY: '/category',
   POST_DETAIL: '/posts/detail',

@@ -7,7 +7,6 @@ import { AddressModel } from '../models/address.model';
 export class AddressPipe implements PipeTransform {
 
   transform(value: AddressModel, ...args: unknown[]): unknown {
-    console.log(value)
     return value.ward.name + ', ' + value.district.name + ', ' + value.province.name;
   }
 

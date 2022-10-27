@@ -3,6 +3,8 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
 import { svgSearch } from 'src/assets/images/svg-icons.constants';
+import { FilterService } from '@app/modules/filter/filter.service';
+import { QueryParams } from '@app/modules/post/models/post.model';
 
 @Component({
   selector: 'app-search-panel',
@@ -16,6 +18,7 @@ export class SearchPanelComponent implements OnInit {
 
   svgSearch = svgSearch;
   ENDPOINTS = ENDPOINTS;
+  queryParams: QueryParams = new QueryParams();
   categories = [
     { name: 'Category 1', id: 1 },
     { name: 'Category 2', id: 2 },
@@ -28,7 +31,7 @@ export class SearchPanelComponent implements OnInit {
 
   private _searchKeywordChanged: Subject<string> = new Subject<string>();
 
-  constructor() {
+  constructor(private filterService: FilterService) {
     this._searchKeywordChanged
       .pipe(
         debounceTime(300), // wait 300ms after the last event before emitting last event
@@ -38,11 +41,20 @@ export class SearchPanelComponent implements OnInit {
         this.searchKeyword = searchKeyword;
         this.searchKeywordChanged.emit(searchKeyword);
       });
+
+    this.filterService._queryParams.subscribe(params => {
+      this.queryParams = params;
+    });
   }
 
   ngOnInit() {}
 
   onSearchKeywordChanged(searchKeyword: string) {
     this._searchKeywordChanged.next(searchKeyword);
+  }
+
+  onSearch() {
+    this.queryParams.searchValue = this.searchKeyword;
+    this.filterService.setQueryParams(this.queryParams);
   }
 }

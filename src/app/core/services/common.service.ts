@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 //
 import { BaseService } from './base.service';
 import { DistrictModel, AddressModel } from './../../shared/models/address.model';
@@ -11,6 +11,13 @@ import { PropertiesModel } from '@app/shared/models/property.model';
   providedIn: 'root'
 })
 export class CommonService {
+  properties: PropertiesModel[] = [];
+  _properties: BehaviorSubject<PropertiesModel[]> = new BehaviorSubject<PropertiesModel[]>(this.properties);
+
+  setProperties(value: PropertiesModel[]) {
+    this._properties.next(value);
+  }
+
   constructor(private baseService: BaseService) {}
 
   //#region Address
