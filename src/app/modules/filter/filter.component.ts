@@ -86,7 +86,6 @@ export class FilterComponent implements OnInit {
   }
 
   onSelectedFieldChanged(params) {
-    console.log(params)
     // check if the property is already selected
     if (params.value) {
       //  update properties value
@@ -109,6 +108,7 @@ export class FilterComponent implements OnInit {
     this.queryParams.maxPrice = this.filterParams.maxPrice.value;
     this.queryParams.minPrice = this.filterParams.minPrice.value;
     this.queryParams.properties = [];
+    console.log(this.properties)
     this.properties.forEach(property => {
       if (property.value.length > 0) {
         this.queryParams.properties.push(property.id as string);
