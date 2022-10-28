@@ -1,0 +1,37 @@
+<h2 mat-dialog-title class="text-20">
+  Thanh toán
+</h2>
+
+<mat-dialog-content class="flex flex-col gap-10 w-full">
+  <app-input-field
+    [required]="true"
+    [placeholder]="'Nhập số tiền bạn muốn nộp'"
+    [value]="paymentInfo.ammount"
+    [label]="'Số tiền'"
+    [type]="'number'"
+  >
+  </app-input-field>
+  <app-select-field
+    [label]="'Nhập mã ngân hàng'"
+    [(selectedValue)]="paymentInfo.bankCode"
+    [items]="bankCodeList"
+    [type]="'text'"
+    (onValueChanged)="onSelectedFieldChanged($event)"
+  ></app-select-field>
+  <app-textarea-field
+    [required]="true"
+    [placeholder]="'Nhập mô tả'"
+    [value]="paymentInfo.orderDes"
+    [label]="'Mô tả'"
+  >
+  </app-textarea-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>
+    Hủy
+  </button>
+  <button mat-raised-button color="primary" (click)="onFinishButtonClicked()">
+    Hoàn tất
+  </button>
+</mat-dialog-actions>

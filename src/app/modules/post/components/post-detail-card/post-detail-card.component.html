@@ -1,53 +1,90 @@
-<div class="flex font-sans w-3/4 m-auto">
-  <div class="flex-none w-1/3 relative">
-    <img src="'assets/images/default/default_avatar.png'"
-         class="absolute inset-0 w-full h-full object-cover rounded-lg"
-         loading="lazy" />
-  </div>
-  <form class="flex-auto p-20">
-    <div class="flex flex-wrap">
-      <h1 class="flex-auto font-medium text-slate-900">
-        Kids Jumpsuit
-      </h1>
-      <div class="w-full flex-none mt-5 order-1 text-3xl font-bold text-violet-600">
-        $39.00
+<div class="flex flex-col gap-30 w-full m-auto">
+  <mat-card class="flex-auto p-20">
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'home_large'" class="w-52"></app-svg-icon> <a> Thông tin phòng </a>
       </div>
-      <div class="text-sm font-medium text-slate-400">
-        In stock
+    </mat-card-title>
+    <div class="grid grid-cols-3 gap-5 my-20">
+      <div>
+        <p class="text-14 text-gray-500 uppercase"> Giá </p>
+        <p class="text-28 font-bold text-blue-700"> {{ post.price | currency: "VND" }} </p>
       </div>
-    </div>
-    <div class="flex items-baseline my-10 pb-6 border-b border-slate-200">
-      <div class="space-x-2 flex text-sm font-bold">
-        <label *ngFor="let size of sizes">
-          <input class="sr-only peer" name="size" type="radio" value="xs" checked />
-          <div class="w-30 h-30 rounded-20 flex items-center justify-center text-violet-400 peer-checked:bg-violet-600 peer-checked:text-white">
-            {{ size.name }}
-          </div>
-        </label>
+      <div>
+        <p class="text-14 text-gray-500 uppercase"> Diện tích </p>
+        <p class="text-16"> {{ post.area }} m2 </p>
+      </div>
+      <div>
+        <p class="text-14 text-gray-500 uppercase"> ĐẶT CỌC </p>
+        <p class="text-16"> {{ post.prePaidPrice | currency: "VND" }} </p>
       </div>
     </div>
-    <div class="flex space-x-4 my-20 text-sm font-medium">
-      <div class="flex-auto flex space-x-10">
-        <button mat-raised-button
-                color="primary"
-                type="submit"
-                class="search-btn__banner font-semibold">
-                Buy now
-        </button>
-        <button mat-raised-button
-                type="button"
-                class="search-btn__banner font-semibold border-slate-200 text-slate-900">
-                Add to bag
-        </button>
+    <div>
+      <p class="text-14 text-gray-500 uppercase"> Địa chỉ </p>
+      <p class="text-16"> {{ post.address + ',' + ( post.fullAddress | address ) }}</p>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'ultilities'" class="w-52"></app-svg-icon> <a> Tiện ích </a>
       </div>
-      <button class="flex-none flex items-center justify-center w-30 h-30 rounded-full text-violet-600 bg-violet-50" type="button" aria-label="Like">
-        <svg width="20" height="20" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-        </svg>
+    </mat-card-title>
+
+    <div class="grid grid-cols-4 gap-10 my-20">
+      <div *ngFor="let item of post.properties; index as i"
+        class="flex gap-10 items-start">
+        <app-svg-icon [name]="completeIconSet[i].name"
+          class="text-blue-800">
+        </app-svg-icon>
+        <p class="text-16"> {{ item.displayName }} </p>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'warning'" class="w-52"></app-svg-icon> <a>  Chú ý</a>
+      </div>
+    </mat-card-title>
+
+    <div class="grid grid-cols-2 gap-5 my-20">
+      <div>
+        <p class="text-14 text-gray-500 uppercase"> Giới hạn số lượng người / phòng </p>
+        <p class="text-16"> {{ post.limitTenant + ' người'}} </p>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>
+      <div class="flex gap-10 items-center">
+        <app-svg-icon [name]="'draw'" class="w-52"></app-svg-icon> <a>Mô tả thêm</a>
+      </div>
+    </mat-card-title>
+
+    <div>
+      <div>
+        <p class="text-14 text-gray-500 uppercase">  </p>
+        <p class="text-16"> {{ post.title }} </p>
+      </div>
+      <div>
+        <p class="text-14 text-gray-500 uppercase"> Mô tả chung </p>
+        <p class="text-16"> {{ post.description }} </p>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="flex items-center gap-10">
+      <span>
+        Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh giá !
+      </span>
+      <button mat-raised-button
+        (click)="onReviewPostButtonClicked()">
+        Đánh giá ngay <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
       </button>
     </div>
-    <p class="text-sm text-slate-500">
-      Free shipping on all continental US orders.
-    </p>
-  </form>
+  </mat-card>
 </div>

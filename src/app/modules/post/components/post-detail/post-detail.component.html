@@ -1,38 +1,26 @@
-<div class="post__banner">
+<div *ngIf="post" class="post__banner" >
   <div class="flex flex-col flex-grow">
     <div class="py-20 post-banner__gallery justify-between flex gap-10 w-full">
-      <mat-card class="post-banner__swiper w-3/5">
-        <app-swiper-template [images]="images" [navigation]="false">
+      <div class="post-banner__swiper w-full rounded-9 overflow-hidden" (click)="viewFullScreen()">
+        <app-swiper-template  *ngIf="post.medias?.length > 0" [images]="post.medias" [navigation]="false">
         </app-swiper-template>
-      </mat-card>
-      <div class="w-2/5 flex flex-col justify-between gap-10 flex-grow">
-        <mat-card class="post-banner__gallery--left">
-          <img
-            class="h-full m-auto w-full"
-            [src]="images[1]?.url"
-          />
-        </mat-card>
-        <mat-card class="post-banner__gallery--left">
-          <img
-            class="h-full m-auto w-full"
-            [src]="images[2]?.url"
-          />
-        </mat-card>
+        <div *ngIf="post.medias?.length === 0" class="w-full h-full flex items-center justify-center">
+          <img [src]="'assets/images/default/house-3.jpg'" class="w-full h-full object-cover" loading="lazy" />
       </div>
     </div>
   </div>
 </div>
-<div class="flex gap-10">
-  <div class="w-3/5">
-    Chi tiết <app-post-detail-card></app-post-detail-card>
+<div class="flex mt-30 mb-20">
+  <div class="w-2/3 p-10">
+    <app-post-detail-card [post]="post"></app-post-detail-card>
   </div>
-  <div class="w-2/5 flex flex-col">
-    <div>
-    </div>
-    <div>
-      Map
-    </div>
+  <div class="w-1/3 p-10">
+    <app-landlord-profile></app-landlord-profile>
   </div>
 </div>
 
+<mat-card-title> Tin nhà trọ khác </mat-card-title>
+
 <app-post-related></app-post-related>
+
+

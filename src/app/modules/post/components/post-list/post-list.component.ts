@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostService } from '@app/modules/post/services/post.service';
+import { FilterService } from '@app/modules/filter/filter.service';
+import { PostService } from '../../services/post.service';
+import { PostBaseModel, QueryParams } from './../../models/post.model';
+import { Subscription, Subject, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
@@ -8,23 +11,55 @@ import { PostService } from '@app/modules/post/services/post.service';
 })
 export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';
-  posts: [];
+  posts: PostBaseModel[] = [];
+  queryParams: QueryParams = new QueryParams({
+    pageNumber: 1,
+    pageSize: 10
+  });
+  totalPosts: number = 0;
+  isLoading: boolean = true;
 
-  constructor(private postService: PostService) { }
+  private _filterParams: Subject<void> = new Subject();
+  private subscription: Subscription = new Subscription();
 
-  ngOnInit() {
-    this.initData();
+  constructor(
+    private postService: PostService,
+    private filterService: FilterService
+  ) {
+    this.subscription.add(
+      this.filterService._queryParams.subscribe(params => {
+        this.queryParams = params;
+        this._filterParams.next();
+      })
+    );
+
+    this._filterParams.subscribe(() => {
+      this.getPosts();
+    });
   }
 
-  initData() {
+  ngOnInit() {
     this.getPosts();
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe((data: any) => {
-      this.posts = data;
-    });
-    return this.posts;
+    this.isLoading = true;
+    this.postService
+      .getPosts(this.queryParams)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(res => {
+        this.posts = res.records;
+        this.totalPosts = res.totalRecords;
+      });
   }
 
+  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+    this.queryParams.pageSize = event.pageSize;
+    this.queryParams.pageNumber = event.pageIndex + 1;
+    this.getPosts();
+  }
 }

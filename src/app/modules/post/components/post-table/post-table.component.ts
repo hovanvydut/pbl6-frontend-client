@@ -5,7 +5,7 @@ import { ConfirmDialogComponent } from './../../../../shared/components/dialog/c
 import { MatDialog } from '@angular/material/dialog';
 import { PostDetailFormComponent } from './../post-detail-form/post-detail-form.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { PostBaseModel } from '../../models/post.model';
+import { PostBaseModel, QueryParams } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-table',
@@ -34,6 +34,13 @@ export class PostTableComponent implements OnInit, AfterViewInit {
     'address',
     'action'
   ];
+  totalPosts: number = 0;
+
+  queryParams: QueryParams = new QueryParams({
+    pageNumber: 1,
+    pageSize: 10
+  })
+
   dataSource: MatTableDataSource<PostBaseModel> = new MatTableDataSource();
 
   constructor(
@@ -50,9 +57,16 @@ export class PostTableComponent implements OnInit, AfterViewInit {
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe(data => {
-      this.dataSource = new MatTableDataSource<PostBaseModel>(data);
+    this.postService.getPosts(this.queryParams).subscribe(data => {
+      this.dataSource = new MatTableDataSource<PostBaseModel>(data.records);
+      this.totalPosts = data.totalRecords;
     });
+  }
+
+  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+    this.queryParams.pageSize = event.pageSize;
+    this.queryParams.pageNumber = event.pageIndex + 1;
+    this.getPosts();
   }
 
   onDeletePostButtonClicked(postId: string) {
@@ -83,7 +97,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
         maxHeight: '90vh',
         data: { postId: postId }
       });
-      dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
         this.getPosts();
       });
     }

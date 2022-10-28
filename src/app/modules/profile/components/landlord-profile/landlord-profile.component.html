@@ -1,0 +1,48 @@
+<mat-card>
+  <div class="flex gap-10">
+    <div class="avatar h-full w-80 relative">
+      <img class="w-full h-full rounded-15 object-cover" [src]="'assets/images/default/default_avatar.png'
+      " />
+    </div>
+    <div>
+      <div class="info">
+        <b class="text-20"> Phượng </b>
+        <p class="text-gray-500 text-10">
+          p@gmail.com
+        </p>
+      </div>
+      <button mat-raised-button color="primary">
+        Xem trang cá nhân
+      </button>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 gap-10 my-10">
+    <button mat-raised-button>
+      <app-svg-icon [name]="'product'"></app-svg-icon> 1
+    </button>
+    <button mat-raised-button>
+      <app-svg-icon [name]="'product'"></app-svg-icon> 2
+    </button>
+    <button mat-raised-button>
+      <app-svg-icon [name]="'product'"></app-svg-icon> 20
+    </button>
+  </div>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quibusdam asperiores ex laboriosam dolorum rerum
+    repudiandae recusandae aspernatur fugit possimus? Mollitia officia sit suscipit beatae velit voluptatem perferendis
+    sed molestias!
+  </p>
+  <div class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
+  <div class="grid grid-cols-3 gap-10 mt-10">
+    <button mat-raised-button color="primary">
+      Chat với chủ trọ
+    </button>
+    <button mat-raised-button color="primary">
+      Liên hệ chủ trọ
+    </button>
+    <button mat-raised-button color="primary"
+     (click)="onBookingCalendarButtonClicked()">
+      Hẹn xem trọ
+    </button>
+  </div>
+</mat-card>

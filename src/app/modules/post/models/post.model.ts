@@ -4,7 +4,8 @@ export class PostBaseModel {
   id: string;
   title: string;
   description: string;
-  address: AddressModel;
+  address: string;
+  fullAddress: AddressModel;
   addressWardId: string;
   categoryId: string;
   area: number;
@@ -14,6 +15,7 @@ export class PostBaseModel {
   properties: any[] = [];
   medias: any[] = [];
   category: ItemBaseModel;
+  isBookmarked: boolean = false;
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);
@@ -47,6 +49,26 @@ export class Review {
   comment: string;
 
   public constructor(init?: Partial<Review>) {
+    Object.assign(this, init);
+  }
+}
+
+
+export class QueryParams {
+  pageNumber: number;
+  pageSize: number;
+
+  minPrice?: number;
+  maxPrice?: number;
+  minArea?: number;
+  maxArea?: number;
+  addressWardId?: string;
+  categoryId?: string;
+  searchValue?: string;
+
+  properties: string[] = [];
+
+  public constructor(init?: Partial<QueryParams>) {
     Object.assign(this, init);
   }
 }

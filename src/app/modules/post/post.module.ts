@@ -19,6 +19,11 @@ import { PostCardHorizontalComponent } from './components/post-card-horizontal/p
 import { PostRelatedComponent } from './components/post-related/post-related.component';
 import { PostTableComponent } from './components/post-table/post-table.component';
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
+import { ProfileModule } from '../profile/profile.module';
+import { SwiperModule } from 'swiper/angular';
+import { PostSwiperComponent } from './components/post-swiper/post-swiper.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
+import { PostBookingComponent } from './components/post-booking/post-booking.component';
 //
 
 export const routes: Routes = [
@@ -53,22 +58,28 @@ const COMPONENTS = [
 ];
 
 const MODULES = [
+  RouterModule.forChild(routes),
+  ProfileModule,
   CommonModule,
   SharedModule,
   FormsModule,
   ReactiveFormsModule,
   LayoutModule,
   FilterModule,
+  SwiperModule
 ];
 @NgModule({
-  imports: [...MODULES, RouterModule.forChild(routes)],
+  imports: [...MODULES],
   declarations: [
     ...COMPONENTS,
     PostCardHorizontalComponent,
     PostRelatedComponent,
     PostTableComponent,
-    PostDetailFormComponent
+    PostDetailFormComponent,
+    PostSwiperComponent,
+    PostReviewComponent,
+    PostBookingComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent]
 })
 export class PostModule {}

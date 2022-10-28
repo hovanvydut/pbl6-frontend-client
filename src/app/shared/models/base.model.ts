@@ -11,6 +11,17 @@ export class BaseModel<T> {
   }
 }
 
+
+export class DatasourceBaseModel<T> {
+  records: T[];
+  totalRecords: number;
+
+  constructor(init?: Partial<DatasourceBaseModel<T>>) {
+    Object.assign(this, init);
+  }
+
+}
+
 export class ItemBaseModel {
   id: string | PropertyEnum;
   name: string;
@@ -26,7 +37,6 @@ export class ItemModel extends ItemBaseModel {
 
   constructor(init?: Partial<ItemModel>) {
     super();
-    super(init);
+    Object.assign(this, init);
   }
 }
-

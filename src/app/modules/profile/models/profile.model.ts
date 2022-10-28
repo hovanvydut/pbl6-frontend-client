@@ -18,6 +18,7 @@ export class ProfileGeneralInfoModel extends ProfileBaseModel {
   totalPosts: number = 0;
   reputation: number = 0;
   totalReviews: number = 0;
+  currentCredit: number = 0;
 
   constructor(init?: Partial<ProfileGeneralInfoModel>) {
     super();

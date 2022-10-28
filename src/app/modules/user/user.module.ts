@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PostModule } from '../post/post.module';
 import { ProfileModule } from '../profile/profile.module';
 import { AuthGuard } from '@app/core/guards/auth.guard';
+import { PaymentComponent } from './components/payment/payment.component';
 export const routes: Routes = [
   {
     path: '',
@@ -57,7 +58,8 @@ const COMPONENTS = [
   CoinsComponent,
   StatisticsComponent,
   ManagePostsComponent,
-  DashboardComponent
+  DashboardComponent,
+  PaymentComponent,
 ];
 
 const MODULES = [

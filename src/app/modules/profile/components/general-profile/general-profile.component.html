@@ -21,13 +21,10 @@
     </div>
     <div class="flex gap-10 flex-wrap">
       <button mat-raised-button>
-        Tổng bài đăng: {{ profileGeneralInfo.totalPosts || 0 }}
+        Tiền trong ví: {{ profileGeneralInfo.currentCredit || 0 }}
       </button>
-      <button mat-raised-button>
-        Điểm uy tín: {{ profileGeneralInfo.reputation || 0 }}
-      </button>
-      <button mat-raised-button>
-        Lượt đánh giá: {{ profileGeneralInfo.totalReviews || 0 }}
+      <button mat-raised-button color="primary" (click)="onRechargeButtonClicked()">
+        <app-svg-icon [name]="'billing'"></app-svg-icon> Nạp tiền
       </button>
     </div>
   </div>

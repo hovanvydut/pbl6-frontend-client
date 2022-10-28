@@ -54,7 +54,7 @@ export class PostDetailFormComponent implements OnInit {
           require: true,
           value: new FormControl('', Validators.required),
           inputType: InputType.Text,
-          fieldType: FieldType.Textarea,
+          fieldType: FieldType.Input,
           width: 'full'
         },
         {
@@ -64,7 +64,7 @@ export class PostDetailFormComponent implements OnInit {
           require: true,
           value: new FormControl('', Validators.required),
           inputType: InputType.Text,
-          fieldType: FieldType.Input,
+          fieldType: FieldType.Textarea,
           width: 'full'
         }
       ]
@@ -435,11 +435,11 @@ export class PostDetailFormComponent implements OnInit {
       group.items.forEach(item => {
         switch (item.name) {
           case PostFieldNameEnum.AddressWardId:
-            item.value.setValue(this.postDetail.address['ward'].id);
+            item.value.setValue(this.postDetail.fullAddress['ward'].id);
             break;
           case PostFieldNameEnum.Province:
           case PostFieldNameEnum.District:
-            item.value.setValue(this.postDetail.address[item.name].id);
+            item.value.setValue(this.postDetail.fullAddress[item.name].id);
             break;
           case PostFieldNameEnum.CategoryId:
             item.value.setValue(this.postDetail.category.id);
