@@ -1,93 +1,100 @@
 <div *ngIf="filterParams && queryParams" class="text-left">
-  <div class="my-20">
-    <span class="text-16 font-bold text-left text-gray-700"> Phân loại phòng </span>
+  <div class="my-15">
+    <span class="text-16 font-bold text-left text-gray-700">
+      Phân loại phòng
+    </span>
     <div class="flex flex-wrap gap-10 py-10">
-      <div *ngFor="let item of roomTypes"
+      <div
+        *ngFor="let item of roomTypes"
         class="w-fit border text-14 rounded-15 px-10 py-5 text-center cursor-pointer"
         [class.bg-blue-700]="queryParams.categoryId === item.id"
         [class.text-white]="queryParams.categoryId === item.id"
-        (click)="onCategorySelected(item.id)">
+        (click)="onCategorySelected(item.id)"
+      >
         {{ item.name }}
       </div>
     </div>
   </div>
 
-  <div *ngFor="let item of properties" class="my-20">
-    <span class="text-16 font-bold text-left text-gray-700"> {{ item.displayName }} </span>
+  <div *ngFor="let item of properties" class="my-15">
+    <span class="text-16 font-bold text-left text-gray-700">
+      {{ item.displayName }}
+    </span>
     <app-chips-field
+      [appearance]="'outline'"
       [onlyView]="true"
       [selectedItems]="item.value"
       [allItems]="item.properties"
       [type]="item.displayName"
       (onSelectedItemsChanged)="onSelectedFieldChanged($event)"
-      >
+    >
     </app-chips-field>
   </div>
 
-  <div class="my-20">
+  <div class="my-15">
     <span class="text-16 font-bold text-left text-gray-700"> Giá phòng </span>
-    <!-- <mat-slider
-      id="to-slider"
-      class="w-full"
-      thumbLabel
-      [displayWith]="formatLabel"
-      tickInterval="500000"
-      step="10000"
-      min="0"
-      max="20000000"
-      [(value)]="priceValue.from">
-    </mat-slider>
-    <mat-slider
-      id="from-slider"
-      class="w-full"
-      thumbLabel
-      [displayWith]="formatLabel"
-      tickInterval="500000"
-      step="10000"
-      min="0"
-      max="20000000"
-      [(value)]="priceValue.to">
-    </mat-slider> -->
-
+    <app-range-slider-field
+      [minValue]="filterParams.minPrice.value"
+      [maxValue]="filterParams.maxPrice.value"
+      [ceil]="30000000"
+      [floor]="0"
+      (onValueChanged)="handleSliderChanged($event, 'price')"
+    ></app-range-slider-field>
     <div class="flex gap-10 items-center">
       <app-input-field
-      class="w-1/3"
-      [value]="filterParams.minPrice"
-      [label]="'Min'"
-      [type]="'number'">
-    </app-input-field>
-    -
-    <app-input-field
-      [value]="filterParams.maxPrice"
-      [label]="'Max'"
-      class="w-1/3"
-      [type]="'number'">
-    </app-input-field>
+        [appearance]="'outline'"
+        [value]="filterParams.minPrice"
+        [label]="'Min'"
+        [type]="'number'"
+        class="w-1/3 flex-grow"
+      >
+      </app-input-field>
+      -
+      <app-input-field
+        [appearance]="'outline'"
+        [value]="filterParams.maxPrice"
+        [label]="'Max'"
+        [type]="'number'"
+        class="w-1/3 flex-grow"
+      >
+      </app-input-field>
     </div>
   </div>
 
-  <div class="my-20">
+  <div class="my-15">
     <span class="text-16 font-bold text-left text-gray-700"> Diện tích </span>
+    <app-range-slider-field
+      [minValue]="filterParams.minArea.value"
+      [maxValue]="filterParams.maxArea.value"
+      [ceil]="100"
+      [floor]="1"
+      [unit]="'m2'"
+      (onValueChanged)="handleSliderChanged($event, 'area')"
+    ></app-range-slider-field>
     <div class="flex gap-10 items-center">
       <app-input-field
-      class="w-1/3"
-      [value]="filterParams.minArea"
-      [label]="'Min'"
-      [type]="'number'">
-    </app-input-field>
-    -
-    <app-input-field
-      [value]="filterParams.maxArea"
-      [label]="'Max'"
-      class="w-1/3"
-      [type]="'number'">
-    </app-input-field>
+        [appearance]="'outline'"
+        class="w-1/3 flex-grow"
+        [value]="filterParams.minArea"
+        [label]="'Min'"
+        [type]="'number'"
+      >
+      </app-input-field>
+      -
+      <app-input-field
+        [appearance]="'outline'"
+        [value]="filterParams.maxArea"
+        [label]="'Max'"
+        class="w-1/3 flex-grow"
+        [type]="'number'"
+      >
+      </app-input-field>
     </div>
   </div>
 
   <div class="flex gap-10">
-    <button mat-raised-button mat-dialog-close>
-      Hủy
+    <button mat-raised-button (click)="onClearFilterButtonClicked()">
+      Xoá bộ lọc
     </button>
     <button mat-raised-button color="primary" (click)="onFilterButtonClicked()">
       Lọc

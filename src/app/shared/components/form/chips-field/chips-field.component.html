@@ -1,6 +1,9 @@
-<mat-form-field class="w-full pr-5"
- [class.chips-view]="onlyView"
- [appearance]="appearance">
+<mat-form-field
+  class="w-full pr-5"
+  [floatLabel]="'never'"
+  [class.chips-view]="onlyView"
+  [appearance]="appearance"
+>
   <mat-label>{{ label }}</mat-label>
   <mat-chip-list #chipList aria-label="Item selection">
     <mat-chip *ngFor="let item of selectedItems" (removed)="remove(item)">
@@ -10,7 +13,7 @@
       </button>
     </mat-chip>
     <input
-      placeholder="New item..."
+      placeholder="Chọn..."
       #itemInput
       [formControl]="itemCtrl"
       [matAutocomplete]="auto"
