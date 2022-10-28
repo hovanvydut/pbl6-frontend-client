@@ -40,4 +40,16 @@ export class PostService {
   updatePost(post: PostRequestModel): Observable<void> {
     return this.baseService.put(`post/${post.id}`, post);
   }
+  //#region  Bookmark
+  getBookmarks(): Observable<DatasourceBaseModel<PostBaseModel>> {
+    return this.baseService.get(`bookmark`);
+  }
+
+  addBookmark(postId: string): Observable<void> {
+    return this.baseService.post(`bookmark/`, { postId: postId });
+  }
+
+  removeBookmark(postId: string): Observable<void> {
+    return this.baseService.delete(`bookmark/${postId}`);
+  }
 }
