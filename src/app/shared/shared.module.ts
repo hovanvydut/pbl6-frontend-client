@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -72,6 +72,10 @@ import { SelectFieldComponent } from './components/form/select-field/select-fiel
 import { ChipsFieldComponent } from './components/form/chips-field/chips-field.component';
 import { AddressPipe } from './pipes/address.pipe';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { RangeSliderFieldComponent } from './components/form/range-slider-field/range-slider-field.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
+import { CurrencyPipe } from '@angular/common';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -89,7 +93,9 @@ const COMPONENTS: any[] = [
   InputFieldComponent,
   TextareaFieldComponent,
   SelectFieldComponent,
-  ChipsFieldComponent
+  ChipsFieldComponent,
+  UploadImageComponent,
+  RangeSliderFieldComponent
 ];
 
 const MATERIALS: any[] = [
@@ -139,21 +145,28 @@ const PIPES = [
 
 const SVG_ICONS = completeIconSet;
 
+const MODULES = [
+  CommonModule,
+  SwiperModule,
+  FormsModule,
+  MatDialogModule,
+  ReactiveFormsModule,
+  NgApexchartsModule
+];
+
+const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
+
 @NgModule({
   imports: [
     ...MATERIALS,
-    CommonModule,
-    SwiperModule,
-    FormsModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    NgApexchartsModule,
+    ...MODULES,
+    NgxSliderModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, UploadImageComponent],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, UploadImageComponent],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe],
   providers: [
-    SvgIconsRegistryService,
+    ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: {} }
   ]
