@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterService } from '@app/modules/filter/filter.service';
-import { Subject, Subscription, finalize } from 'rxjs';
+import { finalize } from 'rxjs';
 import { PostBaseModel, QueryParams } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 
@@ -13,29 +12,12 @@ export class SavedPostsComponent implements OnInit {
   posts: PostBaseModel[] = [];
   queryParams: QueryParams = new QueryParams({
     pageNumber: 1,
-    pageSize: 10
+    pageSize: 4
   });
   totalPosts: number = 0;
   isLoading: boolean = true;
 
-  private _filterParams: Subject<void> = new Subject();
-  private subscription: Subscription = new Subscription();
-
-  constructor(
-    private postService: PostService,
-    private filterService: FilterService
-  ) {
-    this.subscription.add(
-      this.filterService._queryParams.subscribe(params => {
-        this.queryParams = params;
-        this._filterParams.next();
-      })
-    );
-
-    this._filterParams.subscribe(() => {
-      this.getPosts();
-    });
-  }
+  constructor(private postService: PostService) {}
 
   ngOnInit() {
     this.getPosts();
@@ -56,10 +38,9 @@ export class SavedPostsComponent implements OnInit {
       });
   }
 
-  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+  pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
     this.queryParams.pageNumber = event.pageIndex + 1;
     this.getPosts();
   }
-
 }
