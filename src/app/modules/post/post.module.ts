@@ -24,6 +24,7 @@ import { SwiperModule } from 'swiper/angular';
 import { PostSwiperComponent } from './components/post-swiper/post-swiper.component';
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { PostBookingComponent } from './components/post-booking/post-booking.component';
+import { SavedPostsComponent } from './components/saved-posts/saved-posts.component';
 //
 
 export const routes: Routes = [
@@ -78,8 +79,9 @@ const MODULES = [
     PostDetailFormComponent,
     PostSwiperComponent,
     PostReviewComponent,
-    PostBookingComponent
+    PostBookingComponent,
+    SavedPostsComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent, SavedPostsComponent]
 })
 export class PostModule {}
