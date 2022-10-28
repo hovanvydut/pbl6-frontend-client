@@ -41,6 +41,13 @@ export const svgBookmark: {
   name: 'bookmark',
   data: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.54248 9.21777H15.3975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9702 2.5C5.58324 2.5 4.50424 3.432 4.50424 10.929C4.50424 19.322 4.34724 21.5 5.94324 21.5C7.53824 21.5 10.1432 17.816 11.9702 17.816C13.7972 17.816 16.4022 21.5 17.9972 21.5C19.5932 21.5 19.4362 19.322 19.4362 10.929C19.4362 3.432 18.3572 2.5 11.9702 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 };
+export const svgBookmarked: {
+  name: 'bookmarked';
+  data: string;
+} = {
+  name: 'bookmarked',
+  data: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9702 2.5C5.58324 2.5 4.50424 3.432 4.50424 10.929C4.50424 19.322 4.34724 21.5 5.94324 21.5C7.53824 21.5 10.1432 17.816 11.9702 17.816C13.7972 17.816 16.4022 21.5 17.9972 21.5C19.5932 21.5 19.4362 19.322 19.4362 10.929C19.4362 3.432 18.3572 2.5 11.9702 2.5Z" fill="#0052CC" stroke="#0052CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.54245 9.21765H15.3974Z" fill="#0052CC"/><path d="M8.54245 9.21765H15.3974" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+};
 export const svgCalendar: {
   name: 'calendar';
   data: string;
@@ -335,6 +342,7 @@ export type svgIcon =
   | 'bar'
   | 'billing'
   | 'bookmark'
+  | 'bookmarked'
   | 'calendar'
   | 'cart'
   | 'chart_vertical'
@@ -390,6 +398,7 @@ export const completeIconSet = [
   svgBar,
   svgBilling,
   svgBookmark,
+  svgBookmarked,
   svgCalendar,
   svgCart,
   svgChartVertical,
