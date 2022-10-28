@@ -15,6 +15,7 @@ export class PostBaseModel {
   properties: any[] = [];
   medias: any[] = [];
   category: ItemBaseModel;
+  isBookmarked: boolean = false;
 
   public constructor(init?: Partial<PostRequestModel>) {
     Object.assign(this, init);
