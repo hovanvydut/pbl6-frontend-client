@@ -77,6 +77,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { CurrencyPipe } from '@angular/common';
 import { PricePipe } from './pipes/price.pipe';
+import { LoadingComponent } from './components/loading/loading.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -164,8 +165,8 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
     NgxSliderModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },

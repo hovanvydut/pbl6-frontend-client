@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FilterService } from '@app/modules/filter/filter.service';
-import { Subject, Subscription, finalize } from 'rxjs';
+import { fadeInOut } from '@app/shared/app.constants';
 import { PostBaseModel, QueryParams } from '../../models/post.model';
-import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-list-template',
   templateUrl: './post-list-template.component.html',
-  styleUrls: ['./post-list-template.component.scss']
+  styleUrls: ['./post-list-template.component.scss'],
+  animations: [fadeInOut('fadeInOut', 0.2)]
 })
 export class PostListTemplateComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';

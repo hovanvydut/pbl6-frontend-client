@@ -1,5 +1,6 @@
 <div class="w-full">
   <div
+    [@fadeInOut]
     *ngIf="posts?.length === 0 && !isLoading"
     class="text-center empty-box flex items-center justify-center flex-col"
   >
@@ -7,18 +8,20 @@
     <p>
       Hiện chưa có bài viết phù hợp với yêu cầu của bạn! Thử xoá bộ lọc!
     </p>
-    <button mat-raised-button color="primary" (click)="onClearFilterButtonClicked()">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onClearFilterButtonClicked()"
+    >
       Xoá bộ lọc
     </button>
-
   </div>
-  <p
-    *ngIf="isLoading"
-    class="text-center h-100 flex items-center justify-center"
+  <app-loading [@fadeInOut] *ngIf="isLoading"></app-loading>
+  <div
+    [@fadeInOut]
+    *ngIf="!isLoading && posts?.length > 0"
+    class="flex flex-col w-full"
   >
-    Đang tải bài viết
-  </p>
-  <div *ngIf="!isLoading && posts?.length > 0" class="flex flex-col w-full">
     <div class="flex justify-start flex-wrap gap-15 my-20">
       <ng-container *ngIf="type === 'small'">
         <app-post-card *ngFor="let post of posts" [post]="post">

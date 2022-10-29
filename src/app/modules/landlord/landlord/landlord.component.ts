@@ -1,4 +1,3 @@
-import { NINE } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '@app/core/services/common.service';
 import {
@@ -7,12 +6,11 @@ import {
 } from '@app/modules/post/models/post.model';
 import { PostService } from '@app/modules/post/services/post.service';
 import { ItemModel } from '@app/shared/models/base.model';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-landlord',
   templateUrl: './landlord.component.html',
-  styleUrls: ['./landlord.component.scss']
+  styleUrls: ['./landlord.component.scss'],
 })
 export class LandlordComponent implements OnInit {
   posts: PostBaseModel[] = [];
