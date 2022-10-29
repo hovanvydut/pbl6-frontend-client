@@ -26,4 +26,8 @@ export class ProfileService {
   changePassword(data: any): Observable<any>{
     return this.baseService.put<any>('user/profile/change-password', data);
   }
+
+  getProfileInfoById(id: number): Observable<ProfileModel>{
+    return this.baseService.get<ProfileModel>(`user/anonymous?userId=${id}`);
+  }
 }

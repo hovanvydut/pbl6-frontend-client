@@ -19,14 +19,7 @@ export const ENDPOINTS = {
   CATEGORY: '/category',
   POST_DETAIL: '/posts/detail',
 
-  // Buyer
-  PROFILE_INFO: '/profile/info',
-  BUYER_PROFILE_SETTINGS: '/profile/settings',
-  BUYER_NOTIFICATION: '/profile/notification',
-
-  BUYER_ORDERS: '/cart/orders',
-  BUYER_CART: '/cart/shopping-carts',
-  BUYER_BILLINGS: '/cart/billings',
+  LANDLORD: '/landlord',
 
   // Admin
   ADMIN: '/admin',

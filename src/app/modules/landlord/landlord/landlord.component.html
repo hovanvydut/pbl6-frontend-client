@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-30">
+  <app-landlord-profile [landlordId]="1"> </app-landlord-profile>
+
+  <div class="flex flex-col justify-between my-20">
+    <b class="text-20">
+      Tin nổi bật
+    </b>
+    <app-post-list></app-post-list>
+  </div>
+
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a
+      mat-tab-link
+      *ngFor="let link of roomTypes"
+      (click)="activeLink = link"
+      [active]="activeLink == link"
+    >
+      {{ link.name }}
+    </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel  mat-align-tabs="end"></mat-tab-nav-panel>
+</div>
