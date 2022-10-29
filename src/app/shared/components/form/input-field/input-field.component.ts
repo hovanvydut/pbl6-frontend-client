@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { InputType } from '@app/shared/app.enum';
 
 @Component({
   selector: 'app-input-field',
@@ -14,7 +15,7 @@ export class InputFieldComponent implements OnInit {
   set value(val) {
     this._value = val;
   }
-
+  InputType = InputType;
   @Input() icon: string;
   @Input() label: string;
   @Input() placeholder: string;
