@@ -25,6 +25,8 @@ import { PostSwiperComponent } from './components/post-swiper/post-swiper.compon
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { PostBookingComponent } from './components/post-booking/post-booking.component';
 import { SavedPostsComponent } from './components/saved-posts/saved-posts.component';
+import { PostListTemplateComponent } from './components/post-list-template/post-list-template.component';
+import { PostSwiperTemplateComponent } from './components/post-swiper-template/post-swiper-template.component';
 //
 
 export const routes: Routes = [
@@ -80,8 +82,10 @@ const MODULES = [
     PostSwiperComponent,
     PostReviewComponent,
     PostBookingComponent,
-    SavedPostsComponent
+    SavedPostsComponent,
+    PostListTemplateComponent,
+    PostSwiperTemplateComponent
   ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent, SavedPostsComponent]
+  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent, SavedPostsComponent, PostListTemplateComponent, PostSwiperTemplateComponent]
 })
 export class PostModule {}
