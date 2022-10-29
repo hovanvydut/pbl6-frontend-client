@@ -33,7 +33,13 @@ export class SavedPostsComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        this.posts = res.records;
+        this.posts = res.records.map(
+          post =>
+            new PostBaseModel({
+              ...post,
+              isBookmarked: true
+            })
+        );
         this.totalPosts = res.totalRecords;
       });
   }

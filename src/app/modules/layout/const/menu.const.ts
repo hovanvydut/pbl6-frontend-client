@@ -21,4 +21,10 @@ export const  menuItems = [
     name: 'Lịch hẹn xem trọ',
     link: ENDPOINTS.USER_BOOKING_CALENDAR
   },
+
+  {
+    icon: 'messages',
+    name: 'Đăng xuất',
+    link: ENDPOINTS.LOGOUT
+  },
 ];
