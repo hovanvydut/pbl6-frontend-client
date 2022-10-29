@@ -6,18 +6,8 @@
   <mat-label>{{ label }} </mat-label>
   <ng-content select="[slot=iconLabel]"></ng-content>
   <input
-    *ngIf="type !== InputType.Number"
     matInput
     [type]="type"
-    [required]="required"
-    [placeholder]="placeholder"
-    [formControl]="value"
-  />
-  <input
-    *ngIf="type === InputType.Number"
-    matInput
-    appCurrencyMask
-    [type]="'text'"
     [required]="required"
     [placeholder]="placeholder"
     [formControl]="value"
