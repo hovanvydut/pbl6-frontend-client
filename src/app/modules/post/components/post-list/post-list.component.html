@@ -1,13 +1,24 @@
 <div class="w-full">
-  <p *ngIf="posts?.length === 0 && !isLoading"
-    class="text-center h-100 flex items-center justify-center">
-    Không tìm thấy bài viết phù hợp
-  </p>
-  <p *ngIf="isLoading"
-    class="text-center h-100 flex items-center justify-center">
+  <div
+    *ngIf="posts?.length === 0 && !isLoading"
+    class="text-center empty-box flex items-center justify-center flex-col"
+  >
+    <img class="object-contain" src="assets/images/default/no-item.png" />
+    <p>
+      Hiện chưa có bài viết phù hợp với yêu cầu của bạn! Thử xoá bộ lọc!
+    </p>
+    <button mat-raised-button color="primary" (click)="onClearFilterButtonClicked()">
+      Xoá bộ lọc
+    </button>
+
+  </div>
+  <p
+    *ngIf="isLoading"
+    class="text-center h-100 flex items-center justify-center"
+  >
     Đang tải bài viết
   </p>
-  <div *ngIf="!isLoading && posts?.length > 0 " class="flex flex-col w-full">
+  <div *ngIf="!isLoading && posts?.length > 0" class="flex flex-col w-full">
     <div class="flex justify-start flex-wrap gap-15 my-20">
       <ng-container *ngIf="type === 'small'">
         <app-post-card *ngFor="let post of posts" [post]="post">
@@ -24,11 +35,12 @@
     </div>
     <div class="flex w-full justify-end">
       <mat-paginator
-          style-paginator
-          (page)="pageChangeEvent($event)"
-          [length]="totalPosts"
-          [pageSize]="queryParams.pageSize"
-          [hidePageSize]="true">
+        style-paginator
+        (page)="pageChangeEvent($event)"
+        [length]="totalPosts"
+        [pageSize]="queryParams.pageSize"
+        [hidePageSize]="true"
+      >
       </mat-paginator>
     </div>
   </div>

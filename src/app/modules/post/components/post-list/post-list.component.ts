@@ -62,4 +62,8 @@ export class PostListComponent implements OnInit {
     this.queryParams.pageNumber = event.pageIndex + 1;
     this.getPosts();
   }
+
+  onClearFilterButtonClicked () {
+    this.filterService.setQueryParams(this.queryParams = new QueryParams());
+  }
 }

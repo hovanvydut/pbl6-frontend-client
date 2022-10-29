@@ -76,6 +76,7 @@ import { RangeSliderFieldComponent } from './components/form/range-slider-field/
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { CurrencyPipe } from '@angular/common';
+import { PricePipe } from './pipes/price.pipe';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -163,8 +164,8 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
     NgxSliderModule,
     RouterModule.forChild([])
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },
