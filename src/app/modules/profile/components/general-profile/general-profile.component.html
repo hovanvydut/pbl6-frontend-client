@@ -21,7 +21,7 @@
     </div>
     <div class="flex gap-10 flex-wrap">
       <button mat-raised-button>
-        Tiền trong ví: {{ profileGeneralInfo.currentCredit || 0 }}
+        Tiền trong ví: {{ (profileGeneralInfo.currentCredit / 1000 ) | price }}
       </button>
       <button mat-raised-button color="primary" (click)="onRechargeButtonClicked()">
         <app-svg-icon [name]="'billing'"></app-svg-icon> Nạp tiền
