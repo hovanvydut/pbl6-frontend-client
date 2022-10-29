@@ -18,10 +18,15 @@
             <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
             </app-svg-icon>
           </div>
-
         </button>
         <mat-menu #menu="matMenu">
-          <button *ngFor="let item of menuItems" mat-menu-item [routerLink]="item.link">{{ item.name }}</button>
+          <button
+            *ngFor="let item of menuItems"
+            mat-menu-item
+            [routerLink]="item.link"
+          >
+            {{ item.name }}
+          </button>
         </mat-menu>
       </a>
       <div mat-list-item *ngIf="!accountInfo" class="text-14 text-blue-4882C7">
@@ -42,12 +47,14 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link"> {{ item.name }} </a>
+      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link">
+        {{ item.name }}
+      </a>
       <a mat-list-item (click)="sidenav.toggle()"> Close </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="height: 88vh; max-width: 1800px" class="p-20">
+    <div style="height: 88vh" class="p-20 container-max-width">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

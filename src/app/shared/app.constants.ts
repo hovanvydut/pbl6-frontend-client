@@ -1,11 +1,11 @@
-export const ALLOWED_PAGE_SIZES = [
-  25, 50, 100
-];
+import { trigger, style, animate, transition } from '@angular/animations';
+
+export const ALLOWED_PAGE_SIZES = [25, 50, 100];
 
 export const USER_ROLES = {
   Admin: 'Admin',
   Landlord: 'Landlord',
-  Tenant: 'Tenant',
+  Tenant: 'Tenant'
 };
 
 export const DIALOG_MESSAGE = {
@@ -21,13 +21,24 @@ export const DIALOG_MESSAGE = {
   CREATE_FAIL: 'Create failed',
 
   UPLOAD_SUCCESS: 'Upload successfully',
-  UPLOAD_FAIL: 'Upload failed',
-}
+  UPLOAD_FAIL: 'Upload failed'
+};
 
 export const DIALOG_BUTTON = {
   OK: 'Có',
   CANCEL: 'Để tui coi lại',
   YES: 'Yes',
   NO: 'No',
-  SAVE: 'Save',
-}
+  SAVE: 'Save'
+};
+
+export const fadeInOut = (name = 'fadeInOut', duration = 0.1) =>
+  trigger(name, [
+    transition(':enter', [
+      style({ opacity: 0 }),
+      animate(`${duration}s ease-in-out`)
+    ]),
+    transition(':leave', [
+      animate(`${duration}s ease-in-out`, style({ opacity: 0 }))
+    ])
+  ]);

@@ -16,7 +16,6 @@ import { FilterModule } from '../filter/filter.module';
 import { PostComponent } from './post.component';
 import { PostFilterLayoutComponent } from './components/post-filter-layout/post-filter-layout.component';
 import { PostCardHorizontalComponent } from './components/post-card-horizontal/post-card-horizontal.component';
-import { PostRelatedComponent } from './components/post-related/post-related.component';
 import { PostTableComponent } from './components/post-table/post-table.component';
 import { PostDetailFormComponent } from './components/post-detail-form/post-detail-form.component';
 import { ProfileModule } from '../profile/profile.module';
@@ -25,6 +24,8 @@ import { PostSwiperComponent } from './components/post-swiper/post-swiper.compon
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { PostBookingComponent } from './components/post-booking/post-booking.component';
 import { SavedPostsComponent } from './components/saved-posts/saved-posts.component';
+import { PostListTemplateComponent } from './components/post-list-template/post-list-template.component';
+import { PostSwiperTemplateComponent } from './components/post-swiper-template/post-swiper-template.component';
 //
 
 export const routes: Routes = [
@@ -55,7 +56,16 @@ const COMPONENTS = [
   PostBannerComponent,
   PostCardComponent,
   PostDetailCardComponent,
-  PostFilterLayoutComponent
+  PostFilterLayoutComponent,
+  PostCardHorizontalComponent,
+  PostTableComponent,
+  PostDetailFormComponent,
+  PostSwiperComponent,
+  PostReviewComponent,
+  PostBookingComponent,
+  SavedPostsComponent,
+  PostListTemplateComponent,
+  PostSwiperTemplateComponent
 ];
 
 const MODULES = [
@@ -71,17 +81,17 @@ const MODULES = [
 ];
 @NgModule({
   imports: [...MODULES],
-  declarations: [
+  declarations: [...COMPONENTS],
+  exports: [
     ...COMPONENTS,
-    PostCardHorizontalComponent,
-    PostRelatedComponent,
     PostTableComponent,
     PostDetailFormComponent,
     PostSwiperComponent,
     PostReviewComponent,
     PostBookingComponent,
-    SavedPostsComponent
-  ],
-  exports: [...COMPONENTS, PostTableComponent, PostDetailFormComponent, PostSwiperComponent, PostReviewComponent, PostBookingComponent, SavedPostsComponent]
+    SavedPostsComponent,
+    PostListTemplateComponent,
+    PostSwiperTemplateComponent
+  ]
 })
 export class PostModule {}

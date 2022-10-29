@@ -3,11 +3,14 @@ import { FilterService } from '@app/modules/filter/filter.service';
 import { PostService } from '../../services/post.service';
 import { PostBaseModel, QueryParams } from './../../models/post.model';
 import { Subscription, Subject, finalize } from 'rxjs';
+import { fadeInOut } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  styleUrls: ['./post-list.component.scss'],
+  animations: [fadeInOut('fadeInOut', 0.2)]
+
 })
 export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';

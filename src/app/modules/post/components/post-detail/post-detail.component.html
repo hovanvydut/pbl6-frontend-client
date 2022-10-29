@@ -32,11 +32,10 @@
       <app-post-detail-card [post]="post"></app-post-detail-card>
     </div>
     <div class="w-1/3 p-10">
-      <app-landlord-profile></app-landlord-profile>
+      <app-landlord-profile [landlordId]="post.authorId"></app-landlord-profile>
     </div>
   </div>
 
   <mat-card-title> Tin nhà trọ khác </mat-card-title>
-
-  <app-post-related></app-post-related>
+  <app-post-swiper-template [posts]="posts"> </app-post-swiper-template>
 </div>

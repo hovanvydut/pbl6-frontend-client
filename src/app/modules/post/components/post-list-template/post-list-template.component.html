@@ -1,27 +1,19 @@
 <div class="w-full">
   <div
     [@fadeInOut]
-    *ngIf="posts?.length === 0 && !isLoading"
+    *ngIf="posts?.length === 0"
     class="text-center empty-box flex items-center justify-center flex-col"
   >
-    <img class="object-contain" src="assets/images/default/no-item.png" />
+    <img
+      class="object-contain"
+      [class]="emptyPostImageStyle"
+      src="assets/images/default/no-item.png"
+    />
     <p>
-      Hiện chưa có bài viết phù hợp với yêu cầu của bạn! Thử xoá bộ lọc!
+      {{ emptyPostDescription }}
     </p>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onClearFilterButtonClicked()"
-    >
-      Xoá bộ lọc
-    </button>
   </div>
-  <app-loading [@fadeInOut] *ngIf="isLoading"></app-loading>
-  <div
-    [@fadeInOut]
-    *ngIf="!isLoading && posts?.length > 0"
-    class="flex flex-col w-full"
-  >
+  <div [@fadeInOut] *ngIf="posts?.length > 0" class="flex flex-col w-full">
     <div class="flex justify-start flex-wrap gap-15 my-20">
       <ng-container *ngIf="type === 'small'">
         <app-post-card *ngFor="let post of posts" [post]="post">
@@ -36,7 +28,7 @@
         </app-post-card-horizontal>
       </ng-container>
     </div>
-    <div class="flex w-full justify-end">
+    <div *ngIf="isShowPagination" class="flex w-full justify-end">
       <mat-paginator
         style-paginator
         (page)="pageChangeEvent($event)"
