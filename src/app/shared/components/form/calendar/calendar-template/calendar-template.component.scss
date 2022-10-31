@@ -1,0 +1,29 @@
+::ng-deep .cal-event-action {
+  background: white !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  position: relative;
+
+  &::after {
+    content: 'x';
+  }
+}
+
+::ng-deep .cal-event-title {
+  color: white !important
+}
+
+::ng-deep .cal-event {
+  padding: 5px !important;
+}
+
+::ng-deep .cal-today {
+  background: #4D47C3 !important;
+  color: white !important;
+}
+
+::ng-deep .cal-header {
+  span {
+    display: none !important
+  }
+}
