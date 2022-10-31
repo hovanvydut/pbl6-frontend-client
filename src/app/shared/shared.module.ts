@@ -4,6 +4,8 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 //pipes
 import {
   LookupValuePipe,
@@ -79,6 +81,8 @@ import { CurrencyPipe } from '@angular/common';
 import { PricePipe } from './pipes/price.pipe';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CurrencyMaskDirective } from './directives/currency-mask.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarTemplateComponent } from './components/form/calendar/calendar-template/calendar-template.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -164,10 +168,14 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
     ...MATERIALS,
     ...MODULES,
     NgxSliderModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },

@@ -23,11 +23,9 @@
         </div>
       </div>
     </div>
-    <div class="absolute bottom-0 left">
-
-    </div>
+    <div class="absolute bottom-0 left"></div>
   </div>
-  <div class="flex mt-30 mb-20">
+  <div class="flex mt-30 mb-30">
     <div class="w-2/3 p-10">
       <app-post-detail-card [post]="post"></app-post-detail-card>
     </div>
@@ -37,5 +35,11 @@
   </div>
 
   <mat-card-title> Tin nhà trọ khác </mat-card-title>
-  <app-post-swiper-template [posts]="posts"> </app-post-swiper-template>
+  <ng-container *ngIf="!relatedPosts || relatedPosts?.length === 0">
+    <p class="my-5">
+      Không có tin nhà trọ liên quan
+    </p>
+  </ng-container>
+
+  <app-post-swiper-template [posts]="relatedPosts"> </app-post-swiper-template>
 </div>
