@@ -1,11 +1,11 @@
 <div class="flex flex-col gap-30">
-  <app-landlord-profile [landlordId]="1"> </app-landlord-profile>
+  <app-landlord-profile [landlordId]="landloardId"> </app-landlord-profile>
 
   <div class="flex flex-col justify-between my-20">
     <b class="text-20 mb-20">
       Tin nổi bật
     </b>
-    <app-post-swiper-template [posts]="posts"> </app-post-swiper-template>
+    <app-post-swiper-template [posts]="outstandingPosts"> </app-post-swiper-template>
   </div>
 
   <nav mat-tab-nav-bar [tabPanel]="tabPanel">

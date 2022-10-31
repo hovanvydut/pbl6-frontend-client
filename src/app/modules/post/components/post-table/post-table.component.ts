@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PostService } from './../../services/post.service';
 import { ConfirmDialogComponent } from './../../../../shared/components/dialog/confirm-dialog/confirm-dialog.component';
@@ -6,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostDetailFormComponent } from './../post-detail-form/post-detail-form.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { PostBaseModel, QueryParams } from '../../models/post.model';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-post-table',
@@ -39,14 +48,15 @@ export class PostTableComponent implements OnInit, AfterViewInit {
   queryParams: QueryParams = new QueryParams({
     pageNumber: 1,
     pageSize: 10
-  })
+  });
 
   dataSource: MatTableDataSource<PostBaseModel> = new MatTableDataSource();
 
   constructor(
     private dialog: MatDialog,
-    private postService: PostService)
-  {}
+    private postService: PostService,
+    private notifyService: NotifyService
+  ) {}
 
   ngOnInit(): void {
     this.getPosts();
@@ -57,13 +67,18 @@ export class PostTableComponent implements OnInit, AfterViewInit {
   }
 
   getPosts() {
-    this.postService.getPosts(this.queryParams).subscribe(data => {
-      this.dataSource = new MatTableDataSource<PostBaseModel>(data.records);
-      this.totalPosts = data.totalRecords;
-    });
+    this.postService.getPersonalPosts(this.queryParams).subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource<PostBaseModel>(data.records);
+        this.totalPosts = data.totalRecords;
+      },
+      e => {
+        this.notifyService.notify(e);
+      }
+    );
   }
 
-  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+  pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
     this.queryParams.pageNumber = event.pageIndex + 1;
     this.getPosts();
@@ -79,12 +94,14 @@ export class PostTableComponent implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe(confirm => {
         if (confirm) {
-          this.postService.deletePost(postId).subscribe(data => {
-            this.getPosts();
-          });
-          this.postService.deletePost(postId).subscribe(data => {
-            this.getPosts();
-          });
+          this.postService.deletePost(postId).subscribe(
+            data => {
+              this.getPosts();
+            },
+            e => {
+              this.notifyService.notify(e);
+            }
+          );
         }
       });
     }
@@ -97,7 +114,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
         maxHeight: '90vh',
         data: { postId: postId }
       });
-    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(result => {
         this.getPosts();
       });
     }

@@ -11,7 +11,7 @@ import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
-  posts: PostBaseModel[] = [];
+  relatedPosts: PostBaseModel[] = [];
   queryParams: QueryParams = new QueryParams({
     pageNumber: 0,
     pageSize: 10
@@ -29,7 +29,7 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getPostDetail();
-    this.getPosts();
+    this.getRelatedPosts();
   }
 
   getPostDetail() {
@@ -38,9 +38,9 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
-  getPosts() {
-    this.postService.getPosts(this.queryParams).subscribe((res) => {
-      this.posts = res.records;
+  getRelatedPosts() {
+    this.postService.getRelatedPosts(this.queryParams).subscribe((res) => {
+      this.relatedPosts = res.records;
     });
   }
 

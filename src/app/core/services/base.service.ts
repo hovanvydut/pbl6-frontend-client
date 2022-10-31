@@ -194,7 +194,6 @@ export class BaseService {
   handleError(res: any) {
     if (res.statusCode === 401) {
       this.removeLoggedUser();
-      location.reload();
     } else {
       throw new Error(res.message);
     }

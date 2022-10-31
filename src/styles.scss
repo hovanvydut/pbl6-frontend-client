@@ -31,6 +31,8 @@ body {
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap');
+// calendar
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 $fontConfig: (display-4: mat-typography-level(112px, 112px, 300, 'Nunito', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'Nunito', -0.0089em),

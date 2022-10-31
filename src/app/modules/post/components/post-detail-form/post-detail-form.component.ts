@@ -374,12 +374,7 @@ export class PostDetailFormComponent implements OnInit {
             ];
           }
         } else {
-          // checck if item type is number
-          if (item.inputType === InputType.Number) {
-            data[item.name] = this.toNumber(item.value.value);
-          } else {
-            data[item.name] = item.value.value;
-          }
+          data[item.name] = item.value.value;
         }
       });
     });

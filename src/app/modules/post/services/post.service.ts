@@ -11,6 +11,20 @@ import { PostRequestModel, PostBaseModel, QueryParams } from './../models/post.m
 export class PostService {
   constructor(private baseService: BaseService) {}
 
+  getPersonalPosts(params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
+      })
+      .join('&');
+    return this.baseService.get(`host/personal/post${queryString}`);
+  }
+
   getPosts(params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
     const queryString =
     '?' +
@@ -38,6 +52,51 @@ export class PostService {
       .join('&');
     return this.baseService.get(`bookmark${queryString}`);
   }
+
+  getRelatedPosts(params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
+      })
+      .join('&');
+    return this.baseService.get(`post/related${queryString}`);
+  }
+
+  getPostsByLandlordId(id: string, params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
+      })
+      .join('&');
+    return this.baseService.get(`host/${id}/post${queryString}`);
+  }
+
+  getOutstandingPostsByHostId(id: string, params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
+      })
+      .join('&');
+    return this.baseService.get(`host/${id}/post${queryString}`);
+  }
+
+
+
 
   getPostById(id: string): Observable<PostBaseModel> {
     return this.baseService.get<PostBaseModel>(`post/${id}`);
