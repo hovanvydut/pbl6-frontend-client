@@ -1,1 +1,51 @@
-<p>post-booking works!</p>
+<app-dialog-template [title]="'Đặt lịch hẹn xem trọ'">
+  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Xác nhận phòng trọ</ng-template>
+          <!-- <app-post-card-horizontal></app-post-card-horizontal> -->
+        <div>
+          <button mat-button matStepperNext>Tiếp theo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Xác nhận số điện thoại</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Số điện thoại của bạn</mat-label>
+          <input
+            matInput
+            formControlName="phoneNumber"
+            placeholder="Ex. 0336615245"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Trở lại</button>
+          <button mat-button matStepperNext>Tiếp theo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Chọn lịch hẹn</ng-template>
+      <p>Thông tin lịch rảnh của chủ trọ mang tính chất tham khảo, chủ trọ sẽ xác nhận lại lịch hẹn của bạn!</p>
+      <app-calendar-template [selectOneSegment]="true"
+        (onSegmentSelected)="handleSegmentSelected($event)"></app-calendar-template>
+      <div>
+        <button mat-button matStepperPrevious>Trở lại</button>
+        <button mat-button matStepperNext>Tiếp theo</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Hoàn tất thông tin!</ng-template>
+      <p>
+        Lịch hẹn bạn chọn: {{ selecteDateString }}
+      </p>
+      <p>Bấm để đặt lịch ngay với chủ trọ.</p>
+      <div>
+        Hoặc trở lại để chỉnh sửa <button mat-button matStepperPrevious>Trở lại</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</app-dialog-template>

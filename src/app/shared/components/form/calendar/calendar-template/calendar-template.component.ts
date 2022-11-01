@@ -1,7 +1,9 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -32,13 +34,15 @@ const colors: Record<string, EventColor> = {
   styleUrls: ['./calendar-template.component.scss']
 })
 export class CalendarTemplateComponent implements OnInit {
+  @Input() selectOneSegment: boolean = false;
   @Input() view: CalendarView = CalendarView.Week;
   @Input() enableEdit: boolean = true;
+  @Output() onSegmentSelected: EventEmitter<Date> = new EventEmitter<Date>;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   actions: CalendarEventAction[] = [
     {
-      label: `x`,
+      label: ``,
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
@@ -52,20 +56,26 @@ export class CalendarTemplateComponent implements OnInit {
   constructor() {}
 
   onSegmentDateClicked(event) {
-    if (this.enableEdit) {
-      const addedEvent = {
-        start: event.date,
-        end: new Date(event.date.getTime() + 1000 * 60 * 60),
-        title: 'Có thể đến xem trọ',
-        color: { ...colors['available'] },
-        actions: this.actions,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        },
-        draggable: true
-      };
+    const selectedDate = event.date.toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', weekday:"long", hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'});
+    const addedEvent = {
+      start: event.date,
+      end: new Date(event.date.getTime() + 1000 * 60 * 60),
+      title: selectedDate,
+      color: { ...colors['available'] },
+      actions: this.actions,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
+    };
+    if (this.enableEdit && !this.selectOneSegment) {
       this.events = [...this.events, addedEvent];
+    }
+
+    if(this.selectOneSegment) {
+      this.events = [ addedEvent];
+      this.onSegmentSelected.emit(event.date)
     }
   }
 
