@@ -1,12 +1,14 @@
 <mwl-calendar-week-view
+  *ngIf="view === CalendarView.Week"
   [viewDate]="viewDate"
   [events]="events"
   [refresh]="refresh"
   [dayStartHour]="6"
   [dayEndHour]="22"
-  [hourDuration]="30"
+  [hourDuration]="60"
   [hourSegments]="2"
   (eventClicked)="handleEvent('Clicked', $event.event)"
   (eventTimesChanged)="eventTimesChanged($event)"
+  (hourSegmentClicked)="onSegmentDateClicked($event)"
 >
 </mwl-calendar-week-view>

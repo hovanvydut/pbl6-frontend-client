@@ -1,0 +1,16 @@
+<div class="relative">
+  <div class="sticky top-0 p-20 z-10 bg-white flex justify-between">
+    <b class="text-20">
+      Lịch hẹn xem trọ
+    </b>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSaveCalendarSettingsButtonClicked()"
+    >
+      Lưu
+    </button>
+  </div>
+  <app-calendar-template #calendar></app-calendar-template>
+</div>

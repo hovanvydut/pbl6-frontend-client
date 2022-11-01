@@ -13,6 +13,7 @@ import { PostModule } from '../post/post.module';
 import { ProfileModule } from '../profile/profile.module';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { PaymentComponent } from './components/payment/payment.component';
+import { MyAvailableCalendarComponent } from './components/booking-calendar/my-available-calendar/my-available-calendar.component';
 export const routes: Routes = [
   {
     path: '',
@@ -70,9 +71,9 @@ const MODULES = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, MyAvailableCalendarComponent],
   imports: [...MODULES],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS, MyAvailableCalendarComponent]
 })
 export class UserModule {
   constructor() {}
