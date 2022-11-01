@@ -83,6 +83,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { CurrencyMaskDirective } from './directives/currency-mask.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarTemplateComponent } from './components/form/calendar/calendar-template/calendar-template.component';
+import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -174,8 +175,8 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
       useFactory: adapterFactory,
     }),
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },
