@@ -1,12 +1,16 @@
 <mat-toolbar>
   <mat-toolbar-row class="justify-between">
     <!-- left -->
-    <div class="flex items-center gap-10">
-      <button mat-icon-button>
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-      </button>
-      <h1 [routerLink]="ENDPOINTS.HOME" class="cursor-pointer">Homie</h1>
-    </div>
+    <h3
+      [routerLink]="ENDPOINTS.HOME"
+      class="flex items-center gap-10 border-b pb-10 cursor-pointer"
+    >
+      <img
+        class="h-24 w-24 object-contain shadow-sm"
+        src="assets/images/default/home.png"
+      />
+      <b> HOMIE</b>
+    </h3>
     <span class="menu-spacer"></span>
     <!-- right -->
     <div class="flex items-center gap-10">
@@ -54,8 +58,11 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="height: 88vh" class="p-20 container-max-width">
-      <router-outlet></router-outlet>
+    <div style="height: 91vh">
+      <div class="p-20 container-max-width">
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer></app-footer>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

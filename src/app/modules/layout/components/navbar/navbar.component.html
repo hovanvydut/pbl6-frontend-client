@@ -1,12 +1,18 @@
 <mat-toolbar>
   <mat-toolbar-row class="justify-between">
     <!-- left -->
-    <div class="flex items-center">
-      <button mat-icon-button>
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-      </button>
-      <h1>HOMIE</h1>
-    </div>
+    <h3
+      (click)="sidenav.toggle()"
+      class="flex items-center gap-10 border-b pb-10 marker:cursor-pointer"
+    >
+      <img
+        (click)="sidenav.toggle()"
+        class="h-24 w-24 object-contain shadow-sm"
+        src="assets/images/default/home.png"
+      />
+      <b> HOMIE</b>
+    </h3>
+
     <span class="menu-spacer"></span>
     <!-- right -->
     <div class="flex items-center gap-4">
@@ -16,16 +22,18 @@
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center ">
             <span class="mr-2"> {{ accountInfo.displayName }}</span>
-            <app-svg-icon
-              [name]="'arrow_down'"
-              [color]="'#999'"
-              matPrefix
-            >
+            <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
             </app-svg-icon>
           </div>
         </button>
         <mat-menu #menu="matMenu">
-          <button *ngFor="let item of menuItems" mat-menu-item [routerLink]="item.link">{{ item.name }}</button>
+          <button
+            *ngFor="let item of menuItems"
+            mat-menu-item
+            [routerLink]="item.link"
+          >
+            {{ item.name }}
+          </button>
         </mat-menu>
       </a>
     </div>
@@ -37,7 +45,9 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a *ngFor="let item of menuItems" mat-list-item  [routerLink]="item.link"> {{ item.name }} </a>
+      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link">
+        {{ item.name }}
+      </a>
       <a mat-list-item (click)="sidenav.toggle()"> Close </a>
     </mat-nav-list>
   </mat-sidenav>
