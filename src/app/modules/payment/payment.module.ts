@@ -28,6 +28,6 @@ const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule];
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [...MODULES],
-exports: [...COMPONENTS]
+  exports: [...COMPONENTS]
 })
 export class PaymentModule {}

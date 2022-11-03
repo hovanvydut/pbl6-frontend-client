@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
-import { ProfileBaseModel, ProfileModel, ProfileUpdateModel } from './models/profile.model';
-import { BaseModel } from './../../shared/models/base.model';
+import { ProfileBaseModel, ProfileModel, ProfileUpdateModel } from '../models/profile.model';
+import { BaseModel } from '../../../shared/models/base.model';
 
 @Injectable({
   providedIn: 'root'

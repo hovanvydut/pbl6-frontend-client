@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseService } from '@app/core/services/base.service';
-import { BookingService } from '@app/modules/user/services/booking.service';
 import { CalendarTemplateComponent } from '@app/shared/components/form/calendar/calendar-template/calendar-template.component';
 import { DecimalPipe } from '@angular/common';
+import { BookingService } from '../services/booking.service';
 
 @Component({
   selector: 'app-my-available-calendar',

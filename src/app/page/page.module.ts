@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-//
-import { SharedModule } from '@app/shared/shared.module';
-import { SidebarLayoutComponent } from '../layout/components/sidebar-layout/sidebar-layout.component';
-import { ProfileComponent } from './user.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PostModule } from '../post/post.module';
-import { ProfileModule } from '../profile/profile.module';
+import { PageComponent } from './page.component';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
+import { SidebarLayoutComponent } from '@app/modules/layout/components/sidebar-layout/sidebar-layout.component';
+import { PostModule } from '@app/modules/post/post.module';
+import { ProfileModule } from '@app/modules/profile/profile.module';
+import { SharedModule } from '@app/shared/shared.module';
 export const routes: Routes = [
   {
     path: '',
@@ -20,29 +18,27 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [AuthGuard]
+        loadChildren: () =>
+        import('@app/modules/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'posts',
         loadChildren: () =>
-        import('@app/modules/post/post.module').then(
-          m => m.PostModule
-        )
+          import('@app/modules/post/post.module').then(m => m.PostModule)
       },
       {
         path: 'statistics',
         loadChildren: () =>
-        import('@app/modules/statistics/statistics.module').then(
-          m => m.StatisticsModule
-        )
+          import('@app/modules/statistics/statistics.module').then(
+            m => m.StatisticsModule
+          )
       },
       {
         path: 'payment',
         loadChildren: () =>
-        import('@app/modules/payment/payment.module').then(
-          m => m.PaymentModule
-        )
+          import('@app/modules/payment/payment.module').then(
+            m => m.PaymentModule
+          )
       },
       {
         path: 'booking-calendar',
@@ -55,10 +51,7 @@ export const routes: Routes = [
   }
 ];
 
-const COMPONENTS = [
-  ProfileComponent,
-  DashboardComponent,
-];
+const COMPONENTS = [PageComponent];
 
 const MODULES = [
   RouterModule.forChild(routes),
@@ -72,6 +65,4 @@ const MODULES = [
   imports: [...MODULES],
   exports: [...COMPONENTS]
 })
-export class UserModule {
-  constructor() {}
-}
+export class PageModule {}

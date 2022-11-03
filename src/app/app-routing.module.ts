@@ -38,8 +38,8 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () =>
-      import('@app/modules/user/user.module').then(
-        m => m.UserModule
+      import('@app/page/page.module').then(
+        m => m.PageModule
       ),
     data: { preload: false }
   },

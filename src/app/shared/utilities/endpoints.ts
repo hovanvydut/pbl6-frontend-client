@@ -7,7 +7,7 @@ export const ENDPOINTS = {
   LOGOUT: '/auth/logout',
 
   // General
-  DASHBOARD: '/user/dashboard',
+  DASHBOARD: '/user/dashboard/my-dashboard',
   LANDLOR_MANAGE_POSTS: '/user/posts/manage-posts',
   LANDLOR_STATISTICS: '/user/statistics',
   USER_COIN:  '/user/payment',

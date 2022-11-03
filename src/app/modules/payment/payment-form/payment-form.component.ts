@@ -1,9 +1,9 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { PaymentService } from '@app/modules/user/services/payment.service';
 import { ItemModel } from '@app/shared/models/base.model';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-payment-form',
