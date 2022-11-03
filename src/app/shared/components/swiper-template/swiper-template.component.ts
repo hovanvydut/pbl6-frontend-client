@@ -1,9 +1,17 @@
-import { ChangeDetectorRef, Component, NgZone, ViewChild , OnInit, Input, SimpleChanges} from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  ViewChild,
+  OnInit,
+  Input,
+  SimpleChanges
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 // swiper
-import { SwiperComponent } from "swiper/angular";
+import { SwiperComponent } from 'swiper/angular';
 // import Swiper core and required components
-import SwiperCore , {
+import SwiperCore, {
   Navigation,
   Pagination,
   Scrollbar,
@@ -12,7 +20,7 @@ import SwiperCore , {
   Zoom,
   Autoplay,
   Thumbs,
-  Controller,
+  Controller
 } from 'swiper';
 // install Swiper components
 SwiperCore.use([
@@ -35,7 +43,7 @@ SwiperCore.use([
 export class SwiperTemplateComponent implements OnInit {
   @ViewChild('swiperRef', { static: false }) swiperRef?: SwiperComponent;
   private _images: [];
-  @Input()  get images(): [] {
+  @Input() get images(): [] {
     return this._images;
   }
   set images(images: []) {
@@ -47,6 +55,12 @@ export class SwiperTemplateComponent implements OnInit {
   @Input() imageStyle: string = '';
   @Input() slidesPerView: number = 1;
   @Input() spaceBetween: number = 20;
+  @Input() showTextOnImage: boolean = false;
+  @Input() title: string = 'Cho thuê phòng trọ uy tín!';
+  @Input()
+  description: string = `Homiee.com - Trang thông tin cho thuê phòng trọ, tìm phòng trọ
+  nhanh chóng, hiệu quả số với hơn 500+ tin đăng mới và 30.000 lượt
+  xem mỗi ngày.`;
 
   @Input() dynamicBullets: boolean = true;
   @Input() pagination: boolean = true;
@@ -58,8 +72,7 @@ export class SwiperTemplateComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private ngZone: NgZone) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getSlides() {
     this.slides$.next(

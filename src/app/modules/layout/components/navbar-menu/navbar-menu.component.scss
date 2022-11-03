@@ -1,0 +1,29 @@
+.menu-item {
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:before {
+    background-color: transparent;
+    border-radius: 50px;
+    content: "";
+    height: 5px;
+    left: 50%;
+    position: absolute;
+    top: calc(100%);
+    transform: translateX(-50%);
+    transition: all .3s ease;
+    width: 0;
+
+  }
+
+  &.active::before {
+    background-color: var(--primary-color);
+    width: 50%;
+  }
+
+  &:hover::before {
+    background-color: var(--primary-darker-color);
+    width: 50%;
+  }
+}

@@ -15,15 +15,19 @@ export class PostComponent implements OnInit {
   @ViewChild('postBanner', {static: true} ) postBanner: PostBannerComponent;
 
   images = [];
+  imageUrl = 'assets/images/district/';
 
   constructor(private commonService: CommonService) {}
 
   ngOnInit() {
     this.commonService.getDistricts('32').subscribe((res) => {
       this.images = res.addressDistricts.map((item) => {
+
+
         return {
           id: item.id,
           name: item.name,
+          image: this.imageUrl + Math.floor(( Math.random() * (10 - 1) + 1 )) + '.jpg',
           };
       });
     });  }

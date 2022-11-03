@@ -1,9 +1,9 @@
-<mat-toolbar>
+<mat-toolbar class="">
   <mat-toolbar-row class="justify-between">
     <!-- left -->
     <h3
       [routerLink]="ENDPOINTS.HOME"
-      class="flex items-center gap-10 border-b pb-10 cursor-pointer"
+      class="flex items-center gap-10 cursor-pointer"
     >
       <img
         class="h-24 w-24 object-contain shadow-sm"
@@ -11,37 +11,33 @@
       />
       <b> HOMIE</b>
     </h3>
-    <span class="menu-spacer"></span>
-    <!-- right -->
-    <div class="flex items-center gap-10">
-      <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
-      <a *ngIf="accountInfo" mat-list-item>
-        <button mat-button [matMenuTriggerFor]="menu">
-          <div class="flex items-center ">
-            <span class="mr-5">{{ accountInfo.displayName }}</span>
-            <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
-            </app-svg-icon>
-          </div>
+    <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+    <a *ngIf="accountInfo" mat-list-item>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <div class="flex items-center ">
+          <span class="mr-5">{{ accountInfo.displayName }}</span>
+          <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
+          </app-svg-icon>
+        </div>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          *ngFor="let item of menuItems"
+          mat-menu-item
+          [routerLink]="item.link"
+        >
+          {{ item.name }}
         </button>
-        <mat-menu #menu="matMenu">
-          <button
-            *ngFor="let item of menuItems"
-            mat-menu-item
-            [routerLink]="item.link"
-          >
-            {{ item.name }}
-          </button>
-        </mat-menu>
+      </mat-menu>
+    </a>
+    <div mat-list-item *ngIf="!accountInfo" class="text-14 text-blue-4882C7">
+      <a [routerLink]="ENDPOINTS.LOGIN">
+        Đăng nhập
       </a>
-      <div mat-list-item *ngIf="!accountInfo" class="text-14 text-blue-4882C7">
-        <a [routerLink]="ENDPOINTS.LOGIN">
-          Đăng nhập
-        </a>
-        <span class="mx-2">|</span>
-        <a [routerLink]="ENDPOINTS.SIGN_UP">
-          Đăng ký
-        </a>
-      </div>
+      <span class="mx-2">|</span>
+      <a [routerLink]="ENDPOINTS.SIGN_UP">
+        Đăng ký
+      </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -59,7 +55,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="height: 91vh">
-      <div class="p-20 container-max-width">
+      <div class="container-max-width">
         <router-outlet></router-outlet>
       </div>
       <app-footer></app-footer>
