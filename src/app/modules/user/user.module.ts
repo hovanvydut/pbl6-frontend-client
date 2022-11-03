@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '@app/shared/shared.module';
 import { SidebarLayoutComponent } from '../layout/components/sidebar-layout/sidebar-layout.component';
 import { ProfileComponent } from './user.component';
-import { BookingCalendarComponent } from './components/booking-calendar/booking-calendar.component';
 import { CoinsComponent } from './components/coins/coins.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
@@ -13,7 +12,6 @@ import { PostModule } from '../post/post.module';
 import { ProfileModule } from '../profile/profile.module';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { PaymentComponent } from './components/payment/payment.component';
-import { MyAvailableCalendarComponent } from './components/booking-calendar/my-available-calendar/my-available-calendar.component';
 export const routes: Routes = [
   {
     path: '',
@@ -45,9 +43,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'my-booking-calendar',
-        component: BookingCalendarComponent,
-        canActivate: [AuthGuard]
+        path: 'booking-calendar',
+        loadChildren: () =>
+          import('@app/modules/booking-calendar/booking-calendar.module').then(
+            m => m.BookingCalendarModule
+          )
       }
     ]
   }
@@ -55,12 +55,11 @@ export const routes: Routes = [
 
 const COMPONENTS = [
   ProfileComponent,
-  BookingCalendarComponent,
   CoinsComponent,
   StatisticsComponent,
   ManagePostsComponent,
   DashboardComponent,
-  PaymentComponent,
+  PaymentComponent
 ];
 
 const MODULES = [
@@ -71,9 +70,9 @@ const MODULES = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, MyAvailableCalendarComponent],
+  declarations: [...COMPONENTS],
   imports: [...MODULES],
-  exports: [...COMPONENTS, MyAvailableCalendarComponent]
+  exports: [...COMPONENTS]
 })
 export class UserModule {
   constructor() {}

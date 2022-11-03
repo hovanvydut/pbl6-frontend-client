@@ -11,7 +11,7 @@ export const ENDPOINTS = {
   LANDLOR_MANAGE_POSTS: '/user/my-posts',
   LANDLOR_STATISTICS: '/user/statistics',
   USER_COIN:  '/user/my-coins',
-  USER_BOOKING_CALENDAR: '/user/my-booking-calendar',
+  USER_BOOKING_CALENDAR: '/user/booking-calendar/appointments',
 
   HOME: '/posts',
   POSTS_FILTER: '/posts/filter',
