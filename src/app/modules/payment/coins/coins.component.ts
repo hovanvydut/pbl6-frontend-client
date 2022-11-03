@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentComponent } from '../payment/payment.component';
+import { PaymentFormComponent } from '../payment-form/payment-form.component';
 
 @Component({
   selector: 'app-coins',
@@ -15,7 +15,7 @@ export class CoinsComponent implements OnInit {
   }
 
   onRechargeButtonClicked() {
-    let dialogRef = this.dialog.open(PaymentComponent, {
+    let dialogRef = this.dialog.open(PaymentFormComponent, {
       width: '99vw',
       maxHeight: '99vh',
       data: {

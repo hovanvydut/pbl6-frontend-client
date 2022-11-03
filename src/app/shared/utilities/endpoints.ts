@@ -10,7 +10,7 @@ export const ENDPOINTS = {
   DASHBOARD: '/user/dashboard',
   LANDLOR_MANAGE_POSTS: '/user/my-posts',
   LANDLOR_STATISTICS: '/user/statistics',
-  USER_COIN:  '/user/my-coins',
+  USER_COIN:  '/user/payment',
   USER_BOOKING_CALENDAR: '/user/booking-calendar/appointments',
 
   HOME: '/posts',

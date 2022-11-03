@@ -1,18 +1,16 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonService } from '@app/core/services/common.service';
+import { PaymentService } from '@app/modules/user/services/payment.service';
 import { ItemModel } from '@app/shared/models/base.model';
 import { NotifyService } from '@app/shared/services/notify.service';
-import { PaymentService } from '../../services/payment.service';
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  selector: 'app-payment-form',
+  templateUrl: './payment-form.component.html',
+  styleUrls: ['./payment-form.component.scss']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentFormComponent implements OnInit {
   paymentInfo = {
     ammount: new FormControl(0),
     bankCode: new FormControl(''),
