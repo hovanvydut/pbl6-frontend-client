@@ -26,6 +26,7 @@ import { PostBookingComponent } from './components/post-booking/post-booking.com
 import { SavedPostsComponent } from './components/saved-posts/saved-posts.component';
 import { PostListTemplateComponent } from './components/post-list-template/post-list-template.component';
 import { PostSwiperTemplateComponent } from './components/post-swiper-template/post-swiper-template.component';
+import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 //
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
         path: '',
         component: PostComponent
       },
+
       {
         path: 'filter',
         component: PostFilterLayoutComponent
@@ -46,7 +48,11 @@ export const routes: Routes = [
         component: PostDetailComponent
       }
     ]
-  }
+  },
+  {
+    path: 'manage-posts',
+    component: ManagePostsComponent
+  },
 ];
 
 const COMPONENTS = [
@@ -65,7 +71,8 @@ const COMPONENTS = [
   PostBookingComponent,
   SavedPostsComponent,
   PostListTemplateComponent,
-  PostSwiperTemplateComponent
+  PostSwiperTemplateComponent,
+  ManagePostsComponent
 ];
 
 const MODULES = [

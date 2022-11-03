@@ -8,7 +8,7 @@ export const ENDPOINTS = {
 
   // General
   DASHBOARD: '/user/dashboard',
-  LANDLOR_MANAGE_POSTS: '/user/my-posts',
+  LANDLOR_MANAGE_POSTS: '/user/posts/manage-posts',
   LANDLOR_STATISTICS: '/user/statistics',
   USER_COIN:  '/user/payment',
   USER_BOOKING_CALENDAR: '/user/booking-calendar/appointments',

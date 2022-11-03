@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 //
-import { PostDetailFormComponent } from './../../../post/components/post-detail-form/post-detail-form.component';
+import { PostDetailFormComponent } from '../post-detail-form/post-detail-form.component';
 import { PostTableComponent } from '@app/modules/post/components/post-table/post-table.component';
-import { CommonService } from '@app/core/services/common.service';
 
 @Component({
   selector: 'app-manage-posts',
