@@ -132,9 +132,11 @@
         </div>
       </div>
       <div class="text-12 mb-5">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque nobis saepe reiciendis numquam dicta tenetur architecto quo repudiandae fugiat aspern
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque nobis
+        saepe reiciendis numquam dicta tenetur architecto quo repudiandae fugiat
+        aspern
       </div>
-      <div class="h-52 w-52 mb-5">
+      <div class="h-100 w-100 mb-5">
         <img
           class="w-full h-full rounded-9 object-cover"
           [src]="'assets/images/default/default_avatar.png'"
@@ -143,17 +145,17 @@
       <div class="w-full h-1 bg-gray-200"></div>
     </div>
   </div>
+</div>
 
-  <div class="w-full flex flex-col p-10  rounded-9">
-    <div class="flex items-center justify-between gap-10">
-      <span>
-        Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh
-        giá !
-      </span>
-      <button mat-raised-button (click)="onReviewPostButtonClicked()">
-        Đánh giá ngay
-        <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
-      </button>
-    </div>
+<div class="w-full flex flex-col my-20 rounded-9">
+  <div class="flex items-center justify-between gap-10">
+    <span>
+      Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh giá
+      !
+    </span>
+    <button mat-raised-button (click)="onReviewPostButtonClicked()">
+      Đánh giá ngay
+      <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
+    </button>
   </div>
 </div>
