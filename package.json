@@ -48,6 +48,8 @@
     "lodash-es": "^4.17.21",
     "material-components-web": "^14.0.0",
     "medium-zoom": "^1.0.6",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.38",
     "ng-apexcharts": "^1.7.1",
     "rxjs": "~7.5.0",
     "svg-to-ts": "^8.8.1",

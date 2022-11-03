@@ -1,6 +1,6 @@
-import { ItemBaseModel } from '@app/shared/models/base.model';
+import { ItemBaseModel, TimeBaseModel } from '@app/shared/models/base.model';
 import { AddressModel } from './../../../shared/models/address.model';
-export class PostBaseModel {
+export class PostBaseModel extends TimeBaseModel{
   id: string;
   title: string;
   description: string;
@@ -19,6 +19,7 @@ export class PostBaseModel {
   authorId: string = '0';
 
   public constructor(init?: Partial<PostRequestModel>) {
+    super();
     Object.assign(this, init);
   }
 }

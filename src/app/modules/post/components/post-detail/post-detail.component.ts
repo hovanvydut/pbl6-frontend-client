@@ -35,6 +35,7 @@ export class PostDetailComponent implements OnInit {
   getPostDetail() {
     this.postService.getPostById(this.postId).subscribe(res => {
       this.post = res;
+      this.post.createdAt = new Date(new Date().getTime() - Math.random() * 10000000000);
     });
   }
 

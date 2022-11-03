@@ -1,87 +1,120 @@
-<div class="flex flex-col gap-30 w-full m-auto">
-  <div class="w-full flex flex-col p-10 shadow-md rounded-9">
+<div class="flex flex-col gap-30 w-full m-auto rounded-9 shadow-md p-10">
+  <div class="w-full flex flex-col p-10  rounded-9">
+    <div class="flex justify-start items-center gap-5 my-10">
+      <app-svg-icon [name]="'home'"></app-svg-icon>
+      <span> {{ post.category?.name }} </span>
+    </div>
     <div class="flex gap-10 items-center text-16 font-weight-600">
-      <app-svg-icon [name]="'home_large'" class="w-52"></app-svg-icon> <a> Thông tin phòng </a>
+      <a> Thông tin phòng </a>
     </div>
     <div class="grid grid-cols-3 gap-5 my-10">
       <div>
-        <p class="text-12 text-gray-500 uppercase"> Giá </p>
-        <p class="text-28 font-bold text-blue-700"> {{ post.price | currency: "VND" }} </p>
+        <p class="text-12 text-gray-500 uppercase">Giá</p>
+        <p class="text-28 font-bold text-blue-700">
+          {{ post.price | currency: "VND" }}
+        </p>
       </div>
       <div>
-        <p class="text-12 text-gray-500 uppercase"> Diện tích </p>
-        <p class="text-14"> {{ post.area }} m2 </p>
+        <p class="text-12 text-gray-500 uppercase">Diện tích</p>
+        <p class="text-14">{{ post.area }} m2</p>
       </div>
       <div>
-        <p class="text-12 text-gray-500 uppercase"> ĐẶT CỌC </p>
-        <p class="text-14"> {{ post.prePaidPrice | currency: "VND" }} </p>
+        <p class="text-12 text-gray-500 uppercase">ĐẶT CỌC</p>
+        <p class="text-14">{{ post.prePaidPrice | currency: "VND" }}</p>
       </div>
     </div>
+
     <div>
-      <p class="text-12 text-gray-500 uppercase"> Địa chỉ </p>
-      <p class="text-14"> {{ post.address + ',' + ( post.fullAddress | address ) }}</p>
+      <p class="text-12 text-gray-500 uppercase">Địa chỉ</p>
+      <p class="text-14">
+        {{ post.address + "," + (post.fullAddress | address) }}
+      </p>
+    </div>
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
+    <div class="grid grid-cols-3 gap-5 my-10">
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'bulb'"> </app-svg-icon>
+        <span class="text-14"> 3000đ/chữ </span>
+      </div>
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'humidity'"> </app-svg-icon>
+        <span class="text-14">6000đ/số</span>
+      </div>
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'wifi'"> </app-svg-icon>
+        <span class="text-14">Free</span>
+      </div>
+    </div>
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
+    <div class="flex gap-10 items-end">
+      <app-svg-icon [name]="'calendar_2'"> </app-svg-icon>
+      <span> {{ post.createdAt | fromNow }}</span>
     </div>
   </div>
 
-  <div class="w-full flex flex-col p-10 shadow-md rounded-9">
+  <div class="w-full flex flex-col p-10  rounded-9">
     <mat-card-title>
       <div class="flex gap-10 items-center text-16 font-weight-600">
-        <app-svg-icon [name]="'ultilities'" class="w-52"></app-svg-icon> <a> Tiện ích </a>
+        <a> Tiện ích </a>
       </div>
     </mat-card-title>
 
-    <div class="grid grid-cols-4 gap-10 my-10">
-      <div *ngFor="let item of post.properties; index as i"
-        class="flex gap-10 items-start">
-        <app-svg-icon [name]="completeIconSet[i].name"
-          class="text-blue-800">
+    <div class="flex flex-wrap gap-10 my-10">
+      <div
+        *ngFor="let item of post.properties; index as i"
+        class="flex gap-10 items-center w-fit py-5 px-10 rounded-20 bg-slate-200"
+      >
+        <app-svg-icon [name]="completeIconSet[i].name" class="text-blue-800">
         </app-svg-icon>
-        <p class="text-14"> {{ item.displayName }} </p>
+        <span class="text-14">{{ item.displayName }}</span>
       </div>
     </div>
   </div>
 
-  <div class="w-full flex flex-col p-10 shadow-md rounded-9">
+  <div class="w-full flex flex-col p-10  rounded-9">
     <mat-card-title>
       <div class="flex gap-10 items-center text-16 font-weight-600">
-        <app-svg-icon [name]="'warning'" class="w-52"></app-svg-icon> <a>  Chú ý</a>
+        <a> Chú ý</a>
       </div>
     </mat-card-title>
 
     <div class="grid grid-cols-2 gap-5 my-10">
       <div>
-        <p class="text-12 text-gray-500 uppercase"> Giới hạn số lượng người / phòng </p>
-        <p class="text-14"> {{ post.limitTenant + ' người'}} </p>
+        <p class="text-12 text-gray-500 uppercase">
+          Giới hạn số lượng người / phòng
+        </p>
+        <p class="text-14">{{ post.limitTenant + " người" }}</p>
       </div>
     </div>
   </div>
-  <div class="w-full flex flex-col p-10 shadow-md rounded-9">
+  <div class="w-full flex flex-col p-10  rounded-9">
     <mat-card-title>
       <div class="flex gap-10 items-center text-16 font-weight-600">
-        <app-svg-icon [name]="'draw'" class="w-52"></app-svg-icon> <a>Mô tả thêm</a>
+        <a>Mô tả thêm</a>
       </div>
     </mat-card-title>
 
     <div>
       <div>
-        <p class="text-12 text-gray-500 uppercase">  </p>
-        <p class="text-14"> {{ post.title }} </p>
+        <p class="text-12 text-gray-500 uppercase"></p>
+        <p class="text-14">{{ post.title }}</p>
       </div>
       <div>
-        <p class="text-12 text-gray-500 uppercase"> Mô tả chung </p>
-        <p class="text-14"> {{ post.description }} </p>
+        <p class="text-12 text-gray-500 uppercase">Mô tả chung</p>
+        <p class="text-14">{{ post.description }}</p>
       </div>
     </div>
   </div>
 
-  <div class="w-full flex flex-col p-10 shadow-md rounded-9">
+  <div class="w-full flex flex-col p-10  rounded-9">
     <div class="flex items-center justify-between gap-10">
       <span>
-        Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh giá !
+        Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh
+        giá !
       </span>
-      <button mat-raised-button
-        (click)="onReviewPostButtonClicked()">
-        Đánh giá ngay <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
+      <button mat-raised-button (click)="onReviewPostButtonClicked()">
+        Đánh giá ngay
+        <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
       </button>
     </div>
   </div>
