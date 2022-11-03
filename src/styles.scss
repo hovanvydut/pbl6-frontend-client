@@ -360,6 +360,12 @@ select:focus {
 
 
 .container-max-width {
+  // max-width: 1300px;
+  margin: 0 auto;
+}
+
+.content-container {
   max-width: 1300px;
   margin: 0 auto;
+  padding: 0 24px;
 }
