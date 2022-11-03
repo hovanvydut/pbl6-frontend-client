@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
 import { PostBaseModel } from '../../models/post.model';
-import { PostService } from '@app/modules/post/services/post.service';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { BookmarkService } from '../../services/bookmark.service';
 
 @Component({
   selector: 'app-post-card',
@@ -15,7 +15,7 @@ export class PostCardComponent implements OnInit {
 
   ENDPOINTS = ENDPOINTS;
 
-  constructor(private postService: PostService,
+  constructor(private bookmarkService: BookmarkService,
     private notifyService: NotifyService) { }
 
   ngOnInit() {
@@ -23,14 +23,14 @@ export class PostCardComponent implements OnInit {
 
   onBookmarkButtonClicked() {
     if( this.post.isBookmarked ) {
-      this.postService.removeBookmark(this.post.id).subscribe(
+      this.bookmarkService.removeBookmark(this.post.id).subscribe(
         () => {
           this.post.isBookmarked = false;
           this.notifyService.notify('Đã bỏ lưu bài đăng');
         }
       );
     } else {
-      this.postService.addBookmark(this.post.id).subscribe(
+      this.bookmarkService.addBookmark(this.post.id).subscribe(
         () => {
           this.post.isBookmarked = true;
           this.notifyService.notify('Đã lưu bài đăng');

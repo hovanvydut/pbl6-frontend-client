@@ -95,9 +95,6 @@ export class PostService {
     return this.baseService.get(`host/${id}/post${queryString}`);
   }
 
-
-
-
   getPostById(id: string): Observable<PostBaseModel> {
     return this.baseService.get<PostBaseModel>(`post/${id}`);
   }
@@ -112,17 +109,5 @@ export class PostService {
 
   updatePost(post: PostRequestModel): Observable<void> {
     return this.baseService.put(`post/${post.id}`, post);
-  }
-  //#region  Bookmark
-  getBookmarks(): Observable<DatasourceBaseModel<PostBaseModel>> {
-    return this.baseService.get(`bookmark`);
-  }
-
-  addBookmark(postId: string): Observable<void> {
-    return this.baseService.post(`bookmark/`, { postId: postId });
-  }
-
-  removeBookmark(postId: string): Observable<void> {
-    return this.baseService.delete(`bookmark/${postId}`);
   }
 }

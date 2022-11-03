@@ -1,1 +1,55 @@
-<p>post-review works!</p>
+<app-dialog-template [title]="'Đánh giá trọ'" (onSave)="onReviewSubmit()">
+  <div class="w-full flex flex-col gap-20 ">
+    <div class="flex gap-10 m-auto">
+      <app-svg-icon
+        *ngFor="let item of [1, 2, 3, 4, 5]"
+        class="cursor-pointer"
+        [name]="
+          item <= selectedRate ? 'review_active_star' : 'review_inactive_star'
+        "
+        (click)="onStarClicked(item)"
+      >
+      </app-svg-icon>
+    </div>
+
+    <!--  -->
+    <div class="w-4/5 m-auto">
+      <p class="text-20 font-bold">Mô tả chung</p>
+
+      <app-textarea-field
+        [required]="true"
+        [placeholder]="'Mô tả đánh giá của bạn'"
+        [value]="content"
+        [label]="'Mô tả chung'"
+      >
+      </app-textarea-field>
+    </div>
+
+    <div class="w-4/5 m-auto">
+      <p class="text-20 font-bold">Thêm hình ảnh</p>
+      <!-- upload hình ảnh -->
+      <div>
+        <div class="mt-15">
+          <div class="flex flex-wrap gap-10 mt-10">
+            <app-upload-image (onImageUploaded)="onFileSelected($event)">
+            </app-upload-image>
+            <div *ngFor="let url of previews">
+              <div class="h-130 w-180 relative">
+                <img
+                  class="w-full h-full rounded-15 object-cover"
+                  [src]="url"
+                />
+                <div
+                  class="w-25 h-25 absolute -top-8 -right-8 rounded-9 shadow-sm flex bg-white justify-center items-center text-blue-700 cursor-pointer"
+                  (click)="onFileRemoved(url)"
+                >
+                  <app-svg-icon [name]="'close'"> </app-svg-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dialog-template>
