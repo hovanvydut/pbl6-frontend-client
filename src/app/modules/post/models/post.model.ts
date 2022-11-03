@@ -1,3 +1,4 @@
+import { ProfileBaseModel } from '@app/modules/profile/models/profile.model';
 import { ItemBaseModel, TimeBaseModel } from '@app/shared/models/base.model';
 import { AddressModel } from './../../../shared/models/address.model';
 export class PostBaseModel extends TimeBaseModel{
@@ -17,6 +18,7 @@ export class PostBaseModel extends TimeBaseModel{
   category: ItemBaseModel;
   isBookmarked: boolean = false;
   authorId: string = '0';
+  authorInfo: ProfileBaseModel;
 
   public constructor(init?: Partial<PostRequestModel>) {
     super();

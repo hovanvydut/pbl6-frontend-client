@@ -34,6 +34,8 @@ const colors: Record<string, EventColor> = {
   styleUrls: ['./calendar-template.component.scss']
 })
 export class CalendarTemplateComponent implements OnInit {
+  @Input() hideHeaderDate: boolean = false;
+  @Input() showNavigateButtons: boolean = false;
   @Input() selectOneSegment: boolean = false;
   @Input() view: CalendarView = CalendarView.Week;
   @Input() enableEdit: boolean = true;
@@ -52,6 +54,8 @@ export class CalendarTemplateComponent implements OnInit {
   ];
   refresh = new Subject<void>();
   events: CalendarEvent[] = [];
+
+  activeDayIsOpen: boolean = true;
 
   constructor() {}
 
@@ -102,6 +106,10 @@ export class CalendarTemplateComponent implements OnInit {
 
   setView(view: CalendarView) {
     this.view = view;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
 
   ngOnInit(): void {}

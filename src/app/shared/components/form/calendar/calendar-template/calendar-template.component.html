@@ -1,14 +1,41 @@
-<mwl-calendar-week-view
-  *ngIf="view === CalendarView.Week"
-  [viewDate]="viewDate"
-  [events]="events"
-  [refresh]="refresh"
-  [dayStartHour]="6"
-  [dayEndHour]="22"
-  [hourDuration]="60"
-  [hourSegments]="2"
-  (eventClicked)="handleEvent('Clicked', $event.event)"
-  (eventTimesChanged)="eventTimesChanged($event)"
-  (hourSegmentClicked)="onSegmentDateClicked($event)"
->
-</mwl-calendar-week-view>
+<div *ngIf="showNavigateButtons" class="my-10 w-full ">
+  <div class="flex gap-10 items-center ">
+    <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate">
+      Hôm nay
+    </button>
+    <app-svg-icon
+      name="prev"
+      class="cursor-pointer"
+      mwlCalendarPreviousView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()"
+    ></app-svg-icon>
+    <app-svg-icon
+      name="next"
+      class="cursor-pointer"
+      mwlCalendarPreviousView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()"
+    >
+    </app-svg-icon>
+  </div>
+</div>
+
+<div [class.hide-header-day]="hideHeaderDate">
+  <mwl-calendar-week-view
+    *ngIf="view === CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [dayStartHour]="6"
+    [dayEndHour]="22"
+    [hourDuration]="60"
+    [hourSegments]="2"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    (hourSegmentClicked)="onSegmentDateClicked($event)"
+  >
+  </mwl-calendar-week-view>
+</div>

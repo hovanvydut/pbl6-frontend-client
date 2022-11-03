@@ -85,6 +85,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarTemplateComponent } from './components/form/calendar/calendar-template/calendar-template.component';
 import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 import { FromNowPipe } from './pipes/from-now.pipe';
+import { CalendarNavbarComponent } from './components/form/calendar/calendar-navbar/calendar-navbar.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -176,8 +177,8 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
       useFactory: adapterFactory,
     }),
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },
