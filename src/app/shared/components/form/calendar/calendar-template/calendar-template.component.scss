@@ -22,8 +22,10 @@
   color: white !important;
 }
 
-::ng-deep .cal-header {
-  span {
-    display: none !important
+.hide-header-day {
+  ::ng-deep .cal-header {
+    span {
+      display: none !important
+    }
   }
 }

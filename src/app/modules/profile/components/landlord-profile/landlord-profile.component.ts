@@ -4,6 +4,7 @@ import { PostBookingComponent } from '@app/modules/post/components/post-booking/
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
 import {
+  ProfileBaseModel,
   ProfileGeneralInfoModel,
   ProfileModel
 } from '../../models/profile.model';
@@ -18,6 +19,7 @@ import { ProfileService } from '../../profile.service';
 export class LandlordProfileComponent implements OnInit {
   @Input() landlordId: number;
   @Input() landLordProfile: ProfileModel = new ProfileModel();
+  @Input() authorInfo: ProfileBaseModel = new ProfileBaseModel();
 
   constructor(
     private dialog: MatDialog,
@@ -56,6 +58,7 @@ export class LandlordProfileComponent implements OnInit {
   }
 
   onViewAuthorProfileButtonClicked() {
-    this.router.navigateByUrl(ENDPOINTS.LANDLORD + '/' + 1);
+    const id = this.authorInfo.id || this.landlordId;
+    this.router.navigateByUrl(ENDPOINTS.LANDLORD + '/' + id );
   }
 }

@@ -7,15 +7,15 @@
           <img
             class="w-full h-full rounded-15 object-cover"
             [src]="
-              landLordProfile.avatar ||
+              landLordProfile.avatar || authorInfo.avatar ||
               'assets/images/default/default_avatar.png'
             "
           />
         </div>
         <div class="flex flex-col justify-center">
           <div class="info">
-            <b class="text-20"> {{ landLordProfile.displayName }} </b>
-            <p class="text-gray-500 text-10">
+            <b class="text-20"> {{ landLordProfile.displayName || authorInfo.displayName }} </b>
+            <p *ngIf="landLordProfile" class="text-gray-500 text-10">
               {{
                 landLordProfile.address +
                   "," +
@@ -24,6 +24,17 @@
                   landLordProfile.addressDistrict +
                   "," +
                   landLordProfile.addressProvince
+              }}
+            </p>
+            <p *ngIf="authorInfo">
+              {{
+                authorInfo.address +
+                  "," +
+                  authorInfo.addressWard +
+                  "," +
+                  authorInfo.addressDistrict +
+                  "," +
+                  authorInfo.addressProvince
               }}
             </p>
           </div>
