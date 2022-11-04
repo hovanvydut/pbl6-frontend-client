@@ -8,7 +8,7 @@ import { PostReviewComponent } from '../post-review/post-review.component';
 @Component({
   selector: 'app-post-detail-card',
   templateUrl: './post-detail-card.component.html',
-  styleUrls: ['./post-detail-card.component.css']
+  styleUrls: ['./post-detail-card.component.scss']
 })
 export class PostDetailCardComponent implements OnInit {
   @Input() post: PostBaseModel;
