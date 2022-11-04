@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 //
 import { ProfileGeneralInfoModel } from '../../models/profile.model';
-import { BaseModel } from '@app/shared/models/base.model';
-import { ProfileService } from './../../profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { ProfileDetailFormComponent } from './../profile-detail-form/profile-detail-form.component';
 import { NotifyService } from '@app/shared/services/notify.service';
-import { PaymentComponent } from '@app/modules/user/components/payment/payment.component';
+import { PaymentFormComponent } from '@app/modules/payment/payment-form/payment-form.component';
 
 @Component({
   selector: 'app-general-profile',
@@ -48,7 +47,7 @@ export class GeneralProfileComponent implements OnInit {
   }
 
   onRechargeButtonClicked() {
-    let dialogRef = this.dialog.open(PaymentComponent, {
+    let dialogRef = this.dialog.open(PaymentFormComponent, {
       width: '99vw',
       maxHeight: '99vh',
     });

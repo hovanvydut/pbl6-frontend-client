@@ -19,6 +19,8 @@ export class PostBaseModel extends TimeBaseModel{
   isBookmarked: boolean = false;
   authorId: string = '0';
   authorInfo: ProfileBaseModel;
+  rating: number = 0;
+  totalReview: number = 3;
 
   public constructor(init?: Partial<PostRequestModel>) {
     super();

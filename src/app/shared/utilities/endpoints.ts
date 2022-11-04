@@ -7,11 +7,11 @@ export const ENDPOINTS = {
   LOGOUT: '/auth/logout',
 
   // General
-  DASHBOARD: '/user/dashboard',
-  LANDLOR_MANAGE_POSTS: '/user/my-posts',
+  DASHBOARD: '/user/dashboard/my-dashboard',
+  LANDLOR_MANAGE_POSTS: '/user/posts/manage-posts',
   LANDLOR_STATISTICS: '/user/statistics',
-  USER_COIN:  '/user/my-coins',
-  USER_BOOKING_CALENDAR: '/user/my-booking-calendar',
+  USER_COIN:  '/user/payment',
+  USER_BOOKING_CALENDAR: '/user/booking-calendar/appointments',
 
   HOME: '/posts',
   POSTS_FILTER: '/posts/filter',

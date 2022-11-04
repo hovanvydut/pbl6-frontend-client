@@ -5,7 +5,7 @@ import { finalize } from 'rxjs';
 //
 import { BaseModel } from '@app/shared/models/base.model';
 import { ProfileModel, ProfileUpdateModel } from '../../models/profile.model';
-import { ProfileService } from '../../profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonService } from '@app/core/services/common.service';
 import { InputType } from '@app/shared/app.enum';

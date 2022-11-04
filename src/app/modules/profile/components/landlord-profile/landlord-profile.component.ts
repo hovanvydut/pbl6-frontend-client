@@ -9,7 +9,7 @@ import {
   ProfileModel
 } from '../../models/profile.model';
 import { NotifyService } from '@app/shared/services/notify.service';
-import { ProfileService } from '../../profile.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-landlord-profile',

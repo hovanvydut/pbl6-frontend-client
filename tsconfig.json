@@ -17,48 +17,23 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "paths": {
-      "@environment": [
-          "src/environments/environment.ts"
-      ],
-      "@environments/*": [
-          "src/app/environments/*"
-      ],
-      "@app/shared": [
-          "src/app/shared"
-      ],
-      "@app/shared/*": [
-          "src/app/shared/*"
-      ],
-      "@app/utilities": [
-          "src/app/utilities"
-      ],
-      "@app/utilities/*": [
-          "src/app/utilities/*"
-      ],
-      "@app/theme": [
-          "src/app/theme"
-      ],
-      "@app/theme/*": [
-          "src/app/theme/*"
-      ],
-      "@app/modules/*": [
-          "src/app/modules/*"
-      ],
-      "@app/modules/": [
-          "src/app/modules"
-      ],
-      "@app/core": [
-          "src/app/core"
-      ],
-      "@app/core/*": [
-          "src/app/core/*"
-      ]
-  }
+      "@environment": ["src/environments/environment.ts"],
+      "@environments/*": ["src/app/environments/*"],
+      "@app/shared": ["src/app/shared"],
+      "@app/shared/*": ["src/app/shared/*"],
+      "@app/utilities": ["src/app/utilities"],
+      "@app/utilities/*": ["src/app/utilities/*"],
+      "@app/theme": ["src/app/theme"],
+      "@app/theme/*": ["src/app/theme/*"],
+      "@app/modules/*": ["src/app/modules/*"],
+      "@app/modules/": ["src/app/modules"],
+      "@app/page/*": ["src/app/page/*"],
+      "@app/page/": ["src/app/page"],
+      "@app/core": ["src/app/core"],
+      "@app/core/*": ["src/app/core/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
