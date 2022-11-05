@@ -52,7 +52,7 @@ export class LandlordProfileComponent implements OnInit {
       width: '99vw',
       maxHeight: '99vh',
       data: {
-        postId: 1
+        postId: 2
       }
     });
   }

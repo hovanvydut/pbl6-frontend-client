@@ -1,4 +1,5 @@
-<app-dialog-template [title]="'Đặt lịch hẹn xem trọ'">
+<app-dialog-template [title]="'Đặt lịch hẹn xem trọ'"
+  (onSave)="onBooking()">
   <mat-stepper orientation="vertical" [linear]="true" #stepper>
     <mat-step>
       <form>
@@ -30,7 +31,10 @@
     <mat-step>
       <ng-template matStepLabel>Chọn lịch hẹn</ng-template>
       <p>Thông tin lịch rảnh của chủ trọ mang tính chất tham khảo, chủ trọ sẽ xác nhận lại lịch hẹn của bạn!</p>
-      <app-calendar-template [selectOneSegment]="true" [showNavigateButtons]="true"
+      <app-calendar-template *ngIf="events"
+        [selectOneSegment]="true"
+        [showNavigateButtons]="true"
+        [selectedDays]="freeTimes"
         (onSegmentSelected)="handleSegmentSelected($event)"></app-calendar-template>
       <div>
         <button mat-button matStepperPrevious>Trở lại</button>

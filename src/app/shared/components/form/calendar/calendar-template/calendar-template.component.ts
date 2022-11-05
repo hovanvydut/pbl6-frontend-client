@@ -1,6 +1,8 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -11,11 +13,14 @@ import {
   CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
-  CalendarView
+  CalendarView,
+  CalendarWeekViewBeforeRenderEvent
 } from 'angular-calendar';
+import { WeekViewHour, WeekViewHourColumn } from 'calendar-utils';
 import { subDays, startOfDay, addDays, endOfDay } from 'date-fns';
 import { EventColor } from 'calendar-utils';
 import { Subject } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 const colors: Record<string, EventColor> = {
   booked: {
@@ -39,7 +44,12 @@ export class CalendarTemplateComponent implements OnInit {
   @Input() selectOneSegment: boolean = false;
   @Input() view: CalendarView = CalendarView.Week;
   @Input() enableEdit: boolean = true;
+  @Input() freeTimes: any[] = [];
+  @Input() selectedDays: any[] = [];
+
   @Output() onSegmentSelected: EventEmitter<Date> = new EventEmitter<Date>;
+
+  events: CalendarEvent[] = [];
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   actions: CalendarEventAction[] = [
@@ -52,33 +62,28 @@ export class CalendarTemplateComponent implements OnInit {
       }
     }
   ];
+  selectedDayViewDate: Date;
+  hourColumns: WeekViewHourColumn[];
   refresh = new Subject<void>();
-  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor() {}
+  constructor(private decimalPipe: DecimalPipe,
+    private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.events = [...this.freeTimes];
+  }
 
   onSegmentDateClicked(event) {
-    const selectedDate = event.date.toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', weekday:"long", hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'});
-    const addedEvent = {
-      start: event.date,
-      end: new Date(event.date.getTime() + 1000 * 60 * 60),
-      title: selectedDate,
-      color: { ...colors['available'] },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    };
+    const addedEvent = this.createEvent(event.date);
     if (this.enableEdit && !this.selectOneSegment) {
-      this.events = [...this.events, addedEvent];
+      this.events.push(addedEvent);
+      this.cdr.detectChanges();
     }
 
     if(this.selectOneSegment) {
-      this.events = [ addedEvent];
+      this.events = [addedEvent];
       this.onSegmentSelected.emit(event.date)
     }
   }
@@ -112,5 +117,54 @@ export class CalendarTemplateComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  ngOnInit(): void {}
+  beforeWeekOrDayViewRender(event: CalendarWeekViewBeforeRenderEvent) {
+    this.hourColumns = event.hourColumns;
+    this.addSelectedDayViewClass();
+  }
+
+  private addSelectedDayViewClass() {
+    let freeTimes = [];
+    this.hourColumns.forEach((column) => {
+      column.hours.forEach((hourSegment) => {
+        hourSegment.segments.forEach((segment) => {
+          delete segment.cssClass;
+          // check list of selected days
+          if (this.selectedDays && this.selectedDays.length > 0) {
+            this.selectedDays.forEach((selectedDay) => {
+              if (segment.date.getDay() === selectedDay.day && segment.date.getHours() === selectedDay.start) {
+                segment.cssClass = 'cal-day-selected';
+              }
+            });
+          }
+          // check list of free times
+          if (this.freeTimes && this.freeTimes.length > 0) {
+            this.freeTimes.forEach((freeTime) => {
+
+              if (segment.date.getDay() === freeTime.day && segment.date.getHours() === freeTime.start) {
+                freeTimes.push(this.createEvent(segment.date));
+              }
+            });
+          }
+        });
+      });
+    });
+    this.events = [...freeTimes];
+  }
+
+  createEvent(date: Date) {
+    const selectedDate = date.toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', weekday:"long", hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'});
+    const addedEvent = {
+      start: date,
+      end: new Date(date.getTime() + 1000 * 60 * 60),
+      title: selectedDate,
+      color: { ...colors['available'] },
+      actions: this.actions,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
+    };
+    return addedEvent;
+  }
 }

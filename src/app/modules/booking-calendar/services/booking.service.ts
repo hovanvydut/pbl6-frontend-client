@@ -14,7 +14,7 @@ export class BookingService {
     return this.baseService.get<any>(`booking/user/${hostId}/free-time`);
   }
 
-  updateHostFreeTime(hostId: string, data: any): Observable<any>{
+  updateHostFreeTime(data: any): Observable<any>{
     return this.baseService.post<any>(`booking/free-time`, data);
   }
 
@@ -22,7 +22,7 @@ export class BookingService {
     return this.baseService.get<any[]>('booking');
   }
 
-  postBooking(data:any) {
+  createBooking(data:any) {
     return this.baseService.post<any>('booking', data);
   }
 

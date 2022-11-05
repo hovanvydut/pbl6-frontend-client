@@ -12,7 +12,7 @@ import { BookingService } from '../services/booking.service';
 })
 export class MyAvailableCalendarComponent implements OnInit {
   @ViewChild('calendar') calendar: CalendarTemplateComponent;
-
+  freeTimes: any[] = [];
   constructor(
     private dialog: MatDialog,
     private decimalPipe: DecimalPipe,
@@ -28,22 +28,28 @@ export class MyAvailableCalendarComponent implements OnInit {
     this.bookingService
       .getHostFreeTime(this.baseService.currentUser.id)
       .subscribe((res: any) => {
-        // this.calendar.setCalendar(res);
-        console.log(res);
+        this.freeTimes = res.map((e: any) => {
+          return {
+            day: e.day,
+            start: parseInt(e.start, 10),
+            end: parseInt(e.end, 10)
+          };
+        });
       });
   }
 
   onSaveCalendarSettingsButtonClicked() {
-
-    console.log(
-      this.calendar.events.map(e => {
+    const data = {
+      data: this.calendar.events.map(e => {
         return {
           day: e.start.getDay(),
-          start: e.start.getHours() + ':' + this.decimalPipe.transform(e.start.getMinutes(), '2.0'),
-          end: e.end.getHours() + ':' + this.decimalPipe.transform(e.end.getMinutes(), '2.0')
+          start: e.start.getHours().toString(),
+          end: e.end.getHours().toString()
         };
       })
-    );
-    this.dialog.closeAll();
+    };
+    this.bookingService.updateHostFreeTime(data).subscribe(res => {
+      this.dialog.closeAll();
+    });
   }
 }

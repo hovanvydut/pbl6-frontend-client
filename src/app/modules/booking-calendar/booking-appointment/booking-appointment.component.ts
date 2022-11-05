@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
 
 @Component({
@@ -9,9 +10,16 @@ import { MyAvailableCalendarComponent } from './../my-available-calendar/my-avai
 })
 export class BookingAppointmentComponent implements OnInit {
   @ViewChild('myFreetime') myFreeTime;
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private bookingService: BookingService) {
 
-  ngOnInit(): void {}
+  }
+
+  ngOnInit(): void {
+
+    this.bookingService.getAllBooking().subscribe(res => {
+      console.log(res);
+    });
+  }
 
   onEditFreeTimeButtonClicked() {
     let dialogRef = this.dialog.open(MyAvailableCalendarComponent, {
