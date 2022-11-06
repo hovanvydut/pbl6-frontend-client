@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { ReviewService } from '../../services/review.service';
 
@@ -15,9 +15,10 @@ export class PostReviewComponent implements OnInit {
   previews: string[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { postId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { postId: string; addedReview},
     private notifyService: NotifyService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -46,7 +47,8 @@ export class PostReviewComponent implements OnInit {
     };
 
     this.reviewService.postReview(this.data.postId, data).subscribe(res => {
-      console.log(res);
+      this.data.addedReview = true;
+      this.dialog.closeAll();
     }, err => {
       this.notifyService.notify(err);
     });

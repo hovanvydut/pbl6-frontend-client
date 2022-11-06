@@ -72,19 +72,24 @@ export class CalendarTemplateComponent implements OnInit {
     private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.events = [...this.freeTimes];
+    // this.events = [...this.freeTimes];
+  }
+
+  ngAfterContentChecked() {
+    this.cdr.detectChanges();
   }
 
   onSegmentDateClicked(event) {
     const addedEvent = this.createEvent(event.date);
+
     if (this.enableEdit && !this.selectOneSegment) {
-      this.events.push(addedEvent);
-      this.cdr.detectChanges();
+      this.events = [...this.events, addedEvent];
+      console.log(this.events);
     }
 
     if(this.selectOneSegment) {
       this.events = [addedEvent];
-      this.onSegmentSelected.emit(event.date)
+      this.onSegmentSelected.emit(event.date);
     }
   }
 
@@ -129,17 +134,19 @@ export class CalendarTemplateComponent implements OnInit {
         hourSegment.segments.forEach((segment) => {
           delete segment.cssClass;
           // check list of selected days
+
           if (this.selectedDays && this.selectedDays.length > 0) {
             this.selectedDays.forEach((selectedDay) => {
-              if (segment.date.getDay() === selectedDay.day && segment.date.getHours() === selectedDay.start) {
-                segment.cssClass = 'cal-day-selected';
+              const segmentDate = segment.date.getDay() + ':' + segment.date.getHours();
+              const date = selectedDay.day + ':' + selectedDay.start;
+              if (segmentDate === date) {
+                segment.cssClass = 'cal-day-available';
               }
             });
           }
           // check list of free times
           if (this.freeTimes && this.freeTimes.length > 0) {
             this.freeTimes.forEach((freeTime) => {
-
               if (segment.date.getDay() === freeTime.day && segment.date.getHours() === freeTime.start) {
                 freeTimes.push(this.createEvent(segment.date));
               }
@@ -148,7 +155,7 @@ export class CalendarTemplateComponent implements OnInit {
         });
       });
     });
-    this.events = [...freeTimes];
+    // this.events = [...freeTimes];
   }
 
   createEvent(date: Date) {

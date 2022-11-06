@@ -17,6 +17,10 @@ export class PostDetailCardComponent implements OnInit {
   constructor( private dialog: MatDialog, private reviewSerice: ReviewService) { }
 
   ngOnInit() {
+    this.getReviews();
+  }
+
+  getReviews() {
     this.reviewSerice.getReviews(this.post.id).subscribe(res => {
       this.reviews = res.records;
       console.log(res);
@@ -31,5 +35,9 @@ export class PostDetailCardComponent implements OnInit {
         postId: this.post.id
       }
     });
+
+    dialogRef.afterClosed().subscribe( (data) => {
+      this.getReviews();
+    })
   }
 }

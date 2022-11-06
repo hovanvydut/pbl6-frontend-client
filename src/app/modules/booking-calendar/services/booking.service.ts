@@ -19,7 +19,7 @@ export class BookingService {
   }
 
   getAllBooking() {
-    return this.baseService.get<any[]>('booking');
+    return this.baseService.get<any>('booking');
   }
 
   createBooking(data:any) {

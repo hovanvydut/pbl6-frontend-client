@@ -10,14 +10,29 @@ import { MyAvailableCalendarComponent } from './../my-available-calendar/my-avai
 })
 export class BookingAppointmentComponent implements OnInit {
   @ViewChild('myFreetime') myFreeTime;
-  constructor(private dialog: MatDialog, private bookingService: BookingService) {
-
-  }
+  appointments: any[] = [];
+  constructor(
+    private dialog: MatDialog,
+    private bookingService: BookingService
+  ) {}
 
   ngOnInit(): void {
-
     this.bookingService.getAllBooking().subscribe(res => {
-      console.log(res);
+      this.appointments = res.records.map(item => {
+        return {
+          id: item.id,
+          title: 'xxx',
+          start: new Date(item.time),
+          end: new Date(new Date(item.time).getTime() + 1000 * 60 * 60),
+          color: 'black',
+          draggable: false,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          }
+        };
+      });
+      console.log(this.appointments);
     });
   }
 
