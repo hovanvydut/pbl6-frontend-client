@@ -22,6 +22,10 @@ export class BookingAppointmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getBookings();
+  }
+
+  getBookings() {
     this.bookingService.getAllBooking().subscribe(res => {
       this.events = res.records.map(item => {
         const time = new Date(item.time);
@@ -51,7 +55,6 @@ export class BookingAppointmentComponent implements OnInit {
         };
         return event;
       });
-      console.log(this.events);
     });
   }
 
@@ -86,6 +89,9 @@ export class BookingAppointmentComponent implements OnInit {
       data: {
         infoDetail: event.infoDetail
       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getBookings();
     });
   }
 }

@@ -11,6 +11,7 @@
     {{ cancelButton }}
   </button>
   <button
+    *ngIf="showSaveButton"
     mat-raised-button
     color="primary"
     [disabled]="disableSaveButton"

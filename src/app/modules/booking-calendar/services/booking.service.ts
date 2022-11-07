@@ -26,11 +26,11 @@ export class BookingService {
     return this.baseService.post<any>('booking', data);
   }
 
-  approveAppointment(appointmentId: string) {
-    return this.baseService.put<any>(`booking/${appointmentId}/approve`, null);
+  approveBooking(bookingId: string) {
+    return this.baseService.put<any>(`booking/${bookingId}/approve`, null);
   }
 
-  confirmAppointment(appointmentId: string) {
-    return this.baseService.put<any>(`booking/${appointmentId}/confirm-meet`, null);
+  confirmMeeting(bookingId: string) {
+    return this.baseService.put<any>(`booking/${bookingId}/confirm-meet`, null);
   }
 }

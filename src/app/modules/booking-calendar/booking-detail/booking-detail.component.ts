@@ -20,10 +20,28 @@ export class BookingDetailComponent implements OnInit {
     console.log(this.data.infoDetail);
   }
 
+  handleSave() {
+    if (!this.data.infoDetail.approveTime) {
+      this.approveBooking();
+    } else {
+      this.confirmMeeting();
+    }
+  }
+
   approveBooking() {
-    this.bookingService.approveAppointment(this.data.infoDetail.id).subscribe(
-      res => {
+    this.bookingService
+      .approveBooking(this.data.infoDetail.id)
+      .subscribe(res => {
         this.notifyService.notify('Chấp nhận lịch hẹn xem trọ thành công!');
+        this.dialog.closeAll();
+      });
+  }
+
+  confirmMeeting() {
+    this.bookingService
+      .confirmMeeting(this.data.infoDetail.id)
+      .subscribe(res => {
+        this.notifyService.notify('Xác nhận đã gặp khách thành công!');
         this.dialog.closeAll();
       });
   }
