@@ -12,7 +12,23 @@
       Lưu
     </button>
   </div>
-  <app-calendar-template #calendar
-  [hideHeaderDate]="true"
-  [freeTimes]="freeTimes"></app-calendar-template>
+  <div>
+    <div class="flex">
+      <div *ngFor="let day of days; index as dayIndex">
+        <div class="text-center">
+          {{ day.label }}
+        </div>
+        <div class="flex flex-col">
+          <div
+            *ngFor="let time of day.timeSlots; index as timeIndex"
+            class="h-30 w-75 border border-gray"
+            [class]="time.selected? 'bg-green-300' : 'bg-gray'"
+            (click)="selectTimeSlot(dayIndex, timeIndex)"
+          >
+            {{ dayIndex > 0 ? "" : time.label }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

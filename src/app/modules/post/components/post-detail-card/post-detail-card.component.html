@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-30 w-full m-auto rounded-9 shadow-md p-10">
+<div class="flex flex-col gap-20 w-full m-auto rounded-9 shadow-md p-10">
   <div class="flex justify-between items-center">
     <div class="flex justify-start items-center gap-5 my-10">
       <app-svg-icon [name]="'home'"></app-svg-icon>
@@ -98,6 +98,8 @@
         <p class="text-14">{{ post.limitTenant + " người" }}</p>
       </div>
     </div>
+  <div class="w-full h-1 bg-slate-200 my-10"></div>
+
   </div>
 
   <div class="w-full flex flex-col p-10  rounded-9">
@@ -118,8 +120,9 @@
       </div>
     </div>
   </div>
-  <div class="w-full h-1 bg-gray-200"></div>
   <div class="w-full flex flex-col items-start p-10 gap-24">
+  <div class="w-full h-1 bg-gray-200"></div>
+
     <mat-card-title class="w-full">
       <div class="flex items-center justify-between gap-10 w-full">
         <div class="flex gap-10 items-center text-24 font-weight-600">
@@ -143,9 +146,9 @@
       </div>
     </div>
 
-    <div *ngFor="let review of reviews; index as index">
-      <div class="flex gap-10">
-        <div class="avatar h-full w-30 relative">
+    <div *ngFor="let review of reviews; index as index" class="w-full">
+      <div class="flex gap-10 w-full">
+        <div class="avatar h-30 w-30 relative">
           <img
             class="w-full h-full rounded-15 object-cover"
             [src]="
@@ -154,7 +157,7 @@
             "
           />
         </div>
-        <div class="flex flex-col justify-center">
+        <div class="flex flex-col justify-center flex-grow">
           <div class="info">
             <b class="text-14 font-bold"> {{ review.userInfo.displayName }} </b>
           </div>
