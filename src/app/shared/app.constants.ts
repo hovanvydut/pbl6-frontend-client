@@ -60,7 +60,8 @@ export const DEFAULT_IMAGES = {
   property: 'assets/images/default-property.png',
   houseNoImage: 'assets/images/default/house_no_image.png',
   message: 'assets/images/default/message.png',
-  thanks: 'assets/images/default/thanks.png'
+  thanks: 'assets/images/default/thanks.png',
+  login:  'assets/images/default/login.png',
 };
 
 export const TIME_SLOTS = [
