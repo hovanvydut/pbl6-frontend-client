@@ -30,6 +30,10 @@
   }
 }
 
+::ng-deep .cal-hour {
+  background: #FFFFFF !important;
+}
+
 
 ::ng-deep .cal-day-selected,
 .cal-day-selected:hover {
@@ -40,3 +44,5 @@
 .cal-day-available:hover {
   background: linear-gradient(0deg, rgba(3, 143, 43, 0.1), rgba(22, 124, 51, 0.1)), #FFFFFF !important;
 }
+
+

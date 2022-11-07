@@ -44,73 +44,70 @@ export const fadeInOut = (name = 'fadeInOut', duration = 0.1) =>
     ])
   ]);
 
-
-  export const BOOKING_COLORS: Record<string, EventColor> = {
-    booked: {
-      primary: '#ad2121',
-      secondary: '#FAE3E3'
-    },
-    available: {
-      primary: '#7ba5c5',
-      secondary: '#7ba5c5'
-    }
-  };
-
-  export const DEFAULT_IMAGES = {
-    avatar: 'assets/images/default-avatar.png',
-    property: 'assets/images/default-property.png',
-    houseNoImage: 'assets/images/default/house_no_image.png',
+export const BOOKING_COLORS: Record<string, EventColor> = {
+  booked: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3'
+  },
+  available: {
+    primary: '#7ba5c5',
+    secondary: '#7ba5c5'
   }
+};
 
+export const DEFAULT_IMAGES = {
+  avatar: 'assets/images/default-avatar.png',
+  property: 'assets/images/default-property.png',
+  houseNoImage: 'assets/images/default/house_no_image.png'
+};
 
-  export const TIME_SLOTS = [
-    { label: '6:00', start: 6, end: 7 },
-    { label: '7:00', start: 7, end: 8 },
-    { label: '8:00', start: 8, end: 9 },
-    { label: '9:00', start: 9, end: 10 },
-    { label: '10:00', start: 10, end: 11 },
-    { label: '11:00', start: 11, end: 12 },
-    { label: '12:00', start: 12, end: 13 },
-    { label: '13:00', start: 13, end: 14 },
-    { label: '14:00', start: 14, end: 15 },
-    { label: '15:00', start: 15, end: 16 },
-    { label: '16:00', start: 16, end: 17 },
-    { label: '17:00', start: 17, end: 18 },
-    { label: '18:00', start: 18, end: 19 },
-    { label: '19:00', start: 19, end: 20 },
-    { label: '20:00', start: 20, end: 21 },
-    { label: '21:00', start: 21, end: 22 },
-    { label: '22:00', start: 22, end: 23 },
-  ]
+export const TIME_SLOTS = [
+  { label: '6 AM', start: 6, end: 7 },
+  { label: '7 AM', start: 7, end: 8 },
+  { label: '8 AM', start: 8, end: 9 },
+  { label: '9 AM', start: 9, end: 10 },
+  { label: '10 AM', start: 10, end: 11 },
+  { label: '11 AM', start: 11, end: 12 },
+  { label: '12 AM', start: 12, end: 13 },
+  { label: '1 PM', start: 13, end: 14 },
+  { label: '2 PM', start: 14, end: 15 },
+  { label: '3 PM', start: 15, end: 16 },
+  { label: '4 PM', start: 16, end: 17 },
+  { label: '5 PM', start: 17, end: 18 },
+  { label: '6 PM', start: 18, end: 19 },
+  { label: '7 PM', start: 19, end: 20 },
+  { label: '8 PM', start: 20, end: 21 },
+  { label: '9 PM', start: 21, end: 22 },
+  { label: '10 PM', start: 22, end: 23 }
+];
 
-
-  export const WEEK_DAYS =  [
-    {
-      label: 'Thứ hai',
-      value: 1
-    },
-    {
-      label: 'Thứ ba',
-      value: 2
-    },
-    {
-      label: 'Thứ tư',
-      value: 3
-    },
-    {
-      label: 'Thứ năm',
-      value: 4
-    },
-    {
-      label: 'Thứ sáu',
-      value: 5
-    },
-    {
-      label: 'Thứ bảy',
-      value: 6
-    },
-    {
-      label: 'Chủ nhật',
-      value: 0
-    }
-  ];
+export const WEEK_DAYS = [
+  {
+    label: 'Monday',
+    value: 1
+  },
+  {
+    label: 'Tuesday',
+    value: 2
+  },
+  {
+    label: 'Wednesday',
+    value: 3
+  },
+  {
+    label: 'Thursday',
+    value: 4
+  },
+  {
+    label: 'Friday',
+    value: 5
+  },
+  {
+    label: 'Saturday',
+    value: 6
+  },
+  {
+    label: 'Sunday',
+    value: 0
+  }
+];

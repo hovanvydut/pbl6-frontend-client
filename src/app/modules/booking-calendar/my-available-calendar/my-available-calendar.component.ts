@@ -17,7 +17,7 @@ export class MyAvailableCalendarComponent implements OnInit {
 
   WEEK_DAYS = [
     {
-      label: 'Ngay',
+      label: '',
       value: null
     },
     ...WEEK_DAYS

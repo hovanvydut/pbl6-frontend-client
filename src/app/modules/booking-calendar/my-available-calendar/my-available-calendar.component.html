@@ -1,5 +1,5 @@
 <div class="relative">
-  <div class="sticky top-0 p-20 z-10 bg-white flex justify-between">
+  <div class="sticky top-0 p-15 z-10 bg-white flex justify-between">
     <b class="text-20">
       Lịch hẹn xem trọ
     </b>
@@ -13,16 +13,24 @@
     </button>
   </div>
   <div>
-    <div class="flex">
+    <div class="grid grid-cols-8">
       <div *ngFor="let day of days; index as dayIndex">
-        <div class="text-center">
+        <div
+          class="text-center font-bold text-16 border border-gray h-33 py-5 border-dashed"
+        >
           {{ day.label }}
         </div>
         <div class="flex flex-col">
           <div
             *ngFor="let time of day.timeSlots; index as timeIndex"
-            class="h-30 w-75 border border-gray"
-            [class]="time.selected? 'bg-green-300' : 'bg-gray'"
+            class="h-30 border border-gray text-center font-bold p-5 border-dashed hover:bg-gray-200"
+            [class]="
+              time.selected
+                ? 'selected-slot font-normal text-white'
+                : timeIndex % 2 === 0
+                ? 'bg-gray'
+                : 'bg-white'
+            "
             (click)="selectTimeSlot(dayIndex, timeIndex)"
           >
             {{ dayIndex > 0 ? "" : time.label }}

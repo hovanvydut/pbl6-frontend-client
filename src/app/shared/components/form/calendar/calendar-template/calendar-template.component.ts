@@ -159,11 +159,6 @@ export class CalendarTemplateComponent implements OnInit {
       end: new Date(date.getTime() + 1000 * 60 * 60),
       title: selectedDate,
       color: { ...BOOKING_COLORS['available'] },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
       draggable: true
     };
     return addedEvent;
