@@ -1,3 +1,5 @@
+import { NotifyService } from './../../../../services/notify.service';
+import { CommonService } from './../../../../../core/services/common.service';
 import {
   ChangeDetectorRef,
   Component,
@@ -16,9 +18,8 @@ import {
   CalendarView,
   CalendarWeekViewBeforeRenderEvent
 } from 'angular-calendar';
-import { WeekViewHour, WeekViewHourColumn } from 'calendar-utils';
+import { WeekViewHourColumn } from 'calendar-utils';
 import { Subject } from 'rxjs';
-import { DecimalPipe } from '@angular/common';
 import { BOOKING_COLORS } from '@app/shared/app.constants';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -66,7 +67,9 @@ export class CalendarTemplateComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: { events: any[] },) {}
+  constructor( @Inject(MAT_DIALOG_DATA) public data: { events: any[] },
+  private commonService: CommonService,
+  private notifyService: NotifyService) {}
 
   ngOnInit(): void {
     if( this.data.events ) {
@@ -75,6 +78,10 @@ export class CalendarTemplateComponent implements OnInit {
   }
 
   onSegmentDateClicked(event) {
+    if( this.commonService.checkDateIsInThePast(event.date) ) {
+      this.notifyService.notify('Bạn không thể chọn ngày trong quá khứ');
+      return;
+    }
     const addedEvent = this.createEvent(event.date);
 
     if (this.enableEdit && !this.selectOneSegment) {

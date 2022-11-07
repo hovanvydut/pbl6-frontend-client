@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 //
 import { BaseService } from './base.service';
-import { DistrictModel, AddressModel } from './../../shared/models/address.model';
+import {
+  DistrictModel,
+  AddressModel
+} from './../../shared/models/address.model';
 import { ItemModel } from '@app/shared/models/base.model';
 import { WardModel } from '@app/shared/models/address.model';
 import { PropertiesModel } from '@app/shared/models/property.model';
@@ -12,7 +15,9 @@ import { PropertiesModel } from '@app/shared/models/property.model';
 })
 export class CommonService {
   properties: PropertiesModel[] = [];
-  _properties: BehaviorSubject<PropertiesModel[]> = new BehaviorSubject<PropertiesModel[]>(this.properties);
+  _properties: BehaviorSubject<PropertiesModel[]> = new BehaviorSubject<
+    PropertiesModel[]
+  >(this.properties);
 
   setProperties(value: PropertiesModel[]) {
     this._properties.next(value);
@@ -32,7 +37,9 @@ export class CommonService {
   }
 
   getWards(districtId: string): Observable<WardModel> {
-    return this.baseService.get<WardModel>(`address/ward?districtId=${districtId}`);
+    return this.baseService.get<WardModel>(
+      `address/ward?districtId=${districtId}`
+    );
   }
 
   getAddressString(addressId: string): Observable<AddressModel> {
@@ -59,4 +66,11 @@ export class CommonService {
     return this.baseService.get<PropertiesModel[]>('property');
   }
   //#endregion
+
+  //#region Common
+  checkDateIsInThePast(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  }
 }

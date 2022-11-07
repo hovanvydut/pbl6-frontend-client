@@ -28,7 +28,6 @@
     <span> Không có</span>
   </p>
   <p class="text-gray text-12">
-    Xác nhận lịch hẹn lúc
-    {{ this.data.infoDetail?.approveTime | date: "medium" }}
+    {{ this.data.infoDetail.approveTime ?  'Xác nhận lịch hẹn lúc: ' + (this.data.infoDetail.approveTime | date: "medium") : 'Chưa xác nhận lịch hẹn này' }}
   </p>
 </app-dialog-template>
