@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BookingService } from '@app/modules/booking-calendar/services/booking.service';
+import { InfoDialogComponent } from '@app/shared/components/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { CalendarEvent } from 'angular-calendar';
 
@@ -56,10 +57,20 @@ export class PostBookingComponent implements OnInit {
         postId: this.data.post.id,
         date: this.selectedDate
       })
-      .subscribe(res => {
-        this.dialog.closeAll();
-      }, err => {
-        this.notifyService.notify(err);
-      });
+      .subscribe(
+        res => {
+          this.dialog.closeAll();
+          let dialogRef = this.dialog.open(InfoDialogComponent, {
+            data: {
+              title: 'Đặt lịch thành công',
+              description: `Chúng mình đã thông báo cho chủ trọ, 
+              bạn đợi chủ trọ xác nhận bạn nhé!`,
+            }
+          });
+        },
+        err => {
+          this.notifyService.notify(err);
+        }
+      );
   }
 }
