@@ -1,3 +1,27 @@
-<p>
-  booking-detail works!
-</p>
+<app-dialog-template 
+  [title]="'Chi tiết lịch hẹn'" 
+  [saveButton]="'Xác nhận đã gặp'"
+  [cancelButton]="'Đóng'"
+  [disableSaveButton]="this.data.infoDetail.met"
+  (onSave)="approveBooking()">
+  <p>
+    <b>Tên: </b>
+    {{ this.data.infoDetail?.guestInfo.displayName }}
+  </p>
+  <p>
+    <b>Số điện thoại: </b>
+    {{ this.data.infoDetail?.guestInfo.phoneNumber }}
+  </p>
+  <p>
+    <b>Ngày hẹn: </b>
+    {{ this.data.infoDetail?.time | date: 'medium' }}
+  </p>
+  <p>
+    <b>Trạng thái: </b>
+    {{ this.data.infoDetail?.met ? 'Đã gặp' : 'Chưa gặp' }}
+  </p>
+  <p>
+    <b>Ghi chú:</b>
+    <span> Không có</span>
+  </p>
+</app-dialog-template>

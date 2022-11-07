@@ -1,11 +1,9 @@
 ::ng-deep .cal-event-action {
-  background: white !important;
-  border-radius: 2px !important;
   padding: 1px !important;
   position: relative;
 
   &::after {
-    content: '\2716';
+    content: '👀';
   }
 }
 
@@ -15,6 +13,7 @@
 
 ::ng-deep .cal-event {
   padding: 5px !important;
+  line-height: 15px !important;
 }
 
 ::ng-deep .cal-today {

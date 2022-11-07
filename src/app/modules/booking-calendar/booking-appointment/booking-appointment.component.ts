@@ -24,12 +24,15 @@ export class BookingAppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.bookingService.getAllBooking().subscribe(res => {
       this.events = res.records.map(item => {
+        const time = new Date(item.time);
+        time.setHours(time.getHours() + 7);
         const event = {
           id: item.id,
-          start: new Date(),
-          end: new Date( new Date(item.time).getTime() + 1000 * 60 * 60),
+          start: time,
+          end: new Date(time.getTime() + 1000 * 60 * 60),
           title: item.guestInfo.displayName,
           color: { ...BOOKING_COLORS['available'] },
+          infoDetail: item,
           actions: [
             {
               label: ``,
@@ -81,7 +84,7 @@ export class BookingAppointmentComponent implements OnInit {
       maxWidth: '99vw',
       maxHeight: '90vh',
       data: {
-        event: event
+        infoDetail: event.infoDetail
       }
     });
   }

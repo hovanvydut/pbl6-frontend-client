@@ -9,6 +9,7 @@ export class DialogTemplateComponent implements OnInit {
   @Input() title: string = 'Tiêu đề';
   @Input() saveButton: string = 'Lưu';
   @Input() cancelButton: string = 'Hủy';
+  @Input() disableSaveButton: boolean = false;
 
   @Output() onSave: EventEmitter<void> = new EventEmitter<void>();
 

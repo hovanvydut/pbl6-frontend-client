@@ -45,6 +45,7 @@ export class CalendarTemplateComponent implements OnInit {
   }
 
   @Output() onSegmentSelected: EventEmitter<Date> = new EventEmitter<Date>;
+  @Output() onEventClicked: EventEmitter<any> = new EventEmitter();
 
   BOOKING_COLORS = BOOKING_COLORS;
   CalendarView = CalendarView;
@@ -102,6 +103,10 @@ export class CalendarTemplateComponent implements OnInit {
       }
       return iEvent;
     });
+  }
+
+  handleEvent(event) {
+    this.onEventClicked.emit(event);
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

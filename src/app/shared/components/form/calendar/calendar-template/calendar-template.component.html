@@ -34,7 +34,7 @@
     [hourDuration]="60"
     [hourSegments]="1"
     [weekStartsOn]="1"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventClicked)="handleEvent($event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
     (hourSegmentClicked)="onSegmentDateClicked($event)"
     (beforeViewRender)="beforeWeekOrDayViewRender($event)"
