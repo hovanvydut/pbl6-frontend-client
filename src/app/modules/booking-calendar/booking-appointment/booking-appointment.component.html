@@ -13,7 +13,9 @@
 </div>
 
 <app-calendar-template
+  *ngIf="events"
   #allBookings
   [enableEdit]="false"
-  [freeTimes]="appointments"
+  [events]="events"
+  [showNavigateButtons]="true"
 ></app-calendar-template>

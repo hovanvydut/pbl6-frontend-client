@@ -55,7 +55,7 @@ export class PostBookingComponent implements OnInit {
     this.bookingService
       .createBooking({
         postId: this.data.post.id,
-        date: this.selectedDate
+        date: this.selectedDate.toISOString()
       })
       .subscribe(
         res => {

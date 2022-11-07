@@ -17,21 +17,10 @@ import {
   CalendarWeekViewBeforeRenderEvent
 } from 'angular-calendar';
 import { WeekViewHour, WeekViewHourColumn } from 'calendar-utils';
-import { subDays, startOfDay, addDays, endOfDay } from 'date-fns';
-import { EventColor } from 'calendar-utils';
 import { Subject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
-
-const colors: Record<string, EventColor> = {
-  booked: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  available: {
-    primary: '#7ba5c5',
-    secondary: '#7ba5c5'
-  }
-};
+import { BOOKING_COLORS } from '@app/shared/app.constants';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calendar-template',
@@ -46,10 +35,18 @@ export class CalendarTemplateComponent implements OnInit {
   @Input() enableEdit: boolean = true;
   @Input() freeTimes: any[] = [];
   @Input() selectedDays: any[] = [];
+  private _events: CalendarEvent[] = [];
+  @Input() get events(): CalendarEvent[] {
+    return this._events;
+  }
+  set events(value: CalendarEvent[]) {
+    this._events = value;
+    this.refresh.next();
+  }
 
   @Output() onSegmentSelected: EventEmitter<Date> = new EventEmitter<Date>;
 
-  events: CalendarEvent[] = [];
+  BOOKING_COLORS = BOOKING_COLORS;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   actions: CalendarEventAction[] = [
@@ -68,15 +65,12 @@ export class CalendarTemplateComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private decimalPipe: DecimalPipe,
-    private cdr: ChangeDetectorRef) {}
+  constructor( @Inject(MAT_DIALOG_DATA) public data: { events: any[] },) {}
 
   ngOnInit(): void {
-    // this.events = [...this.freeTimes];
-  }
-
-  ngAfterContentChecked() {
-    this.cdr.detectChanges();
+    if( this.data.events ) {
+      this.events = [...this.data.events];
+    }
   }
 
   onSegmentDateClicked(event) {
@@ -164,7 +158,7 @@ export class CalendarTemplateComponent implements OnInit {
       start: date,
       end: new Date(date.getTime() + 1000 * 60 * 60),
       title: selectedDate,
-      color: { ...colors['available'] },
+      color: { ...BOOKING_COLORS['available'] },
       actions: this.actions,
       resizable: {
         beforeStart: true,
