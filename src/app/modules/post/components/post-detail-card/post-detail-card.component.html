@@ -4,13 +4,15 @@
       <app-svg-icon [name]="'home'"></app-svg-icon>
       <span> {{ post.category?.name }} </span>
     </div>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onBookingCalendarButtonClicked()"
-    >
-      Hẹn xem trọ
-    </button>
+    <ng-container *ngIf="!isMyPost">
+      <div>
+        <app-svg-icon
+          [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"
+          class="text-black cursor-pointer"
+          (click)="onBookmarkButtonClicked()"
+        ></app-svg-icon>
+      </div>
+    </ng-container>
   </div>
   <div class="w-full flex flex-col p-10  rounded-9">
     <div class="flex gap-10 items-center text-16 font-weight-600">
@@ -98,8 +100,7 @@
         <p class="text-14">{{ post.limitTenant + " người" }}</p>
       </div>
     </div>
-  <div class="w-full h-1 bg-slate-200 my-10"></div>
-
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
   </div>
 
   <div class="w-full flex flex-col p-10  rounded-9">
@@ -121,16 +122,25 @@
     </div>
   </div>
   <div class="w-full flex flex-col items-start p-10 gap-24">
-  <div class="w-full h-1 bg-gray-200"></div>
+    <div class="w-full h-1 bg-gray-200"></div>
 
     <mat-card-title class="w-full">
       <div class="flex items-center justify-between gap-10 w-full">
         <div class="flex gap-10 items-center text-24 font-weight-600">
           <a>Đánh giá</a>
         </div>
-        <button mat-raised-button (click)="onReviewPostButtonClicked()">
-          Đánh giá trọ này
-        </button>
+        <div class="flex items-center gap-10">
+          <button mat-raised-button (click)="onReviewPostButtonClicked()">
+            Đánh giá trọ này
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onBookingCalendarButtonClicked()"
+          >
+            Hẹn xem trọ
+          </button>
+        </div>
       </div>
     </mat-card-title>
 
@@ -164,7 +174,7 @@
           <div class="text-12 text-gray-500">
             <div class="flex gap-2 m-auto">
               <app-svg-icon
-                *ngFor="let item of [1, 2, 3, 4, 5]"
+                *ngFor="let item of [1, 2, 3, 4]"
                 class="review-rating"
                 [name]="item <= review.rating ? 'star_fill' : 'star'"
               >
@@ -194,4 +204,3 @@
     </div>
   </div>
 </div>
-
