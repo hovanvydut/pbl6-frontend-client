@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DEFAULT_IMAGES } from '@app/shared/app.constants';
+import { InfoDialogComponent } from '@app/shared/components/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { ReviewService } from '../../services/review.service';
 
@@ -15,7 +17,7 @@ export class PostReviewComponent implements OnInit {
   previews: string[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { postId: string; addedReview},
+    @Inject(MAT_DIALOG_DATA) public data: { postId: string; addedReview },
     private notifyService: NotifyService,
     private reviewService: ReviewService,
     private dialog: MatDialog
@@ -32,7 +34,11 @@ export class PostReviewComponent implements OnInit {
   }
 
   onReviewSubmit() {
-    if (!this.content.valid || this.selectedRate === 0 || this.previews.length === 0) {
+    if (
+      !this.content.valid ||
+      this.selectedRate === 0 ||
+      this.previews.length === 0
+    ) {
       this.notifyService.notify('Vui lòng nhập đầy đủ thông tin');
       return;
     }
@@ -46,11 +52,21 @@ export class PostReviewComponent implements OnInit {
       rating: this.selectedRate
     };
 
-    this.reviewService.postReview(this.data.postId, data).subscribe(res => {
-      this.data.addedReview = true;
-      this.dialog.closeAll();
-    }, err => {
-      this.notifyService.notify(err);
-    });
+    this.reviewService.postReview(this.data.postId, data).subscribe(
+      res => {
+        this.data.addedReview = true;
+        this.dialog.closeAll();
+        let dialogRef = this.dialog.open(InfoDialogComponent, {
+          data: {
+            title: 'Đánh giá thành công',
+            description: `Cảm ơn bạn đã đánh giá! Chúc bạn một ngày vui vẻ nhé!`,
+            image: DEFAULT_IMAGES.thanks
+          }
+        });
+      },
+      err => {
+        this.notifyService.notify(err);
+      }
+    );
   }
 }

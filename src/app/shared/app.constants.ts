@@ -58,7 +58,9 @@ export const BOOKING_COLORS: Record<string, EventColor> = {
 export const DEFAULT_IMAGES = {
   avatar: 'assets/images/default-avatar.png',
   property: 'assets/images/default-property.png',
-  houseNoImage: 'assets/images/default/house_no_image.png'
+  houseNoImage: 'assets/images/default/house_no_image.png',
+  message: 'assets/images/default/message.png',
+  thanks: 'assets/images/default/thanks.png'
 };
 
 export const TIME_SLOTS = [

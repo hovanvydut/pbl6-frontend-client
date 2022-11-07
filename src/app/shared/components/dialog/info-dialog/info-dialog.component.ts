@@ -8,6 +8,7 @@ import {
   Output
 } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DEFAULT_IMAGES } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-info-dialog',
@@ -17,8 +18,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class InfoDialogComponent implements OnInit {
   @Input() title: string = 'Tiêu đề';
   @Input() description: string = 'Mô tả';
-  @Input() image: string = 'assets/images/default/message.png';
+  @Input() image: string = DEFAULT_IMAGES.message;
   @Input() cancelButton: string = 'Đóng';
+
+  
 
   @Output() onSave: EventEmitter<void> = new EventEmitter<void>();
 
@@ -31,6 +34,7 @@ export class InfoDialogComponent implements OnInit {
     if (this.data) {
       this.title = this.data.title;
       this.description = this.data.description;
+      this.image = this.data.image ? this.data.image : this.image;
     }
   }
 }
