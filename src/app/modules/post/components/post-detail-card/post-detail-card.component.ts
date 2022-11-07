@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { PostBaseModel } from '../../models/post.model';
 import { ReviewService } from '../../services/review.service';
+import { PostBookingComponent } from '../post-booking/post-booking.component';
 import { PostReviewComponent } from '../post-review/post-review.component';
 
 @Component({
@@ -39,5 +40,15 @@ export class PostDetailCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe( (data) => {
       this.getReviews();
     })
+  }
+
+  onBookingCalendarButtonClicked() {
+    let dialogRef = this.dialog.open(PostBookingComponent, {
+      width: '99vw',
+      maxHeight: '99vh',
+      data: {
+        post: this.post,
+      }
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BookingService } from '@app/modules/booking-calendar/services/booking.service';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { CalendarEvent } from 'angular-calendar';
@@ -24,13 +24,14 @@ export class PostBookingComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: { postId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { post: any },
     private bookingService: BookingService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
-    this.bookingService.getHostFreeTime(this.data.postId).subscribe(res => {
+    this.bookingService.getHostFreeTime(this.data.post.id).subscribe(res => {
       this.events = res;
     });
   }
@@ -52,11 +53,11 @@ export class PostBookingComponent implements OnInit {
   onBooking() {
     this.bookingService
       .createBooking({
-        postId: this.data.postId,
+        postId: this.data.post.id,
         date: this.selectedDate
       })
       .subscribe(res => {
-        console.log(res);
+        this.dialog.closeAll();
       }, err => {
         this.notifyService.notify(err);
       });
