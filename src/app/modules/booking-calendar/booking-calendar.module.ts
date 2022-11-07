@@ -6,11 +6,13 @@ import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SharedModule } from '@app/shared/shared.module';
 import { MyAvailableCalendarComponent } from './my-available-calendar/my-available-calendar.component';
 import { BookingCalendarComponent } from './booking-calendar.component';
+import { BookingDetailComponent } from './booking-detail/booking-detail.component';
 
 const COMPONENTS = [
   BookingAppointmentComponent,
   MyAvailableCalendarComponent,
-  BookingCalendarComponent
+  BookingCalendarComponent,
+  BookingDetailComponent
 ];
 
 export const routes: Routes = [

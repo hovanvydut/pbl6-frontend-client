@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BOOKING_COLORS } from '@app/shared/app.constants';
 import { CalendarEvent } from 'angular-calendar';
+import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
 import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
 
@@ -24,14 +25,19 @@ export class BookingAppointmentComponent implements OnInit {
     this.bookingService.getAllBooking().subscribe(res => {
       this.events = res.records.map(item => {
         const event = {
-          start: new Date(item.time),
+          id: item.id,
+          start: new Date(),
           end: new Date( new Date(item.time).getTime() + 1000 * 60 * 60),
           title: item.guestInfo.displayName,
           color: { ...BOOKING_COLORS['available'] },
           actions: [
             {
-              label: '',
-              a11yLabel: 'Delete'
+              label: ``,
+              a11yLabel: 'Detail',
+              onClick: ({ event }: { event: CalendarEvent }): void => {
+                this.events = this.events.filter(iEvent => iEvent !== event);
+                this.viewDetail(event);
+              }
             }
           ],
           resizable: {
@@ -68,5 +74,15 @@ export class BookingAppointmentComponent implements OnInit {
     const date = new Date(utcDate);
     console.log(new Date(date.toISOString()));
     return new Date(date.toISOString());
+  }
+
+  viewDetail(event) {
+    let dialogRef = this.dialog.open(BookingDetailComponent, {
+      maxWidth: '99vw',
+      maxHeight: '90vh',
+      data: {
+        event: event
+      }
+    });
   }
 }
