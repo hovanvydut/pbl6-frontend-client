@@ -6,15 +6,15 @@
         [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
         [images]="post.medias"
         [navigation]="false"
-        class="absolute inset-0 w-full h-full object-cover rounded-lg"
+        class="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
         [imageStyle]="'border-radius: 5px'"
       >
       </app-swiper-template>
       <img
         *ngIf="post.medias?.length === 0"
         [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
-        [src]="'assets/images/default/house-3.jpg'"
-        class="absolute inset-0 w-full h-full object-cover rounded-lg"
+        [src]="DEFAULT_IMAGES.houseNoImage"
+        class="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
         loading="lazy"
       />
     </div>
@@ -22,25 +22,31 @@
       <div class="my-5">
         <p
           [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
-          class="font-semibold text-left"
+          class="font-semibold text-left cursor-pointer  line-clamp-2"
+          [title]="post.title"
         >
           {{ post.title }}
         </p>
-        <div class="flex justify-between gap-10 my-5">
-          <div class="flex justify-start items-center gap-5">
+        <div class="flex justify-start gap-20 my-5 text-blue-800 font-semibold">
+          <div class="flex justify-center items-center gap-5">
             <app-svg-icon [name]="'people'"></app-svg-icon>
+            <span> Giới hạn {{ post.limitTenant }} người </span>
+          </div>
+          <div class="flex justify-center items-center gap-5">
+            <app-svg-icon [name]="'area'"></app-svg-icon>
             <span> {{ post.area }} m<sup>2</sup> </span>
           </div>
         </div>
 
-        <div class="flex justify-start items-start   gap-5">
+        <div class="flex justify-start items-center gap-5">
           <app-svg-icon [name]="'located'"></app-svg-icon>
-          <span class="text-left">
-            {{ post.address + "," + (post.fullAddress | address) }}
+          <span class="text-left line-clamp-2"
+            [title]="post.address + ',' + (post.fullAddress | address)">
+            {{ post.address + ',' + (post.fullAddress | address) }}
           </span>
         </div>
       </div>
-      <div class="flex flex-col justify-between items-end gap-10 w-1/4">
+      <div class="flex flex-col justify-between items-end gap-10 min-w-1/4">
         <div>
           <app-svg-icon
             [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"

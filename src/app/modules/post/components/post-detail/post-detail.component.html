@@ -1,4 +1,6 @@
 <div *ngIf="post" class="post__banner content-container">
+  <app-back-to-previous></app-back-to-previous>
+
   <div class="flex flex-col flex-grow relative">
     <div class="py-20 post-banner__gallery justify-between flex gap-10 w-full">
       <div
@@ -16,7 +18,7 @@
           class="w-full h-full flex items-center justify-center"
         >
           <img
-            [src]="'assets/images/default/house-3.jpg'"
+            [src]="DEFAULT_IMAGES.houseNoImage"
             class="w-full h-full object-cover"
             loading="lazy"
           />
@@ -30,7 +32,9 @@
       <app-post-detail-card [post]="post"></app-post-detail-card>
     </div>
     <div class="w-1/3 p-10">
-      <app-landlord-profile [authorInfo]="post.authorInfo"></app-landlord-profile>
+      <app-landlord-profile
+        [authorInfo]="post.authorInfo"
+      ></app-landlord-profile>
     </div>
   </div>
 

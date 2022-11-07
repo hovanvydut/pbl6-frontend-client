@@ -16,7 +16,7 @@ export class PostBookingComponent implements OnInit {
     firstCtrl: ['', Validators.required]
   });
   secondFormGroup = this._formBuilder.group({
-    phoneNumber: ['', Validators.required]
+    phoneNumber: ['', [Validators.required, Validators.pattern(new RegExp("[- +()0-9]{10,12}"))]]
   });
 
   selectedDate: Date;

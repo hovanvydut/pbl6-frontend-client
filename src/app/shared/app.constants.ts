@@ -55,3 +55,9 @@ export const fadeInOut = (name = 'fadeInOut', duration = 0.1) =>
       secondary: '#7ba5c5'
     }
   };
+
+  export const DEFAULT_IMAGES = {
+    avatar: 'assets/images/default-avatar.png',
+    property: 'assets/images/default-property.png',
+    houseNoImage: 'assets/images/default/house_no_image.png',
+  }

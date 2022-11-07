@@ -4,6 +4,7 @@ import { ENDPOINTS } from '@app/shared/utilities';
 import { PostService } from '@app/modules/post/services/post.service';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { BookmarkService } from '../../services/bookmark.service';
+import { DEFAULT_IMAGES } from '@app/shared/app.constants';
 @Component({
   selector: 'app-post-card-horizontal',
   templateUrl: './post-card-horizontal.component.html',
@@ -11,7 +12,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 })
 export class PostCardHorizontalComponent implements OnInit {
   @Input() post: any;
-
+  DEFAULT_IMAGES = DEFAULT_IMAGES;
   ENDPOINTS = ENDPOINTS;
 
   constructor(

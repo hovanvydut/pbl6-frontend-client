@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DEFAULT_IMAGES } from '@app/shared/app.constants';
 import { PostBaseModel, QueryParams } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
@@ -11,6 +12,7 @@ import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
+  DEFAULT_IMAGES = DEFAULT_IMAGES;
   relatedPosts: PostBaseModel[] = [];
   queryParams: QueryParams = new QueryParams({
     pageNumber: 0,
