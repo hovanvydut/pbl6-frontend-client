@@ -358,6 +358,11 @@ select:focus {
 
 }
 
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline-thick {
+  opacity: 1;
+  color: #D1D1D1 !important;
+}
+
 
 .container-max-width {
   // max-width: 1300px;

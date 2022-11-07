@@ -13,30 +13,8 @@
           />
         </div>
         <div class="flex flex-col justify-center">
-          <div class="info">
+          <div class="info mb-10">
             <b class="text-20"> {{ landLordProfile.displayName || authorInfo.displayName }} </b>
-            <p *ngIf="landLordProfile" class="text-gray-500 text-10">
-              {{
-                landLordProfile.address +
-                  "," +
-                  landLordProfile.addressWard +
-                  "," +
-                  landLordProfile.addressDistrict +
-                  "," +
-                  landLordProfile.addressProvince
-              }}
-            </p>
-            <p *ngIf="authorInfo">
-              {{
-                authorInfo.address +
-                  "," +
-                  authorInfo.addressWard +
-                  "," +
-                  authorInfo.addressDistrict +
-                  "," +
-                  authorInfo.addressProvince
-              }}
-            </p>
           </div>
           <button
             *ngIf="!landlordId"
@@ -73,19 +51,12 @@
     </p>
   </div>
   <div *ngIf="!landlordId" class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
-  <div *ngIf="!landlordId" class="grid grid-cols-3 gap-10 mt-10">
+  <div *ngIf="!landlordId" class="grid grid-cols-2 gap-10 mt-10">
     <button mat-raised-button color="primary">
       Chat với chủ trọ
     </button>
     <button mat-raised-button color="primary">
       Liên hệ chủ trọ
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onBookingCalendarButtonClicked()"
-    >
-      Hẹn xem trọ
     </button>
   </div>
 </mat-card>

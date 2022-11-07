@@ -4,6 +4,7 @@ import { ENDPOINTS } from '@app/shared/utilities';
 import { PostBaseModel } from '../../models/post.model';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { BookmarkService } from '../../services/bookmark.service';
+import { DEFAULT_IMAGES } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-post-card',
@@ -12,7 +13,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 })
 export class PostCardComponent implements OnInit {
   @Input() post: PostBaseModel;
-
+  DEFAULT_IMAGES = DEFAULT_IMAGES;
   ENDPOINTS = ENDPOINTS;
 
   constructor(private bookmarkService: BookmarkService,

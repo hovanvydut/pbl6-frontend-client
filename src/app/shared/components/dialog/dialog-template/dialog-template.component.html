@@ -10,7 +10,13 @@
   <button mat-raised-button mat-dialog-close>
     {{ cancelButton }}
   </button>
-  <button mat-raised-button color="primary" (click)="onSaveButtonClicked()">
+  <button
+    *ngIf="showSaveButton"
+    mat-raised-button
+    color="primary"
+    [disabled]="disableSaveButton"
+    (click)="onSaveButtonClicked()"
+  >
     {{ saveButton }}
   </button>
 </mat-dialog-actions>

@@ -19,6 +19,7 @@ import { NavbarMenuComponent } from './components/navbar-menu/navbar-menu.compon
 import { PaginationComponent } from './components/pagination/pagination.component';
 // serivce
 import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
+import { BackToPreviousComponent } from './components/back-to-previous/back-to-previous.component';
 
 const SVG_ICONS = completeIconSet;
 
@@ -33,7 +34,8 @@ const COMPONENTS = [
   SidebarLayoutComponent,
   SidebarComponent,
   NavbarMenuComponent,
-  PaginationComponent
+  PaginationComponent,
+  BackToPreviousComponent
 ];
 
 const MODULES = [

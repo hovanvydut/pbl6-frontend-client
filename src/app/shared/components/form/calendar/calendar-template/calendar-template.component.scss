@@ -1,11 +1,9 @@
 ::ng-deep .cal-event-action {
-  background: white !important;
-  border-radius: 5px !important;
-  padding: 5px !important;
+  padding: 1px !important;
   position: relative;
 
   &::after {
-    content: 'x';
+    content: '👀';
   }
 }
 
@@ -15,6 +13,7 @@
 
 ::ng-deep .cal-event {
   padding: 5px !important;
+  line-height: 15px !important;
 }
 
 ::ng-deep .cal-today {
@@ -29,3 +28,20 @@
     }
   }
 }
+
+::ng-deep .cal-hour {
+  background: #FFFFFF !important;
+}
+
+
+::ng-deep .cal-day-selected,
+.cal-day-selected:hover {
+  background: linear-gradient(0deg, rgba(88, 87, 87, 0.1), rgba(88, 87, 87, 0.1)), #FFFFFF !important;
+}
+
+::ng-deep .cal-day-available,
+.cal-day-available:hover {
+  background: linear-gradient(0deg, rgba(3, 143, 43, 0.1), rgba(22, 124, 51, 0.1)), #FFFFFF !important;
+}
+
+

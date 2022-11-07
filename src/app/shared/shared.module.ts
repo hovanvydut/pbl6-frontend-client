@@ -63,7 +63,8 @@ import { TableComponent } from './components/table/table.component';
 import { LineChartComponent, AreaChartComponent } from './components/chart';
 import {
   FormDialogComponent,
-  ConfirmDialogComponent
+  ConfirmDialogComponent,
+  InfoDialogComponent
 } from './components/dialog';
 import { SvgIconsRegistryService } from './services/svg-icon-registry.service';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
@@ -105,7 +106,8 @@ const COMPONENTS: any[] = [
   SelectFieldComponent,
   ChipsFieldComponent,
   UploadImageComponent,
-  RangeSliderFieldComponent
+  RangeSliderFieldComponent,
+  InfoDialogComponent,
 ];
 
 const MATERIALS: any[] = [

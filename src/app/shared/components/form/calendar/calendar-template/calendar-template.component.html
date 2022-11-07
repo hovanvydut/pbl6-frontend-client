@@ -14,7 +14,7 @@
     <app-svg-icon
       name="next"
       class="cursor-pointer"
-      mwlCalendarPreviousView
+      mwlCalendarNextView
       [view]="view"
       [(viewDate)]="viewDate"
       (viewDateChange)="closeOpenMonthViewDay()"
@@ -32,10 +32,12 @@
     [dayStartHour]="6"
     [dayEndHour]="22"
     [hourDuration]="60"
-    [hourSegments]="2"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
+    [hourSegments]="1"
+    [weekStartsOn]="1"
+    (eventClicked)="handleEvent($event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
     (hourSegmentClicked)="onSegmentDateClicked($event)"
+    (beforeViewRender)="beforeWeekOrDayViewRender($event)"
   >
   </mwl-calendar-week-view>
 </div>

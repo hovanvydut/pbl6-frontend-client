@@ -1,11 +1,13 @@
-<app-dialog-template [title]="'Đặt lịch hẹn xem trọ'">
+<app-dialog-template [title]="'Đặt lịch hẹn xem trọ'" (onSave)="onBooking()" [saveButton]="'Đặt lịch ngay'">
   <mat-stepper orientation="vertical" [linear]="true" #stepper>
     <mat-step>
       <form>
         <ng-template matStepLabel>Xác nhận phòng trọ</ng-template>
-          <!-- <app-post-card-horizontal></app-post-card-horizontal> -->
-        <div>
-          <button mat-button matStepperNext>Tiếp theo</button>
+        <app-post-card-horizontal [post]="data.post"></app-post-card-horizontal>
+        <div class="my-10">
+          <button mat-raised-button color="primary" matStepperNext>
+            Tiếp theo
+          </button>
         </div>
       </form>
     </mat-step>
@@ -21,20 +23,30 @@
             required
           />
         </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Trở lại</button>
-          <button mat-button matStepperNext>Tiếp theo</button>
+        <div class="my-10 flex gap-10">
+          <button mat-raised-button matStepperPrevious>Trở lại</button>
+          <button mat-raised-button color="primary" matStepperNext>
+            Tiếp theo
+          </button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Chọn lịch hẹn</ng-template>
-      <p>Thông tin lịch rảnh của chủ trọ mang tính chất tham khảo, chủ trọ sẽ xác nhận lại lịch hẹn của bạn!</p>
-      <app-calendar-template [selectOneSegment]="true" [showNavigateButtons]="true"
-        (onSegmentSelected)="handleSegmentSelected($event)"></app-calendar-template>
-      <div>
-        <button mat-button matStepperPrevious>Trở lại</button>
-        <button mat-button matStepperNext>Tiếp theo</button>
+      <p>
+        Thông tin lịch rảnh của chủ trọ mang tính chất tham khảo, chủ trọ sẽ xác
+        nhận lại lịch hẹn của bạn!
+      </p>
+      <app-calendar-template
+        *ngIf="events"
+        [selectOneSegment]="true"
+        [showNavigateButtons]="true"
+        [selectedDays]="events"
+        (onSegmentSelected)="handleSegmentSelected($event)"
+      ></app-calendar-template>
+      <div class="my-10 flex gap-10">
+        <button mat-raised-button matStepperPrevious>Trở lại</button>
+        <button mat-raised-button color="primary" matStepperNext>Tiếp theo</button>
       </div>
     </mat-step>
     <mat-step>
@@ -42,9 +54,9 @@
       <p>
         Lịch hẹn bạn chọn: <b>{{ selecteDateString }}</b>
       </p>
-      <p>Bấm để đặt lịch ngay với chủ trọ.</p>
       <div>
-        Hoặc trở lại để chỉnh sửa <button mat-button matStepperPrevious>Trở lại</button>
+        Bấm để đặt lịch ngay với chủ trọ. Hoặc trở lại để chỉnh sửa
+        <button mat-button matStepperPrevious class="mx-5"> <span class="font-bold">Trở lại</span></button>
       </div>
     </mat-step>
   </mat-stepper>
