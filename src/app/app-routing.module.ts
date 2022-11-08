@@ -8,7 +8,7 @@ import { ViewIconsComponent } from './shared/components/view-icons/view-icons.co
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/posts',
+    redirectTo: '/posts/dashboard',
     pathMatch: 'full'
   },
   {
