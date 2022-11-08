@@ -16,7 +16,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/modules/auth/auth.module').then(m => m.AuthModule)
   },
-
+  {
+    path: 'landlord',
+    loadChildren: () =>
+      import('@app/modules/landlord/landlord.module').then(m => m.LandlordModule),
+  },
   {
     path: 'posts',
     loadChildren: () =>
@@ -34,8 +38,8 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () =>
-      import('@app/modules/user/user.module').then(
-        m => m.UserModule
+      import('@app/page/page.module').then(
+        m => m.PageModule
       ),
     data: { preload: false }
   },

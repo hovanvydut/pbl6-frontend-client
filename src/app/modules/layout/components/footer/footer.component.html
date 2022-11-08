@@ -1,3 +1,32 @@
-<p>
-  footer works!
-</p>
+<div class="w-full bg-slate-100 shadow-sm">
+  <div class="w-full px-52 py-24">
+    <div class="flex justify-between border-b pb-10">
+      <h3
+        [routerLink]="ENDPOINTS.HOME"
+        class="flex items-center gap-10 cursor-pointer"
+      >
+        <img
+          class="h-24 w-24 object-contain shadow-sm"
+          src="assets/images/default/home.png"
+        />
+        <b> HOMIE</b>
+      </h3>
+      <div class="flex gap-5 items-center">
+        <span class="text-14 block w-160 text-center"> Tải ngay ứng dụng trên điện thoại</span>
+        <img
+          class="w-210 object-contain shadow-sm"
+          src="assets/images/default/googleplay.png"
+        />
+      </div>
+    </div>
+    <p class="flex justify-center border-b py-10">
+      <span> Hotline: 0123123123 </span> -
+      <span>Email: homieee@gmail.com</span>
+    </p>
+    <img
+      class="mb-5 w-3/5 m-auto object-contain shadow-sm"
+      src="assets/images/default/bg.svg"
+    />
+    <p class="text-center py-10">© 2022 Homie. All rights reserved.</p>
+  </div>
+</div>

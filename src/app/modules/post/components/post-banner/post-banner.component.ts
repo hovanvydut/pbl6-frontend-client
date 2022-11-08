@@ -12,11 +12,11 @@ export class PostBannerComponent implements OnInit {
   @ViewChild('searchPanel') searchPanel: SearchPanelComponent;
   images = [
     {
-      url: 'assets/images/default/home_1.jpg',
+      url: 'assets/images/default/home-5.jpg',
     },
     {
-      url: 'assets/images/default/home_2.jpg',
-    }
+      url: 'assets/images/default/home-6.png',
+    },
   ];
 
   filterParams = {

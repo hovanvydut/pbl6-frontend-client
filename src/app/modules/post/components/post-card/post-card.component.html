@@ -1,4 +1,4 @@
-<div class=" overflow-hidden w-210 h-370">
+<div class="overflow-hidden w-210 h-370">
   <div class="post-image relative">
     <img
       *ngIf="post.medias?.length > 0"
@@ -8,8 +8,8 @@
     />
     <img
       *ngIf="post.medias.length === 0"
-      class="h-full w-full object-cover shadow-sm"
-      src="assets/images/default/house-3.jpg"
+      class="h-full w-full object-cover shadow-sm cursor-pointer"
+      [src]="DEFAULT_IMAGES.houseNoImage"
       [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
     />
     <div
@@ -17,7 +17,7 @@
     >
       <div class="flex justify-start items-center gap-5">
         <app-svg-icon [name]="'home'"></app-svg-icon>
-        <span> {{ post.category.name }} </span>
+        <span> {{ post.category?.name }} </span>
       </div>
       <div>
         <app-svg-icon
@@ -36,26 +36,34 @@
   </div>
 
   <div class="my-5">
-    <p
-      [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
-      class="font-semibold text-left"
-    >
-      {{ post.title }}
-    </p>
+    <div class="flex justify-between gap-5 my-5">
+      <p
+        [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
+        class="font-semibold text-left cursor-pointer line-clamp-2"
+        [title]="post.title"
+      >
+        {{ post.title }}
+      </p>
+      <span class="text-20 text-end font-bold text-blue-900 dark:text-white min-w-1/2">{{
+        post.price | price
+      }}</span>
+    </div>
 
     <div class="flex justify-between gap-10 my-5">
       <div class="flex justify-start items-center gap-5">
         <app-svg-icon [name]="'people'"></app-svg-icon>
+        <span> Giới hạn {{ post.limitTenant }} người </span>
+      </div>
+      <div class="flex justify-start items-center gap-5">
+        <app-svg-icon [name]="'area'"></app-svg-icon>
         <span> {{ post.area }} m<sup>2</sup> </span>
       </div>
-      <span class="text-15 font-bold text-blue-900 dark:text-white">{{
-        post.price | currency: "VND"
-      }}</span>
     </div>
 
-    <div class="flex justify-start items-start   gap-5">
+    <div class="flex justify-start items-start gap-5">
       <app-svg-icon [name]="'located'"></app-svg-icon>
-      <span class="text-left">
+      <span class="text-left line-clamp-2" 
+        [title]="post.address + ',' + (post.fullAddress | address)">
         {{ post.address + "," + (post.fullAddress | address) }}
       </span>
     </div>

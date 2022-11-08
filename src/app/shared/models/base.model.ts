@@ -11,6 +11,14 @@ export class BaseModel<T> {
   }
 }
 
+export class TimeBaseModel {
+  createdAt: Date;
+  updatedAt: Date;
+
+  constructor(init?: Partial<TimeBaseModel>) {
+    Object.assign(this, init);
+  }
+}
 
 export class DatasourceBaseModel<T> {
   records: T[];

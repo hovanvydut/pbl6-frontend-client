@@ -1,6 +1,8 @@
-<div>
-  <app-search-panel></app-search-panel>
-  <div class="text-center my-30 flex gap-10">
+<div class="content-container">
+  <div class="w-3/4 m-auto my-10">
+    <app-search-panel></app-search-panel>
+  </div>
+  <div class="text-center my-30 flex gap-30">
     <app-filter class="w-1/4"></app-filter>
     <app-post-list class="w-3/4" [type]="'large'" #postList></app-post-list>
   </div>

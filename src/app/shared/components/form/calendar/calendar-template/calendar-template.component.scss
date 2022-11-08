@@ -1,0 +1,47 @@
+::ng-deep .cal-event-action {
+  padding: 1px !important;
+  position: relative;
+
+  &::after {
+    content: '👀';
+  }
+}
+
+::ng-deep .cal-event-title {
+  color: white !important
+}
+
+::ng-deep .cal-event {
+  padding: 5px !important;
+  line-height: 15px !important;
+}
+
+::ng-deep .cal-today {
+  background: #4D47C3 !important;
+  color: white !important;
+}
+
+.hide-header-day {
+  ::ng-deep .cal-header {
+    span {
+      display: none !important
+    }
+  }
+}
+
+::ng-deep .cal-hour {
+  background: #FFFFFF !important;
+}
+
+
+::ng-deep .cal-day-selected,
+.cal-day-selected:hover {
+  background: linear-gradient(0deg, rgba(88, 87, 87, 0.1), rgba(88, 87, 87, 0.1)), #FFFFFF !important;
+}
+
+::ng-deep .cal-day-available,
+.cal-day-available:hover {
+  background: linear-gradient(0deg, rgba(3, 143, 43, 0.1), rgba(22, 124, 51, 0.1)), #FFFFFF !important;
+}
+
+

@@ -31,6 +31,8 @@ body {
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap');
+// calendar
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 $fontConfig: (display-4: mat-typography-level(112px, 112px, 300, 'Nunito', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'Nunito', -0.0089em),
@@ -290,7 +292,21 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   padding: 0 24px 24px 24px !important;
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
   outline: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
@@ -340,4 +356,21 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
     }
   }
 
+}
+
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline-thick {
+  opacity: 1;
+  color: #D1D1D1 !important;
+}
+
+
+.container-max-width {
+  // max-width: 1300px;
+  margin: 0 auto;
+}
+
+.content-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
 }

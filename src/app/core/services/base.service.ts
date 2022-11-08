@@ -87,7 +87,7 @@ export class BaseService {
         if (res.success) {
           return res.data;
         } else {
-          throw new Error(res.message);
+          this.handleError(res);
         }
       })
     );
@@ -109,7 +109,7 @@ export class BaseService {
           if (res.success) {
             return res.data;
           } else {
-            throw new Error(res.message);
+            this.handleError(res);
           }
         })
       );
@@ -125,7 +125,7 @@ export class BaseService {
           if (res.success) {
             return res.data;
           } else {
-            throw new Error(res.message);
+            this.handleError(res);
           }
         })
       );
@@ -135,14 +135,14 @@ export class BaseService {
   postFile<T>(url: string, data: any): Observable<T> {
     return this.httpClient
       .post<T>(`${this.baseURL}/${url}`, data, {
-        headers: this.formHeaders,
+        headers: this.formHeaders
       })
       .pipe(
         map((res: any) => {
           if (res.success) {
             return res.data;
           } else {
-            throw new Error(res.message);
+            this.handleError(res);
           }
         })
       );
@@ -168,7 +168,7 @@ export class BaseService {
           if (res.success) {
             return res.data;
           } else {
-            throw new Error(res.message);
+            this.handleError(res);
           }
         })
       );
@@ -184,10 +184,18 @@ export class BaseService {
           if (res.success) {
             return res.data;
           } else {
-            throw new Error(res.message);
+            this.handleError(res);
           }
         })
       );
   }
   //#endregion
+
+  handleError(res: any) {
+    if (res.statusCode === 401) {
+      this.removeLoggedUser();
+    } else {
+      throw new Error(res.message);
+    }
+  }
 }

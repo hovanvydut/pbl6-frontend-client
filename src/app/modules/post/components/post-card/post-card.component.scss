@@ -1,8 +1,9 @@
 .post-image {
   height: 250px;
+  border-radius: 15px 15px 0 0;
 
   img {
-    border: 1px solid rgb(233, 233, 233);
     border-radius: 15px 15px 0 0;
+    border: none;
   }
 }

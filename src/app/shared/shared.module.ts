@@ -4,6 +4,8 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 //pipes
 import {
   LookupValuePipe,
@@ -61,7 +63,8 @@ import { TableComponent } from './components/table/table.component';
 import { LineChartComponent, AreaChartComponent } from './components/chart';
 import {
   FormDialogComponent,
-  ConfirmDialogComponent
+  ConfirmDialogComponent,
+  InfoDialogComponent
 } from './components/dialog';
 import { SvgIconsRegistryService } from './services/svg-icon-registry.service';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
@@ -76,6 +79,14 @@ import { RangeSliderFieldComponent } from './components/form/range-slider-field/
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { CurrencyPipe } from '@angular/common';
+import { PricePipe } from './pipes/price.pipe';
+import { LoadingComponent } from './components/loading/loading.component';
+import { CurrencyMaskDirective } from './directives/currency-mask.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarTemplateComponent } from './components/form/calendar/calendar-template/calendar-template.component';
+import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
+import { CalendarNavbarComponent } from './components/form/calendar/calendar-navbar/calendar-navbar.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -95,7 +106,8 @@ const COMPONENTS: any[] = [
   SelectFieldComponent,
   ChipsFieldComponent,
   UploadImageComponent,
-  RangeSliderFieldComponent
+  RangeSliderFieldComponent,
+  InfoDialogComponent,
 ];
 
 const MATERIALS: any[] = [
@@ -161,10 +173,14 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
     ...MATERIALS,
     ...MODULES,
     NgxSliderModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe],
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
+  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
   providers: [
     ...PROVIDERS,
     { provide: MatDialogRef, useValue: {} },

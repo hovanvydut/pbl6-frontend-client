@@ -78,12 +78,15 @@ export class PostDetailFormComponent implements OnInit {
           label: 'Tỉnh/Thành phố',
           placeholder: 'Chọn thành phố',
           require: true,
-          value: new FormControl({ value: 32, disabled: true }, Validators.required),
+          value: new FormControl(
+            { value: 32, disabled: true },
+            Validators.required
+          ),
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
           properties: this.provinces,
-          disabled: true,
+          disabled: true
         },
         {
           id: PostFieldEnum.District,
@@ -95,7 +98,7 @@ export class PostDetailFormComponent implements OnInit {
           inputType: InputType.Text,
           fieldType: FieldType.Select,
           width: '1/3',
-          properties: this.districts,
+          properties: this.districts
         },
         {
           id: PostFieldEnum.AddressWardId,
@@ -400,7 +403,7 @@ export class PostDetailFormComponent implements OnInit {
           this.dialog.closeAll();
           this.notifyService.notify('Cập nhật bài đăng thành công');
         },
-        (err) => {
+        err => {
           this.notifyService.notify(err);
         }
       );
@@ -418,7 +421,7 @@ export class PostDetailFormComponent implements OnInit {
           this.dialog.closeAll();
           this.notifyService.notify('Tạo bài đăng thành công');
         },
-        (err) => {
+        err => {
           this.notifyService.notify(err);
         }
       );
@@ -531,5 +534,12 @@ export class PostDetailFormComponent implements OnInit {
         this.wardIndex
       ].properties = res.addressWards;
     });
+  }
+
+  toNumber(val) {
+    let valArr = val.split('');
+    let valFiltered = valArr.filter(x => !isNaN(x));
+    let valProcessed = valFiltered.join('');
+    return valProcessed;
   }
 }

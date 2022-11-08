@@ -1,24 +1,27 @@
 <div>
-  <app-post-banner #postBanner></app-post-banner>
-  <div class="flex items-center my-20">
-    <div class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
-    <div class="flex-grow-0 mx-5 text">
-      Xu hướng tìm kiếm
+  <div class="content-container">
+    <app-post-banner #postBanner></app-post-banner>
+
+    <div class="flex items-center my-20">
+      <div class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
+      <div class="flex-grow-0 mx-5 text">
+        Xu hướng tìm kiếm
+      </div>
+      <div class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
     </div>
-    <div class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
-  </div>
 
-  <app-swiper-template
-    [onlyText]="true"
-    [images]="images"
-    [slidesPerView]="7"
-    [pagination]="false"
-    [imageStyle]="'border-radius: 15px; border: 1px solid gray'"
-  >
-  </app-swiper-template>
+    <app-swiper-template
+      [onlyText]="true"
+      [images]="images"
+      [slidesPerView]="7"
+      [pagination]="false"
+      [imageStyle]="'border-radius: 15px; border: 1px solid gray'"
+    >
+    </app-swiper-template>
 
-  <div class="text-center my-30 flex gap-10">
-    <app-filter class="w-1/4"></app-filter>
-    <app-post-list class="flex-1" #postList></app-post-list>
+    <div class="text-center my-30 flex gap-30">
+      <app-filter class="w-1/4"></app-filter>
+      <app-post-list class="flex-1" #postList></app-post-list>
+    </div>
   </div>
 </div>

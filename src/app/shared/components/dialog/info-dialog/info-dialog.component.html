@@ -1,0 +1,24 @@
+<h2 mat-dialog-title class="text-20">
+  Thông báo
+</h2>
+
+<mat-dialog-content class="flex flex-col gap-10 w-full text-center">
+  <div class="w-4/5 m-auto">
+    <img
+      class="h-100 w-100 object-cover shadow-lg my-5 m-auto"
+      [src]="image"
+    />
+    <div class="text-20 font-bold my-10">
+      {{ title }}
+    </div>
+    <div>
+      {{ description }}
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>
+    {{ cancelButton }}
+  </button>
+</mat-dialog-actions>

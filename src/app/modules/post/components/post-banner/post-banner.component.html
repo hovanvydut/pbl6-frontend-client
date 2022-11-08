@@ -1,21 +1,55 @@
 <div class="post__banner">
-  <div class="flex flex-col flex-grow">
-    <app-search-panel #searchPanel (searchKeywordChanged)="updateFilterParams($event)">
-    </app-search-panel>
-    <!--------------------------------------------------------------------->
+  <div class="flex flex-col flex-grow ">
     <div class="py-20 post-banner__gallery justify-between flex w-full">
       <div class="post-banner__swiper w-3/5">
-        <app-swiper-template [images]="images" [navigation]="false">
+        <app-swiper-template
+          [images]="images"
+          [navigation]="false"
+          [showTextOnImage]="true"
+        >
         </app-swiper-template>
       </div>
       <div class="w-2/5 flex flex-col justify-between gap-10 flex-grow pl-20">
-        <div class="post-banner__gallery--left">
-          <img class="h-full m-auto w-full" [src]="images[0]?.url">
+        <div class="post-banner__gallery--left relative">
+          <div
+            class="absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center gap-10 text-white "
+          >
+            <div class="flex text-20 text-center uppercase">
+              <div class="py-10 px-20 border-4 border-blue-800">
+                Nhà trọ
+              </div>
+              <div class="py-10 px-20 bg-blue-800 border-4 border-blue-800">
+                Phòng trọ
+              </div>
+            </div>
+            <p class="w-4/5 text-16">
+              Homiee.com - Trang thông tin cho thuê phòng trọ, tìm phòng trọ
+              nhanh chóng, hiệu quả số với hơn 500+ tin đăng mới và 30.000 lượt
+              xem mỗi ngày.
+            </p>
+          </div>
+          <img
+            class="h-full m-auto w-full object-cover"
+            [src]="images[0]?.url"
+          />
         </div>
         <div class="post-banner__gallery--left">
-          <img class="h-full m-auto w-full" [src]="images[1]?.url">
+          <img
+            class="h-full m-auto w-full object-cover"
+            [src]="images[1]?.url"
+          />
         </div>
       </div>
     </div>
+    <div
+      class="w-3/5 m-auto -translate-y-52 py-20 px-30 bg-white z-50 rounded-12 shadow-lg"
+    >
+      <app-search-panel
+        #searchPanel
+        (searchKeywordChanged)="updateFilterParams($event)"
+      >
+      </app-search-panel>
+    </div>
+    <!--------------------------------------------------------------------->
   </div>
 </div>

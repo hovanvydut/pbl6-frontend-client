@@ -1,90 +1,206 @@
-<div class="flex flex-col gap-30 w-full m-auto">
-  <mat-card class="flex-auto p-20">
-    <mat-card-title>
-      <div class="flex gap-10 items-center">
-        <app-svg-icon [name]="'home_large'" class="w-52"></app-svg-icon> <a> Thông tin phòng </a>
-      </div>
-    </mat-card-title>
-    <div class="grid grid-cols-3 gap-5 my-20">
+<div class="flex flex-col gap-20 w-full m-auto rounded-9 shadow-md p-10">
+  <div class="flex justify-between items-center">
+    <div class="flex justify-start items-center gap-5 my-10">
+      <app-svg-icon [name]="'home'"></app-svg-icon>
+      <span> {{ post.category?.name }} </span>
+    </div>
+    <ng-container *ngIf="!isMyPost">
       <div>
-        <p class="text-14 text-gray-500 uppercase"> Giá </p>
-        <p class="text-28 font-bold text-blue-700"> {{ post.price | currency: "VND" }} </p>
+        <app-svg-icon
+          [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"
+          class="text-black cursor-pointer"
+          (click)="onBookmarkButtonClicked()"
+        ></app-svg-icon>
+      </div>
+    </ng-container>
+  </div>
+  <div class="w-full flex flex-col p-10  rounded-9">
+    <div class="flex gap-10 items-center text-16 font-weight-600">
+      <a> Thông tin phòng </a>
+    </div>
+    <div class="grid grid-cols-3 gap-5 my-10">
+      <div>
+        <p class="text-12 text-gray-500 uppercase">Giá</p>
+        <p class="text-28 font-bold text-blue-700">
+          {{ post.price | currency: "VND" }}
+        </p>
       </div>
       <div>
-        <p class="text-14 text-gray-500 uppercase"> Diện tích </p>
-        <p class="text-16"> {{ post.area }} m2 </p>
+        <p class="text-12 text-gray-500 uppercase">Diện tích</p>
+        <p class="text-14">{{ post.area }} m2</p>
       </div>
       <div>
-        <p class="text-14 text-gray-500 uppercase"> ĐẶT CỌC </p>
-        <p class="text-16"> {{ post.prePaidPrice | currency: "VND" }} </p>
+        <p class="text-12 text-gray-500 uppercase">ĐẶT CỌC</p>
+        <p class="text-14">{{ post.prePaidPrice | currency: "VND" }}</p>
       </div>
     </div>
+
     <div>
-      <p class="text-14 text-gray-500 uppercase"> Địa chỉ </p>
-      <p class="text-16"> {{ post.address + ',' + ( post.fullAddress | address ) }}</p>
+      <p class="text-12 text-gray-500 uppercase">Địa chỉ</p>
+      <p class="text-14">
+        {{ post.address + "," + (post.fullAddress | address) }}
+      </p>
     </div>
-  </mat-card>
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
+    <div class="grid grid-cols-3 gap-5 my-10">
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'bulb'"> </app-svg-icon>
+        <span class="text-14"> 3000đ/chữ </span>
+      </div>
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'humidity'"> </app-svg-icon>
+        <span class="text-14">6000đ/số</span>
+      </div>
+      <div class="flex gap-10 items-end">
+        <app-svg-icon [name]="'wifi'"> </app-svg-icon>
+        <span class="text-14">Free</span>
+      </div>
+    </div>
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
+    <div class="flex gap-10 items-end">
+      <app-svg-icon [name]="'calendar_2'"> </app-svg-icon>
+      <span> {{ post.createdAt | fromNow }}</span>
+    </div>
+  </div>
 
-  <mat-card>
+  <div
+    *ngIf="post.properties.length > 0"
+    class="w-full flex flex-col p-10  rounded-9"
+  >
     <mat-card-title>
-      <div class="flex gap-10 items-center">
-        <app-svg-icon [name]="'ultilities'" class="w-52"></app-svg-icon> <a> Tiện ích </a>
+      <div class="flex gap-10 items-center text-16 font-weight-600">
+        <a> Tiện ích </a>
       </div>
     </mat-card-title>
 
-    <div class="grid grid-cols-4 gap-10 my-20">
-      <div *ngFor="let item of post.properties; index as i"
-        class="flex gap-10 items-start">
-        <app-svg-icon [name]="completeIconSet[i].name"
-          class="text-blue-800">
+    <div class="flex flex-wrap gap-10 my-10">
+      <div
+        *ngFor="let item of post.properties; index as i"
+        class="flex gap-10 items-center w-fit py-5 px-10 rounded-20 bg-slate-200"
+      >
+        <app-svg-icon [name]="completeIconSet[i].name" class="text-blue-800">
         </app-svg-icon>
-        <p class="text-16"> {{ item.displayName }} </p>
+        <span class="text-14">{{ item.displayName }}</span>
       </div>
     </div>
-  </mat-card>
+  </div>
 
-  <mat-card>
+  <div class="w-full flex flex-col p-10  rounded-9">
     <mat-card-title>
-      <div class="flex gap-10 items-center">
-        <app-svg-icon [name]="'warning'" class="w-52"></app-svg-icon> <a>  Chú ý</a>
+      <div class="flex gap-10 items-center text-16 font-weight-600">
+        <a> Chú ý</a>
       </div>
     </mat-card-title>
 
-    <div class="grid grid-cols-2 gap-5 my-20">
+    <div class="grid grid-cols-2 gap-5 my-10">
       <div>
-        <p class="text-14 text-gray-500 uppercase"> Giới hạn số lượng người / phòng </p>
-        <p class="text-16"> {{ post.limitTenant + ' người'}} </p>
+        <p class="text-12 text-gray-500 uppercase">
+          Giới hạn số lượng người / phòng
+        </p>
+        <p class="text-14">{{ post.limitTenant + " người" }}</p>
       </div>
     </div>
-  </mat-card>
-  <mat-card>
+    <div class="w-full h-1 bg-slate-200 my-10"></div>
+  </div>
+
+  <div class="w-full flex flex-col p-10  rounded-9">
     <mat-card-title>
-      <div class="flex gap-10 items-center">
-        <app-svg-icon [name]="'draw'" class="w-52"></app-svg-icon> <a>Mô tả thêm</a>
+      <div class="flex gap-10 items-center text-16 font-weight-600">
+        <a>Mô tả thêm</a>
       </div>
     </mat-card-title>
 
     <div>
       <div>
-        <p class="text-14 text-gray-500 uppercase">  </p>
-        <p class="text-16"> {{ post.title }} </p>
+        <p class="text-12 text-gray-500 uppercase"></p>
+        <p class="text-14">{{ post.title }}</p>
       </div>
       <div>
-        <p class="text-14 text-gray-500 uppercase"> Mô tả chung </p>
-        <p class="text-16"> {{ post.description }} </p>
+        <p class="text-12 text-gray-500 uppercase">Mô tả chung</p>
+        <p class="text-14">{{ post.description }}</p>
       </div>
     </div>
-  </mat-card>
+  </div>
+  <div class="w-full flex flex-col items-start p-10 gap-24">
+    <div class="w-full h-1 bg-gray-200"></div>
 
-  <mat-card>
-    <div class="flex items-center gap-10">
-      <span>
-        Hệ thống ghi nhận bạn đã đến xem phòng trọ này, bạn có thể để lại đánh giá !
-      </span>
-      <button mat-raised-button
-        (click)="onReviewPostButtonClicked()">
-        Đánh giá ngay <app-svg-icon [name]="'star_fill'" class="ml-5"></app-svg-icon>
-      </button>
+    <mat-card-title class="w-full">
+      <div class="flex items-center justify-between gap-10 w-full">
+        <div class="flex gap-10 items-center text-24 font-weight-600">
+          <a>Đánh giá</a>
+        </div>
+        <div class="flex items-center gap-10">
+          <button mat-raised-button (click)="onReviewPostButtonClicked()">
+            Đánh giá trọ này
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onBookingCalendarButtonClicked()"
+          >
+            Hẹn xem trọ
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <div class="flex flex-col gap-10">
+      <span class="text-24 font-bold text-blue-800"> 4.6/5</span>
+      <div class="flex gap-2 m-auto">
+        <app-svg-icon
+          *ngFor="let item of [1, 2, 3, 4]"
+          class="post-rating"
+          [name]="item <= post.rating ? 'star_fill' : 'star'"
+        >
+        </app-svg-icon>
+      </div>
     </div>
-  </mat-card>
+
+    <div *ngFor="let review of reviews; index as index" class="w-full">
+      <div class="flex gap-10 w-full">
+        <div class="avatar h-30 w-30 relative">
+          <img
+            class="w-full h-full rounded-15 object-cover"
+            [src]="
+              review.userInfo.avatar ||
+              'assets/images/default/default_avatar.png'
+            "
+          />
+        </div>
+        <div class="flex flex-col justify-center flex-grow">
+          <div class="info">
+            <b class="text-14 font-bold"> {{ review.userInfo.displayName }} </b>
+          </div>
+          <div class="text-12 text-gray-500">
+            <div class="flex gap-2 m-auto">
+              <app-svg-icon
+                *ngFor="let item of [1, 2, 3, 4]"
+                class="review-rating"
+                [name]="item <= review.rating ? 'star_fill' : 'star'"
+              >
+              </app-svg-icon>
+            </div>
+          </div>
+          <p class="text-12 text-gray-500">
+            {{ review.createdAt | fromNow }}
+          </p>
+          <div class="text-12 mb-5">
+            {{ review.content }}
+          </div>
+          <div class="flex flex-wrap gap-10 mb-10">
+            <img
+              *ngFor="let image of review.medias"
+              class="h-100 w-100 rounded-9 object-cover"
+              [src]="image.url || 'assets/images/default/default_avatar.png'"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="index < reviews.length - 1"
+        class="w-full h-1 bg-gray-200"
+      ></div>
+    </div>
+  </div>
 </div>

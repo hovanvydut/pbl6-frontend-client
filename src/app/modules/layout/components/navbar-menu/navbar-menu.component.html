@@ -1,39 +1,10 @@
-<div class="flex">
-  <a mat-list-item [matMenuTriggerFor]="notification">
-    <span
-      matBadge="4"
-      matBadgeOverlap="true"
-      matBadgeSize="small"
-      matBadgeColor="warn"
-    >
-      <app-svg-icon [name]="'notification'" [color]="'black'">
-      </app-svg-icon>
-    </span>
-  </a>
-  <mat-menu #notification="matMenu">
-    <div mat-menu-item>
-      Hi, you have 1 notification
-    </div>
-  </mat-menu>
-  <a mat-list-item [matMenuTriggerFor]="messageBox">
-    <app-svg-icon [name]="'message'" [color]="'black'">
-    </app-svg-icon>
-  </a>
-  <mat-menu #messageBox="matMenu">
-    <div mat-menu-item>
-      Hi, you have 1 message
-    </div>
-  </mat-menu>
-  <a mat-list-item [matMenuTriggerFor]="cart" class="cursor-pointer">
-    <app-svg-icon [name]="'cart'" [color]="'black'">
-    </app-svg-icon>
-  </a>
-  <mat-menu #cart="matMenu">
-    <div mat-menu-item>
-      Sản phảm 1 x 1 = 36000
-    </div>
-    <div mat-menu-item>
-      <a [routerLink]="'/cart'">Xem giỏ hàng</a>
-    </div>
-  </mat-menu>
+<div class="mx-20 flex justify-center gap-20">
+  <div
+    *ngFor="let item of menu"
+    [routerLink]="item.link"
+    class="menu-item"
+    [routerLinkActive]="['active']"
+  >
+    {{ item.name }}
+  </div>
 </div>
