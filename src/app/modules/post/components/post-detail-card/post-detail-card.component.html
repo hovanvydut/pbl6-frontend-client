@@ -129,7 +129,7 @@
         <div class="flex gap-10 items-center text-24 font-weight-600">
           <a>Đánh giá</a>
         </div>
-        <div class="flex items-center gap-10">
+        <div *ngIf="!isMyPost" class="flex items-center gap-10">
           <button mat-raised-button (click)="onReviewPostButtonClicked()">
             Đánh giá trọ này
           </button>
