@@ -35,10 +35,9 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'dashboard',
         component: PostComponent
       },
-
       {
         path: 'filter',
         component: PostFilterLayoutComponent

@@ -12,11 +12,6 @@ export const routes: Routes = [
     component: SidebarLayoutComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'my-dashboard',
-        pathMatch: 'full'
-      },
-      {
         path: 'dashboard',
         loadChildren: () =>
         import('@app/modules/dashboard/dashboard.module').then(m => m.DashboardModule)

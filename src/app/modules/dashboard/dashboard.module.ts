@@ -10,15 +10,10 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
 
 export const routes: Routes = [
   {
-    path: '',
-    component: DashboardComponent,
+    path: 'my-dashboard',
+    pathMatch: 'full',
+    component: MainDashboardComponent,
     canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'my-dashboard',
-        component: MainDashboardComponent
-      }
-    ]
   }
 ];
 
