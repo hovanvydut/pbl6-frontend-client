@@ -13,7 +13,7 @@ export const ENDPOINTS = {
   USER_COIN:  '/user/payment',
   USER_BOOKING_CALENDAR: '/user/booking-calendar/appointments',
 
-  HOME: '/posts',
+  HOME: '/posts/dashboard',
   POSTS_FILTER: '/posts/filter',
 
   CATEGORY: '/category',
