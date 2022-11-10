@@ -52,7 +52,20 @@ export const BOOKING_COLORS: Record<string, EventColor> = {
   available: {
     primary: '#7ba5c5',
     secondary: '#7ba5c5'
-  }
+  },
+  new : {
+    primary: '#FF9F9F',
+    secondary: '#FF9F9F'
+  },
+  approved: {
+    primary: '#E6E5A3',
+    secondary: '#E6E5A3'
+  },
+  done: {
+    primary: '#54B435',
+    secondary: '#54B435'
+  },
+
 };
 
 export const DEFAULT_IMAGES = {

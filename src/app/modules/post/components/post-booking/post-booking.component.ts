@@ -32,7 +32,7 @@ export class PostBookingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.bookingService.getHostFreeTime(this.data.post.id).subscribe(res => {
+    this.bookingService.getHostFreeTime(this.data.post.authorInfo.id).subscribe(res => {
       this.events = res;
     });
   }

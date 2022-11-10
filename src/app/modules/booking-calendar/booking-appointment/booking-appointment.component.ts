@@ -35,17 +35,17 @@ export class BookingAppointmentComponent implements OnInit {
           start: time,
           end: new Date(time.getTime() + 1000 * 60 * 60),
           title: item.guestInfo.displayName,
-          color: { ...BOOKING_COLORS['available'] },
+          color: { ...BOOKING_COLORS['new'] },
           infoDetail: item,
           actions: [
             {
-              label: ``,
-              a11yLabel: 'Detail',
+              label: `👀`,
+              a11yLabel: 'Xem chi tiết',
               onClick: ({ event }: { event: CalendarEvent }): void => {
                 this.events = this.events.filter(iEvent => iEvent !== event);
                 this.viewDetail(event);
               }
-            }
+            },
           ],
           resizable: {
             beforeStart: true,
@@ -53,6 +53,24 @@ export class BookingAppointmentComponent implements OnInit {
           },
           draggable: false
         };
+        
+        if( event.infoDetail?.approveTime ) {
+          event.color = { ...BOOKING_COLORS['approved'] };
+        }
+        if( event.infoDetail?.met ) {
+          event.color = { ...BOOKING_COLORS['done'] };
+        }
+        // {
+        //   label: `🆕`,
+        //   a11yLabel: 'Chưa xác nhận',
+        // },
+        // {
+        //   label: `✅`,
+        //   a11yLabel: 'Đã xác nhận',
+        // }, {
+        //   label: `🧑‍🤝‍🧑`,
+        //   a11yLabel: 'Đã gặp',
+        // }
         return event;
       });
     });
