@@ -6,8 +6,14 @@ import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SharedModule } from '@app/shared/shared.module';
 import { PaymentComponent } from './payment.component';
 import { CoinsComponent } from './coins/coins.component';
+import { PaymentTransactionComponent } from './payment-transaction/payment-transaction.component';
 
-const COMPONENTS = [PaymentComponent, PaymentFormComponent, CoinsComponent];
+const COMPONENTS = [
+  PaymentComponent,
+  PaymentFormComponent,
+  CoinsComponent,
+  PaymentTransactionComponent
+];
 
 export const routes: Routes = [
   {
