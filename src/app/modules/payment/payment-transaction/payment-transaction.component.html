@@ -1,0 +1,67 @@
+<mat-card class="payment-container">
+  <div class="flex justify-between items-center mb-10 sticky top-0">
+    <b class="text-20">
+      Lịch sử thanh toán
+    </b>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Chọn thời gian</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" />
+        <input matEndDate placeholder="End date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+  <div class="payment-table ">
+    <div *ngFor="let item of transactions">
+      <div class="w-full bg-white flex justify-start gap-10">
+        <div class="w-210 flex gap-10">
+          <div
+            class="w-10 h-10 rounded-full mt-5"
+            [class]="
+              item.transactionStatus === 'Giao dịch thành công'
+                ? 'bg-green-600'
+                : 'bg-red-500'
+            "
+          ></div>
+          <span>{{ item.transactionStatus }}</span>
+        </div>
+        <div
+          class="w-149 font-semibold"
+          [class]="
+            item.transactionStatus === 'Giao dịch thành công'
+              ? 'text-green-600'
+              : 'text-red-500'
+          "
+        >
+          {{ item.amount / 1000 | currency: "VND":"symbol":"1.0-0" }}
+        </div>
+        <div class="w-250 truncate">
+          <p class="text-12">
+            {{ item.description }}
+          </p>
+        </div>
+        <div class="text-left">
+          <p>
+            <b>{{ item.bankCode }}</b> | {{ item.code }}
+          </p>
+          <p class="text-11 text-gray-500">
+            {{ item.createdAt }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator
+    style-paginator
+    (page)="pageChangeEvent($event)"
+    [length]="totalPaymentTransactions"
+    [pageSize]="queryParams.pageSize"
+    [hidePageSize]="true"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</mat-card>
