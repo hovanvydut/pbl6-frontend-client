@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
@@ -16,6 +16,17 @@ import { FilterService } from './filter.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
+  private _addressWardId: string;
+  @Input() get addressWardId() {
+    return this._addressWardId;
+  }
+  set addressWardId(value) {
+    this._addressWardId = value;
+    if (value) {
+      this.queryParams.addressWardId = value;
+      this.filterService.setQueryParams(this.queryParams);
+    }
+  }
   roomTypes: ItemModel[] = [
     new ItemModel({
       id: null,
@@ -100,7 +111,7 @@ export class FilterComponent implements OnInit {
     this.onValueChanged();
   }
 
-  onClearFilterButtonClicked () {
+  onClearFilterButtonClicked() {
     this.properties.forEach(property => {
       property.value = [];
     });
@@ -110,7 +121,7 @@ export class FilterComponent implements OnInit {
       maxPrice: new FormControl(30000000),
       minPrice: new FormControl(0),
       searchValue: new FormControl('')
-    }
+    };
     this.filterService.setQueryParams(this.queryParams);
   }
 
@@ -140,11 +151,11 @@ export class FilterComponent implements OnInit {
     switch (type) {
       case 'area':
         this.filterParams.maxArea.setValue(value.max);
-        this.filterParams.minArea.setValue(value.min)
+        this.filterParams.minArea.setValue(value.min);
         break;
       case 'price':
-        this.filterParams.maxPrice.setValue(value.max)
-        this.filterParams.minPrice.setValue(value.min)
+        this.filterParams.maxPrice.setValue(value.max);
+        this.filterParams.minPrice.setValue(value.min);
         break;
       default:
         break;
