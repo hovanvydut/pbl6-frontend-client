@@ -30,6 +30,7 @@
     <div *ngIf="onlyText" class="h-130 w-149 p-5">
       <div
       [style.background-image]="'url(' + item.image + ')'"
+      (click)="onItemClicked(item)"
         class="rounded-12 w-full h-full border border-gray-200 flex justify-center items-end "
       >
         <p class="text-white font-bold">

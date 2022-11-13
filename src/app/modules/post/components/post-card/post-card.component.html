@@ -52,11 +52,11 @@
     <div class="flex justify-between gap-10 my-5">
       <div class="flex justify-start items-center gap-5">
         <app-svg-icon [name]="'people'"></app-svg-icon>
-        <span> Giới hạn {{ post.limitTenant }} người </span>
+        <span class="line-clamp-1"> Giới hạn {{ post.limitTenant }} người </span>
       </div>
       <div class="flex justify-start items-center gap-5">
         <app-svg-icon [name]="'area'"></app-svg-icon>
-        <span> {{ post.area }} m<sup>2</sup> </span>
+        <span class="line-clamp-1"> {{ post.area }} m<sup>2</sup> </span>
       </div>
     </div>
 

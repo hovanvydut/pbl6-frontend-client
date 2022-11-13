@@ -16,11 +16,12 @@
       [slidesPerView]="7"
       [pagination]="false"
       [imageStyle]="'border-radius: 15px; border: 1px solid gray'"
+      (itemClicked)="onItemClicked($event)"
     >
     </app-swiper-template>
 
     <div class="text-center my-30 flex gap-30">
-      <app-filter class="w-1/4"></app-filter>
+      <app-filter class="w-1/4" [addressWardId]="addressWardId"></app-filter>
       <app-post-list class="flex-1" #postList></app-post-list>
     </div>
   </div>
