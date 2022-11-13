@@ -5,7 +5,8 @@ import {
   ViewChild,
   OnInit,
   Input,
-  SimpleChanges
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 // swiper
@@ -69,6 +70,8 @@ export class SwiperTemplateComponent implements OnInit {
   slides$ = new BehaviorSubject<string[]>(['']);
   thumbs: any;
   show: boolean;
+
+  @Output() itemClicked = new EventEmitter<any>();
 
   constructor(private cd: ChangeDetectorRef, private ngZone: NgZone) {}
 
@@ -135,7 +138,10 @@ export class SwiperTemplateComponent implements OnInit {
       this.ngZone.run(() => {
         this.slidesEx = [...this.slidesEx, `added ${this.slidesEx.length - 1}`];
       });
-      console.log(this.slidesEx);
     }
+  }
+
+  onItemClicked(item: any) {
+    this.itemClicked.emit(item.id);
   }
 }
