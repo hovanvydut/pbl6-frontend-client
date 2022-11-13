@@ -22,7 +22,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Tiêu đề
         </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" class="">
           <p class="mx-5 w-210">
             {{ element.title }}
           </p>
@@ -53,7 +53,7 @@
           Phân loại phòng
         </th>
         <td mat-cell *matCellDef="let element">
-          <p class="mx-5 w-100">
+          <p class="mx-5 w-100 line-clamp-2">
             {{ element.category.name }}
           </p>
         </td>
@@ -64,7 +64,7 @@
           Địa chỉ
         </th>
         <td mat-cell *matCellDef="let element">
-          <p class="mx-5 w-100">
+          <p class="mx-5 w-100 line-clamp-2" [title]="element.address + ',' +  ( element.fullAddress | address )">
             {{ element.address + ',' +  ( element.fullAddress | address ) }}
           </p>
         </td>

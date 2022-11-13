@@ -1,6 +1,6 @@
 <mat-card>
   <div [class.flex]="landlordId"
-      class="gap-20 justify-center">
+      class="gap-20 justify-center ">
     <div>
       <div class="flex gap-10">
         <div class="avatar h-full w-80 relative">
@@ -38,17 +38,6 @@
         </button>
       </div>
     </div>
-    <p [class]="landlordId ? 'w-2/3' : 'w-full'"
-      class="py-10">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quibusdam
-      asperiores ex laboriosam dolorum rerum repudiandae recusandae aspernatur
-      fugit possimus? Mollitia officia sit suscipit beatae velit voluptatem
-      perferendis sed molestias!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quibusdam
-      asperiores ex laboriosam dolorum rerum repudiandae recusandae aspernatur
-      fugit possimus? Mollitia officia sit suscipit beatae velit voluptatem
-      perferendis sed molestias!
-    </p>
   </div>
   <div *ngIf="!landlordId" class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
   <div *ngIf="!landlordId" class="grid grid-cols-2 gap-10 mt-10">
