@@ -71,6 +71,8 @@ export class QueryParams {
   addressWardId?: string;
   categoryId?: string;
   searchValue?: string;
+  fromDate?: string;
+  toDate?: string;
 
   properties: string[] = [];
 

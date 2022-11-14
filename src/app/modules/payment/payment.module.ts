@@ -7,6 +7,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { PaymentComponent } from './payment.component';
 import { CoinsComponent } from './coins/coins.component';
 import { PaymentTransactionComponent } from './payment-transaction/payment-transaction.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const COMPONENTS = [
   PaymentComponent,
@@ -29,7 +30,7 @@ export const routes: Routes = [
   }
 ];
 
-const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule];
+const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule, ReactiveFormsModule, FormsModule];
 
 @NgModule({
   declarations: [...COMPONENTS],

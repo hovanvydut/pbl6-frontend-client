@@ -1,12 +1,2 @@
-<mat-card class="w-fit mb-20">
-  <div class="flex items-center gap-30 w-fit">
-    <div>
-      <p class="text-12 text-gray-500"> Tổng tiền trong ví </p>
-      <span class="text-18 font-bold"> {{ totalCoins  | currency: "VND":"symbol":"1.0-0" }} </span>
-    </div>
-    <button mat-raised-button color="primary" (click)="onRechargeButtonClicked()">
-      <app-svg-icon [name]="'billing'"></app-svg-icon> Nạp tiền
-    </button>
-  </div>
-</mat-card>
+
 <app-payment-transaction></app-payment-transaction>
