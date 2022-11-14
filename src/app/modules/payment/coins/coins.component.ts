@@ -8,7 +8,6 @@ import { PaymentFormComponent } from '../payment-form/payment-form.component';
   styleUrls: ['./coins.component.scss']
 })
 export class CoinsComponent implements OnInit {
-  totalCoins = 1000;
   constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
