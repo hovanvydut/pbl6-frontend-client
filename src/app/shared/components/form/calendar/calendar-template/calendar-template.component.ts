@@ -82,14 +82,14 @@ export class CalendarTemplateComponent implements OnInit {
     const addedEvent = this.createEvent(event.date);
 
     if (this.enableEdit && !this.selectOneSegment) {
-      if( this.commonService.checkDateIsInThePast(event.date) ) {
-        this.notifyService.notify('Bạn không thể chọn ngày trong quá khứ');
-        return;
-      }
       this.events = [...this.events, addedEvent];
     }
 
     if(this.selectOneSegment) {
+      if( this.commonService.checkDateIsInThePast(event.date) ) {
+        this.notifyService.notify('Bạn không thể chọn ngày trong quá khứ');
+        return;
+      }
       this.events = [addedEvent];
       this.onSegmentSelected.emit(event.date);
     }
