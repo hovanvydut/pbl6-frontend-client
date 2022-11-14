@@ -73,4 +73,6 @@ export class CommonService {
     today.setHours(0, 0, 0, 0);
     return date < today;
   }
+  //#endregion
+  
 }

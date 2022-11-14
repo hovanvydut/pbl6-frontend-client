@@ -110,4 +110,22 @@ export class PostService {
   updatePost(post: PostRequestModel): Observable<void> {
     return this.baseService.put(`post/${post.id}`, post);
   }
+  //  uptop post
+  getUptopPosts(params: QueryParams): Observable<DatasourceBaseModel<PostBaseModel>> {
+    const queryString =
+    '?' +
+    Object.keys(params)
+      .map(key => {
+        if (params[key] !== null) {
+          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
+        }
+        return '';
+      })
+      .join('&');
+    return this.baseService.get(`post/uptop${queryString}`);
+  }
+
+  upTopPost(data: any): Observable<void> {
+    return this.baseService.post(`post/uptop`, data);
+  }
 }
