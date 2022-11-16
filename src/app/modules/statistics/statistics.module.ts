@@ -5,6 +5,7 @@ import { StatisticRevenueComponent } from './statistic-revenue/statistic-revenue
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SharedModule } from '@app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const COMPONENTS = [StatisticsComponent];
 
@@ -22,7 +23,7 @@ export const routes: Routes = [
   }
 ];
 
-const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule];
+const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule, ReactiveFormsModule];
 
 @NgModule({
   declarations: [...COMPONENTS, StatisticRevenueComponent],

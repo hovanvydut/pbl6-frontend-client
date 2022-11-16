@@ -1,1 +1,60 @@
-<p>statistic-revenue works!</p>
+<div class="flex justify-between items-center mb-10 sticky top-0">
+  <b class="text-20">
+    Thống kê
+  </b>
+
+  <div class="flex gap-10">
+    <mat-form-field appearance="outline" class="example-form-field">
+      <mat-label>Chọn thời gian</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="rangePicker">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="rangePicker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button
+            mat-button
+            matDateRangePickerCance
+            (click)="onDateRangeReset()"
+          >
+            Đặt lại
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            matDateRangePickerApply
+            (click)="onDateRangeChanged()"
+          >
+            Apply
+          </button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select
+        disableRipple
+        [(value)]="selectedTab"
+        (selectionChange)="onTabChanged()"
+      >
+        <mat-option *ngFor="let item of StatisticTypes" [value]="item.key">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<ng-container *ngIf="!isLoading && value && label">
+  <div class="chart-container">
+    <app-bar-chart
+      [value]="value"
+      [label]="label"
+      [yaxisName]="selectedType.yaxis"
+      [title]="selectedType.name"
+    ></app-bar-chart>
+  </div>
+</ng-container>

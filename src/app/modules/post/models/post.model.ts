@@ -21,6 +21,7 @@ export class PostBaseModel extends TimeBaseModel{
   authorInfo: ProfileBaseModel;
   rating: number = 0;
   totalReview: number = 3;
+  isPriorityPost: boolean;
 
   public constructor(init?: Partial<PostRequestModel>) {
     super();
@@ -71,6 +72,8 @@ export class QueryParams {
   addressWardId?: string;
   categoryId?: string;
   searchValue?: string;
+  fromDate?: string;
+  toDate?: string;
 
   properties: string[] = [];
 

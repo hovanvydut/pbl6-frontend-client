@@ -27,6 +27,8 @@ import { SavedPostsComponent } from './components/saved-posts/saved-posts.compon
 import { PostListTemplateComponent } from './components/post-list-template/post-list-template.component';
 import { PostSwiperTemplateComponent } from './components/post-swiper-template/post-swiper-template.component';
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
+import { PostUptopComponent } from './components/post-uptop/post-uptop.component';
+import { PostDetailUptopComponent } from './components/post-detail-uptop/post-detail-uptop.component';
 //
 
 export const routes: Routes = [
@@ -71,7 +73,9 @@ const COMPONENTS = [
   SavedPostsComponent,
   PostListTemplateComponent,
   PostSwiperTemplateComponent,
-  ManagePostsComponent
+  ManagePostsComponent,
+  PostUptopComponent,
+  PostDetailUptopComponent
 ];
 
 const MODULES = [

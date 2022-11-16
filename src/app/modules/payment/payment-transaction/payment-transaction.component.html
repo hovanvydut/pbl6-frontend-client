@@ -1,18 +1,54 @@
 <mat-card class="payment-container">
   <div class="flex justify-between items-center mb-10 sticky top-0">
     <b class="text-20">
-      Lịch sử thanh toán
+      Giao dịch thanh toán
     </b>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Chọn thời gian</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" />
-        <input matEndDate placeholder="End date" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+   <div class="flex gap-10 items-end">
+    <mat-form-field appearance="outline">
+      <input
+        type="text"
+        matInput
+        placeholder="Tìm kiếm..."
+        name="searchValue"
+        (change)="getPaymentTransaction()"
+        [(ngModel)]="queryParams.searchValue"
+      />
+      <button matSuffix mat-button>
+        <mat-icon>search</mat-icon>
+      </button>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="example-form-field">
+      <mat-label>Chọn thời gian</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="rangePicker">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="rangePicker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCance (click)="onDateRangeReset()"> Đặt lại </button>
+          <button
+            mat-raised-button
+            color="primary"
+            matDateRangePickerApply
+            (click)="onDateRangeChanged()"
+          >
+            Apply
+          </button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select disableRipple [(value)]="selectedTab" (selectionChange)="onTabChanged()"> 
+        <mat-option value="1">Lịch sử nạp tiền</mat-option>
+        <mat-option value="2">Lịch sử tiêu tiền</mat-option>
+      </mat-select>
+    </mat-form-field>
+   </div>
   </div>
   <div class="payment-table ">
     <div *ngFor="let item of transactions">
