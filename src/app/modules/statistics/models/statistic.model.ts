@@ -18,6 +18,7 @@ export class StatisticDetailParamsModel {
   key: StatisticKey;
   date: string;
   includeDeleted: boolean;
+  top?: number;
 
   pageNumber: number;
   pageSize: number;

@@ -39,6 +39,7 @@ export class StatisticRevenueComponent implements OnInit {
   statisticData: any;
   selectedChartType = ChartTypes[0].value;
   selectedChartName = ChartTypes[0].name;
+
   isLoading = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { hasUpdate: boolean },

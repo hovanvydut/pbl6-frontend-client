@@ -20,14 +20,14 @@ export class StatisticDetailComponent implements OnInit {
     includeDeleted: false,
     pageNumber: 1,
     pageSize: 10,
-    searchValue: ''
+    searchValue: '',
+    top: 5
   });
   statisticDetailData: any;
   totalRecords: number;
-  displayedColumns: string[] = [
-    'title',
-    'value',
-  ];
+  displayedColumns: string[] = ['title', 'value'];
+  value: number[];
+  label: string[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -43,11 +43,10 @@ export class StatisticDetailComponent implements OnInit {
       this.data.statisticData.statisticDate
     ).toISOString();
     this.getStatisticDetail();
-
+    this.getStatisticTop();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getStatisticDetail() {
     this.statisticService
@@ -56,6 +55,19 @@ export class StatisticDetailComponent implements OnInit {
         console.log(res);
         this.statisticDetailData = res.records;
         this.totalRecords = res.totalRecords;
+      });
+  }
+
+  getStatisticTop() {
+    this.statisticService
+      .getStatisticTop(this.statisticParams)
+      .subscribe(res => {
+        this.value = res.map(item => {
+          return parseInt(item.statisticValue);
+        });
+        this.label = res.map(item => {
+          return item.title;
+        });
       });
   }
 
