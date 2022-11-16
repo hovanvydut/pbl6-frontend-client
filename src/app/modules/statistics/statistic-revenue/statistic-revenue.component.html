@@ -37,7 +37,7 @@
     <mat-form-field appearance="outline">
       <mat-select
         disableRipple
-        [(value)]="selectedTab"
+        [(value)]="this.statisticParams.key"
         (selectionChange)="onTabChanged()"
       >
         <mat-option *ngFor="let item of StatisticTypes" [value]="item.key">{{
