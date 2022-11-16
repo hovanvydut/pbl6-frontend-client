@@ -31,7 +31,6 @@ export class StatisticRevenueComponent implements OnInit {
     ),
     end: new FormControl<Date | null>(new Date())
   });
-  selectedTab = StatisticTypes[0].key;
   selectedType = StatisticTypes[0];
 
   selectedChartType = ChartTypes[0].value;
@@ -78,7 +77,7 @@ export class StatisticRevenueComponent implements OnInit {
   onTabChanged() {
     this.getStatistic();
     this.selectedType = StatisticTypes.find(
-      item => item.key === this.selectedTab
+      item => item.key === this.statisticParams.key
     );
   }
   onChartTypeChanged() {
