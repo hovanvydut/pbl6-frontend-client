@@ -60,7 +60,7 @@ import { CheckBoxListComponent } from './components/check-box-list/check-box-lis
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
 import { TableComponent } from './components/table/table.component';
-import { LineChartComponent, AreaChartComponent } from './components/chart';
+import { LineChartComponent, AreaChartComponent, BarChartComponent } from './components/chart';
 import {
   FormDialogComponent,
   ConfirmDialogComponent,
@@ -108,6 +108,7 @@ const COMPONENTS: any[] = [
   UploadImageComponent,
   RangeSliderFieldComponent,
   InfoDialogComponent,
+  BarChartComponent
 ];
 
 const MATERIALS: any[] = [
@@ -145,7 +146,8 @@ const MATERIALS: any[] = [
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTreeModule
+  MatTreeModule,
+  NgApexchartsModule
 ];
 
 const PIPES = [

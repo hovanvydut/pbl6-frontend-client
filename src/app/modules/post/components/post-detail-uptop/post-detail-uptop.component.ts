@@ -40,7 +40,14 @@ export class PostDetailUptopComponent implements OnInit {
       data => {
         this.detailUptop = data;
         this.detailUptop.startTime = new Date(this.detailUptop.startTime);
+        this.detailUptop.startTime.setHours(
+          this.detailUptop.startTime.getHours() + 7
+        );
         this.detailUptop.endTime = new Date(this.detailUptop.endTime);
+        this.detailUptop.endTime.setHours(
+          this.detailUptop.endTime.getHours() + 7
+        );
+
         this.detailUptop.days = this.diffDays(
           this.detailUptop.startTime,
           this.detailUptop.endTime
