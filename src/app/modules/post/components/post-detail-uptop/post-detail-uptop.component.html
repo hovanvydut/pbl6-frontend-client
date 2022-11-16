@@ -1,0 +1,29 @@
+<app-dialog-template
+  [title]="'Chi tiết đẩy tin'"
+  [showSaveButton]="false"
+  [cancelButton]="'Đóng'"
+>
+  <div class="flex flex-col gap-10 justify-between  ">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Số ngày đẩy tin ưu tiên</mat-label>
+      <input matInput readonly [(ngModel)]="this.detailUptop.days" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="example-form-field">
+      <mat-label>Thời gian đẩy tin</mat-label>
+      <mat-date-range-input>
+        <input
+          matStartDate
+          readonly
+          placeholder="Start date"
+          [ngModel]="detailUptop.startTime"
+        />
+        <input
+          matEndDate
+          readonly
+          placeholder="End date"
+          [ngModel]="detailUptop.endTime"
+        />
+      </mat-date-range-input>
+    </mat-form-field>
+  </div>
+</app-dialog-template>

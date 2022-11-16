@@ -122,10 +122,14 @@ export class PostService {
         return '';
       })
       .join('&');
-    return this.baseService.get(`post/uptop${queryString}`);
+    return this.baseService.get(`uptop${queryString}`);
   }
 
   upTopPost(data: any): Observable<void> {
-    return this.baseService.post(`post/uptop`, data);
+    return this.baseService.post(`uptop`, data);
+  }
+
+  detailUptopPost(id: string): Observable<any> {
+    return this.baseService.get(`uptop/${id}`);
   }
 }

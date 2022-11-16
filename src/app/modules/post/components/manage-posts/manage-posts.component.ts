@@ -10,6 +10,7 @@ import { NotifyService } from '@app/shared/services/notify.service';
 import { QueryParams, PostBaseModel } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { PostUptopComponent } from '../post-uptop/post-uptop.component';
+import { PostDetailUptopComponent } from '../post-detail-uptop/post-detail-uptop.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -145,5 +146,14 @@ export class ManagePostsComponent implements OnInit {
     }
   }
 
-  onViewTopTimeButtonClicked(postId: string) {}
+  onViewTopTimeButtonClicked(postId: string) {
+    if (postId) {
+      let dialogRef = this.dialog.open(PostDetailUptopComponent, {
+        maxHeight: '99vh',
+        data: {
+          postId: postId
+        }
+      });
+    }
+  }
 }
