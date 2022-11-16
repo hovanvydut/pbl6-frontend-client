@@ -49,5 +49,12 @@
 </div>
 
 <ng-container *ngIf="!isLoading && value && label">
-  <app-bar-chart [value]="value" [label]="label"></app-bar-chart>
+  <div class="chart-container">
+    <app-bar-chart
+      [value]="value"
+      [label]="label"
+      [yaxisName]="selectedType.yaxis"
+      [title]="selectedType.name"
+    ></app-bar-chart>
+  </div>
 </ng-container>

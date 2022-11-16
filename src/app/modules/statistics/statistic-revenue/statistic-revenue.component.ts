@@ -1,3 +1,4 @@
+import { ChartTypes } from './../consts/chart-type.const';
 import { finalize } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -13,6 +14,7 @@ import { StatisticService } from '../services/statistic.service';
 })
 export class StatisticRevenueComponent implements OnInit {
   StatisticTypes = StatisticTypes;
+  ChartTypes = ChartTypes;
   statisticParams: StatisticParamsModel = new StatisticParamsModel({
     key: StatisticKey.ViewPostDetail,
     fromDate: new Date(
@@ -29,7 +31,11 @@ export class StatisticRevenueComponent implements OnInit {
     ),
     end: new FormControl<Date | null>(new Date())
   });
-  selectedTab = StatisticKey.ViewPostDetail;
+  selectedTab = StatisticTypes[0].key;
+  selectedType = StatisticTypes[0];
+
+  selectedChartType = ChartTypes[0].value;
+  selectedChartName = ChartTypes[0].name;
   isLoading = false;
   constructor(private statisticService: StatisticService) {}
 
@@ -71,5 +77,14 @@ export class StatisticRevenueComponent implements OnInit {
 
   onTabChanged() {
     this.getStatistic();
+    this.selectedType = StatisticTypes.find(
+      item => item.key === this.selectedTab
+    );
+  }
+  onChartTypeChanged() {
+    this.getStatistic();
+    this.selectedChartName = ChartTypes.find(
+      item => item.value === this.selectedChartType
+    ).name;
   }
 }

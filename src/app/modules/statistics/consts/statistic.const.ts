@@ -3,18 +3,22 @@ import { StatisticKey } from './../enums/statistic.enum';
 export const StatisticTypes = [
     {
         key: StatisticKey.Booking,
-        name: 'Đặt phòng'
+        name: 'Số lượt đặt lịch xem trọ',
+        yaxis: 'Số lượt đặt lịch',
     },
     {
         key: StatisticKey.Bookmark,
-        name: 'Lưu bài'
+        name: 'Số lượt lưu bài viết',
+        yaxis: 'Lượt lưu bài viết',
     },
     {
         key: StatisticKey.GuestMetMotel,
-        name: 'Khách đã gặp'
+        name: 'Số lượt khách đến xem trọ thành công',
+        yaxis: 'Số lượt khách',
     },
     {
         key: StatisticKey.ViewPostDetail,
-        name: 'Xem chi tiết bài đăng'
+        name: 'Số lượt xem chi tiết bài đăng',
+        yaxis: 'Lượt xem',
     }
 ]

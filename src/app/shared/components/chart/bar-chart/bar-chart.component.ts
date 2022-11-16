@@ -9,7 +9,10 @@ import {
   ApexAnnotations,
   ApexFill,
   ApexStroke,
-  ApexGrid
+  ApexGrid,
+  ApexTooltip,
+  ApexLegend,
+  ChartType
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -24,6 +27,8 @@ export type ChartOptions = {
   stroke: ApexStroke;
   grid: ApexGrid;
   title: string,
+  tooltip: ApexTooltip;
+  legend: ApexLegend;
 };
 @Component({
   selector: 'app-bar-chart',
@@ -35,34 +40,19 @@ export class BarChartComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
   @Input() value: number[];
   @Input() label: string[];
+  @Input() title: string;
+  @Input() yaxisName: string;
 
   constructor() {
     this.chartOptions = {
       series: [
         {
-          name: "Servings",
-          data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+          name: "",
+          data: []
         }
       ],
-      annotations: {
-        points: [
-          {
-            x: "Bananas",
-            seriesIndex: 0,
-            label: {
-              borderColor: "#775DD0",
-              offsetY: 0,
-              style: {
-                color: "#fff",
-                background: "#775DD0"
-              },
-              text: "Bananas are good"
-            }
-          }
-        ]
-      },
       chart: {
-        height: 350,
+        height: 500,
         type: "bar"
       },
       plotOptions: {
@@ -72,7 +62,7 @@ export class BarChartComponent implements OnInit {
         }
       },
       dataLabels: {
-        enabled: false
+        enabled: true
       },
       stroke: {
         width: 2
@@ -87,26 +77,12 @@ export class BarChartComponent implements OnInit {
         labels: {
           rotate: -45
         },
-        categories: [
-          "Apples",
-          "Oranges",
-          "Strawberries",
-          "Pineapples",
-          "Mangoes",
-          "Bananas",
-          "Blackberries",
-          "Pears",
-          "Watermelons",
-          "Cherries",
-          "Pomegranates",
-          "Tangerines",
-          "Papayas"
-        ],
+        categories: [],
         tickPlacement: "on"
       },
       yaxis: {
         title: {
-          text: "Servings"
+          text: "Tổng",
         }
       },
       fill: {
@@ -121,13 +97,25 @@ export class BarChartComponent implements OnInit {
           opacityTo: 0.85,
           stops: [50, 0, 100]
         }
-      }
+      },
+      tooltip: {
+        y: {
+          formatter: function(val) {
+            return val + "";
+          }
+        }
+      },
+      legend: {
+        show: true,
+      },
     };
   }
   ngOnInit(): void {
     if (this.value && this.label) {
       this.chartOptions.series[0].data = this.value;
       this.chartOptions.xaxis.categories = this.label;
+      this.chartOptions.yaxis.title.text = this.yaxisName;
+      this.chartOptions.title = this.title;
     }
   }
 }
