@@ -55,6 +55,7 @@
       [label]="label"
       [yaxisName]="selectedType.yaxis"
       [title]="selectedType.name"
+      (chartClick)="chartClick($event)"
     ></app-bar-chart>
   </div>
 </ng-container>
