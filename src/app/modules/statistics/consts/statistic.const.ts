@@ -4,7 +4,7 @@ export const StatisticTypes = [
     {
         key: StatisticKey.Booking,
         name: 'Số lượt đặt lịch xem trọ',
-        yaxis: 'Số lượt đặt lịch',
+        yaxis: 'Lượt đặt lịch',
     },
     {
         key: StatisticKey.Bookmark,
@@ -13,8 +13,8 @@ export const StatisticTypes = [
     },
     {
         key: StatisticKey.GuestMetMotel,
-        name: 'Số lượt khách đến xem trọ thành công',
-        yaxis: 'Số lượt khách',
+        name: 'Số lượt đến xem trọ thành công',
+        yaxis: 'Lượt đến',
     },
     {
         key: StatisticKey.ViewPostDetail,
