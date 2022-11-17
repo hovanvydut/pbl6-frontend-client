@@ -1,7 +1,7 @@
 import { StatisticDetailComponent } from './../statistic-detail/statistic-detail.component';
 import { ChartTypes } from './../consts/chart-type.const';
 import { finalize } from 'rxjs';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatisticTypes } from '../consts/statistic.const';
 import { StatisticKey } from '../enums/statistic.enum';
@@ -91,6 +91,7 @@ export class StatisticRevenueComponent implements OnInit {
       item => item.key === this.statisticParams.key
     );
   }
+
   onChartTypeChanged() {
     this.getStatistic();
     this.selectedChartName = ChartTypes.find(

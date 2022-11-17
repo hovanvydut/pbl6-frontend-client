@@ -33,20 +33,21 @@ export class StatisticDetailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { statisticData: any; statisticParams: StatisticParamsModel },
     public dialog: MatDialog,
-    private notifyService: NotifyService,
     private statisticService: StatisticService
   ) {
-    this.statisticParams.key = data.statisticParams.key;
-    this.statisticParams.date = data.statisticData.date;
-    this.statisticParams.includeDeleted = data.statisticParams.includeDeleted;
-    this.statisticParams.date = this.convertToDate(
-      this.data.statisticData.statisticDate
-    ).toISOString();
-    this.getStatisticDetail();
-    this.getStatisticTop();
+    if (this.data) {
+      this.statisticParams.key = data.statisticParams.key;
+      this.statisticParams.date = data.statisticData.date;
+      this.statisticParams.includeDeleted = data.statisticParams.includeDeleted;
+      this.statisticParams.date = this.convertToDate(
+        this.data.statisticData.statisticDate
+      ).toISOString();
+      this.getStatisticDetail();
+      this.getStatisticTop();
+    }
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   getStatisticDetail() {
     this.statisticService
