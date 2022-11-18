@@ -87,6 +87,7 @@ import { CalendarTemplateComponent } from './components/form/calendar/calendar-t
 import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { CalendarNavbarComponent } from './components/form/calendar/calendar-navbar/calendar-navbar.component';
+import { PieChartComponent } from './components/chart/pie-chart/pie-chart.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -108,7 +109,8 @@ const COMPONENTS: any[] = [
   UploadImageComponent,
   RangeSliderFieldComponent,
   InfoDialogComponent,
-  BarChartComponent
+  BarChartComponent,
+  PieChartComponent
 ];
 
 const MATERIALS: any[] = [

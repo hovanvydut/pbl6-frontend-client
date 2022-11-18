@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -13,7 +20,7 @@ import {
   ApexTooltip,
   ApexLegend,
   ChartType
-} from "ng-apexcharts";
+} from 'ng-apexcharts';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -26,7 +33,7 @@ export type ChartOptions = {
   fill: ApexFill;
   stroke: ApexStroke;
   grid: ApexGrid;
-  title: string,
+  title: string;
   tooltip: ApexTooltip;
   legend: ApexLegend;
 };
@@ -43,22 +50,29 @@ export class BarChartComponent implements OnInit {
   @Input() title: string;
   @Input() yaxisName: string;
 
+  @Output() chartClick: EventEmitter<number> = new EventEmitter();
+
   constructor() {
     this.chartOptions = {
       series: [
         {
-          name: "",
+          name: '',
           data: []
         }
       ],
       chart: {
         height: 500,
-        type: "bar"
+        type: 'bar',
+        events: {
+          click: (event, chartContext, config) => {
+            this.chartClick.emit(config.dataPointIndex);
+          }
+        }
       },
       plotOptions: {
         bar: {
-          columnWidth: "50%",
-          borderRadius: 8,
+          columnWidth: '50%',
+          borderRadius: 8
         }
       },
       dataLabels: {
@@ -70,7 +84,7 @@ export class BarChartComponent implements OnInit {
 
       grid: {
         row: {
-          colors: ["#fff", "#f2f2f2"]
+          colors: ['#fff', '#f2f2f2']
         }
       },
       xaxis: {
@@ -78,18 +92,18 @@ export class BarChartComponent implements OnInit {
           rotate: -45
         },
         categories: [],
-        tickPlacement: "on"
+        tickPlacement: 'on'
       },
       yaxis: {
         title: {
-          text: "Tổng",
+          text: 'Tổng'
         }
       },
       fill: {
-        type: "gradient",
+        type: 'gradient',
         gradient: {
-          shade: "light",
-          type: "horizontal",
+          shade: 'light',
+          type: 'horizontal',
           shadeIntensity: 0.25,
           gradientToColors: undefined,
           inverseColors: true,
@@ -101,18 +115,20 @@ export class BarChartComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function(val) {
-            return val + "";
+            return val + '';
           }
         }
       },
       legend: {
-        show: true,
-      },
+        show: true
+      }
     };
   }
+
   ngOnInit(): void {
     if (this.value && this.label) {
       this.chartOptions.series[0].data = this.value;
+      this.chartOptions.series[0].name = this.title;
       this.chartOptions.xaxis.categories = this.label;
       this.chartOptions.yaxis.title.text = this.yaxisName;
       this.chartOptions.title = this.title;
