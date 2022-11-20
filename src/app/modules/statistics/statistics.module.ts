@@ -1,3 +1,4 @@
+import { StatisticDetailComponent } from './statistic-detail/statistic-detail.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatisticsComponent } from './statistics.component';
@@ -7,7 +8,11 @@ import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-const COMPONENTS = [StatisticsComponent];
+const COMPONENTS = [
+  StatisticsComponent,
+  StatisticRevenueComponent,
+  StatisticDetailComponent
+];
 
 export const routes: Routes = [
   {
@@ -23,11 +28,16 @@ export const routes: Routes = [
   }
 ];
 
-const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule, ReactiveFormsModule];
+const MODULES = [
+  RouterModule.forChild(routes),
+  SharedModule,
+  CommonModule,
+  ReactiveFormsModule
+];
 
 @NgModule({
-  declarations: [...COMPONENTS, StatisticRevenueComponent],
+  declarations: [...COMPONENTS],
   imports: [...MODULES],
-exports: [...COMPONENTS, StatisticRevenueComponent]
+  exports: [...COMPONENTS]
 })
-export class StatisticsModule { }
+export class StatisticsModule {}

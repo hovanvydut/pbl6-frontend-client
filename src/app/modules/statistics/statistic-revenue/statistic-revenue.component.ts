@@ -1,11 +1,15 @@
+import { StatisticDetailComponent } from './../statistic-detail/statistic-detail.component';
 import { ChartTypes } from './../consts/chart-type.const';
 import { finalize } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatisticTypes } from '../consts/statistic.const';
 import { StatisticKey } from '../enums/statistic.enum';
 import { StatisticParamsModel } from '../models/statistic.model';
 import { StatisticService } from '../services/statistic.service';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { PostService } from '@app/modules/post/services/post.service';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-statistic-revenue',
@@ -21,7 +25,7 @@ export class StatisticRevenueComponent implements OnInit {
       new Date().setDate(new Date().getDate() - 10)
     ).toISOString(),
     toDate: new Date().toISOString(),
-    IncludeDeleted: false
+    includeDeleted: false
   });
   value: number[];
   label: string[];
@@ -32,11 +36,17 @@ export class StatisticRevenueComponent implements OnInit {
     end: new FormControl<Date | null>(new Date())
   });
   selectedType = StatisticTypes[0];
-
+  statisticData: any;
   selectedChartType = ChartTypes[0].value;
   selectedChartName = ChartTypes[0].name;
+
   isLoading = false;
-  constructor(private statisticService: StatisticService) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { hasUpdate: boolean },
+    public dialog: MatDialog,
+    private notifyService: NotifyService,
+    private statisticService: StatisticService
+  ) {}
 
   ngOnInit(): void {
     this.getStatistic();
@@ -52,6 +62,7 @@ export class StatisticRevenueComponent implements OnInit {
         })
       )
       .subscribe(res => {
+        this.statisticData = res;
         this.value = res.map(item => {
           return item.statisticValue;
         });
@@ -80,10 +91,24 @@ export class StatisticRevenueComponent implements OnInit {
       item => item.key === this.statisticParams.key
     );
   }
+
   onChartTypeChanged() {
     this.getStatistic();
     this.selectedChartName = ChartTypes.find(
       item => item.value === this.selectedChartType
     ).name;
+  }
+
+  chartClick(dataPointIndex: number) {
+    if (dataPointIndex !== -1) {
+      let dialogRef = this.dialog.open(StatisticDetailComponent, {
+        width: '90vw',
+        height: '90vh',
+        data: {
+          statisticData: this.statisticData[dataPointIndex],
+          statisticParams: this.statisticParams
+        }
+      });
+    }
   }
 }

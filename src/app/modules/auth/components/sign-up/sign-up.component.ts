@@ -91,7 +91,7 @@ export class SignUpComponent implements OnInit {
         password: this.signUpFormControl.password.value,
         displayName: this.signUpFormControl.displayName.value,
         address: 'Hà Nội',
-        addressWardId: '1',
+        addressWardId: '6351',
         identityNumber: Math.floor(Math.random() * 1000000000) + '1',
         phoneNumber: Math.floor(Math.random() * 1000000000) + '1',
         roleId: '1'
@@ -99,7 +99,7 @@ export class SignUpComponent implements OnInit {
       this.authService.register(this.signUp).subscribe(
         res => {
           if (res) {
-            this.notifyService.notify(
+          this.notifyService.notify(
               'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
             );
             this.router.navigate([ENDPOINTS.LOGIN]);
