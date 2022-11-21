@@ -50,7 +50,9 @@
 
 <ng-container *ngIf="!isLoading && value && label">
   <div class="flex gap-10">
-    <div class="chart-container bg-white p-10 rounded-12 shadow-md w-1/2">
+    <div
+      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-1/2"
+    >
       <b class="text-16">
         Thống kê chung
       </b>
@@ -62,18 +64,41 @@
         (chartClick)="chartClick($event)"
       ></app-bar-chart>
     </div>
-    <div class="chart-container bg-white p-10 rounded-12 shadow-md w-1/2">
-      <b class="text-16">
-        Thống kê chi tiết
-      </b>
+    <div
+      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-1/2"
+    >
+      <div class="flex gap-10 items-start justify-between">
+        <b class="text-16">
+          Thống kê chi tiết <i> {{ detailTitle | date: "shortDate" }} </i>
+        </b>
+        <mat-form-field appearance="outline" *ngIf="isViewDetail">
+          <input
+            type="text"
+            matInput
+            placeholder="Tìm kiếm..."
+            name="searchValue"
+            (change)="getStatisticDetail()"
+            [(ngModel)]="statisticDetailParams.searchValue"
+          />
+          <button matSuffix mat-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div class="statistic-detail-container">
         <p *ngIf="!isViewDetail" class="pt-30 text-center">
           Click on the bar chart to view details
         </p>
-        <mat-tab-group *ngIf="isViewDetail" (selectedTabChange)="cdr.detectChanges()">
+        <mat-tab-group
+          *ngIf="isViewDetail"
+          (selectedTabChange)="cdr.detectChanges()"
+        >
           <mat-tab label="Bảng số liệu">
             <div class="px-10 py-30">
-              <div class="table-wrapper rounded-12 shadow-md">
+              <div
+                *ngIf="totalRecords > 0"
+                class="table-wrapper rounded-12 shadow-md"
+              >
                 <table mat-table [dataSource]="statisticDetailData" matSort>
                   <ng-container matColumnDef="title">
                     <th mat-header-cell *matHeaderCellDef>
@@ -103,15 +128,25 @@
                   ></tr>
                 </table>
               </div>
+              <p *ngIf="totalRecords === 0" class="text-center">
+                No data to show
+              </p>
             </div>
           </mat-tab>
           <mat-tab label="Biểu đồ">
             <div class="flex justify-center h-full items-center">
               <app-pie-chart
-                *ngIf="detailValue?.length > 0 && detailLabel?.length > 0"
+                *ngIf="
+                  detailValue?.length > 0 &&
+                  detailLabel?.length > 0 &&
+                  totalRecords > 0
+                "
                 [value]="detailValue"
                 [label]="detailLabel"
               ></app-pie-chart>
+              <p *ngIf="totalRecords === 0" class="pt-30 h-full text-center">
+                No data to show
+              </p>
             </div>
           </mat-tab>
         </mat-tab-group>

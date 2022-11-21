@@ -54,6 +54,7 @@ export class StatisticRevenueComponent implements OnInit {
       top: 5
     }
   );
+  detailTitle: Date;
 
   value: number[];
   label: string[];
@@ -143,6 +144,9 @@ export class StatisticRevenueComponent implements OnInit {
       this.statisticDetailParams.date = this.convertToDate(
         this.statisticData[dataPointIndex].statisticDate
       ).toLocaleDateString();
+      this.detailTitle = this.convertToDate(
+        this.statisticData[dataPointIndex].statisticDate
+      );
       this.isViewDetail = true;
       this.cdr.detectChanges();
 

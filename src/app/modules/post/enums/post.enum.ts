@@ -12,3 +12,8 @@ export enum FieldType {
   Select = 'select',
   Image = 'image',
 }
+
+export enum PostActionType {
+  create_post = 'Tạo bài viết',
+  uptop_post = 'Đẩy tin nổi bật'
+}

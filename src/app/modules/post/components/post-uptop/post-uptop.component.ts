@@ -42,6 +42,7 @@ export class PostUptopComponent implements OnInit {
       this.postService.upTopPost(data).subscribe(
         data => {
           this.notifyService.notify('Đã đẩy lên tin ưu tiên');
+          this.dialog.closeAll();
         },
         e => {
           this.notifyService.notify(e);
