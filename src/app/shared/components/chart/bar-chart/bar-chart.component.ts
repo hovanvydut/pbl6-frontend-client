@@ -61,7 +61,7 @@ export class BarChartComponent implements OnInit {
         }
       ],
       chart: {
-        height: 500,
+        height: 550,
         type: 'bar',
         events: {
           click: (event, chartContext, config) => {

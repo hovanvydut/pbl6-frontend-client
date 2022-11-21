@@ -1,9 +1,13 @@
+import { ItemModel } from '@app/shared/models/base.model';
 import { map } from 'rxjs';
 import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
 import { PaymentService } from '../services/payment.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HistoryTransactionTypes } from '../const/transaction.const';
+import { TransactionStatus, TransactionType } from '../enums/transaction.enum';
+import { PostActionType } from '@app/modules/post/enums/post.enum';
 
 @Component({
   selector: 'app-payment-transaction',
@@ -14,29 +18,49 @@ export class PaymentTransactionComponent implements OnInit {
   transactions: any[];
   queryParams: QueryParams = new QueryParams({
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 10
   });
-  selectedTab = '1';
+  TransactionType = TransactionType;
+  TransactionStatus = TransactionStatus;
+  PostActionType = PostActionType;
+  tabs = HistoryTransactionTypes;
+
+  selectedTab = TransactionType.Recharge;
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null)
   });
   totalPaymentTransactions = 0;
 
   constructor(private paymentSerice: PaymentService) {}
 
   ngOnInit() {
-    this.getPaymentTransaction();
+    this.getRechargeTransaction();
   }
 
   getPaymentTransaction() {
     this.paymentSerice
+      .getRechargeTransaction(this.queryParams)
+      .subscribe(res => {
+        this.transactions = res.records.map(_ => {
+          _.codeType = PostActionType[_.paymentType];
+          _.code = _.paymentCode;
+          _.transactionStatus = TransactionStatus.Success;
+          return _;
+        });
+      });
+  }
+
+  getRechargeTransaction() {
+    this.paymentSerice
       .getPaymentTransaction(this.queryParams)
       .subscribe(res => {
-        this.transactions = res.records.map( _ => {
+        this.transactions = res.records.map(_ => {
           const orderInfo = _.orderInfo.split('|');
           _.code = orderInfo[0];
-          _.description = orderInfo[1];
+          _.description =
+            orderInfo[1].trim().length > 0 ? orderInfo[1] : 'Không có mô tả';
+          _.codeType = _.bankCode;
           return _;
         });
       });
@@ -45,23 +69,32 @@ export class PaymentTransactionComponent implements OnInit {
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
     this.queryParams.pageNumber = event.pageIndex + 1;
-    this.getPaymentTransaction();
+    this.getTransactionHistory();
   }
 
   onDateRangeChanged() {
     this.queryParams.fromDate = this.range.value.start.toISOString();
     this.queryParams.toDate = this.range.value.end.toISOString();
-    this.getPaymentTransaction();
+    this.getTransactionHistory();
   }
 
   onDateRangeReset() {
     this.range.reset();
     this.queryParams.fromDate = null;
     this.queryParams.toDate = null;
-    this.getPaymentTransaction();
+    this.getTransactionHistory();
   }
 
   onTabChanged() {
-    this.getPaymentTransaction();
+    this.queryParams.searchValue = '';
+    this.getTransactionHistory();
+  }
+
+  getTransactionHistory() {
+    if (this.selectedTab === TransactionType.Payment) {
+      this.getPaymentTransaction();
+    } else {
+      this.getRechargeTransaction();
+    }
   }
 }

@@ -1,17 +1,24 @@
-import { Component, ViewChild, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { ChartComponent } from "ng-apexcharts";
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  Input,
+  ChangeDetectorRef
+} from '@angular/core';
+import { ApexLegend, ChartComponent } from 'ng-apexcharts';
 
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
   ApexChart
-} from "ng-apexcharts";
+} from 'ng-apexcharts';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
+  legend: ApexLegend;
 };
 
 @Component({
@@ -31,17 +38,30 @@ export class PieChartComponent implements OnInit {
     this.chartOptions = {
       series: [44, 55, 13, 43, 22],
       chart: {
-        width: 380,
-        type: "pie"
+        width: 350,
+        type: 'pie'
       },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      legend: {
+        show: false,
+        position: 'bottom',
+        formatter: function(legendName) {
+          return legendName.substring(0, 35) + '...';
+        },
+        onItemClick: {
+          toggleDataSeries: true
+        },
+        onItemHover: {
+          highlightDataSeries: true
+        }
+      },
+      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
       responsive: [
         {
           breakpoint: 480,
           options: {
             chart: {
               width: 300
-            },
+            }
           }
         }
       ]
@@ -52,7 +72,6 @@ export class PieChartComponent implements OnInit {
     if (this.value && this.label) {
       this.chartOptions.series = this.value;
       this.chartOptions.labels = this.label;
-      this.cdr.detectChanges();
     }
   }
 }
