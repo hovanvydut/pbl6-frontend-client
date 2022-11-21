@@ -11,6 +11,7 @@ import { QueryParams, PostBaseModel } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { PostUptopComponent } from '../post-uptop/post-uptop.component';
 import { PostDetailUptopComponent } from '../post-detail-uptop/post-detail-uptop.component';
+import { ItemModel } from '@app/shared/models/base.model';
 
 @Component({
   selector: 'app-manage-posts',
@@ -37,6 +38,21 @@ export class ManagePostsComponent implements OnInit {
     pageNumber: 1,
     pageSize: 10
   });
+  tabs = [
+    new ItemModel({
+      name: 'Tất cả bài đăng',
+      id: 'all'
+    }),
+    new ItemModel({
+      name: 'Bài đăng uptop',
+      id: 'uptop'
+    }),
+    new ItemModel({
+      name: 'Bài đăng đã xoá',
+      id: 'deleted'
+    })
+  ];
+  selectedTab = this.tabs[0];
 
   dataSource: MatTableDataSource<PostBaseModel> = new MatTableDataSource();
 
@@ -155,5 +171,11 @@ export class ManagePostsComponent implements OnInit {
         }
       });
     }
+  }
+
+  onTabClick(link: any) {
+    this.selectedTab = link;
+    // this.queryParams.categoryId = link.id as string;
+    this.getPosts();
   }
 }

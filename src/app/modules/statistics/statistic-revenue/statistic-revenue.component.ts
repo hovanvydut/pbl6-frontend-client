@@ -1,14 +1,22 @@
 import { StatisticDetailComponent } from './../statistic-detail/statistic-detail.component';
 import { ChartTypes } from './../consts/chart-type.const';
 import { finalize } from 'rxjs';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatisticTypes } from '../consts/statistic.const';
 import { StatisticKey } from '../enums/statistic.enum';
-import { StatisticParamsModel } from '../models/statistic.model';
+import {
+  StatisticDetailParamsModel,
+  StatisticParamsModel
+} from '../models/statistic.model';
 import { StatisticService } from '../services/statistic.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { PostService } from '@app/modules/post/services/post.service';
 import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
@@ -19,6 +27,14 @@ import { NotifyService } from '@app/shared/services/notify.service';
 export class StatisticRevenueComponent implements OnInit {
   StatisticTypes = StatisticTypes;
   ChartTypes = ChartTypes;
+  range = new FormGroup({
+    start: new FormControl<Date | null>(
+      new Date(new Date().setDate(new Date().getDate() - 10))
+    ),
+    end: new FormControl<Date | null>(new Date())
+  });
+  selectedType = StatisticTypes[0];
+
   statisticParams: StatisticParamsModel = new StatisticParamsModel({
     key: StatisticKey.ViewPostDetail,
     fromDate: new Date(
@@ -27,25 +43,42 @@ export class StatisticRevenueComponent implements OnInit {
     toDate: new Date().toISOString(),
     includeDeleted: false
   });
+  statisticDetailParams: StatisticDetailParamsModel = new StatisticDetailParamsModel(
+    {
+      key: StatisticKey.ViewPostDetail,
+      date: new Date().toISOString(),
+      includeDeleted: false,
+      pageNumber: 1,
+      pageSize: 10,
+      searchValue: '',
+      top: 5
+    }
+  );
+  detailTitle: Date;
+
   value: number[];
   label: string[];
-  range = new FormGroup({
-    start: new FormControl<Date | null>(
-      new Date(new Date().setDate(new Date().getDate() - 10))
-    ),
-    end: new FormControl<Date | null>(new Date())
-  });
-  selectedType = StatisticTypes[0];
+  detailValue: number[];
+  detailLabel: string[];
+
   statisticData: any;
+  statisticDetailData: any;
+
   selectedChartType = ChartTypes[0].value;
   selectedChartName = ChartTypes[0].name;
 
+  totalRecords: number;
+  displayedColumns: string[] = ['title', 'value'];
+
   isLoading = false;
+  isViewDetail = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { hasUpdate: boolean },
     public dialog: MatDialog,
     private notifyService: NotifyService,
-    private statisticService: StatisticService
+    private statisticService: StatisticService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +95,7 @@ export class StatisticRevenueComponent implements OnInit {
         })
       )
       .subscribe(res => {
+        this.isViewDetail = false;
         this.statisticData = res;
         this.value = res.map(item => {
           return item.statisticValue;
@@ -92,6 +126,7 @@ export class StatisticRevenueComponent implements OnInit {
     );
   }
 
+  // hold
   onChartTypeChanged() {
     this.getStatistic();
     this.selectedChartName = ChartTypes.find(
@@ -101,14 +136,61 @@ export class StatisticRevenueComponent implements OnInit {
 
   chartClick(dataPointIndex: number) {
     if (dataPointIndex !== -1) {
-      let dialogRef = this.dialog.open(StatisticDetailComponent, {
-        width: '90vw',
-        height: '90vh',
-        data: {
-          statisticData: this.statisticData[dataPointIndex],
-          statisticParams: this.statisticParams
-        }
-      });
+      this.statisticDetailParams.key = this.statisticParams.key;
+      this.statisticDetailParams.date = this.statisticData[
+        dataPointIndex
+      ].statisticDate;
+      this.statisticDetailParams.includeDeleted = this.statisticParams.includeDeleted;
+      this.statisticDetailParams.date = this.convertToDate(
+        this.statisticData[dataPointIndex].statisticDate
+      ).toLocaleDateString();
+      this.detailTitle = this.convertToDate(
+        this.statisticData[dataPointIndex].statisticDate
+      );
+      this.isViewDetail = true;
+      this.cdr.detectChanges();
+
+      this.getStatisticDetail();
+      this.getStatisticTop();
     }
   }
+
+  getStatisticDetail() {
+    this.statisticService
+      .getStatisticDetail(this.statisticDetailParams)
+      .subscribe(res => {
+        console.log(res);
+        this.statisticDetailData = res.records;
+        this.totalRecords = res.totalRecords;
+        this.cdr.detectChanges();
+      });
+  }
+
+  getStatisticTop() {
+    this.statisticService
+      .getStatisticTop(this.statisticDetailParams)
+      .subscribe(res => {
+        this.detailValue = res.map(item => {
+          return parseInt(item.statisticValue);
+        });
+        this.detailLabel = res.map(item => {
+          return item.title;
+        });
+        this.cdr.detectChanges();
+      });
+  }
+
+  pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
+    this.statisticDetailParams.pageSize = event.pageSize;
+    this.statisticDetailParams.pageNumber = event.pageIndex + 1;
+    this.getStatisticDetail();
+  }
+
+  //#region HelperHelper
+  convertToDate(dateString) {
+    let d = dateString.split('/');
+    let dat = new Date(d[2] + '/' + d[1] + '/' + d[0]);
+    return dat;
+  }
+  // #endregion
 }

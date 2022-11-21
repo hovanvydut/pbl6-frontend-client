@@ -11,6 +11,17 @@
       <app-svg-icon [name]="'plus'"> </app-svg-icon>
     </div>
   </div>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a
+      mat-tab-link
+      *ngFor="let tab of tabs"
+      (click)="onTabClick(tab)"
+      [active]="selectedTab == tab"
+    >
+      {{ tab.name }}
+    </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="medias">
@@ -18,7 +29,7 @@
           Hình ảnh
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="w-100">
+          <div class="w-100 my-10">
             <app-swiper-template
               [images]="element.medias"
               [navigation]="false"
