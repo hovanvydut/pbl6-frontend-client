@@ -1,6 +1,3 @@
-import { ItemModel } from '@app/shared/models/base.model';
-import { map } from 'rxjs';
-import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
 import { PaymentService } from '../services/payment.service';
@@ -48,6 +45,7 @@ export class PaymentTransactionComponent implements OnInit {
           _.transactionStatus = TransactionStatus.Success;
           return _;
         });
+        this.totalPaymentTransactions = res.totalRecords;
       });
   }
 
@@ -63,6 +61,7 @@ export class PaymentTransactionComponent implements OnInit {
           _.codeType = _.bankCode;
           return _;
         });
+        this.totalPaymentTransactions = res.totalRecords;
       });
   }
 

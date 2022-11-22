@@ -28,7 +28,7 @@ export class PaymentService {
           return '';
         })
         .join('&');
-    return this.baseService.get<any>(`payment/history${queryString}`);
+    return this.baseService.get<any>(`payment/history/personal${queryString}`);
   }
 
   getRechargeTransaction(params: QueryParams) {
@@ -43,6 +43,6 @@ export class PaymentService {
           return '';
         })
         .join('&');
-    return this.baseService.get<any>(`payment-history${queryString}`);
+    return this.baseService.get<any>(`payment-history/personal${queryString}`);
   }
 }
