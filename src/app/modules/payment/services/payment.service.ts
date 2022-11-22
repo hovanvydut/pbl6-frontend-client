@@ -45,4 +45,5 @@ export class PaymentService {
         .join('&');
     return this.baseService.get<any>(`payment-history/personal${queryString}`);
   }
+
 }
