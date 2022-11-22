@@ -27,8 +27,7 @@ export class BookingAppointmentComponent implements OnInit {
       id: 'my-booking'
     }),
   ];
-  selectedTab = this.tabs[0];
-
+  selectedTab = this.tabs[0].id;
 
   constructor(
     private dialog: MatDialog,
@@ -170,7 +169,7 @@ export class BookingAppointmentComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         infoDetail: event.infoDetail,
-        isViewMyBooking: this.selectedTab.id === 'my-booking' ? true : false,
+        isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -178,13 +177,12 @@ export class BookingAppointmentComponent implements OnInit {
     });
   }
 
-  onTabClick(link: any) {
-    this.selectedTab = link;
+  onTabChanged() {
     this.handleGetBookings();
   }
 
   handleGetBookings() {
-    if( this.selectedTab.id === 'booking' ) {
+    if( this.selectedTab === 'booking' ) {
       this.getBookings();
     } else {
       this.getMyBookings();

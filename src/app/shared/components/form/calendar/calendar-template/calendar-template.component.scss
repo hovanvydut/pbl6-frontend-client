@@ -33,6 +33,10 @@
   background: #FFFFFF !important;
 }
 
+::ng-deep .cal-day-headers {
+  margin-top: 3px;
+}
+
 
 ::ng-deep .cal-day-selected,
 .cal-day-selected:hover {
