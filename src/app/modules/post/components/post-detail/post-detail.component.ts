@@ -34,6 +34,10 @@ export class PostDetailComponent implements OnInit {
     this.getRelatedPosts();
   }
 
+  onAddReview() {
+    this.getPostDetail();
+  }
+  
   getPostDetail() {
     this.postService.getPostById(this.postId).subscribe(res => {
       this.post = res;

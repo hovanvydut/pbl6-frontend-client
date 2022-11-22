@@ -144,16 +144,21 @@
       </div>
     </mat-card-title>
 
-    <div class="flex flex-col gap-10">
-      <span class="text-24 font-bold text-blue-800"> 4.6/5</span>
+    <div *ngIf="reviews?.length > 0" class="flex flex-col gap-10">
+      <span class="text-24 font-bold text-blue-800">
+        {{ post.averageRating | number : '1.0-1'}}/4</span
+      >
       <div class="flex gap-2 m-auto">
         <app-svg-icon
           *ngFor="let item of [1, 2, 3, 4]"
           class="post-rating"
-          [name]="item <= post.rating ? 'star_fill' : 'star'"
+          [name]="item <= post.averageRating ? 'star_fill' : 'star'"
         >
         </app-svg-icon>
       </div>
+    </div>
+    <div *ngIf="reviews?.length === 0">
+      Chưa có đánh giá bài đăng này
     </div>
 
     <div *ngFor="let review of reviews; index as index" class="w-full">

@@ -5,6 +5,7 @@ export class PostBaseModel extends TimeBaseModel{
   id: string;
   title: string;
   description: string;
+  averageRating: number;
   address: string;
   fullAddress: AddressModel;
   addressWardId: string;
