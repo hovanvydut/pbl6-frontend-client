@@ -11,11 +11,13 @@ import { ItemModel } from '@app/shared/models/base.model';
 @Component({
   selector: 'app-landlord',
   templateUrl: './landlord.component.html',
-  styleUrls: ['./landlord.component.scss'],
+  styleUrls: ['./landlord.component.scss']
 })
 export class LandlordComponent implements OnInit {
   posts: PostBaseModel[] = [];
+  totalPosts: number = 0;
   outstandingPosts: PostBaseModel[] = [];
+  totalOutstandingPosts: number;
 
   roomTypes: ItemModel[] = [
     new ItemModel({
@@ -26,16 +28,15 @@ export class LandlordComponent implements OnInit {
   queryParams: QueryParams = new QueryParams({
     pageNumber: 1,
     pageSize: 10,
-    categoryId: null,
+    categoryId: null
   });
   selectedCategory = this.roomTypes[0];
   landloardId: string;
-  totalPosts: number = 0;
 
   constructor(
     private commonService: CommonService,
     private postService: PostService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -52,16 +53,22 @@ export class LandlordComponent implements OnInit {
   }
 
   getPosts() {
-    this.postService.getPostsByLandlordId(this.landloardId, this.queryParams).subscribe(res => {
-      this.posts = res.records;
-      this.totalPosts = res.totalRecords;
-    });
+    this.postService
+      .getPostsByLandlordId(this.landloardId, this.queryParams)
+      .subscribe(res => {
+        this.posts = res.records;
+        this.totalPosts = res.totalRecords;
+      });
   }
 
   getOutstandingPosts() {
-    this.postService.getOutstandingPostsByHostId(this.landloardId, this.queryParams).subscribe(res => {
-      this.outstandingPosts = res.records;
-    });
+    const params = new QueryParams({ ...this.queryParams, priority: true });
+    this.postService
+      .getOutstandingPostsByHostId(this.landloardId, params)
+      .subscribe(res => {
+        this.outstandingPosts = res.records;
+        this.totalOutstandingPosts = res.totalRecords;
+      });
   }
 
   onTabClick(link: any) {
@@ -69,5 +76,4 @@ export class LandlordComponent implements OnInit {
     this.queryParams.categoryId = link.id as string;
     this.getPosts();
   }
-
 }

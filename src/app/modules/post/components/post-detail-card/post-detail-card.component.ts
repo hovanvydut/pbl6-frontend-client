@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseService } from '@app/core/services/base.service';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -19,6 +20,8 @@ export class PostDetailCardComponent implements OnInit {
   completeIconSet = completeIconSet;
   isMyPost: boolean = false;
   reviews: [];
+  @Output() onAddReview = new EventEmitter<void>();
+
   constructor( private dialog: MatDialog, private reviewSerice: ReviewService,
     private baseService: BaseService,
     private bookmarkService: BookmarkService,
@@ -48,6 +51,7 @@ export class PostDetailCardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe( (data) => {
+      this.onAddReview.emit();
       this.getReviews();
     })
   }
