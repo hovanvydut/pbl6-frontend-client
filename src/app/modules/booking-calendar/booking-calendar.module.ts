@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BookingAppointmentComponent } from './booking-appointment/booking-appointment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
@@ -29,11 +29,16 @@ export const routes: Routes = [
   }
 ];
 
+const PROVIDERS = [
+  DatePipe
+]
+
 const MODULES = [RouterModule.forChild(routes), SharedModule, CommonModule];
 
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [...MODULES],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS],
+  providers: [...PROVIDERS],
 })
 export class BookingCalendarModule {}

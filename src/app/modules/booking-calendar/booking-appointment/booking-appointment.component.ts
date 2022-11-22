@@ -1,3 +1,4 @@
+import { ItemModel } from '@app/shared/models/base.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BOOKING_COLORS } from '@app/shared/app.constants';
@@ -15,6 +16,19 @@ export class BookingAppointmentComponent implements OnInit {
   @ViewChild('myFreetime') myFreeTime;
   appointments: any[] = [];
   events: CalendarEvent[] = [];
+
+  tabs = [
+    new ItemModel({
+      name: 'Lịch hẹn xem trọ',
+      id: 'booking'
+    }),
+    new ItemModel({
+      name: 'Lịch hẹn của tôi',
+      id: 'my-booking'
+    }),
+  ];
+  selectedTab = this.tabs[0];
+
 
   constructor(
     private dialog: MatDialog,
@@ -76,12 +90,63 @@ export class BookingAppointmentComponent implements OnInit {
     });
   }
 
+  getMyBookings() {
+    this.bookingService.getMyBookings().subscribe(res => {
+      this.events = res.records.map(item => {
+        const time = new Date(item.time);
+        time.setHours(time.getHours() + 7);
+        const event = {
+          id: item.id,
+          start: time,
+          end: new Date(time.getTime() + 1000 * 60 * 60),
+          title: item.guestInfo.displayName,
+          color: { ...BOOKING_COLORS['new'] },
+          infoDetail: item,
+          actions: [
+            {
+              label: `👀`,
+              a11yLabel: 'Xem chi tiết',
+              onClick: ({ event }: { event: CalendarEvent }): void => {
+                this.events = this.events.filter(iEvent => iEvent !== event);
+                this.viewDetail(event);
+              }
+            },
+          ],
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          draggable: false
+        };
+        
+        if( event.infoDetail?.approveTime ) {
+          event.color = { ...BOOKING_COLORS['approved'] };
+        }
+        if( event.infoDetail?.met ) {
+          event.color = { ...BOOKING_COLORS['done'] };
+        }
+        // {
+        //   label: `🆕`,
+        //   a11yLabel: 'Chưa xác nhận',
+        // },
+        // {
+        //   label: `✅`,
+        //   a11yLabel: 'Đã xác nhận',
+        // }, {
+        //   label: `🧑‍🤝‍🧑`,
+        //   a11yLabel: 'Đã gặp',
+        // }
+        return event;
+      });
+    });
+  }
+
   onEditFreeTimeButtonClicked() {
     let dialogRef = this.dialog.open(MyAvailableCalendarComponent, {
       width: '99vw',
       maxHeight: '90vh',
       data: {
-        events: this.events
+        events: this.events,
       }
     });
   }
@@ -96,7 +161,6 @@ export class BookingAppointmentComponent implements OnInit {
 
   toIsoString(utcDate) {
     const date = new Date(utcDate);
-    console.log(new Date(date.toISOString()));
     return new Date(date.toISOString());
   }
 
@@ -105,11 +169,25 @@ export class BookingAppointmentComponent implements OnInit {
       maxWidth: '99vw',
       maxHeight: '90vh',
       data: {
-        infoDetail: event.infoDetail
+        infoDetail: event.infoDetail,
+        isViewMyBooking: this.selectedTab.id === 'my-booking' ? true : false,
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getBookings();
+      this.handleGetBookings();
     });
+  }
+
+  onTabClick(link: any) {
+    this.selectedTab = link;
+    this.handleGetBookings();
+  }
+
+  handleGetBookings() {
+    if( this.selectedTab.id === 'booking' ) {
+      this.getBookings();
+    } else {
+      this.getMyBookings();
+    }
   }
 }

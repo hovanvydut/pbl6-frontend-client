@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center mb-20">
+<div class="flex justify-between items-center">
   <b class="text-20">
     Lịch hẹn xem trọ
   </b>
@@ -10,7 +10,19 @@
   >
     <app-svg-icon [name]="'calendar'"></app-svg-icon> Chỉnh sửa lịch rảnh
   </button>
-</div>
+</div>  
+
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs"
+    (click)="onTabClick(tab)"
+    [active]="selectedTab == tab"
+  >
+    {{ tab.name }}
+  </a>
+</nav>
+<mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
 
 <app-calendar-template
   *ngIf="events"

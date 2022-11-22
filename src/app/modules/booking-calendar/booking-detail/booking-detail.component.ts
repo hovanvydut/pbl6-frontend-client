@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -9,15 +10,33 @@ import { BookingService } from '../services/booking.service';
   styleUrls: ['./booking-detail.component.scss']
 })
 export class BookingDetailComponent implements OnInit {
+  message: string;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { infoDetail: any },
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      infoDetail: any;
+      isViewMyBooking: boolean;
+    },
     private dialog: MatDialog,
     private notifyService: NotifyService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
-    console.log(this.data.infoDetail);
+    if (this.data.infoDetail.approveTime) {
+      if (this.data.isViewMyBooking) {
+        this.message = `Bạn được xác nhận đã đến xem trọ vào lúc: ${ new Date(this.data.infoDetail.approveTime).toLocaleString() }`;
+      } else {
+        this.message = `Bạn đã xác nhận đã gặp khách vào lúc: ${ new Date(this.data.infoDetail.approveTime).toLocaleString() }`;
+      }
+    } else {
+      if (this.data.isViewMyBooking) {
+        this.message = 'Lịch hẹn của bạn chưa được xác nhận';
+      } else {
+        this.message = 'Bạn chưa xác nhận lịch hẹn này';
+      }
+    }
   }
 
   handleSave() {
