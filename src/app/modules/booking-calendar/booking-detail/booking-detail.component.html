@@ -3,31 +3,45 @@
   [saveButton]="
     !this.data.infoDetail.approveTime ? 'Xác nhận lịch hẹn' : 'Xác nhận đã gặp'
   "
-  [showSaveButton]="!this.data.infoDetail.met"
+  [showSaveButton]="!this.data.infoDetail.met && !this.data.isViewMyBooking"
   [cancelButton]="'Đóng'"
   (onSave)="handleSave()"
 >
-  <p>
-    <b>Tên: </b>
-    {{ this.data.infoDetail?.guestInfo.displayName }}
-  </p>
-  <p>
-    <b>Số điện thoại: </b>
-    {{ this.data.infoDetail?.guestInfo.phoneNumber }}
-  </p>
-  <p>
-    <b>Ngày hẹn: </b>
-    {{ this.data.infoDetail?.time | date: "medium" }}
-  </p>
-  <p>
-    <b>Trạng thái: </b>
-    {{ this.data.infoDetail?.met ? "Đã gặp" : "Chưa gặp" }}
-  </p>
-  <p>
-    <b>Ghi chú:</b>
-    <span> Không có</span>
-  </p>
-  <p class="text-gray text-12">
-    {{ this.data.infoDetail.approveTime ?  'Xác nhận lịch hẹn lúc: ' + (this.data.infoDetail.approveTime | date: "medium") : 'Chưa xác nhận lịch hẹn này' }}
-  </p>
+  <div class="flex gap-20 my-10">
+    <div class="w-130">
+      <p
+        class="h-20 flex gap-10 font-bold text-blue-900"
+        *ngIf="!data.isViewMyBooking"
+      >
+        <app-svg-icon name="profile"> </app-svg-icon>Tên
+      </p>
+      <p
+        class="h-20 flex gap-10 font-bold text-blue-900"
+        *ngIf="!data.isViewMyBooking"
+      >
+        <app-svg-icon name="phone"> </app-svg-icon>Số điện thoại
+      </p>
+      <p class="h-20 flex gap-10 font-bold text-blue-900">
+        <app-svg-icon name="calendar_2"> </app-svg-icon>Ngày hẹn
+      </p>
+      <p class="h-20 flex gap-10 font-bold text-blue-900">
+        <app-svg-icon name="message"> </app-svg-icon>Trạng thái
+      </p>
+    </div>
+    <div>
+      <p class="h-20" *ngIf="!data.isViewMyBooking">
+        {{ this.data.infoDetail?.guestInfo.displayName }}
+      </p>
+      <p class="h-20" *ngIf="!data.isViewMyBooking">
+        {{ this.data.infoDetail?.guestInfo.phoneNumber }}
+      </p>
+      <p class="h-20">
+        {{ this.data.infoDetail?.time | date: "short" }}
+      </p>
+      <p class="h-20">
+        {{ this.data.infoDetail?.met ? "Đã gặp" : "Chưa gặp" }}
+      </p>
+    </div>
+  </div>
+  <p class="text-gray text-12">Ghi chú: {{ message }}</p>
 </app-dialog-template>
