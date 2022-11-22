@@ -5,6 +5,7 @@ export class PostBaseModel extends TimeBaseModel{
   id: string;
   title: string;
   description: string;
+  averageRating: number;
   address: string;
   fullAddress: AddressModel;
   addressWardId: string;
@@ -74,6 +75,8 @@ export class QueryParams {
   searchValue?: string;
   fromDate?: string;
   toDate?: string;
+  priority?: boolean;
+  includeDeletedPost?: boolean;
 
   properties: string[] = [];
 

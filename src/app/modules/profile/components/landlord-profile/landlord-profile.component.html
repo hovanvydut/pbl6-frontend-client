@@ -2,10 +2,10 @@
   <div [class.flex]="landlordId"
       class="gap-20 justify-center ">
     <div>
-      <div class="flex gap-10">
+      <div class="flex gap-20">
         <div class="avatar h-full w-80 relative">
           <img
-            class="w-full h-full rounded-15 object-cover"
+            class="w-full h-full rounded-12 object-cover"
             [src]="
               landLordProfile.avatar || authorInfo.avatar ||
               'assets/images/default/default_avatar.png'
@@ -26,7 +26,7 @@
           </button>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-10 my-10">
+      <!-- <div class="grid grid-cols-3 gap-10 my-10">
         <button mat-raised-button>
           <app-svg-icon [name]="'product'"></app-svg-icon> 1
         </button>
@@ -36,10 +36,10 @@
         <button mat-raised-button>
           <app-svg-icon [name]="'product'"></app-svg-icon> 20
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
-  <div *ngIf="!landlordId" class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
+  <!-- <div *ngIf="!landlordId" class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
   <div *ngIf="!landlordId" class="grid grid-cols-2 gap-10 mt-10">
     <button mat-raised-button color="primary">
       Chat với chủ trọ
@@ -47,5 +47,5 @@
     <button mat-raised-button color="primary">
       Liên hệ chủ trọ
     </button>
-  </div>
+  </div> -->
 </mat-card>
