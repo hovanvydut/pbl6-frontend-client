@@ -19,7 +19,11 @@ export class BookingService {
   }
 
   getAllBooking() {
-    return this.baseService.get<any>('booking');
+    return this.baseService.get<any>('booking/personal');
+  }
+
+  getMyBookings() {
+    return this.baseService.get<any>('booking/booked-by-user');
   }
 
   createBooking(data:any) {

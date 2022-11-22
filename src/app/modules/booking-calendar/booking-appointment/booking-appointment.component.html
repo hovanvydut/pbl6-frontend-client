@@ -1,22 +1,39 @@
-<div class="flex justify-between items-center mb-20">
-  <b class="text-20">
-    Lịch hẹn xem trọ
-  </b>
+<mat-card class="booking-container">
+  <div class="flex justify-between items-center">
+    <b class="text-20">
+      Lịch hẹn xem trọ
+    </b>
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="onEditFreeTimeButtonClicked()"
-  >
-    <app-svg-icon [name]="'calendar'"></app-svg-icon> Chỉnh sửa lịch rảnh
-  </button>
-</div>
+    <div class="flex gap-10 justify-center items-end">
+      <mat-form-field appearance="outline">
+        <mat-select
+          disableRipple
+          [(value)]="selectedTab"
+          (selectionChange)="onTabChanged()"
+        >
+          <mat-option *ngFor="let tab of tabs" [value]="tab.id">{{
+            tab.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onEditFreeTimeButtonClicked()"
+      >
+        <app-svg-icon [name]="'calendar'"></app-svg-icon> Chỉnh sửa lịch rảnh
+      </button>
+    </div>
+  </div>
 
-<app-calendar-template
-  *ngIf="events"
-  #allBookings
-  [enableEdit]="false"
-  [events]="events"
-  [showNavigateButtons]="true"
-  (onEventClicked)="viewDetail($event)"
-></app-calendar-template>
+  <div class="calendar-container">
+    <app-calendar-template
+      *ngIf="events"
+      #allBookings
+      [enableEdit]="false"
+      [events]="events"
+      [showNavigateButtons]="true"
+      (onEventClicked)="viewDetail($event)"
+    ></app-calendar-template>
+  </div>
+</mat-card>
