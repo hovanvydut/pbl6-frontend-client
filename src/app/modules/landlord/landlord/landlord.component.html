@@ -3,7 +3,7 @@
     <app-landlord-profile [landlordId]="landloardId"> </app-landlord-profile>
   </div>
 
-  <div class="flex flex-col justify-between my-20">
+  <div *ngIf="totalOutstandingPosts > 0" class="flex flex-col justify-between my-20">
     <b class="text-20 mb-20">
       Tin nổi bật
     </b>
