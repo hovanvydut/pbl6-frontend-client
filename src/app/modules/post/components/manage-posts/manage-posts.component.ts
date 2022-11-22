@@ -47,10 +47,10 @@ export class ManagePostsComponent implements OnInit {
       name: 'Bài đăng uptop',
       id: 'uptop'
     }),
-    new ItemModel({
-      name: 'Bài đăng đã xoá',
-      id: 'deleted'
-    })
+    // new ItemModel({
+    //   name: 'Bài đăng đã xoá',
+    //   id: 'deleted'
+    // })
   ];
   selectedTab = this.tabs[0];
 
@@ -176,6 +176,22 @@ export class ManagePostsComponent implements OnInit {
   onTabClick(link: any) {
     this.selectedTab = link;
     // this.queryParams.categoryId = link.id as string;
+    switch( this.selectedTab.id ) {
+      case 'all':
+        delete this.queryParams.priority;
+        delete this.queryParams.includeDeletedPost;
+        break;
+      case 'uptop':
+        this.queryParams.priority = true;
+        delete this.queryParams.includeDeletedPost;
+        break;
+      case 'deleted':
+        this.queryParams.includeDeletedPost = true;
+        delete this.queryParams.priority;
+        break;
+      default:
+        break;
+    }
     this.getPosts();
   }
 }

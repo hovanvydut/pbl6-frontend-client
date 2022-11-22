@@ -75,6 +75,8 @@ export class QueryParams {
   searchValue?: string;
   fromDate?: string;
   toDate?: string;
+  priority?: boolean;
+  includeDeletedPost?: boolean;
 
   properties: string[] = [];
 
