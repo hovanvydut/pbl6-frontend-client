@@ -14,7 +14,7 @@ import { PostActionType } from '@app/modules/post/enums/post.enum';
 export class PaymentTransactionComponent implements OnInit {
   transactions: any[];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10
   });
   TransactionType = TransactionType;
@@ -67,7 +67,11 @@ export class PaymentTransactionComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex + 1;
+    if(event.pageIndex > this.queryParams.pageNumber) {
+      this.queryParams.pageNumber = event.pageIndex + 1;
+    } else if(event.pageIndex < this.queryParams.pageNumber) {
+      this.queryParams.pageNumber = event.pageIndex - 1;
+    }
     this.getTransactionHistory();
   }
 

@@ -18,7 +18,7 @@ export class StatisticDetailComponent implements OnInit {
     key: StatisticKey.ViewPostDetail,
     date: new Date().toISOString(),
     includeDeleted: false,
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10,
     searchValue: '',
     top: 5
@@ -80,7 +80,11 @@ export class StatisticDetailComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.statisticParams.pageSize = event.pageSize;
-    this.statisticParams.pageNumber = event.pageIndex + 1;
+    if(event.pageIndex > this.statisticParams.pageNumber) {
+      this.statisticParams.pageNumber = event.pageIndex + 1;
+    } else if(event.pageIndex < this.statisticParams.pageNumber) {
+      this.statisticParams.pageNumber = event.pageIndex - 1;
+    }
     this.getStatisticDetail();
   }
 }
