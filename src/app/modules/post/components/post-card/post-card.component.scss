@@ -1,9 +1,36 @@
-.post-image {
-  height: 250px;
-  border-radius: 15px 15px 0 0;
+::ng-deep .post-wrapper {
+  background: white;
+  width: 250px;
+  height: 400px;
+  border-radius: 15px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-  img {
-    border-radius: 15px 15px 0 0;
-    border: none;
+  .post-rating {
+    svg {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+
+  .post-image {
+    height: 250px;
+    &:hover .bookmark-icon {
+      opacity: 1 !important;
+    }
+
+    img {
+      border-radius: 15px 15px 0 0;
+      border: none;
+    }
+
+    .bookmark-icon {
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+
+      svg {
+        width: 24px !important;
+        height: 28px !important;
+      }
+    }
   }
 }

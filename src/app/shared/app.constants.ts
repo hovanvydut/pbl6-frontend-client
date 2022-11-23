@@ -75,6 +75,7 @@ export const DEFAULT_IMAGES = {
   message: 'assets/images/default/message.png',
   thanks: 'assets/images/default/thanks.png',
   login:  'assets/images/default/login.png',
+  medal: 'assets/images/default/medal_2.png',
 };
 
 export const TIME_SLOTS = [
