@@ -2,7 +2,7 @@
   margin-top: -66px;
 }
 
- ::ng-deep {
+::ng-deep {
   #from-slider {
     .mat-slider-track-fill {
       background-color: GRAY_COLOR;
@@ -16,4 +16,8 @@
       background-color: GRAY_COLOR;
     }
   }
+}
+
+.filter-container {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }

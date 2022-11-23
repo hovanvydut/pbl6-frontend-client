@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
 import {
   ProfileBaseModel,
-  ProfileGeneralInfoModel,
   ProfileModel
 } from '../../models/profile.model';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -20,6 +19,9 @@ export class LandlordProfileComponent implements OnInit {
   @Input() landlordId: number;
   @Input() landLordProfile: ProfileModel = new ProfileModel();
   @Input() authorInfo: ProfileBaseModel = new ProfileBaseModel();
+  @Input() totalPosts: number = 0;
+  @Input() totalOutstandingPosts: number = 0;
+
 
   constructor(
     private dialog: MatDialog,
