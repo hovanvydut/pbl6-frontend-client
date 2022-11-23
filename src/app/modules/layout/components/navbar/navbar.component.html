@@ -2,21 +2,19 @@
   <mat-toolbar-row class="justify-between">
     <!-- left -->
     <h3
-      (click)="sidenav.toggle()"
-      class="flex items-center gap-10 border-b pb-10 marker:cursor-pointer"
+      [routerLink]="[ENDPOINTS.HOME]"
+      class="flex items-center gap-10 border-b pb-10 cursor-pointer"
     >
       <img
-        (click)="sidenav.toggle()"
         class="h-24 w-24 object-contain shadow-sm"
         src="assets/images/default/home.png"
       />
       <b> HOMIE</b>
     </h3>
 
-    <span class="menu-spacer"></span>
     <!-- right -->
     <div class="flex items-center gap-4">
-      <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+      <app-navbar-menu></app-navbar-menu>
 
       <a mat-list-item>
         <button mat-button [matMenuTriggerFor]="menu">
@@ -44,16 +42,12 @@
 <mat-sidenav-container class="text-xs">
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+      <app-navbar-menu></app-navbar-menu>
       <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link">
         {{ item.name }}
       </a>
-      <a mat-list-item (click)="sidenav.toggle()"> Close </a>
+      <a mat-list-item [routerLink]=""> Close </a>
     </mat-nav-list>
   </mat-sidenav>
   <ng-content></ng-content>
 </mat-sidenav-container>
-
-<ng-template #menuTemplate>
-  <app-navbar-menu></app-navbar-menu>
-</ng-template>

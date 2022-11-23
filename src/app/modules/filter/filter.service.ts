@@ -14,8 +14,8 @@ export class FilterService {
     minPrice: 0,
     properties: [],
     searchValue: '',
-    pageNumber: 1,
-    pageSize: 10
+    pageNumber: 0,
+    pageSize: 12
   })
 
   _queryParams: BehaviorSubject<QueryParams> = new BehaviorSubject<QueryParams>(this.queryParams);

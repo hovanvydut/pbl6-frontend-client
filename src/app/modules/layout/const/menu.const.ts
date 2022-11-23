@@ -23,6 +23,12 @@ export const  menuItems = [
   },
 
   {
+    icon: 'statistics',
+    name: 'Thống kê',
+    link: ENDPOINTS.LANDLOR_STATISTICS
+  },
+
+  {
     icon: 'messages',
     name: 'Đăng xuất',
     link: ENDPOINTS.LOGOUT

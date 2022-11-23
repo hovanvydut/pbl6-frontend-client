@@ -1,31 +1,42 @@
 <div class="flex flex-col gap-30 content-container">
-  <div class="w-fit">
-    <app-landlord-profile [landlordId]="landloardId"> </app-landlord-profile>
+  <div class="w-3/4 m-auto">
+    <app-landlord-profile
+      [landlordId]="landloardId"
+      [totalPosts]="totalPosts"
+      [totalOutstandingPosts]="totalOutstandingPosts"
+    >
+    </app-landlord-profile>
   </div>
 
-  <div *ngIf="totalOutstandingPosts > 0" class="flex flex-col justify-between my-20">
+  <div
+    *ngIf="totalOutstandingPosts > 0"
+    class="flex flex-col justify-between shadow-container p-20 rounded-12"
+  >
     <b class="text-20 mb-20">
       Tin nổi bật
     </b>
-    <app-post-swiper-template [posts]="outstandingPosts"> </app-post-swiper-template>
+    <app-post-swiper-template [posts]="outstandingPosts">
+    </app-post-swiper-template>
   </div>
 
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a
-      mat-tab-link
-      *ngFor="let link of roomTypes"
-      (click)="onTabClick(link)"
-      [active]="selectedCategory == link"
+  <div>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        *ngFor="let link of roomTypes"
+        (click)="onTabClick(link)"
+        [active]="selectedCategory == link"
+      >
+        {{ link.name }}
+      </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel mat-align-tabs="end"></mat-tab-nav-panel>
+    <app-post-list-template
+      [type]="'small'"
+      [posts]="posts"
+      [totalPosts]="totalPosts"
+      [isShowPagination]="false"
     >
-      {{ link.name }}
-    </a>
-  </nav>
-  <mat-tab-nav-panel #tabPanel mat-align-tabs="end"></mat-tab-nav-panel>
-  <app-post-list-template
-    [type]="'small'"
-    [posts]="posts"
-    [totalPosts]="totalPosts"
-    [isShowPagination]="false"
-  >
-  </app-post-list-template>
+    </app-post-list-template>
+  </div>
 </div>

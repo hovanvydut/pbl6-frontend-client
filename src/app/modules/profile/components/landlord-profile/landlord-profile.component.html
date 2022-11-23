@@ -1,23 +1,28 @@
-<mat-card>
-  <div [class.flex]="landlordId"
-      class="gap-20 justify-center ">
+<div class="landlord-profile-container rounded-12 p-15">
+  <div *ngIf="!landlordId; else profileInfo" class="gap-20 justify-center">
     <div>
-      <div class="flex gap-20">
-        <div class="avatar h-full w-80 relative">
+      <div class="flex flex-col justify-center items-center gap-20">
+        <div class="w-130 h-130 relative">
           <img
-            class="w-full h-full rounded-12 object-cover"
+            class="w-full h-full rounded-full object-cover border-3 border-gray-200"
             [src]="
-              landLordProfile.avatar || authorInfo.avatar ||
-              'assets/images/default/default_avatar.png'
+              authorInfo.avatar || 'assets/images/default/default_avatar.png'
             "
           />
         </div>
         <div class="flex flex-col justify-center">
-          <div class="info mb-10">
-            <b class="text-20"> {{ landLordProfile.displayName || authorInfo.displayName }} </b>
+          <div class="mb-10 text-center">
+            <b class="text-20">
+              {{ authorInfo.displayName }}
+            </b>
+            <p
+              class="text-gray-500 text-12 py-5 my-20 text-center flex justify-center items-center"
+            >
+              <app-svg-icon [name]="'located'"></app-svg-icon>
+              <span> {{ authorInfo.address }}</span>
+            </p>
           </div>
           <button
-            *ngIf="!landlordId"
             mat-raised-button
             color="primary"
             (click)="onViewAuthorProfileButtonClicked()"
@@ -26,26 +31,49 @@
           </button>
         </div>
       </div>
-      <!-- <div class="grid grid-cols-3 gap-10 my-10">
-        <button mat-raised-button>
-          <app-svg-icon [name]="'product'"></app-svg-icon> 1
-        </button>
-        <button mat-raised-button>
-          <app-svg-icon [name]="'product'"></app-svg-icon> 2
-        </button>
-        <button mat-raised-button>
-          <app-svg-icon [name]="'product'"></app-svg-icon> 20
-        </button>
-      </div> -->
     </div>
   </div>
-  <!-- <div *ngIf="!landlordId" class="flex-grow bg bg-grey-999 h-1 bg-gray-200"></div>
-  <div *ngIf="!landlordId" class="grid grid-cols-2 gap-10 mt-10">
-    <button mat-raised-button color="primary">
-      Chat với chủ trọ
-    </button>
-    <button mat-raised-button color="primary">
-      Liên hệ chủ trọ
-    </button>
-  </div> -->
-</mat-card>
+
+  <ng-template #profileInfo>
+    <div class="w-full flex justify-between items-center">
+      
+      <div class="flex items-center gap-10">
+        <div class="h-full w-80 relative">
+          <img
+            class="w-full h-full rounded-15 object-cover border-3 border-gray-200"
+            [src]="
+              landLordProfile.avatar ||
+              'assets/images/default/default_avatar.png'
+            "
+          />
+        </div>
+        <div>
+          <b class="text-24">
+            {{ landLordProfile.displayName }}
+          </b>
+          <p
+            class="text-gray-500 text-12 my-20 text-left flex justify-start items-center"
+          >
+            <app-svg-icon [name]="'located'"></app-svg-icon>
+            <span> {{ landLordProfile.address }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="flex gap-10 mb-20">
+        <span
+          class="flex items-center gap-5 w-fit bg-black-555 text-white px-8 py-4 rounded-6 text-center text-12"
+        >
+          <app-svg-icon class="text-yellow-500" name="parcel"> </app-svg-icon>
+          <span> {{ totalPosts }} bài đăng </span>
+        </span>
+
+        <span
+          class="flex items-center gap-5 w-fit bg-black-555 text-white px-8 py-4 rounded-6 text-center text-12"
+        >
+          <app-svg-icon class="text-yellow-500" name="medal"> </app-svg-icon>
+          <span>{{ totalOutstandingPosts }} bài đăng nổi bật</span>
+        </span>
+      </div>
+    </div>
+  </ng-template>
+</div>
