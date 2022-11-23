@@ -9,6 +9,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 import { ReviewService } from '../../services/review.service';
 import { PostBookingComponent } from '../post-booking/post-booking.component';
 import { PostReviewComponent } from '../post-review/post-review.component';
+import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
 
 @Component({
   selector: 'app-post-detail-card',
@@ -31,6 +32,7 @@ export class PostDetailCardComponent implements OnInit {
     this.getReviews();
     if(this.baseService.currentUser.id === this.post.authorInfo.id){
       this.isMyPost = true;
+      this.notifyService.notify('Bạn đang xem bài đăng của mình');
     }
   }
 
@@ -81,6 +83,19 @@ export class PostDetailCardComponent implements OnInit {
           this.notifyService.notify('Đã lưu bài đăng');
         }
       );
+    }
+  }
+
+  
+  viewFullScreen(medias: string[]) {
+    if (medias.length > 0) {
+      let dialogRef = this.dialog.open(PostSwiperComponent, {
+        width: '99vw',
+        maxHeight: '99vh',
+        data: {
+          images: medias
+        }
+      });
     }
   }
 }

@@ -11,7 +11,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
+    <!-- <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Xác nhận số điện thoại</ng-template>
         <mat-form-field appearance="fill">
@@ -30,7 +30,7 @@
           </button>
         </div>
       </form>
-    </mat-step>
+    </mat-step> -->
     <mat-step>
       <ng-template matStepLabel>Chọn lịch hẹn</ng-template>
       <p>
@@ -46,7 +46,7 @@
       ></app-calendar-template>
       <div class="my-10 flex gap-10">
         <button mat-raised-button matStepperPrevious>Trở lại</button>
-        <button mat-raised-button color="primary" matStepperNext>Tiếp theo</button>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedDate">Tiếp theo</button>
       </div>
     </mat-step>
     <mat-step>

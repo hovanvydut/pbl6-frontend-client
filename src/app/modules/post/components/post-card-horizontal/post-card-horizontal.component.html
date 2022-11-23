@@ -17,12 +17,18 @@
         class="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
         loading="lazy"
       />
+      <div *ngIf="post.isPriorityPost" class="absolute top-0 left-0">
+        <img
+          class="object-contain w-40 -translate-y-8"
+          [src]="DEFAULT_IMAGES.medal"
+        />
+      </div>
     </div>
     <div class="flex-auto p-10 flex gap-10 justify-between">
-      <div class="my-5">
+      <div>
         <p
           [routerLink]="ENDPOINTS.POST_DETAIL + '/' + post.id"
-          class="font-semibold text-left cursor-pointer  line-clamp-2"
+          class="font-semibold text-14 text-left cursor-pointer  line-clamp-2"
           [title]="post.title"
         >
           {{ post.title }}
@@ -40,13 +46,13 @@
 
         <div class="flex justify-start items-center gap-5">
           <app-svg-icon [name]="'located'"></app-svg-icon>
-          <span class="text-left line-clamp-2"
+          <span class="text-left line-clamp-2 text-gray-600"
             [title]="post.address + ',' + (post.fullAddress | address)">
             {{ post.address + ',' + (post.fullAddress | address) }}
           </span>
         </div>
       </div>
-      <div class="flex flex-col justify-between items-end gap-10 min-w-1/4">
+      <div class="flex flex-col justify-between items-end gap-10 min-w-1/4 bookmark-icon">
         <div>
           <app-svg-icon
             [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"

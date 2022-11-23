@@ -13,11 +13,11 @@ export class NavbarMenuComponent implements OnInit {
       name: 'Trang chủ',
       link: ENDPOINTS.HOME,
     },
-    {
-      name: 'Giới thiệu',
-      link: '/introduction',
+    // {
+    //   name: 'Giới thiệu',
+    //   link: '/introduction',
 
-    }
+    // }
   ]
   constructor() { }
 

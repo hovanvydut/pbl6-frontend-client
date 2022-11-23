@@ -35,7 +35,7 @@ export class ManagePostsComponent implements OnInit {
   totalPosts: number = 0;
 
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10
   });
   tabs = [
@@ -108,7 +108,11 @@ export class ManagePostsComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex + 1;
+    if(event.pageIndex > this.queryParams.pageNumber) {
+      this.queryParams.pageNumber = event.pageIndex + 1;
+    } else if(event.pageIndex < this.queryParams.pageNumber) {
+      this.queryParams.pageNumber = event.pageIndex - 1;
+    }
     this.getPosts();
   }
 

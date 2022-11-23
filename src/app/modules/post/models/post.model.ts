@@ -63,8 +63,8 @@ export class Review {
 
 
 export class QueryParams {
-  pageNumber: number;
-  pageSize: number;
+  pageNumber: number = 0;
+  pageSize: number = 12;
 
   minPrice?: number;
   maxPrice?: number;
