@@ -1,9 +1,15 @@
-<div class="flex flex-col gap-20 w-full m-auto rounded-9 shadow-md p-10">
+<div
+  class="post-detail-card-container flex flex-col gap-20 w-full m-auto rounded-9 p-10"
+>
   <div class="flex justify-between items-center">
-    <div class="flex justify-start items-center gap-5 my-10">
+    <div
+      class="flex justify-start items-center gap-5 bg-black-555 text-white px-4 py-2 rounded-6 text-center text-10"
+      [title]="post.category?.name"
+    >
       <app-svg-icon [name]="'home'"></app-svg-icon>
       <span> {{ post.category?.name }} </span>
     </div>
+
     <ng-container *ngIf="!isMyPost">
       <div>
         <app-svg-icon
@@ -146,7 +152,7 @@
 
     <div *ngIf="reviews?.length > 0" class="flex flex-col gap-10">
       <span class="text-24 font-bold text-blue-800">
-        {{ post.averageRating | number : '1.0-1'}}/4</span
+        {{ post.averageRating | number: "1.0-1" }}/4</span
       >
       <div class="flex gap-2 m-auto">
         <app-svg-icon
@@ -195,7 +201,8 @@
           <div class="flex flex-wrap gap-10 mb-10">
             <img
               *ngFor="let image of review.medias"
-              class="h-100 w-100 rounded-9 object-cover"
+              (click)="viewFullScreen(review.medias)"
+              class="h-100 w-100 rounded-9 object-cover cursor-pointer"
               [src]="image.url || 'assets/images/default/default_avatar.png'"
             />
           </div>
