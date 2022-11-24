@@ -17,7 +17,7 @@
         class="absolute inset-0 w-full h-full object-cover rounded-lg cursor-pointer"
         loading="lazy"
       />
-      <div *ngIf="post.isPriorityPost" class="absolute top-0 left-0">
+      <div *ngIf="post.isPriorityPost" class="absolute top-0 left-0 z-10">
         <img
           class="object-contain w-40 -translate-y-8"
           [src]="DEFAULT_IMAGES.medal"

@@ -116,8 +116,8 @@ export class ProfileDetailFormComponent implements OnInit {
         new ProfileUpdateModel({
           displayName: data.displayName,
           phoneNumber: data.phoneNumber,
-          address: '123',
-          addressWardId: '1',
+          address: 'Hòa Khánh Bắc',
+          addressWardId: '6351',
           avatar: this.avatarUrl
         })
       )
@@ -138,6 +138,10 @@ export class ProfileDetailFormComponent implements OnInit {
     if (images && images.length > 1) {
     } else {
       let image = images[0];
+      if (image.size > 2097152) {
+        this.notifyService.notify('File size must be smaller than 2 MB');
+        return;
+      }
       this.commonService.uploadImage(image).subscribe(res => {
         this.avatarUrl = res;
       });
