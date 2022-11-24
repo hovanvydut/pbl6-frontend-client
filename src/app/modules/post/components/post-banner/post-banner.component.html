@@ -1,44 +1,39 @@
 <div class="post__banner">
   <div class="flex flex-col flex-grow ">
     <div class="py-20 post-banner__gallery justify-between flex w-full">
-      <div class="post-banner__swiper w-3/5">
+      <!-- <div class="post-banner__swiper w-3/5">
         <app-swiper-template
           [images]="images"
           [navigation]="false"
           [showTextOnImage]="true"
         >
         </app-swiper-template>
-      </div>
-      <div class="w-2/5 flex flex-col justify-between gap-10 flex-grow pl-20">
+      </div> -->
+      <div class="w-4/5 flex flex-col justify-between gap-10 flex-grow pl-20">
         <div class="post-banner__gallery--left relative">
           <div
-            class="absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center gap-10 text-white "
+            class="absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center gap-10 text-white"
           >
             <div class="flex text-20 text-center uppercase">
-              <div class="py-10 px-20 border-4 border-blue-800">
+              <div class="py-20 px-30 border-4 border-blue-800 bg-white text-blue-800 font-bold">
                 Nhà trọ
               </div>
-              <div class="py-10 px-20 bg-blue-800 border-4 border-blue-800">
+              <div class="py-20 px-30 bg-blue-800 border-4 border-blue-800">
                 Phòng trọ
               </div>
             </div>
-            <p class="w-4/5 text-16">
-              Homiee.com - Trang thông tin cho thuê phòng trọ, tìm phòng trọ
-              nhanh chóng, hiệu quả số với hơn 500+ tin đăng mới và 30.000 lượt
-              xem mỗi ngày.
-            </p>
           </div>
           <img
-            class="h-full m-auto w-full object-cover"
-            [src]="images[0]?.url"
+            class="h-full m-auto w-full object-cover rounded-20"
+            [src]="images[1]?.url"
           />
         </div>
-        <div class="post-banner__gallery--left">
+        <!-- <div class="post-banner__gallery--left">
           <img
             class="h-full m-auto w-full object-cover"
             [src]="images[1]?.url"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div
