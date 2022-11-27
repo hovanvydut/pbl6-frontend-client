@@ -9,6 +9,8 @@ import {
 import { ItemModel } from '@app/shared/models/base.model';
 import { WardModel } from '@app/shared/models/address.model';
 import { PropertiesModel } from '@app/shared/models/property.model';
+import { Router } from '@angular/router';
+import { ENDPOINTS } from '@app/shared/utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class CommonService {
     this._properties.next(value);
   }
 
-  constructor(private baseService: BaseService) {}
+  constructor(private baseService: BaseService, private router: Router) {}
 
   //#region Address
   getProvinces(): Observable<ItemModel[]> {
@@ -72,6 +74,18 @@ export class CommonService {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return date < today;
+  }
+  
+  validateAuthentication() {
+    if (!this.baseService.isLoggedIn) {
+      this.router
+        .navigate([ENDPOINTS.LOGIN], {
+          queryParams: { returnUrl: this.router.routerState.snapshot.url }
+        })
+        .then();
+      return false;
+    }
+    return true;
   }
   //#endregion
   

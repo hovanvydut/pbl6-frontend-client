@@ -1,3 +1,4 @@
+import { CommonService } from './../../../../core/services/common.service';
 import { Component, Input, OnInit } from '@angular/core';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
@@ -17,12 +18,17 @@ export class PostCardHorizontalComponent implements OnInit {
 
   constructor(
     private bookmarkService: BookmarkService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {}
 
   onBookmarkButtonClicked() {
+    if (!this.commonService.validateAuthentication()) {
+      this.notifyService.notify('Đăng nhập để lưu bài viết');
+      return;
+    }
     if (this.post.isBookmarked) {
       this.bookmarkService.removeBookmark(this.post.id).subscribe(() => {
         this.post.isBookmarked = false;

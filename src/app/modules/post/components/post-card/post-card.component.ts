@@ -5,6 +5,7 @@ import { PostBaseModel } from '../../models/post.model';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { BookmarkService } from '../../services/bookmark.service';
 import { DEFAULT_IMAGES } from '@app/shared/app.constants';
+import { CommonService } from '@app/core/services/common.service';
 
 @Component({
   selector: 'app-post-card',
@@ -17,12 +18,17 @@ export class PostCardComponent implements OnInit {
   ENDPOINTS = ENDPOINTS;
 
   constructor(private bookmarkService: BookmarkService,
-    private notifyService: NotifyService) { }
+    private notifyService: NotifyService,
+    private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
   onBookmarkButtonClicked() {
+    if (!this.commonService.validateAuthentication()) {
+      this.notifyService.notify('Đăng nhập để lưu bài viết');
+      return;
+    }
     if( this.post.isBookmarked ) {
       this.bookmarkService.removeBookmark(this.post.id).subscribe(
         () => {
