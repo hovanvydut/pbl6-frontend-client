@@ -45,8 +45,12 @@
           *ngFor="let item of menuItems"
           mat-menu-item
           [routerLink]="item.link"
+          class="flex gap-10 items-center menu-item"
         >
-          {{ item.name }}
+          <app-svg-icon [name]="item.icon"> </app-svg-icon>
+          <span>
+            {{ item.name }}
+          </span>
         </button>
       </mat-menu>
     </a>
