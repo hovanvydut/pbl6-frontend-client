@@ -128,3 +128,18 @@ export const WEEK_DAYS = [
     value: 0
   }
 ];
+
+
+export const NOTIFICATION_MESSAGE = {
+  booking_success: 'Đặt lịch xem trọ thành công',
+  booking: 'Đặt lịch xem trọ của bạn',
+  booking_accept: 'Đã chấp nhận lịch xem trọ của bạn',
+  booking_reject: 'Đã từ chối lịch xem trọ của bạn',
+  booking_cancel: 'Đã hủy lịch xem trọ của bạn',
+  booking_done: 'Đã hoàn thành lịch xem trọ của bạn',
+  booking_new: 'Đã có lịch xem trọ mới',
+  booking_update: 'Đã cập nhật lịch xem trọ của bạn',
+  booking_delete: 'Đã xóa lịch xem trọ của bạn',
+  booking_delete_admin: 'Đã xóa lịch xem trọ của bạn',
+  review: 'Đã có đánh giá mới',
+}

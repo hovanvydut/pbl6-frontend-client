@@ -88,6 +88,8 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { CalendarNavbarComponent } from './components/form/calendar/calendar-navbar/calendar-navbar.component';
 import { PieChartComponent } from './components/chart/pie-chart/pie-chart.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -110,7 +112,8 @@ const COMPONENTS: any[] = [
   RangeSliderFieldComponent,
   InfoDialogComponent,
   BarChartComponent,
-  PieChartComponent
+  PieChartComponent,
+  NotificationComponent,
 ];
 
 const MATERIALS: any[] = [
@@ -149,7 +152,8 @@ const MATERIALS: any[] = [
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  NgApexchartsModule
+  NgApexchartsModule,
+  ClickOutsideModule
 ];
 
 const PIPES = [
@@ -167,7 +171,8 @@ const MODULES = [
   FormsModule,
   MatDialogModule,
   ReactiveFormsModule,
-  NgApexchartsModule
+  NgApexchartsModule,
+  NgxSliderModule
 ];
 
 const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
@@ -176,7 +181,6 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
   imports: [
     ...MATERIALS,
     ...MODULES,
-    NgxSliderModule,
     RouterModule.forChild([]),
     CalendarModule.forRoot({
       provide: DateAdapter,
