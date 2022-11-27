@@ -1,0 +1,45 @@
+<div class="flex justify-between gap-10">
+  <h6>
+    Notifications
+  </h6>
+
+  <div
+    class="flex gap-5 text-12 text-blue-500 items-center pl-10"
+    (click)="maskReadAllNotitications()"
+  >
+    <app-svg-icon [name]="'check'"></app-svg-icon>
+    <span> Mask as read</span>
+  </div>
+</div>
+<span class="text-10 text-gray-500">
+  You have {{ notifications.length }} notifications
+</span>
+<div class="mt-20">
+  <div *ngFor="let notification of notifications">
+    <div class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer" 
+      [class.bg-blue-50]="!notification.hasRead">
+      <div class="avatar h-30 w-30 relative">
+        <img
+          class="w-full h-full rounded-15 object-cover"
+          [src]="
+            notification?.data?.authorInfo?.avatar ||
+            'assets/images/default/default_avatar.png'
+          "
+        />
+      </div>
+      <div class="flex flex-col justify-center flex-grow">
+        <div class="info">
+          <b class="text-14 font-bold">
+            {{ notification?.data?.authorInfo?.displayName || "User" }}
+          </b>
+          <span class="text-12">
+            {{ notification?.content }}
+          </span>
+        </div>
+        <span class="text-12 text-gray-500">
+          {{ notification?.createdAt | fromNow }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
