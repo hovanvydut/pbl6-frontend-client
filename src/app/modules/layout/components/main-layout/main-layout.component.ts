@@ -10,15 +10,22 @@ import { menuItems } from '../../const/menu.const';
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit {
+  
   menuItems = menuItems;
   accountInfo: AccountModel;
   ENDPOINTS = ENDPOINTS;
+
+  isNotificationVisible: boolean = false;
 
   constructor(private baseService: BaseService) {
     this.accountInfo = this.baseService.currentUser;
   }
 
   ngOnInit() {
+  }
+
+  toggleNotification() {
+    this.isNotificationVisible = !this.isNotificationVisible;
   }
 
 }

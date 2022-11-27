@@ -52,6 +52,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.38",
     "ng-apexcharts": "^1.7.1",
+    "ng-click-outside": "^9.0.1",
     "rxjs": "~7.5.0",
     "svg-to-ts": "^8.8.1",
     "swiper": "^8.3.2",

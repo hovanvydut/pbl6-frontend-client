@@ -1,0 +1,26 @@
+<div>
+  <div *ngFor="let notification of notifications">
+    <div class="flex gap-10 w-full">
+      <div class="avatar h-30 w-30 relative">
+        <img
+          class="w-full h-full rounded-15 object-cover"
+          [src]="
+            notification?.data?.avatar ||
+            'assets/images/default/default_avatar.png'
+          "
+        />
+      </div>
+      <div class="flex flex-col justify-center flex-grow">
+        <div class="info">
+          <b class="text-14 font-bold"> {{ notification?.data?.displayName || 'User' }} </b>
+        </div>
+        <p class="text-12 text-gray-500">
+          {{ notification?.createdAt | fromNow }}
+        </p>
+        <div class="text-12 mb-5">
+          {{ notification?.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

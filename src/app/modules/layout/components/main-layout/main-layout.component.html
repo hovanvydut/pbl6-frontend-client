@@ -13,13 +13,33 @@
     </h3>
     <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
     <a *ngIf="accountInfo" mat-list-item>
-      <button mat-button [matMenuTriggerFor]="menu">
-        <div class="flex items-center ">
-          <span class="mr-5">{{ accountInfo.displayName }}</span>
-          <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
-          </app-svg-icon>
+      <div class="flex items-center">
+        <div class="relative" (clickOutside)="toggleNotification()">
+          <button mat-button class="px-5" (click)="toggleNotification()">
+            <app-svg-icon name="notification" class="my-5"></app-svg-icon>
+          </button>
+          <div
+            *ngIf="isNotificationVisible"
+            class="absolute top-25 right-0 z-50 bg-white shadow-md rounded-12  py-10 px-15 border border-gray-300 notification-container"
+          >
+            <app-notification></app-notification>
+          </div>
         </div>
-      </button>
+
+        <button mat-button [matMenuTriggerFor]="menu">
+          <div class="flex items-center ">
+            <div class="avatar h-20 w-20 relative">
+              <img
+                class="w-full h-full rounded-15 object-cover"
+                [src]="'assets/images/default/default_avatar.png'"
+              />
+            </div>
+            <span class="mx-5">{{ accountInfo.displayName }}</span>
+            <app-svg-icon [name]="'arrow_down'" [color]="'#999'" matPrefix>
+            </app-svg-icon>
+          </div>
+        </button>
+      </div>
       <mat-menu #menu="matMenu">
         <button
           *ngFor="let item of menuItems"

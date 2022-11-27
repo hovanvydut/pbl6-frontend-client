@@ -16,6 +16,7 @@
     <div class="flex items-center gap-4">
       <app-navbar-menu></app-navbar-menu>
 
+      <app-svg-icon name="notification"></app-svg-icon>
       <a mat-list-item>
         <button mat-button [matMenuTriggerFor]="menu">
           <div class="flex items-center ">
@@ -37,17 +38,3 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<!-- sidebar -->
-<mat-sidenav-container class="text-xs">
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
-      <app-navbar-menu></app-navbar-menu>
-      <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link">
-        {{ item.name }}
-      </a>
-      <a mat-list-item [routerLink]=""> Close </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <ng-content></ng-content>
-</mat-sidenav-container>
