@@ -14,7 +14,7 @@
     <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
     <a *ngIf="accountInfo" mat-list-item>
       <div class="flex items-center">
-        <div class="relative" (clickOutside)="toggleNotification()">
+        <div class="relative mt-5" (clickOutside)="isNotificationVisible = false;">
           <button mat-button class="px-5" (click)="toggleNotification()">
             <app-svg-icon [name]="hasNewNotification ? 'notification_new' : 'notification'" class="my-5"></app-svg-icon>
           </button>
