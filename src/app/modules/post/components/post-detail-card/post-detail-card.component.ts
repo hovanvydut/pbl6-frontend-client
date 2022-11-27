@@ -1,8 +1,11 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { BaseService } from '@app/core/services/base.service';
+import { CommonService } from '@app/core/services/common.service';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { ENDPOINTS } from '@app/shared/utilities';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { PostBaseModel } from '../../models/post.model';
 import { BookmarkService } from '../../services/bookmark.service';
@@ -23,14 +26,18 @@ export class PostDetailCardComponent implements OnInit {
   reviews: [];
   @Output() onAddReview = new EventEmitter<void>();
 
-  constructor( private dialog: MatDialog, private reviewSerice: ReviewService,
+  constructor(
+    private dialog: MatDialog,
+    private reviewSerice: ReviewService,
     private baseService: BaseService,
     private bookmarkService: BookmarkService,
-    private notifyService: NotifyService) { }
+    private notifyService: NotifyService,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit() {
     this.getReviews();
-    if(this.baseService.currentUser.id === this.post.authorInfo.id){
+    if (this.baseService?.currentUser?.id === this.post?.authorInfo.id) {
       this.isMyPost = true;
       this.notifyService.notify('Bạn đang xem bài đăng của mình');
     }
@@ -44,7 +51,11 @@ export class PostDetailCardComponent implements OnInit {
   }
 
   onReviewPostButtonClicked() {
-    let dialogRef = this.dialog.open( PostReviewComponent, {
+    if (!this.commonService.validateAuthentication()) {
+      this.notifyService.notify('Đăng nhập để đánh giá bài viết');
+      return;
+    }
+    let dialogRef = this.dialog.open(PostReviewComponent, {
       width: '99vw',
       maxHeight: '99vh',
       data: {
@@ -52,41 +63,44 @@ export class PostDetailCardComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe( (data) => {
+    dialogRef.afterClosed().subscribe(data => {
       this.onAddReview.emit();
       this.getReviews();
-    })
+    });
   }
 
   onBookingCalendarButtonClicked() {
+    if (!this.commonService.validateAuthentication()) {
+      this.notifyService.notify('Đăng nhập để đặt lịch');
+      return;
+    }
     let dialogRef = this.dialog.open(PostBookingComponent, {
       width: '99vw',
       maxHeight: '99vh',
       data: {
-        post: this.post,
+        post: this.post
       }
     });
   }
 
   onBookmarkButtonClicked() {
-    if( this.post.isBookmarked ) {
-      this.bookmarkService.removeBookmark(this.post.id).subscribe(
-        () => {
-          this.post.isBookmarked = false;
-          this.notifyService.notify('Đã bỏ lưu bài đăng');
-        }
-      );
+    if (!this.commonService.validateAuthentication()) {
+      this.notifyService.notify('Đăng nhập để lưu bài viết');
+      return;
+    }
+    if (this.post.isBookmarked) {
+      this.bookmarkService.removeBookmark(this.post.id).subscribe(() => {
+        this.post.isBookmarked = false;
+        this.notifyService.notify('Đã bỏ lưu bài đăng');
+      });
     } else {
-      this.bookmarkService.addBookmark(this.post.id).subscribe(
-        () => {
-          this.post.isBookmarked = true;
-          this.notifyService.notify('Đã lưu bài đăng');
-        }
-      );
+      this.bookmarkService.addBookmark(this.post.id).subscribe(() => {
+        this.post.isBookmarked = true;
+        this.notifyService.notify('Đã lưu bài đăng');
+      });
     }
   }
 
-  
   viewFullScreen(medias: string[]) {
     if (medias.length > 0) {
       let dialogRef = this.dialog.open(PostSwiperComponent, {

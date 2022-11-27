@@ -2,4 +2,9 @@
     width: 350px;
     height: 500px;
     overflow-y: scroll;
+
+}
+
+::ng-deep .menu-item.mat-menu-item {
+    display: flex !important;
 }

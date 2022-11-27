@@ -1,3 +1,4 @@
+import { NotificationBoardComponent } from './components/notification-board/notification-board.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,6 +15,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: MainDashboardComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'notification',
+    pathMatch: 'full',
+    component: NotificationBoardComponent,
+    canActivate: [AuthGuard],
   }
 ];
 
@@ -25,7 +32,7 @@ const MODULES = [
   PostModule
 ];
 
-const COMPONENTS = [DashboardComponent, MainDashboardComponent];
+const COMPONENTS = [DashboardComponent, MainDashboardComponent, NotificationBoardComponent];
 
 @NgModule({
   declarations: [...COMPONENTS],

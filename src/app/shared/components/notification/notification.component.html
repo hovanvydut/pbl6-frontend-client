@@ -1,26 +1,48 @@
 <div class="flex justify-between gap-10">
-  <h6>
-    Notifications
-  </h6>
+  <div class="text-18">
+    Thông báo
+  </div>
 
   <div
     class="flex gap-5 text-12 text-blue-500 items-center pl-10"
     (click)="maskReadAllNotitications()"
   >
     <app-svg-icon [name]="'check'"></app-svg-icon>
-    <span> Mask as read</span>
+    <span class="cursor-pointer">Đánh dấu đã đọc</span>
   </div>
 </div>
 <span class="text-10 text-gray-500">
-  You have {{ notifications.length }} notifications
+  Bạn có {{ notifications.length }} thông báo
 </span>
-<div class="mt-20">
+<ng-container *ngIf="isTabVisible">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="notification-nav-container">
+    <a
+      mat-tab-link
+      *ngFor="let tab of tabs"
+      (click)="onTabClick(tab)"
+      [active]="selectedTab === tab"
+      class="gap-10"
+    >
+      {{ tab.name }}
+      <span
+        class="bg-blue-400 text-12 px-5 py-1 mx-2 rounded-6 text-blue-800 font-bold"
+      >
+        {{ tab.total || 0 }}
+      </span>
+    </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
+</ng-container>
+
+<div class="mt-10">
   <div *ngFor="let notification of notifications">
-    <div class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer" 
-      [class.bg-blue-50]="!notification.hasRead">
+    <div
+      class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer"
+      [class.bg-blue-50]="!notification.hasRead"
+    >
       <div class="avatar h-30 w-30 relative">
         <img
-          class="w-full h-full rounded-15 object-cover"
+          class="w-full h-full rounded-15 object-cover mt-5"
           [src]="
             notification?.data?.authorInfo?.avatar ||
             'assets/images/default/default_avatar.png'
@@ -43,3 +65,12 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="!isTabVisible">
+  <a
+    [routerLink]="ENDPOINTS.NOTIFICATIONS"
+    class="cursor-pointer text-10 text-blue-700 float-right"
+  >
+    Xem tất cả
+  </a>
+</ng-container>
