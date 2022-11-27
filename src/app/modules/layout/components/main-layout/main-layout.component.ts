@@ -19,6 +19,7 @@ export class MainLayoutComponent implements OnInit {
   ENDPOINTS = ENDPOINTS;
 
   isNotificationVisible: boolean = false;
+  hasNewNotification: boolean = false;
 
   private _subscriptions: Subscription = new Subscription();
 
@@ -33,11 +34,15 @@ export class MainLayoutComponent implements OnInit {
 
   toggleNotification() {
     this.isNotificationVisible = !this.isNotificationVisible;
+    if (this.isNotificationVisible === true) {
+      this.hasNewNotification = false;
+    }
   }
 
   private _subscribeNotificationBroadCastEvent() {
     this._subscriptions.add(this.webSocketService.subscribeNotification().subscribe((res: NotificationResponseModel) => {
       console.log(res);
+      this.hasNewNotification = true;
     }));
 }
 

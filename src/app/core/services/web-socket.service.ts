@@ -30,8 +30,16 @@ export class WebSocketService {
             this.notificationService = injector.get(NotificationService);
         });
 
+        setInterval(() => {
+            console.log('new nôtification');
+            this.notificationEmitter.next(new NotificationResponseModel());
+        }, 10000);
+
+
         this.connect();
+        
         //
+
         // Auto restart WebSocket until it's connected
         setInterval(() => {
             if (!this.baseService.currentUser || !this.baseService.isLoggedIn) {
@@ -47,6 +55,8 @@ export class WebSocketService {
 
             this.connect();
         }, RECONNECT_SIGNAL_INTERVAL);
+
+        
     }
 
     private _connectionId: string;
@@ -56,6 +66,7 @@ export class WebSocketService {
     }
 
     public connect() {
+        
         if (!this.baseService.currentUser || !this.baseService.currentUser.id || !this.baseService.isLoggedIn) {
             return;
         }
