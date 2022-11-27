@@ -7,6 +7,12 @@ export const menuItems = [
     link: ENDPOINTS.DASHBOARD
   },
   {
+    icon: 'notification',
+    icon_active: 'notification_new',
+    name: 'Thông báo',
+    link: ENDPOINTS.NOTIFICATIONS
+  },
+  {
     icon: 'product',
     name: 'Quản lý bài đăng',
     link: ENDPOINTS.LANDLOR_MANAGE_POSTS

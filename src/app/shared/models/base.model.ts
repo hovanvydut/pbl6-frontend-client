@@ -48,3 +48,13 @@ export class ItemModel extends ItemBaseModel {
     Object.assign(this, init);
   }
 }
+
+
+export class TabItemModel extends ItemBaseModel {
+  total: number;
+
+  constructor(init?: Partial<TabItemModel>) {
+    super()
+    Object.assign(this, init);
+  }
+}

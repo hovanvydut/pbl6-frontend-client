@@ -15,12 +15,21 @@
       <div
         class="flex items-center px-20 py-10 my-5 cursor-pointer text-gray-500"
         [routerLink]="item.link"
+        (click)="handleItemClicked(item.link)"
         routerLinkActive="bg-white rounded-15 text-black-555 nav-active"
       >
         <div
           class="w-30 h-30 rounded-12 mr-8 flex items-center justify-center nav-icon-wrapper"
         >
-          <app-svg-icon class="nav-icon " [name]="item.icon"> </app-svg-icon>
+          <app-svg-icon
+            class="nav-icon "
+            [name]="
+              ENDPOINTS.NOTIFICATIONS === item.link && hasNewNotification
+                ? item.icon_active
+                : item.icon
+            "
+          >
+          </app-svg-icon>
         </div>
         <span>{{ item.name }}</span>
       </div>
