@@ -182,11 +182,7 @@ export class StatisticRevenueComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.statisticDetailParams.pageSize = event.pageSize;
-    if(event.pageIndex > this.statisticDetailParams.pageNumber) {
-      this.statisticDetailParams.pageNumber = event.pageIndex + 1;
-    } else if(event.pageIndex < this.statisticDetailParams.pageNumber) {
-      this.statisticDetailParams.pageNumber = event.pageIndex - 1;
-    }
+    this.statisticDetailParams.pageNumber = event.pageIndex
     this.getStatisticDetail();
   }
 

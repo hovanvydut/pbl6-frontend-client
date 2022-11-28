@@ -7,17 +7,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './modules/layout/layout.module';
+import { SharedModule } from './shared/shared.module';
+//
 
+const MODULES = [
+  BrowserModule,
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  LayoutModule,
+  HttpClientModule,
+  SharedModule
+]
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    HttpClientModule,
+   ...MODULES
   ],
   providers: [
   ],

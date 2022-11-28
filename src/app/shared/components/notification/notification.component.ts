@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
 import { TabItemModel } from '@app/shared/models/base.model';
 import { NotificationService } from '@app/shared/services/notification.service';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
   selector: 'app-notification',
