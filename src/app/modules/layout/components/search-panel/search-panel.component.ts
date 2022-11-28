@@ -38,8 +38,7 @@ export class SearchPanelComponent implements OnInit {
         distinctUntilChanged() // only emit if value is different from previous value
       )
       .subscribe(searchKeyword => {
-        this.searchKeyword = searchKeyword;
-        this.searchKeywordChanged.emit(searchKeyword);
+        this.searchKeyword = searchKeyword.trim();
       });
 
     this.filterService._queryParams.subscribe(params => {

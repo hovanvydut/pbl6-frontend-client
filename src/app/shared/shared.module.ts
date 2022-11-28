@@ -60,7 +60,11 @@ import { CheckBoxListComponent } from './components/check-box-list/check-box-lis
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
 import { TableComponent } from './components/table/table.component';
-import { LineChartComponent, AreaChartComponent, BarChartComponent } from './components/chart';
+import {
+  LineChartComponent,
+  AreaChartComponent,
+  BarChartComponent
+} from './components/chart';
 import {
   FormDialogComponent,
   ConfirmDialogComponent,
@@ -90,6 +94,7 @@ import { CalendarNavbarComponent } from './components/form/calendar/calendar-nav
 import { PieChartComponent } from './components/chart/pie-chart/pie-chart.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { ToastComponent } from './components/toast/toast.component';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -114,6 +119,12 @@ const COMPONENTS: any[] = [
   BarChartComponent,
   PieChartComponent,
   NotificationComponent,
+  ToastComponent,
+  LoadingComponent,
+
+  CalendarTemplateComponent,
+  DialogTemplateComponent,
+  CalendarNavbarComponent
 ];
 
 const MATERIALS: any[] = [
@@ -153,14 +164,17 @@ const MATERIALS: any[] = [
   MatTooltipModule,
   MatTreeModule,
   NgApexchartsModule,
-  ClickOutsideModule
+  ClickOutsideModule,
 ];
 
 const PIPES = [
   StringToDatePipe,
   SanitizeHtmlPipe,
   TimeAgoPipe,
-  LookupValuePipe
+  LookupValuePipe,
+  AddressPipe,
+  PricePipe,
+  FromNowPipe
 ];
 
 const SVG_ICONS = completeIconSet;
@@ -175,7 +189,15 @@ const MODULES = [
   NgxSliderModule
 ];
 
-const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
+const PROVIDERS = [
+  CurrencyPipe,
+  DecimalPipe,
+  SvgIconsRegistryService,
+  { provide: MatDialogRef, useValue: {} },
+  { provide: MAT_DIALOG_DATA, useValue: {} }
+];
+
+const DIRECTIVES = [CurrencyMaskDirective];
 
 @NgModule({
   imports: [
@@ -184,16 +206,12 @@ const PROVIDERS = [CurrencyPipe,DecimalPipe, SvgIconsRegistryService];
     RouterModule.forChild([]),
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+      useFactory: adapterFactory
+    })
   ],
-  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
-  declarations: [...COMPONENTS, ...PIPES, AddressPipe, PricePipe, LoadingComponent, CurrencyMaskDirective, CalendarTemplateComponent, DialogTemplateComponent, FromNowPipe, CalendarNavbarComponent],
-  providers: [
-    ...PROVIDERS,
-    { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: {} }
-  ]
+  exports: [...COMPONENTS, ...PIPES, ...MATERIALS, ...DIRECTIVES],
+  declarations: [...COMPONENTS, ...PIPES, ...DIRECTIVES],
+  providers: [...PROVIDERS]
 })
 export class SharedModule {
   constructor(private svgIconRegistry: SvgIconsRegistryService) {

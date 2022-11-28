@@ -80,11 +80,7 @@ export class StatisticDetailComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.statisticParams.pageSize = event.pageSize;
-    if(event.pageIndex > this.statisticParams.pageNumber) {
-      this.statisticParams.pageNumber = event.pageIndex + 1;
-    } else if(event.pageIndex < this.statisticParams.pageNumber) {
-      this.statisticParams.pageNumber = event.pageIndex - 1;
-    }
+    this.statisticParams.pageNumber = event.pageIndex
     this.getStatisticDetail();
   }
 }

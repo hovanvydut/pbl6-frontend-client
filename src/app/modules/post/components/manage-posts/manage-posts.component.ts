@@ -108,11 +108,7 @@ export class ManagePostsComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    if(event.pageIndex > this.queryParams.pageNumber) {
-      this.queryParams.pageNumber = event.pageIndex + 1;
-    } else if(event.pageIndex < this.queryParams.pageNumber) {
-      this.queryParams.pageNumber = event.pageIndex - 1;
-    }
+    this.queryParams.pageNumber = event.pageIndex;
     this.getPosts();
   }
 

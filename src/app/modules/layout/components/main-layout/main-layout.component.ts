@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
 import { WebSocketService } from '@app/core/services/web-socket.service';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
-import { NotificationResponseModel } from '@app/shared/models/notification.model';
+import { NotificationModel } from '@app/shared/models/notification.model';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Subscription } from 'rxjs';
@@ -46,10 +46,13 @@ export class MainLayoutComponent implements OnInit {
     this._subscriptions.add(
       this.webSocketService
         .subscribeNotification()
-        .subscribe((res: NotificationResponseModel) => {
-          console.log(res);
+        .subscribe((notification: NotificationModel) => {
           this.hasNewNotification = true;
-          this.notifyService.notify('Bạn có thông báo mới');
+          const message =
+            notification?.data?.authorInfo?.displayName +
+            ' ' +
+            notification?.content;
+          this.notifyService.showToast(message, 3000);
         })
     );
   }
