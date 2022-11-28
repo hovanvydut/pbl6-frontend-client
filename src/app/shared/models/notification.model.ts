@@ -11,20 +11,11 @@ export class NotificationBaseModel {
   }
 }
 
-export class NotificationResponseModel extends NotificationBaseModel {
-  extraData: string;
-
-  constructor(init?: Partial<NotificationResponseModel>) {
-    super();
-    Object.assign(this, init);
-  }
-}
-
-
-export class NotificationVM extends NotificationBaseModel {
+export class NotificationModel extends NotificationBaseModel {
     data: any;
+    extraData: string;
   
-    constructor(init?: Partial<NotificationVM>) {
+    constructor(init?: Partial<NotificationModel>) {
       super();
       Object.assign(this, init);
     }

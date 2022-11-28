@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
-import { NotificationBaseModel, NotificationVM } from '../models/notification.model';
+import { NotificationBaseModel, NotificationModel } from '../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,12 @@ export class NotificationService {
   constructor(private baseService: BaseService) {}
 
   getNotification(): Observable<any> {
-    let data: NotificationVM[] = [];
+    let data: NotificationModel[] = [];
 
     // generate data of notification
     for (let i = 0; i < 10; i++) {
       data.push(
-        new NotificationVM({
+        new NotificationModel({
           id: i.toString(),
           userId: i.toString(),
           content: 'đặt lịch xem trọ của bạn',
