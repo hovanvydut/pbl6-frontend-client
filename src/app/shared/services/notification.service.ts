@@ -10,28 +10,14 @@ export class NotificationService {
   constructor(private baseService: BaseService) {}
 
   getNotification(): Observable<any> {
-    let data: NotificationModel[] = [];
+    return this.baseService.get('notification');
+  }
 
-    // generate data of notification
-    for (let i = 0; i < 10; i++) {
-      data.push(
-        new NotificationModel({
-          id: i.toString(),
-          userId: i.toString(),
-          content: 'đặt lịch xem trọ của bạn',
-          code: 'code',
-          hasRead: i > 5 ? true : false,
-          data: {
-            authorInfo: {
-              id: i.toString(),
-              displayName: 'Nguyễn Văn A',
-            }
-          },
-          createdAt: new Date()
-        })
-      );
-    }
-    return of(data);
-    // return this.baseService.get('notification');
+  markReadAllNotifications(): Observable<any> {
+    return this.baseService.put('notification/mark-all-read', null);
+  }
+
+  markReadNotifition(id: number): Observable<any> {
+    return this.baseService.put(`notification/has-read/${id}`, null);
   }
 }

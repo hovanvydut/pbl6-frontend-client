@@ -61,3 +61,15 @@ export enum InputType {
   Url = 'url',
   Tel = 'tel',
 }
+
+
+export enum NotificationCode {
+  REVIEW__HAS_REVIEW_ON_POST = 'REVIEW__HAS_REVIEW_ON_POST',
+  BOOKING__HAS_BOOKING_ON_POST = 'BOOKING__HAS_BOOKING_ON_POST',
+}
+
+
+export enum NotificationContent {
+  REVIEW__HAS_REVIEW_ON_POST = 'Bạn có một đánh giá mới',
+  BOOKING__HAS_BOOKING_ON_POST = 'Bạn có một đơn đặt phòng mới',
+}
