@@ -30,3 +30,14 @@ export class NotificationModel extends NotificationBaseModel {
     }
   }
   
+
+  export class NotificationFilterParams {
+    today: boolean;
+    pageNumber: number;
+    pageSize: number;
+    searchValue: string;
+  
+    constructor(init?: Partial<NotificationFilterParams>) {
+      Object.assign(this, init);
+    }
+  }

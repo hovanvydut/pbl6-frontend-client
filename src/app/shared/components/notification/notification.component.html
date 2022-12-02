@@ -24,10 +24,11 @@
       class="gap-10"
     >
       {{ tab.name }}
-      <span
+      <span 
+        *ngIf="tab.id !== 'all'"
         class="bg-blue-400 text-12 px-5 py-1 mx-2 rounded-6 text-blue-800 font-bold"
       >
-        {{ tab.total || 0 }}
+        {{ tab.total }}
       </span>
     </a>
   </nav>
@@ -35,6 +36,15 @@
 </ng-container>
 
 <div class="mt-10">
+  <div
+    *ngIf="notifications?.length === 0"
+    class="flex justify-center items-center flex-col"
+  >
+    <app-svg-icon [name]="'notification'"></app-svg-icon>
+    <div class="text-center text-12 text-gray-500">
+      Không có thông báo nào
+    </div>
+  </div>
   <div *ngFor="let notification of notifications">
     <div
       class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer"

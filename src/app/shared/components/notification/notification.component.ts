@@ -1,5 +1,8 @@
 import { NotificationContent, NotificationCode } from './../../app.enum';
-import { NotificationBaseModel } from './../../models/notification.model';
+import {
+  NotificationBaseModel,
+  NotificationFilterParams
+} from './../../models/notification.model';
 import { map } from 'rxjs';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Component, Input, OnInit } from '@angular/core';
@@ -20,11 +23,11 @@ export class NotificationComponent implements OnInit {
     new TabItemModel({
       name: 'Hôm nay',
       id: 'today',
-      total: 12,
+      total: 0
     }),
     new TabItemModel({
       name: 'Tất cả',
-      id: 'all'
+      id: 'all',
     })
   ];
   selectedTab = this.tabs[0];
@@ -36,14 +39,26 @@ export class NotificationComponent implements OnInit {
   ENDPOINTS = ENDPOINTS;
   NotificationContent = NotificationContent;
   NotificationCode = NotificationCode;
+  notificationFilterParams: NotificationFilterParams = new NotificationFilterParams(
+    {
+      pageNumber: 0,
+      pageSize: 10,
+      searchValue: '',
+      today: true
+    }
+  );
 
-
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.notificationService.getNotification().subscribe(
-      res => {
-        this.notifications = res.records.map( item => {
+    this.getNotifications();
+  }
+
+  getNotifications() {
+    this.notificationService
+      .getNotification(this.notificationFilterParams)
+      .subscribe(res => {
+        this.notifications = res.records.map(item => {
           let extraData: {
             PostId: number;
             ReviewId: number;
@@ -79,31 +94,32 @@ export class NotificationComponent implements OnInit {
         });
 
         this.totalNotifications = res.totalRecords;
-      }
-    )
+        if (this.selectedTab.id === 'today') {
+          this.tabs[0].total = res.totalRecords;
+        }
+      });
   }
 
   maskReadAllNotitications() {
-    this.notificationService.markReadAllNotifications().subscribe(
-      res => {
-        this.notifications.map( item => {
-          item.hasRead = true;
-        })
-      }
-    )
+    this.notificationService.markReadAllNotifications().subscribe(res => {
+      this.notifications.map(item => {
+        item.hasRead = true;
+      });
+    });
   }
 
   onTabClick(tab: any) {
     this.selectedTab = tab;
-    switch( this.selectedTab.id ) {
+    switch (this.selectedTab.id) {
       case 'today':
+        this.notificationFilterParams.today = true;
         break;
       case 'all':
+        this.notificationFilterParams.today = false;
         break;
       default:
         break;
     }
-    // get notification
+    this.getNotifications();
   }
-
 }
