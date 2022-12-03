@@ -1,7 +1,17 @@
+import { ViewportScroller } from '@angular/common';
 import { outputAst } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  AfterViewInit,
+  AfterContentInit,
+  AfterViewChecked
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { BaseService } from '@app/core/services/base.service';
 import { CommonService } from '@app/core/services/common.service';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -19,12 +29,14 @@ import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
   templateUrl: './post-detail-card.component.html',
   styleUrls: ['./post-detail-card.component.scss']
 })
-export class PostDetailCardComponent implements OnInit {
+export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   @Input() post: PostBaseModel;
+  @Output() onAddReview = new EventEmitter<void>();
   completeIconSet = completeIconSet;
   isMyPost: boolean = false;
   reviews: [];
-  @Output() onAddReview = new EventEmitter<void>();
+  reviewId: string;
+  isScrollDone: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -32,7 +44,8 @@ export class PostDetailCardComponent implements OnInit {
     private baseService: BaseService,
     private bookmarkService: BookmarkService,
     private notifyService: NotifyService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -41,12 +54,25 @@ export class PostDetailCardComponent implements OnInit {
       this.isMyPost = true;
       this.notifyService.notify('Bạn đang xem bài đăng của mình');
     }
+    this.reviewId = this.route.snapshot.queryParamMap.get('reviewId');
+  }
+
+  ngAfterViewChecked() {
+    if (!this.isScrollDone && this.reviewId) {
+      let el = document.getElementById(this.reviewId);
+      if (el) {
+        el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+    }
   }
 
   getReviews() {
     this.reviewSerice.getReviews(this.post.id).subscribe(res => {
       this.reviews = res.records;
-      console.log(res);
     });
   }
 

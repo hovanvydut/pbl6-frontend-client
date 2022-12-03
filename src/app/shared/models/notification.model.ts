@@ -8,12 +8,15 @@ export class NotificationBaseModel {
   hasRead: boolean;
   createdAt: Date;
   postId?: number;
+  postTitle?: string;
   reviewId?: number;
   reviewContent?: string;
   bookingId?: number;
+  bookingTime?: Date;
   originUserName: string;
   originUserId: string;
   originUserEmail: string;
+  originUserAvatar: string;
 
   constructor(init?: Partial<NotificationBaseModel>) {
     Object.assign(this, init);

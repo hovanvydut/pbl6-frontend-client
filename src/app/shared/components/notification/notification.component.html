@@ -12,7 +12,7 @@
   </div>
 </div>
 <span class="text-10 text-gray-500">
-  Bạn có {{ totalNotifications }} thông báo
+  Bạn có <b> {{ this.tabs[0].total }}</b> thông báo hôm nay
 </span>
 <ng-container *ngIf="isTabVisible">
   <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="notification-nav-container">
@@ -24,8 +24,7 @@
       class="gap-10"
     >
       {{ tab.name }}
-      <span 
-        *ngIf="tab.id !== 'all'"
+      <span
         class="bg-blue-400 text-12 px-5 py-1 mx-2 rounded-6 text-blue-800 font-bold"
       >
         {{ tab.total }}
@@ -49,11 +48,12 @@
     <div
       class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer"
       [class.bg-blue-50]="!notification.hasRead"
+      (click)="onNotificationClick(notification)"
     >
       <div class="avatar h-30 w-30 relative">
         <img
           class="w-full h-full rounded-15 object-cover mt-5"
-          [src]="'assets/images/default/default_avatar.png'"
+          [src]="notification.originUserAvatar || 'assets/images/default/default_avatar.png'"
         />
       </div>
       <div class="flex flex-col justify-center flex-grow">
@@ -71,7 +71,20 @@
             <b class="text-12 font-bold">
               {{ notification?.originUserName }}
             </b>
-            đánh giá: {{ notification.reviewContent }}
+            đánh giá: {{ notification.reviewContent }} về bài viết
+            <b> {{ notification?.postTitle }} </b>
+          </span>
+          <span
+            *ngIf="
+              notification.code ===
+              NotificationCode.BOOKING__HAS_BOOKING_ON_POST
+            "
+            class="text-12"
+          >
+            <b class="text-12 font-bold">
+              {{ notification?.originUserName }}
+            </b>
+            đặt phòng <b> {{ notification?.postTitle }} </b>
           </span>
         </div>
         <span class="text-12 text-gray-500">

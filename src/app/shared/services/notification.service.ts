@@ -30,4 +30,8 @@ export class NotificationService {
   markReadNotifition(id: number): Observable<any> {
     return this.baseService.put(`notification/has-read/${id}`, null);
   }
+
+  getTotalNotification(): Observable<any> {
+    return this.baseService.get('notification/unread/count');
+  }
 }

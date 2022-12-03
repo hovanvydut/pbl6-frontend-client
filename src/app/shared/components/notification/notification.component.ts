@@ -3,13 +3,12 @@ import {
   NotificationBaseModel,
   NotificationFilterParams
 } from './../../models/notification.model';
-import { map } from 'rxjs';
 import { ENDPOINTS } from '@app/shared/utilities';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
 import { TabItemModel } from '@app/shared/models/base.model';
 import { NotificationService } from '@app/shared/services/notification.service';
-import { NotifyService } from '@app/shared/services/notify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -22,12 +21,11 @@ export class NotificationComponent implements OnInit {
   tabs = [
     new TabItemModel({
       name: 'Hôm nay',
-      id: 'today',
-      total: 0
+      id: 'today'
     }),
     new TabItemModel({
       name: 'Tất cả',
-      id: 'all',
+      id: 'all'
     })
   ];
   selectedTab = this.tabs[0];
@@ -48,10 +46,21 @@ export class NotificationComponent implements OnInit {
     }
   );
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(
+    private notificationService: NotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.getTotalNotification();
     this.getNotifications();
+  }
+
+  getTotalNotification() {
+    this.notificationService.getTotalNotification().subscribe(res => {
+      this.tabs[0].total = res.today;
+      this.tabs[1].total = res.allTime;
+    });
   }
 
   getNotifications() {
@@ -64,6 +73,8 @@ export class NotificationComponent implements OnInit {
             ReviewId: number;
             ReviewContent: string;
             BookingId: number;
+            PostTitle: string;
+            BookingTime: string;
           };
           try {
             extraData = JSON.parse(item.extraData);
@@ -73,6 +84,8 @@ export class NotificationComponent implements OnInit {
               ReviewId: number;
               ReviewContent: string;
               BookingId: number;
+              PostTitle: string;
+              BookingTime: string;
             };
           }
           const notification = new NotificationBaseModel({
@@ -88,15 +101,13 @@ export class NotificationComponent implements OnInit {
             bookingId: extraData.BookingId,
             originUserName: item.originUserName,
             originUserId: item.originUserId,
-            originUserEmail: item.originUserEmail
+            originUserEmail: item.originUserEmail,
+            originUserAvatar: item.originUserAvatar,
+            postTitle: extraData.PostTitle,
+            bookingTime: new Date(extraData.BookingTime)
           });
           return notification;
         });
-
-        this.totalNotifications = res.totalRecords;
-        if (this.selectedTab.id === 'today') {
-          this.tabs[0].total = res.totalRecords;
-        }
       });
   }
 
@@ -121,5 +132,24 @@ export class NotificationComponent implements OnInit {
         break;
     }
     this.getNotifications();
+  }
+
+  onNotificationClick(notification: NotificationBaseModel) {
+    switch (notification.code) {
+      case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
+        this.router.navigate([ENDPOINTS.USER_BOOKING_CALENDAR], {
+          queryParams: { bookingId: notification.bookingId }
+        });
+        break;
+
+      case NotificationCode.REVIEW__HAS_REVIEW_ON_POST:
+        const url = ENDPOINTS.POST_DETAIL + '/' + notification.postId;
+        this.router.navigate([url], {
+          queryParams: { reviewId: notification.reviewId }
+        });
+        break;
+      default:
+        break;
+    }
   }
 }
