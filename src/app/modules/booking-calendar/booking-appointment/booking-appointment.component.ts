@@ -6,6 +6,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
 import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-booking-appointment',
@@ -31,10 +32,25 @@ export class BookingAppointmentComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
+    if( bookingId ) {
+      // let dialogRef = this.dialog.open(BookingDetailComponent, {
+      //   maxWidth: '99vw',
+      //   maxHeight: '90vh',
+      //   data: {
+      //     infoDetail: {},
+      //     isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
+      //   }
+      // });
+      // dialogRef.afterClosed().subscribe(result => {
+      //   this.handleGetBookings();
+      // });
+    }
     this.getBookings();
   }
 

@@ -1,4 +1,21 @@
-# Homiee
+# Homiee ✨🎉🎨
+## Description about this project 🔥🔥🔥
+An application to search for hostels and hostels in Đà Nẵng
+
+## There are basic features 💥💥💥:
+- See the inn room
+- Search for accommodation.
+- Filter inn rooms by criteria, by address
+- View the accommodation of each innkeeper
+- Rate the hostel I went to see
+- Make an appointment to see the room
+- Manage personal information, personal free schedule.
+
+In addition, users with landlord privileges have the following features 🚚🚚🚚:
+- ✨ Review the inn room viewing schedule, accept the inn room viewing schedule, confirm that you have met someone to see the inn room
+- 📈 View statistics about your rooms, your appointments 
+
+# About technical of project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
 

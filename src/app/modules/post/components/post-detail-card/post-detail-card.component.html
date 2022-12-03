@@ -150,7 +150,7 @@
       </div>
     </mat-card-title>
 
-    <div *ngIf="reviews?.length > 0" class="flex flex-col gap-10">
+    <div id="review-region" *ngIf="reviews?.length > 0" class="flex flex-col gap-10">
       <span class="text-24 font-bold text-blue-800">
         {{ post.averageRating | number: "1.0-1" }}/4</span
       >
@@ -168,7 +168,11 @@
     </div>
 
     <div *ngFor="let review of reviews; index as index" class="w-full">
-      <div class="flex gap-10 w-full">
+      <div
+        [id]="review.id"
+        class="flex gap-10 w-full rounded-4 p-5"
+        [class.hightlightReview]="reviewId == review.id"
+      >
         <div class="avatar h-30 w-30 relative">
           <img
             class="w-full h-full rounded-15 object-cover"
