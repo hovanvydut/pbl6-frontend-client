@@ -6,7 +6,6 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatisticTypes } from '../consts/statistic.const';
@@ -18,6 +17,7 @@ import {
 import { StatisticService } from '../services/statistic.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { STATISTIC_TABS } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-statistic-revenue',
@@ -25,6 +25,9 @@ import { NotifyService } from '@app/shared/services/notify.service';
   styleUrls: ['./statistic-revenue.component.scss']
 })
 export class StatisticRevenueComponent implements OnInit {
+  tabs = STATISTIC_TABS;
+  selectedTab = this.tabs[0];
+
   StatisticTypes = StatisticTypes;
   ChartTypes = ChartTypes;
   range = new FormGroup({
@@ -156,10 +159,12 @@ export class StatisticRevenueComponent implements OnInit {
   }
 
   getStatisticDetail() {
+    this.isLoading = true;
+
     this.statisticService
       .getStatisticDetail(this.statisticDetailParams)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe(res => {
-        console.log(res);
         this.statisticDetailData = res.records;
         this.totalRecords = res.totalRecords;
         this.cdr.detectChanges();
@@ -167,8 +172,11 @@ export class StatisticRevenueComponent implements OnInit {
   }
 
   getStatisticTop() {
+    this.isLoading = true;
+
     this.statisticService
       .getStatisticTop(this.statisticDetailParams)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe(res => {
         this.detailValue = res.map(item => {
           return parseInt(item.statisticValue);
@@ -184,6 +192,18 @@ export class StatisticRevenueComponent implements OnInit {
     this.statisticDetailParams.pageSize = event.pageSize;
     this.statisticDetailParams.pageNumber = event.pageIndex + 1;
     this.getStatisticDetail();
+  }
+
+  onTabClick(tab: any) {
+    this.selectedTab = tab;
+    switch (this.selectedTab.id) {
+      case 'chart':
+        this.getStatisticDetail();
+        break;
+      case 'table':
+        this.getStatisticTop();
+        break;
+    }
   }
 
   //#region HelperHelper
