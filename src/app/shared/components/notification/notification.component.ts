@@ -189,13 +189,13 @@ export class NotificationComponent implements OnInit {
     let content = '';
     switch (notification.code) {
       case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
-        content = ` <b class="text-12 font-bold">  ${notification?.originUserName} </b> đặt phòng <b> ${notification?.postTitle} </b>`;
+        content = ` <b class="text-12 font-bold">  ${notification?.originUserName} </b> hẹn xem trọ <b> ${notification?.postTitle} </b>`;
         break;
       case NotificationCode.REVIEW__HAS_REVIEW_ON_POST:
         content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đánh giá: ${notification.reviewContent} về bài viết <b> ${notification?.postTitle}</b>`;
         break;
       case NotificationCode.BOOKING__HOST_CONFIRM_MET:
-        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã xác nhận đã gặp nhau với bạn`;
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã xác nhận bạn đã đến xem trọ <b> ${notification?.postTitle}</b>`;
         break;
       case NotificationCode.BOOKING__HOST_APPROVE_MEETING:
         content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã chấp nhận lịch hẹn của bạn`;

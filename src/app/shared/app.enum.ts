@@ -73,9 +73,9 @@ export enum NotificationCode {
 
 export enum NotificationContent {
   REVIEW__HAS_REVIEW_ON_POST = 'Bạn có một đánh giá mới',
-  BOOKING__HAS_BOOKING_ON_POST = 'Bạn có một đơn đặt phòng mới',
-  BOOKING__HOST_CONFIRM_MET = 'Chủ nhà đã xác nhận đã gặp bạn',
-  BOOKING__HOST_APPROVE_MEETING = 'Chủ nhà đã xác nhận lịch hẹn',
+  BOOKING__HAS_BOOKING_ON_POST = 'Bạn có một lịch hẹn xem trọ mới',
+  BOOKING__HOST_CONFIRM_MET = 'Chủ nhà đã xác nhận bạn đến xem trọ',
+  BOOKING__HOST_APPROVE_MEETING = 'Chủ nhà đã xác nhận lịch hẹn xem trọ',
 }
 
 export enum NotificationTypeIcon {
