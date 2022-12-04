@@ -93,13 +93,17 @@ export class NotificationComponent implements OnInit {
               BookingTime: string;
             };
           }
+
+          const time = new Date(item.createdAt);
+          time.setHours(time.getHours() + 7);
+
           const notification = new NotificationBaseModel({
             id: item.id,
             userId: item.userId,
             content: item.content,
             hasRead: item.hasRead,
             code: item.code,
-            createdAt: item.createdAt,
+            createdAt: time,
             postId: extraData.PostId,
             reviewId: extraData.ReviewId,
             reviewContent: extraData.ReviewContent,

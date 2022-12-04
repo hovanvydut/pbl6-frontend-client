@@ -97,7 +97,7 @@
             </span>
           </div>
           <span class="text-12 text-gray-500 whitespace-pre-line">
-            {{ notification?.createdAt | fromNow }}
+            {{ notification?.createdAt | date: 'dd/MM/yyyy HH:mm' }} - {{ notification?.createdAt | fromNow }} 
           </span>
         </div>
 

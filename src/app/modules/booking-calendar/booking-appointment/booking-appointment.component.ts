@@ -7,7 +7,7 @@ import { BookingDetailComponent } from '../booking-detail/booking-detail.compone
 import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
 import { ActivatedRoute } from '@angular/router';
-import { BOOKING_TABS } from '../const/booking.const';
+import { BOOKING_TABS } from './../const/booking.const';
 import { BOOKING_TAB_TYPE } from '../enums/booking.enum';
 
 @Component({
