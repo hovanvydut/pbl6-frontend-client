@@ -31,7 +31,7 @@ export class NotificationComponent implements OnInit {
   ];
   selectedTab = this.tabs[0];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 0,
+    pageNumber: 1,
     pageSize: 10
   });
   totalNotifications: number;
@@ -42,7 +42,7 @@ export class NotificationComponent implements OnInit {
   NotificationCode = NotificationCode;
   notificationFilterParams: NotificationFilterParams = new NotificationFilterParams(
     {
-      pageNumber: 0,
+      pageNumber: 1,
       pageSize: 10,
       searchValue: '',
       today: true
