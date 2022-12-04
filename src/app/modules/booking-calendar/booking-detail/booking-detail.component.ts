@@ -14,7 +14,8 @@ export class BookingDetailComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      infoDetail: any;
+      bookingId: string;
+      infoDetail?: any;
       isViewMyBooking: boolean;
     },
     private dialog: MatDialog,
@@ -24,11 +25,35 @@ export class BookingDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.data.infoDetail.approveTime) {
+    if (this.data.bookingId) {
+      this.bookingService
+        .getDetailBooking(this.data.bookingId)
+        .subscribe(res => {
+          this.data.infoDetail = res;
+          if (res?.time) {
+            this.data.infoDetail.time = this.datePipe.transform(
+              this.data.infoDetail?.time,
+              'dd/MM/yyyy HH:mm'
+            );
+          }
+
+          this.generateMessage();
+        });
+    } else {
+      this.generateMessage();
+    }
+  }
+
+  generateMessage() {
+    if (this.data.infoDetail?.approveTime) {
       if (this.data.isViewMyBooking) {
-        this.message = `Bạn được xác nhận đã đến xem trọ vào lúc: ${ new Date(this.data.infoDetail.approveTime).toLocaleString() }`;
+        this.message = `Bạn được xác nhận đã đến xem trọ vào lúc: ${new Date(
+          this.data.infoDetail?.approveTime
+        ).toLocaleString()}`;
       } else {
-        this.message = `Bạn đã xác nhận đã gặp khách vào lúc: ${ new Date(this.data.infoDetail.approveTime).toLocaleString() }`;
+        this.message = `Bạn đã xác nhận đã gặp khách vào lúc: ${new Date(
+          this.data.infoDetail?.approveTime
+        ).toLocaleString()}`;
       }
     } else {
       if (this.data.isViewMyBooking) {
@@ -40,7 +65,7 @@ export class BookingDetailComponent implements OnInit {
   }
 
   handleSave() {
-    if (!this.data.infoDetail.approveTime) {
+    if (!this.data.infoDetail?.approveTime) {
       this.approveBooking();
     } else {
       this.confirmMeeting();
@@ -49,7 +74,7 @@ export class BookingDetailComponent implements OnInit {
 
   approveBooking() {
     this.bookingService
-      .approveBooking(this.data.infoDetail.id)
+      .approveBooking(this.data.infoDetail?.id)
       .subscribe(res => {
         this.notifyService.notify('Chấp nhận lịch hẹn xem trọ thành công!');
         this.dialog.closeAll();
@@ -58,7 +83,7 @@ export class BookingDetailComponent implements OnInit {
 
   confirmMeeting() {
     this.bookingService
-      .confirmMeeting(this.data.infoDetail.id)
+      .confirmMeeting(this.data.infoDetail?.id)
       .subscribe(res => {
         this.notifyService.notify('Xác nhận đã gặp khách thành công!');
         this.dialog.closeAll();
