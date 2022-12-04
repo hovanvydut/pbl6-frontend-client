@@ -33,6 +33,7 @@ export class BookingAppointmentComponent implements OnInit {
     const tab = this.route.snapshot.queryParamMap.get('selectedTab');
     if (tab) {
       this.selectedTab = tab;
+      
     }
 
     const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
@@ -42,14 +43,14 @@ export class BookingAppointmentComponent implements OnInit {
         maxHeight: '90vh',
         data: {
           bookingId: bookingId,
-          isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
+          isViewMyBooking: this.selectedTab === BOOKING_TAB_TYPE.MY_BOOKING ? true : false,
         }
       });
       dialogRef.afterClosed().subscribe(result => {
         this.handleGetBookings();
       });
     }
-    this.getBookings();
+    this.handleGetBookings();
   }
 
   getBookings() {
