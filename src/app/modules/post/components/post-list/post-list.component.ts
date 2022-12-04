@@ -10,7 +10,6 @@ import { fadeInOut } from '@app/shared/app.constants';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
   animations: [fadeInOut('fadeInOut', 0.2)]
-
 })
 export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';
@@ -45,7 +44,7 @@ export class PostListComponent implements OnInit {
     this.getPosts();
   }
 
-  getPosts() {
+  getPosts(isFromPaging: boolean = false) {
     this.isLoading = true;
     this.postService
       .getPosts(this.queryParams)
@@ -57,16 +56,27 @@ export class PostListComponent implements OnInit {
       .subscribe(res => {
         this.posts = res.records;
         this.totalPosts = res.totalRecords;
+
+        if (isFromPaging) {
+          let el = document.getElementById('post-list');
+          if (el) {
+            el.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        }
       });
   }
 
-  pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
+  pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex + 1;;
-    this.getPosts();
+    this.queryParams.pageNumber = event.pageIndex + 1;
+    this.getPosts(true);
   }
 
-  onClearFilterButtonClicked () {
-    this.filterService.setQueryParams(this.queryParams = new QueryParams());
+  onClearFilterButtonClicked() {
+    this.filterService.setQueryParams((this.queryParams = new QueryParams()));
   }
 }
