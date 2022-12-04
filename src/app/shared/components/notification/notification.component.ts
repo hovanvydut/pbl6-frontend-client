@@ -50,7 +50,6 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit() {
     this.notificationFilterParams.pageSize = this.pageSize;
-    this.getTotalNotification();
     this.getNotifications();
   }
 
@@ -68,6 +67,7 @@ export class NotificationComponent implements OnInit {
   }
 
   getNotifications() {
+    this.getTotalNotification();
     this.notificationService
       .getNotification(this.notificationFilterParams)
       .subscribe(res => {
@@ -119,6 +119,8 @@ export class NotificationComponent implements OnInit {
 
   maskReadAllNotitications() {
     this.notificationService.markReadAllNotifications().subscribe(res => {
+      this.getTotalNotification();
+
       this.notifications.map(item => {
         item.hasRead = true;
       });
@@ -127,6 +129,8 @@ export class NotificationComponent implements OnInit {
 
   markReadNotification(id: number) {
     this.notificationService.markReadNotification(id).subscribe(res => {
+      this.getTotalNotification();
+
       const notification = this.notifications.find(item => item.id === id);
       if (notification) {
         notification.hasRead = true;
