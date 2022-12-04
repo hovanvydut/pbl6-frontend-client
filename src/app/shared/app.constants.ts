@@ -1,5 +1,6 @@
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EventColor } from 'calendar-utils';
+import { TabItemModel } from './models/base.model';
 
 export const ALLOWED_PAGE_SIZES = [25, 50, 100];
 
@@ -53,7 +54,7 @@ export const BOOKING_COLORS: Record<string, EventColor> = {
     primary: '#7ba5c5',
     secondary: '#7ba5c5'
   },
-  new : {
+  new: {
     primary: '#FF9F9F',
     secondary: '#FF9F9F'
   },
@@ -64,8 +65,7 @@ export const BOOKING_COLORS: Record<string, EventColor> = {
   done: {
     primary: '#54B435',
     secondary: '#54B435'
-  },
-
+  }
 };
 
 export const DEFAULT_IMAGES = {
@@ -74,8 +74,8 @@ export const DEFAULT_IMAGES = {
   houseNoImage: 'assets/images/default/house_no_image.png',
   message: 'assets/images/default/message.png',
   thanks: 'assets/images/default/thanks.png',
-  login:  'assets/images/default/login.png',
-  medal: 'assets/images/default/medal_2.png',
+  login: 'assets/images/default/login.png',
+  medal: 'assets/images/default/medal_2.png'
 };
 
 export const TIME_SLOTS = [
@@ -129,7 +129,6 @@ export const WEEK_DAYS = [
   }
 ];
 
-
 export const NOTIFICATION_MESSAGE = {
   booking_success: 'Đặt lịch xem trọ thành công',
   booking: 'Đặt lịch xem trọ của bạn',
@@ -141,5 +140,16 @@ export const NOTIFICATION_MESSAGE = {
   booking_update: 'Đã cập nhật lịch xem trọ của bạn',
   booking_delete: 'Đã xóa lịch xem trọ của bạn',
   booking_delete_admin: 'Đã xóa lịch xem trọ của bạn',
-  review: 'Đã có đánh giá mới',
-}
+  review: 'Đã có đánh giá mới'
+};
+
+export const NOTIFICATION_TABS = [
+  new TabItemModel({
+    name: 'Hôm nay',
+    id: 'today'
+  }),
+  new TabItemModel({
+    name: 'Tất cả',
+    id: 'all'
+  })
+];

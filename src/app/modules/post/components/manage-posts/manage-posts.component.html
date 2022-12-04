@@ -118,12 +118,14 @@
         <td mat-cell *matCellDef="let element">
           <div class="flex gap-5">
             <app-svg-icon
+              *ngIf="this.selectedTab.id !== PostTab.Deleted"
               matTooltip="Chỉnh sửa bài viết"
               class="cursor-pointer"
               [name]="'edit_nowrap'"
               (click)="onEditPostButtonClicked(element.id)"
             ></app-svg-icon>
             <app-svg-icon
+              *ngIf="this.selectedTab.id !== PostTab.Deleted"
               matTooltip="Xoá bài viết"
               class="cursor-pointer"
               [name]="'delete'"
@@ -131,14 +133,20 @@
             ></app-svg-icon>
             <app-svg-icon
               class="cursor-pointer"
-              *ngIf="!element.isPriorityPost"
+              *ngIf="
+                !element.isPriorityPost &&
+                this.selectedTab.id !== PostTab.Deleted
+              "
               matTooltip="Đẩy bài viết lên tin nổi bật"
               [name]="'up'"
               (click)="onUptopPostButtonClicked(element.id)"
             ></app-svg-icon>
             <app-svg-icon
               class="cursor-pointer mt-2"
-              *ngIf="element.isPriorityPost"
+              *ngIf="
+                element.isPriorityPost &&
+                this.selectedTab.id !== PostTab.Deleted
+              "
               matTooltip="Xem thời hạn tin nổi bật"
               [name]="'watch'"
               (click)="onViewTopTimeButtonClicked(element.id)"
@@ -156,7 +164,7 @@
     (page)="pageChangeEvent($event)"
     [length]="totalPosts"
     [pageSize]="queryParams.pageSize"
-    [pageIndex]="queryParams.pageNumber -1"
+    [pageIndex]="queryParams.pageNumber - 1"
     [pageSizeOptions]="[10, 20, 50]"
     showFirstLastButtons
   >

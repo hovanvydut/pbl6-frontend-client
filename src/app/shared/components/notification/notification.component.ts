@@ -6,9 +6,9 @@ import {
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
-import { TabItemModel } from '@app/shared/models/base.model';
 import { NotificationService } from '@app/shared/services/notification.service';
 import { Router } from '@angular/router';
+import { NOTIFICATION_TABS } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-notification',
@@ -19,16 +19,7 @@ export class NotificationComponent implements OnInit {
   @Input() isTabVisible: boolean = true;
   @Input() showNavigate: boolean = false;
   notifications = [];
-  tabs = [
-    new TabItemModel({
-      name: 'Hôm nay',
-      id: 'today'
-    }),
-    new TabItemModel({
-      name: 'Tất cả',
-      id: 'all'
-    })
-  ];
+  tabs = NOTIFICATION_TABS;
   selectedTab = this.tabs[0];
   queryParams: QueryParams = new QueryParams({
     pageNumber: 1,

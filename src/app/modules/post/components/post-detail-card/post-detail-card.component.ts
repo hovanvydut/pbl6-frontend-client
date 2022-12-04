@@ -45,7 +45,8 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
     private bookmarkService: BookmarkService,
     private notifyService: NotifyService,
     private commonService: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -137,5 +138,11 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
         }
       });
     }
+  }
+
+  onEditPostButtonClicked(id: string) {
+    this.router.navigate([ENDPOINTS.LANDLOR_MANAGE_POSTS], {
+      queryParams: { postId: id }
+    });
   }
 }

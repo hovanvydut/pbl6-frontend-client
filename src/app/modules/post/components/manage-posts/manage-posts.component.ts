@@ -2,7 +2,6 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 //
 import { PostDetailFormComponent } from '../post-detail-form/post-detail-form.component';
-import { PostTableComponent } from '@app/modules/post/components/post-table/post-table.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmDialogComponent } from '@app/shared/components/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +10,9 @@ import { QueryParams, PostBaseModel } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { PostUptopComponent } from '../post-uptop/post-uptop.component';
 import { PostDetailUptopComponent } from '../post-detail-uptop/post-detail-uptop.component';
-import { ItemModel } from '@app/shared/models/base.model';
+import { ActivatedRoute } from '@angular/router';
+import { POST_TABS } from '../../consts/post.const';
+import { PostTab } from '../../enums/post.enum';
 
 @Component({
   selector: 'app-manage-posts',
@@ -38,20 +39,8 @@ export class ManagePostsComponent implements OnInit {
     pageNumber: 1,
     pageSize: 10
   });
-  tabs = [
-    new ItemModel({
-      name: 'Tất cả bài đăng',
-      id: 'all'
-    }),
-    new ItemModel({
-      name: 'Bài đăng uptop',
-      id: 'uptop'
-    }),
-    // new ItemModel({
-    //   name: 'Bài đăng đã xoá',
-    //   id: 'deleted'
-    // })
-  ];
+  tabs = POST_TABS;
+  PostTab = PostTab;
   selectedTab = this.tabs[0];
 
   dataSource: MatTableDataSource<PostBaseModel> = new MatTableDataSource();
@@ -60,8 +49,21 @@ export class ManagePostsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { hasUpdate: boolean },
     public dialog: MatDialog,
     private postService: PostService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.getPosts();
+    const postId = this.route.snapshot.queryParamMap.get('postId');
+    if (postId) {
+      this.handleEditPost(postId);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   onAddNewPostButtonClicked() {
     let dialogRef = this.dialog.open(this.postDetailFormComponent, {
@@ -86,14 +88,6 @@ export class ManagePostsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getPosts();
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   getPosts() {
     this.postService.getPersonalPosts(this.queryParams).subscribe(
       data => {
@@ -108,7 +102,7 @@ export class ManagePostsComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex + 1;;
+    this.queryParams.pageNumber = event.pageIndex + 1;
     this.getPosts();
   }
 
@@ -175,18 +169,17 @@ export class ManagePostsComponent implements OnInit {
 
   onTabClick(link: any) {
     this.selectedTab = link;
-    // this.queryParams.categoryId = link.id as string;
-    switch( this.selectedTab.id ) {
-      case 'all':
+    switch (this.selectedTab.id) {
+      case PostTab.All:
         delete this.queryParams.priority;
-        delete this.queryParams.includeDeletedPost;
+        delete this.queryParams.deleted;
         break;
-      case 'uptop':
+      case PostTab.Uptop:
         this.queryParams.priority = true;
-        delete this.queryParams.includeDeletedPost;
+        delete this.queryParams.deleted;
         break;
-      case 'deleted':
-        this.queryParams.includeDeletedPost = true;
+      case PostTab.Deleted:
+        this.queryParams.deleted = true;
         delete this.queryParams.priority;
         break;
       default:
