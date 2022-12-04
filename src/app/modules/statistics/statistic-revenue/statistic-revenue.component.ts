@@ -52,7 +52,7 @@ export class StatisticRevenueComponent implements OnInit {
       date: new Date().toISOString(),
       includeDeleted: false,
       pageNumber: 1,
-      pageSize: 10,
+      pageSize: 20,
       searchValue: '',
       top: 5
     }
