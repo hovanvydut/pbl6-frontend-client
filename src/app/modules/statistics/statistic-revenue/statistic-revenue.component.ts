@@ -74,6 +74,7 @@ export class StatisticRevenueComponent implements OnInit {
   displayedColumns: string[] = ['title', 'value'];
 
   isLoading = false;
+  isLoadDetail = false;
   isViewDetail = false;
 
   constructor(
@@ -151,7 +152,6 @@ export class StatisticRevenueComponent implements OnInit {
         this.statisticData[dataPointIndex].statisticDate
       );
       this.isViewDetail = true;
-      this.cdr.detectChanges();
 
       this.getStatisticDetail();
       this.getStatisticTop();
@@ -159,11 +159,11 @@ export class StatisticRevenueComponent implements OnInit {
   }
 
   getStatisticDetail() {
-    this.isLoading = true;
+    this.isLoadDetail = true;
 
     this.statisticService
       .getStatisticDetail(this.statisticDetailParams)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => (this.isLoadDetail = false)))
       .subscribe(res => {
         this.statisticDetailData = res.records;
         this.totalRecords = res.totalRecords;
@@ -172,11 +172,11 @@ export class StatisticRevenueComponent implements OnInit {
   }
 
   getStatisticTop() {
-    this.isLoading = true;
+    this.isLoadDetail = true;
 
     this.statisticService
       .getStatisticTop(this.statisticDetailParams)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => (this.isLoadDetail = false)))
       .subscribe(res => {
         this.detailValue = res.map(item => {
           return parseInt(item.statisticValue);

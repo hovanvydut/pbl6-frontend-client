@@ -57,6 +57,7 @@
         Thống kê chung
       </b>
       <app-bar-chart
+        *ngIf="!isLoading"
         [value]="value"
         [label]="label"
         [yaxisName]="selectedType.yaxis"
@@ -149,7 +150,7 @@
               </div>
             </div>
         
-            <div *ngIf="selectedTab.id === 'chart' && !isLoading">
+            <div *ngIf="selectedTab.id === 'chart' && !isLoadDetail">
               <div class="flex justify-center h-full items-center">
                 <app-pie-chart
                   *ngIf="
