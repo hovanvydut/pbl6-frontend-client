@@ -91,7 +91,7 @@
           Click on the bar chart to view details
         </p>
         <ng-container *ngIf="isViewDetail">
-          <div>
+          <div class="h-full">
             <nav
                 mat-tab-nav-bar
                 [tabPanel]="tabPanel"
@@ -109,8 +109,8 @@
               </nav>
             <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
         
-            <div *ngIf="selectedTab.id === 'table'">
-              <div class="p-10">
+            <div *ngIf="selectedTab.id === 'table'" class="table-container">
+              <div class="p-10 h-full">
                 <div
                   *ngIf="totalRecords > 0"
                   class="table-wrapper rounded-12 shadow-md"
@@ -121,7 +121,7 @@
                         Tên bài viết
                       </th>
                       <td mat-cell *matCellDef="let element" class="">
-                        <p class="mx-15 line-clamp-2 pr-20 py-10">
+                        <p class="mx-15 line-clamp-2 pr-20">
                           {{ element.title }}
                         </p>
                       </td>
