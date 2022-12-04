@@ -18,23 +18,21 @@ import { NOTIFICATION_TABS } from '@app/shared/app.constants';
 export class NotificationComponent implements OnInit {
   @Input() isTabVisible: boolean = true;
   @Input() showNavigate: boolean = false;
-  notifications = [];
-  tabs = NOTIFICATION_TABS;
-  selectedTab = this.tabs[0];
-  queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
-    pageSize: 10
-  });
-  totalNotifications: number;
+  @Input() pageSize: number = 5;
+  
   ENDPOINTS = ENDPOINTS;
   NotificationContent = NotificationContent;
   NotificationTypeIcon = NotificationTypeIcon;
   NotificationTypeColor = NotificationTypeColor;
   NotificationCode = NotificationCode;
+  tabs = NOTIFICATION_TABS;
+  selectedTab = this.tabs[0];
+  notifications = [];
+  totalNotifications: number;
   notificationFilterParams: NotificationFilterParams = new NotificationFilterParams(
     {
       pageNumber: 1,
-      pageSize: 10,
+      pageSize: 5,
       searchValue: '',
       today: true
     }
@@ -46,6 +44,7 @@ export class NotificationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.notificationFilterParams.pageSize = this.pageSize;
     this.getTotalNotification();
     this.getNotifications();
   }
@@ -57,10 +56,17 @@ export class NotificationComponent implements OnInit {
     });
   }
 
+  loadMore() {
+    this.pageSize = this.pageSize + 5;
+    this.notificationFilterParams.pageSize = this.pageSize;
+    this.getNotifications();
+  }
+
   getNotifications() {
     this.notificationService
       .getNotification(this.notificationFilterParams)
       .subscribe(res => {
+        this.totalNotifications = res.totalRecords;
         this.notifications = res.records.map(item => {
           let extraData: {
             PostId: number;
@@ -112,7 +118,6 @@ export class NotificationComponent implements OnInit {
         item.hasRead = true;
       });
     });
-    // this.getNotifications();
   }
 
   markReadNotification(id: number) {
@@ -122,7 +127,6 @@ export class NotificationComponent implements OnInit {
         notification.hasRead = true;
       }
     });
-    // this.getNotifications();
   }
 
   onTabClick(tab: any) {

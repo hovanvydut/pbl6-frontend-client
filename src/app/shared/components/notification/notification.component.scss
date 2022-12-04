@@ -11,3 +11,10 @@
     }
   }
 }
+
+::ng-deep .reload-icon {
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}

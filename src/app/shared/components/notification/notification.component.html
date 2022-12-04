@@ -1,7 +1,7 @@
-<div class="w-full">
+<div class="w-full pb-10">
   <div class="flex justify-between gap-10">
-    <div class="text-18">
-      Thông báo
+    <div class="text-18 flex gap-10">
+      <span> Thông báo</span>
     </div>
 
     <button
@@ -15,22 +15,29 @@
   <span class="text-12 text-gray-500">
     Bạn có <b> {{ this.tabs[0].total }} </b> thông báo chưa đọc hôm nay
   </span>
-  <ng-container *ngIf="isTabVisible">
-    <nav
-      mat-tab-nav-bar
-      [tabPanel]="tabPanel"
-      class="notification-nav-container"
-    >
-      <a
-        mat-tab-link
-        *ngFor="let tab of tabs"
-        (click)="onTabClick(tab)"
-        [active]="selectedTab === tab"
-        class="gap-10"
+  <ng-container>
+    <div class="flex items-center justify-between">
+      <nav
+        *ngIf="isTabVisible"
+        mat-tab-nav-bar
+        [tabPanel]="tabPanel"
+        class="notification-nav-container"
       >
-        {{ tab.name }}
-      </a>
-    </nav>
+        <a
+          mat-tab-link
+          *ngFor="let tab of tabs"
+          (click)="onTabClick(tab)"
+          [active]="selectedTab === tab"
+          class="gap-10"
+        >
+          {{ tab.name }}
+        </a>
+      </nav>
+      <button (click)="getNotifications()" matTooltip="Tải lại thông báo">
+        <app-svg-icon class="reload-icon" [name]="'reload'"> </app-svg-icon>
+      </button>
+    </div>
+
     <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
   </ng-container>
 
@@ -58,7 +65,7 @@
         ></app-svg-icon>
       </div>
       <div
-        class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer notification-item hover:bg-blue-100 relative"
+        class="flex gap-10 w-full border-b border-gray-100 mb-10 p-6 rounded-12 cursor-pointer notification-item hover:bg-blue-100 relative"
         [class.bg-blue-50]="!notification.hasRead"
         [class.border-blue-100]="!notification.hasRead"
       >
@@ -83,7 +90,11 @@
               {{ NotificationContent[notification.code] }}
             </span>
             <br />
-            <span class="text-12 whitespace-pre-line" [innerHTML]="notification?.content"> </span>
+            <span
+              class="text-12 whitespace-pre-line"
+              [innerHTML]="notification?.content"
+            >
+            </span>
           </div>
           <span class="text-12 text-gray-500 whitespace-pre-line">
             {{ notification?.createdAt | fromNow }}
@@ -99,6 +110,18 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <div
+    *ngIf="notifications.length < totalNotifications"
+    class="flex justify-center"
+  >
+    <button
+      class="flex gap-5 text-12 text-white items-center px-10 py-5 bg-blue-700 cursor-pointer rounded-6"
+      (click)="loadMore()"
+    >
+      Xem thêm
+    </button>
   </div>
 
   <ng-container *ngIf="showNavigate">
