@@ -1,4 +1,4 @@
-import { NotificationContent, NotificationCode } from './../../app.enum';
+import { NotificationContent, NotificationCode, NotificationTypeIcon, NotificationTypeColor } from './../../app.enum';
 import {
   NotificationBaseModel,
   NotificationFilterParams
@@ -6,9 +6,9 @@ import {
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { QueryParams } from '@app/modules/post/models/post.model';
-import { TabItemModel } from '@app/shared/models/base.model';
 import { NotificationService } from '@app/shared/services/notification.service';
 import { Router } from '@angular/router';
+import { NOTIFICATION_TABS } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-notification',
@@ -16,30 +16,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-  @Input() isTabVisible: boolean = false;
+  @Input() isTabVisible: boolean = true;
+  @Input() showNavigate: boolean = false;
   notifications = [];
-  tabs = [
-    new TabItemModel({
-      name: 'Hôm nay',
-      id: 'today'
-    }),
-    new TabItemModel({
-      name: 'Tất cả',
-      id: 'all'
-    })
-  ];
+  tabs = NOTIFICATION_TABS;
   selectedTab = this.tabs[0];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 0,
+    pageNumber: 1,
     pageSize: 10
   });
   totalNotifications: number;
   ENDPOINTS = ENDPOINTS;
   NotificationContent = NotificationContent;
+  NotificationTypeIcon = NotificationTypeIcon;
+  NotificationTypeColor = NotificationTypeColor;
   NotificationCode = NotificationCode;
   notificationFilterParams: NotificationFilterParams = new NotificationFilterParams(
     {
-      pageNumber: 0,
+      pageNumber: 1,
       pageSize: 10,
       searchValue: '',
       today: true
@@ -106,6 +100,7 @@ export class NotificationComponent implements OnInit {
             postTitle: extraData.PostTitle,
             bookingTime: new Date(extraData.BookingTime)
           });
+          notification.content = this.generateNotificationContent(notification);
           return notification;
         });
       });
@@ -117,6 +112,17 @@ export class NotificationComponent implements OnInit {
         item.hasRead = true;
       });
     });
+    // this.getNotifications();
+  }
+
+  markReadNotification(id: number) {
+    this.notificationService.markReadNotification(id).subscribe(res => {
+      const notification = this.notifications.find(item => item.id === id);
+      if (notification) {
+        notification.hasRead = true;
+      }
+    });
+    // this.getNotifications();
   }
 
   onTabClick(tab: any) {
@@ -151,5 +157,26 @@ export class NotificationComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  generateNotificationContent(notification: NotificationBaseModel) {
+    let content = '';
+    switch (notification.code) {
+      case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
+        content = ` <b class="text-12 font-bold">  ${notification?.originUserName} </b> đặt phòng <b> ${notification?.postTitle} </b>`;
+        break;
+      case NotificationCode.REVIEW__HAS_REVIEW_ON_POST:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đánh giá: ${notification.reviewContent} về bài viết <b> ${notification?.postTitle}</b>`;
+        break;
+      case NotificationCode.BOOKING__HOST_CONFIRM_MET:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã xác nhận đã gặp nhau với bạn`;
+        break;
+      case NotificationCode.BOOKING__HOST_APPROVE_MEETING:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã chấp nhận lịch hẹn của bạn`;
+        break;
+      default:
+        break;
+    }
+    return content;
   }
 }

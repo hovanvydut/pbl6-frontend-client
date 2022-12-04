@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit {
   @Input() type: 'small' | 'large' = 'small';
   posts: PostBaseModel[] = [];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 0,
+    pageNumber: 1,
     pageSize: 12
   });
   totalPosts: number = 0;
@@ -62,7 +62,7 @@ export class PostListComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number, pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex
+    this.queryParams.pageNumber = event.pageIndex + 1;;
     this.getPosts();
   }
 

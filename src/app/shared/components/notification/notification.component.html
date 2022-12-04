@@ -1,105 +1,112 @@
-<div class="flex justify-between gap-10">
-  <div class="text-18">
-    Thông báo
-  </div>
-
-  <div
-    class="flex gap-5 text-12 text-blue-500 items-center pl-10"
-    (click)="maskReadAllNotitications()"
-  >
-    <app-svg-icon [name]="'check'"></app-svg-icon>
-    <span class="cursor-pointer">Đánh dấu đã đọc</span>
-  </div>
-</div>
-<span class="text-10 text-gray-500">
-  Bạn có <b> {{ this.tabs[0].total }}</b> thông báo hôm nay
-</span>
-<ng-container *ngIf="isTabVisible">
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="notification-nav-container">
-    <a
-      mat-tab-link
-      *ngFor="let tab of tabs"
-      (click)="onTabClick(tab)"
-      [active]="selectedTab === tab"
-      class="gap-10"
-    >
-      {{ tab.name }}
-      <span
-        class="bg-blue-400 text-12 px-5 py-1 mx-2 rounded-6 text-blue-800 font-bold"
-      >
-        {{ tab.total }}
-      </span>
-    </a>
-  </nav>
-  <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
-</ng-container>
-
-<div class="mt-10">
-  <div
-    *ngIf="notifications?.length === 0"
-    class="flex justify-center items-center flex-col"
-  >
-    <app-svg-icon [name]="'notification'"></app-svg-icon>
-    <div class="text-center text-12 text-gray-500">
-      Không có thông báo nào
+<div class="w-full">
+  <div class="flex justify-between gap-10">
+    <div class="text-18">
+      Thông báo
     </div>
-  </div>
-  <div *ngFor="let notification of notifications">
-    <div
-      class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer"
-      [class.bg-blue-50]="!notification.hasRead"
-      (click)="onNotificationClick(notification)"
+
+    <button
+      class="flex gap-5 text-12 text-blue-500 items-center pl-10"
+      (click)="maskReadAllNotitications()"
     >
-      <div class="avatar h-30 w-30 relative">
-        <img
-          class="w-full h-full rounded-15 object-cover mt-5"
-          [src]="notification.originUserAvatar || 'assets/images/default/default_avatar.png'"
-        />
+      <app-svg-icon [name]="'double_check'"></app-svg-icon>
+      <span class="cursor-pointer">Đánh dấu đọc tất cả</span>
+    </button>
+  </div>
+  <span class="text-12 text-gray-500">
+    Bạn có <b> {{ this.tabs[0].total }} </b> thông báo chưa đọc hôm nay
+  </span>
+  <ng-container *ngIf="isTabVisible">
+    <nav
+      mat-tab-nav-bar
+      [tabPanel]="tabPanel"
+      class="notification-nav-container"
+    >
+      <a
+        mat-tab-link
+        *ngFor="let tab of tabs"
+        (click)="onTabClick(tab)"
+        [active]="selectedTab === tab"
+        class="gap-10"
+      >
+        {{ tab.name }}
+      </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
+  </ng-container>
+
+  <div class="mt-10">
+    <div
+      *ngIf="notifications?.length === 0"
+      class="flex justify-center items-center flex-col"
+    >
+      <app-svg-icon [name]="'notification'"></app-svg-icon>
+      <div class="text-center text-12 text-gray-500">
+        Không có thông báo nào
       </div>
-      <div class="flex flex-col justify-center flex-grow">
-        <div class="info">
-          <span class="text-12">
-            {{ NotificationContent[notification.code] }}
-          </span>
-          <br />
-          <span
-            *ngIf="
-              notification.code === NotificationCode.REVIEW__HAS_REVIEW_ON_POST
+    </div>
+    <div
+      *ngFor="let notification of notifications"
+      class="flex gap-5 items-start"
+    >
+      <div
+        class="rounded-20 p-4 notification-icon"
+        [class]="NotificationTypeColor[notification.code]"
+      >
+        <app-svg-icon
+          [name]="NotificationTypeIcon[notification.code]"
+          class="text-white"
+        ></app-svg-icon>
+      </div>
+      <div
+        class="flex gap-10 w-full border-b border-gray-100 mb-10 p-10 rounded-12 cursor-pointer notification-item hover:bg-blue-100 relative"
+        [class.bg-blue-50]="!notification.hasRead"
+        [class.border-blue-100]="!notification.hasRead"
+      >
+        <div
+          (click)="onNotificationClick(notification)"
+          class="avatar h-30 w-30 relative"
+        >
+          <img
+            class="w-full h-full rounded-15 object-cover mt-5"
+            [src]="
+              notification.originUserAvatar ||
+              'assets/images/default/default_avatar.png'
             "
-            class="text-12"
-          >
-            <b class="text-12 font-bold">
-              {{ notification?.originUserName }}
-            </b>
-            đánh giá: {{ notification.reviewContent }} về bài viết
-            <b> {{ notification?.postTitle }} </b>
-          </span>
-          <span
-            *ngIf="
-              notification.code ===
-              NotificationCode.BOOKING__HAS_BOOKING_ON_POST
-            "
-            class="text-12"
-          >
-            <b class="text-12 font-bold">
-              {{ notification?.originUserName }}
-            </b>
-            đặt phòng <b> {{ notification?.postTitle }} </b>
+          />
+        </div>
+        <div
+          (click)="onNotificationClick(notification)"
+          class="flex flex-col justify-center items-start w-full"
+        >
+          <div class="info">
+            <span class="text-12 whitespace-pre-line">
+              {{ NotificationContent[notification.code] }}
+            </span>
+            <br />
+            <span class="text-12 whitespace-pre-line" [innerHTML]="notification?.content"> </span>
+          </div>
+          <span class="text-12 text-gray-500 whitespace-pre-line">
+            {{ notification?.createdAt | fromNow }}
           </span>
         </div>
-        <span class="text-12 text-gray-500">
-          {{ notification?.createdAt | fromNow }}
-        </span>
+
+        <button
+          *ngIf="!notification.hasRead"
+          class=" text-blue-800 bg-white p-4 rounded-4 h-36 shadow-sm absolute top-0 right-0 m-10"
+          (click)="markReadNotification(notification.id)"
+        >
+          <app-svg-icon [name]="'double_check'"></app-svg-icon>
+        </button>
       </div>
     </div>
   </div>
-</div>
 
-<ng-container *ngIf="!isTabVisible">
-  <a
-    [routerLink]="ENDPOINTS.NOTIFICATIONS"
-    class="cursor-pointer text-10 text-blue-700 float-right"
-  >
-    Xem tất cả
-  </a>
-</ng-container>
+  <ng-container *ngIf="showNavigate">
+    <a
+      [routerLink]="ENDPOINTS.NOTIFICATIONS"
+      class="cursor-pointer text-12 text-blue-700 float-right mb-5"
+    >
+      Xem tất cả
+    </a>
+  </ng-container>
+</div>

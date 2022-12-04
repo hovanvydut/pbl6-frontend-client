@@ -17,6 +17,7 @@ export class NotificationBaseModel {
   originUserId: string;
   originUserEmail: string;
   originUserAvatar: string;
+  message: string;
 
   constructor(init?: Partial<NotificationBaseModel>) {
     Object.assign(this, init);
