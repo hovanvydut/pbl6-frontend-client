@@ -1,4 +1,4 @@
-import { NotificationContent, NotificationCode } from './../../app.enum';
+import { NotificationContent, NotificationCode, NotificationTypeIcon, NotificationTypeColor } from './../../app.enum';
 import {
   NotificationBaseModel,
   NotificationFilterParams
@@ -16,7 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-  @Input() isTabVisible: boolean = false;
+  @Input() isTabVisible: boolean = true;
+  @Input() showNavigate: boolean = false;
   notifications = [];
   tabs = [
     new TabItemModel({
@@ -36,6 +37,8 @@ export class NotificationComponent implements OnInit {
   totalNotifications: number;
   ENDPOINTS = ENDPOINTS;
   NotificationContent = NotificationContent;
+  NotificationTypeIcon = NotificationTypeIcon;
+  NotificationTypeColor = NotificationTypeColor;
   NotificationCode = NotificationCode;
   notificationFilterParams: NotificationFilterParams = new NotificationFilterParams(
     {
@@ -106,6 +109,7 @@ export class NotificationComponent implements OnInit {
             postTitle: extraData.PostTitle,
             bookingTime: new Date(extraData.BookingTime)
           });
+          notification.content = this.generateNotificationContent(notification);
           return notification;
         });
       });
@@ -117,6 +121,17 @@ export class NotificationComponent implements OnInit {
         item.hasRead = true;
       });
     });
+    // this.getNotifications();
+  }
+
+  markReadNotification(id: number) {
+    this.notificationService.markReadNotification(id).subscribe(res => {
+      const notification = this.notifications.find(item => item.id === id);
+      if (notification) {
+        notification.hasRead = true;
+      }
+    });
+    // this.getNotifications();
   }
 
   onTabClick(tab: any) {
@@ -151,5 +166,26 @@ export class NotificationComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  generateNotificationContent(notification: NotificationBaseModel) {
+    let content = '';
+    switch (notification.code) {
+      case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
+        content = ` <b class="text-12 font-bold">  ${notification?.originUserName} </b> đặt phòng <b> ${notification?.postTitle} </b>`;
+        break;
+      case NotificationCode.REVIEW__HAS_REVIEW_ON_POST:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đánh giá: ${notification.reviewContent} về bài viết <b> ${notification?.postTitle}</b>`;
+        break;
+      case NotificationCode.BOOKING__HOST_CONFIRM_MET:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã xác nhận đã gặp nhau với bạn`;
+        break;
+      case NotificationCode.BOOKING__HOST_APPROVE_MEETING:
+        content = `<b class="text-12 font-bold"> ${notification?.originUserName} </b> đã chấp nhận lịch hẹn của bạn`;
+        break;
+      default:
+        break;
+    }
+    return content;
   }
 }

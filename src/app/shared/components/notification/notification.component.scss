@@ -2,3 +2,12 @@
 .mat-tab-header {
   border-bottom: none !important;
 }
+
+.notification-icon {
+  ::ng-deep app-svg-icon {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

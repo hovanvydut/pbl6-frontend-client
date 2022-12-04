@@ -27,7 +27,7 @@ export class NotificationService {
     return this.baseService.put('notification/mark-all-read', null);
   }
 
-  markReadNotifition(id: number): Observable<any> {
+  markReadNotification(id: number): Observable<any> {
     return this.baseService.put(`notification/has-read/${id}`, null);
   }
 
