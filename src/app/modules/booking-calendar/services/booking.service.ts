@@ -26,6 +26,10 @@ export class BookingService {
     return this.baseService.get<any>('booking/booked-by-user');
   }
 
+  getDetailBooking(bookingId: string) {
+    return this.baseService.get<any>(`booking/booked-by-user/${bookingId}`);
+  }
+
   createBooking(data:any) {
     return this.baseService.post<any>('booking', data);
   }

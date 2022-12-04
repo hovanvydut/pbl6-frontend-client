@@ -153,3 +153,15 @@ export const NOTIFICATION_TABS = [
     id: 'all'
   })
 ];
+
+
+export const STATISTIC_TABS = [
+  new TabItemModel({
+    name: 'Bảng số liệu',
+    id: 'table'
+  }),
+  new TabItemModel({
+    name: 'Biểu đồ',
+    id: 'chart'
+  }),
+]

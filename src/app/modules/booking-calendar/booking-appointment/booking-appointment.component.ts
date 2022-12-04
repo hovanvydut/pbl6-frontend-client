@@ -39,17 +39,17 @@ export class BookingAppointmentComponent implements OnInit {
   ngOnInit(): void {
     const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
     if( bookingId ) {
-      // let dialogRef = this.dialog.open(BookingDetailComponent, {
-      //   maxWidth: '99vw',
-      //   maxHeight: '90vh',
-      //   data: {
-      //     infoDetail: {},
-      //     isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
-      //   }
-      // });
-      // dialogRef.afterClosed().subscribe(result => {
-      //   this.handleGetBookings();
-      // });
+      let dialogRef = this.dialog.open(BookingDetailComponent, {
+        maxWidth: '99vw',
+        maxHeight: '90vh',
+        data: {
+          bookingId: bookingId,
+          isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.handleGetBookings();
+      });
     }
     this.getBookings();
   }
