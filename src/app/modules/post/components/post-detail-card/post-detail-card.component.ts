@@ -67,6 +67,7 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
           block: 'start',
           inline: 'nearest'
         });
+        this.isScrollDone = true;
       }
     }
   }
