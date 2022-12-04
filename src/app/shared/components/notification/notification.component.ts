@@ -1,14 +1,19 @@
-import { NotificationContent, NotificationCode, NotificationTypeIcon, NotificationTypeColor } from './../../app.enum';
+import {
+  NotificationContent,
+  NotificationCode,
+  NotificationTypeIcon,
+  NotificationTypeColor
+} from './../../app.enum';
 import {
   NotificationBaseModel,
   NotificationFilterParams
 } from './../../models/notification.model';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { QueryParams } from '@app/modules/post/models/post.model';
 import { NotificationService } from '@app/shared/services/notification.service';
 import { Router } from '@angular/router';
 import { NOTIFICATION_TABS } from '@app/shared/app.constants';
+import { BOOKING_TAB_TYPE } from '@app/modules/booking-calendar/enums/booking.enum';
 
 @Component({
   selector: 'app-notification',
@@ -19,7 +24,7 @@ export class NotificationComponent implements OnInit {
   @Input() isTabVisible: boolean = true;
   @Input() showNavigate: boolean = false;
   @Input() pageSize: number = 5;
-  
+
   ENDPOINTS = ENDPOINTS;
   NotificationContent = NotificationContent;
   NotificationTypeIcon = NotificationTypeIcon;
@@ -146,9 +151,21 @@ export class NotificationComponent implements OnInit {
 
   onNotificationClick(notification: NotificationBaseModel) {
     switch (notification.code) {
+      case NotificationCode.BOOKING__HOST_CONFIRM_MET:
+      case NotificationCode.BOOKING__HOST_APPROVE_MEETING:
+        this.router.navigate([ENDPOINTS.USER_BOOKING_CALENDAR], {
+          queryParams: {
+            bookingId: notification.bookingId,
+            selectedTab: BOOKING_TAB_TYPE.MY_BOOKING
+          }
+        });
+        break;
       case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
         this.router.navigate([ENDPOINTS.USER_BOOKING_CALENDAR], {
-          queryParams: { bookingId: notification.bookingId }
+          queryParams: {
+            bookingId: notification.bookingId,
+            selectedTab: BOOKING_TAB_TYPE.BOOKING
+          }
         });
         break;
 
@@ -158,6 +175,7 @@ export class NotificationComponent implements OnInit {
           queryParams: { reviewId: notification.reviewId }
         });
         break;
+
       default:
         break;
     }

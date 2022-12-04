@@ -7,6 +7,8 @@ import { BookingDetailComponent } from '../booking-detail/booking-detail.compone
 import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
 import { ActivatedRoute } from '@angular/router';
+import { BOOKING_TABS } from '../const/booking.const';
+import { BOOKING_TAB_TYPE } from '../enums/booking.enum';
 
 @Component({
   selector: 'app-booking-appointment',
@@ -18,16 +20,7 @@ export class BookingAppointmentComponent implements OnInit {
   appointments: any[] = [];
   events: CalendarEvent[] = [];
 
-  tabs = [
-    new ItemModel({
-      name: 'Lịch hẹn xem trọ',
-      id: 'booking'
-    }),
-    new ItemModel({
-      name: 'Lịch hẹn của tôi',
-      id: 'my-booking'
-    }),
-  ];
+  tabs = BOOKING_TABS;
   selectedTab = this.tabs[0].id;
 
   constructor(
@@ -37,6 +30,11 @@ export class BookingAppointmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const tab = this.route.snapshot.queryParamMap.get('selectedTab');
+    if (tab) {
+      this.selectedTab = tab;
+    }
+
     const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
     if( bookingId ) {
       let dialogRef = this.dialog.open(BookingDetailComponent, {
@@ -198,7 +196,7 @@ export class BookingAppointmentComponent implements OnInit {
   }
 
   handleGetBookings() {
-    if( this.selectedTab === 'booking' ) {
+    if( this.selectedTab === BOOKING_TAB_TYPE.BOOKING ) {
       this.getBookings();
     } else {
       this.getMyBookings();
