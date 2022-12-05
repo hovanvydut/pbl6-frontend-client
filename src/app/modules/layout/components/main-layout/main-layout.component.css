@@ -1,8 +1,8 @@
 .notification-container {
-    width: 350px;
-    height: 500px;
+    width: 450px;
+    height: 550px;
     overflow-y: scroll;
-
+    overflow-x: hidden;
 }
 
 ::ng-deep .menu-item.mat-menu-item {
