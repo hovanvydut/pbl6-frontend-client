@@ -1,3 +1,7 @@
+# 2.0.0
+- update UI 
+- feature: push `Notification`
+
 # 1.3.0
 - feat: new feature `Notification`;
 - feat: update feature `Booking`;
