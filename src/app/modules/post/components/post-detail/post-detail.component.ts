@@ -15,7 +15,7 @@ export class PostDetailComponent implements OnInit {
   DEFAULT_IMAGES = DEFAULT_IMAGES;
   relatedPosts: PostBaseModel[] = [];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10
   })
   postId: string;

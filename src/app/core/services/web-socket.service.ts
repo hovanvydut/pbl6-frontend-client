@@ -30,18 +30,18 @@ export class WebSocketService {
       this.notificationService = injector.get(NotificationService);
     });
 
-    // setInterval(() => {
-    //   console.log('new nôtification');
-    //   this.notificationEmitter.next(new NotificationModel({
-    //     id: '1',
-    //     content: 'đặt lịch xem trọ của bạn',
-    //     data: {
-    //         authorInfo: {
-    //             displayName: 'Nguyễn Văn A',
-    //         }
-    //     }
-    //   }));
-    // }, 10000);
+    setInterval(() => {
+      console.log('new nôtification');
+      this.notificationEmitter.next(new NotificationModel({
+        id: '1',
+        content: 'đặt lịch xem trọ của bạn',
+        data: {
+            authorInfo: {
+                displayName: 'Nguyễn Văn A',
+            }
+        }
+      }));
+    }, 10000);
 
     this.connect();
 

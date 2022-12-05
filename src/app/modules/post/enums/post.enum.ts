@@ -15,11 +15,5 @@ export enum FieldType {
 
 export enum PostActionType {
   create_post = 'Tạo bài viết',
-  uptop_post = 'Đẩy tin ưu tiên',
-}
-
-export enum PostTab {
-  All = 'all',
-  Uptop = 'uptop',
-  Deleted = 'deleted'
+  uptop_post = 'Đẩy tin nổi bật'
 }

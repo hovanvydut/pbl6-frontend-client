@@ -61,33 +61,3 @@ export enum InputType {
   Url = 'url',
   Tel = 'tel',
 }
-
-
-export enum NotificationCode {
-  REVIEW__HAS_REVIEW_ON_POST = 'REVIEW__HAS_REVIEW_ON_POST',
-  BOOKING__HAS_BOOKING_ON_POST = 'BOOKING__HAS_BOOKING_ON_POST',
-  BOOKING__HOST_CONFIRM_MET = 'BOOKING__HOST_CONFIRM_MET',
-  BOOKING__HOST_APPROVE_MEETING = 'BOOKING__HOST_APPROVE_MEETING',
-}
-
-
-export enum NotificationContent {
-  REVIEW__HAS_REVIEW_ON_POST = 'Bạn có một đánh giá mới',
-  BOOKING__HAS_BOOKING_ON_POST = 'Bạn có một lịch hẹn xem trọ mới',
-  BOOKING__HOST_CONFIRM_MET = 'Chủ nhà đã xác nhận bạn đến xem trọ',
-  BOOKING__HOST_APPROVE_MEETING = 'Chủ nhà đã xác nhận lịch hẹn xem trọ',
-}
-
-export enum NotificationTypeIcon {
-  REVIEW__HAS_REVIEW_ON_POST = 'star_fill',
-  BOOKING__HAS_BOOKING_ON_POST = 'calendar_waiting',
-  BOOKING__HOST_CONFIRM_MET = 'met',
-  BOOKING__HOST_APPROVE_MEETING = 'calendar_approve',
-}
-
-export enum NotificationTypeColor {
-  REVIEW__HAS_REVIEW_ON_POST = 'bg-yellow-200',
-  BOOKING__HAS_BOOKING_ON_POST = 'bg-red-300',
-  BOOKING__HOST_CONFIRM_MET = 'bg-green-300',
-  BOOKING__HOST_APPROVE_MEETING = 'bg-blue-400',
-}

@@ -63,7 +63,7 @@ export class Review {
 
 
 export class QueryParams {
-  pageNumber: number = 1;
+  pageNumber: number = 0;
   pageSize: number = 12;
 
   minPrice?: number;
@@ -77,7 +77,6 @@ export class QueryParams {
   toDate?: string;
   priority?: boolean;
   includeDeletedPost?: boolean;
-  deleted?: boolean;
 
   properties: string[] = [];
 

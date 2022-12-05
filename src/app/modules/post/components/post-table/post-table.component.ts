@@ -46,7 +46,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
   totalPosts: number = 0;
 
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10
   });
 
@@ -80,7 +80,7 @@ export class PostTableComponent implements OnInit, AfterViewInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.queryParams.pageSize = event.pageSize;
-    this.queryParams.pageNumber = event.pageIndex + 1;
+    this.queryParams.pageNumber = event.pageIndex
     this.getPosts();
   }
 

@@ -72,7 +72,6 @@ export class PieChartComponent implements OnInit {
     if (this.value && this.label) {
       this.chartOptions.series = this.value;
       this.chartOptions.labels = this.label;
-      this.cdr.detectChanges();
     }
   }
 }

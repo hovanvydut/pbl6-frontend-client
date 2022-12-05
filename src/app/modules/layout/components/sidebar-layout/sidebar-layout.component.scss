@@ -5,12 +5,7 @@
   overflow: hidden;
 }
 
-.left_panel {
-  width: 250px;
-}
-
 .right_panel {
-  width: calc(100vw - 250px);
   overflow-y: scroll ;
   overflow-x: hidden;
 }

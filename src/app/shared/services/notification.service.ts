@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
-import { NotificationBaseModel, NotificationFilterParams, NotificationModel } from '../models/notification.model';
+import { NotificationBaseModel, NotificationModel } from '../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +9,29 @@ import { NotificationBaseModel, NotificationFilterParams, NotificationModel } fr
 export class NotificationService {
   constructor(private baseService: BaseService) {}
 
-  getNotification(params: NotificationFilterParams): Observable<any> {
-    const queryString =
-    '?' +
-    Object.keys(params)
-      .map(key => {
-        if (params[key] !== null) {
-          return `${key.charAt(0).toUpperCase() + key.slice(1)}=${encodeURIComponent(params[key])}`;
-        }
-        return '';
-      })
-      .join('&');
-    return this.baseService.get(`notification${queryString}`);
-  }
+  getNotification(): Observable<any> {
+    let data: NotificationModel[] = [];
 
-  markReadAllNotifications(): Observable<any> {
-    return this.baseService.put('notification/mark-all-read', null);
-  }
-
-  markReadNotification(id: number): Observable<any> {
-    return this.baseService.put(`notification/has-read/${id}`, null);
-  }
-
-  getTotalNotification(): Observable<any> {
-    return this.baseService.get('notification/unread/count');
+    // generate data of notification
+    for (let i = 0; i < 10; i++) {
+      data.push(
+        new NotificationModel({
+          id: i.toString(),
+          userId: i.toString(),
+          content: 'đặt lịch xem trọ của bạn',
+          code: 'code',
+          hasRead: i > 5 ? true : false,
+          data: {
+            authorInfo: {
+              id: i.toString(),
+              displayName: 'Nguyễn Văn A',
+            }
+          },
+          createdAt: new Date()
+        })
+      );
+    }
+    return of(data);
+    // return this.baseService.get('notification');
   }
 }
