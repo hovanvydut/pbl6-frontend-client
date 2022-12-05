@@ -29,24 +29,9 @@ export class WebSocketService {
     setTimeout(() => {
       this.notificationService = injector.get(NotificationService);
     });
-
-    // setInterval(() => {
-    //   console.log('new nôtification');
-    //   this.notificationEmitter.next(new NotificationModel({
-    //     id: '1',
-    //     content: 'đặt lịch xem trọ của bạn',
-    //     data: {
-    //         authorInfo: {
-    //             displayName: 'Nguyễn Văn A',
-    //         }
-    //     }
-    //   }));
-    // }, 10000);
-
+    
     this.connect();
-
-    //
-
+    
     // Auto restart WebSocket until it's connected
     setInterval(() => {
       if (!this.baseService.currentUser || !this.baseService.isLoggedIn) {
