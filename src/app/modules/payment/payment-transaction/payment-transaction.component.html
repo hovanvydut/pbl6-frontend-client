@@ -126,7 +126,7 @@
     (page)="pageChangeEvent($event)"
     [length]="totalPaymentTransactions"
     [pageSize]="queryParams.pageSize"
-    [pageIndex]="queryParams.pageNumber"
+    [pageIndex]="queryParams.pageNumber -1"
     [hidePageSize]="true"
     showFirstLastButtons
   >

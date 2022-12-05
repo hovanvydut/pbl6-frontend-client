@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../../shared/services/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
 import { WebSocketService } from '@app/core/services/web-socket.service';
@@ -26,13 +27,23 @@ export class MainLayoutComponent implements OnInit {
   constructor(
     private baseService: BaseService,
     private webSocketService: WebSocketService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private notificationService: NotificationService
   ) {
     this.accountInfo = this.baseService.currentUser;
   }
 
   ngOnInit() {
     this._subscribeNotificationBroadCastEvent();
+    this.getTotalNotification();
+  }
+
+  getTotalNotification() {
+    this.notificationService.getTotalNotification().subscribe(
+      (res) => {
+        this.hasNewNotification = res.allTime > 0;
+      },
+    );
   }
 
   toggleNotification() {

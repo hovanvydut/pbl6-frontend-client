@@ -10,4 +10,13 @@
     }
   }
 
+  .hightlightReview {
+    transition: all 0.3s linear;
+    animation: mymove 8s;
+  }
+}
+
+@keyframes mymove {
+  from {background-color: rgb(197, 214, 251);}
+  to {background-color: #fff;}
 }

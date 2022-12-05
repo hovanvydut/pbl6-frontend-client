@@ -6,6 +6,9 @@ import { CalendarEvent } from 'angular-calendar';
 import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
 import { BookingService } from '../services/booking.service';
 import { MyAvailableCalendarComponent } from './../my-available-calendar/my-available-calendar.component';
+import { ActivatedRoute } from '@angular/router';
+import { BOOKING_TABS } from './../const/booking.const';
+import { BOOKING_TAB_TYPE } from '../enums/booking.enum';
 
 @Component({
   selector: 'app-booking-appointment',
@@ -17,25 +20,37 @@ export class BookingAppointmentComponent implements OnInit {
   appointments: any[] = [];
   events: CalendarEvent[] = [];
 
-  tabs = [
-    new ItemModel({
-      name: 'Lịch hẹn xem trọ',
-      id: 'booking'
-    }),
-    new ItemModel({
-      name: 'Lịch hẹn của tôi',
-      id: 'my-booking'
-    }),
-  ];
+  tabs = BOOKING_TABS;
   selectedTab = this.tabs[0].id;
 
   constructor(
     private dialog: MatDialog,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getBookings();
+    const tab = this.route.snapshot.queryParamMap.get('selectedTab');
+    if (tab) {
+      this.selectedTab = tab;
+      
+    }
+
+    const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
+    if( bookingId ) {
+      let dialogRef = this.dialog.open(BookingDetailComponent, {
+        maxWidth: '99vw',
+        maxHeight: '90vh',
+        data: {
+          bookingId: bookingId,
+          isViewMyBooking: this.selectedTab === BOOKING_TAB_TYPE.MY_BOOKING ? true : false,
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.handleGetBookings();
+      });
+    }
+    this.handleGetBookings();
   }
 
   getBookings() {
@@ -182,7 +197,7 @@ export class BookingAppointmentComponent implements OnInit {
   }
 
   handleGetBookings() {
-    if( this.selectedTab === 'booking' ) {
+    if( this.selectedTab === BOOKING_TAB_TYPE.BOOKING ) {
       this.getBookings();
     } else {
       this.getMyBookings();
