@@ -14,7 +14,7 @@ export class FilterService {
     minPrice: 0,
     properties: [],
     searchValue: '',
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 12
   })
 

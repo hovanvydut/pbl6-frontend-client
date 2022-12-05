@@ -1,4 +1,3 @@
-import { finalize } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -8,7 +7,6 @@ import {
   StatisticParamsModel
 } from '../models/statistic.model';
 import { StatisticService } from '../services/statistic.service';
-import { STATISTIC_TABS } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-statistic-detail',
@@ -16,23 +14,20 @@ import { STATISTIC_TABS } from '@app/shared/app.constants';
   styleUrls: ['./statistic-detail.component.scss']
 })
 export class StatisticDetailComponent implements OnInit {
-  tabs = STATISTIC_TABS;
   statisticParams: StatisticDetailParamsModel = new StatisticDetailParamsModel({
     key: StatisticKey.ViewPostDetail,
     date: new Date().toISOString(),
     includeDeleted: false,
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10,
     searchValue: '',
     top: 5
   });
-  selectedTab = this.tabs[0];
   statisticDetailData: any;
   totalRecords: number;
   displayedColumns: string[] = ['title', 'value'];
   value: number[];
   label: string[];
-  isLoading: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -55,22 +50,18 @@ export class StatisticDetailComponent implements OnInit {
   ngOnInit(): void {}
 
   getStatisticDetail() {
-    this.isLoading = true;
     this.statisticService
       .getStatisticDetail(this.statisticParams)
-      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe(res => {
+        console.log(res);
         this.statisticDetailData = res.records;
         this.totalRecords = res.totalRecords;
       });
   }
 
   getStatisticTop() {
-    this.isLoading = true;
-
     this.statisticService
       .getStatisticTop(this.statisticParams)
-      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe(res => {
         this.value = res.map(item => {
           return parseInt(item.statisticValue);
@@ -89,20 +80,7 @@ export class StatisticDetailComponent implements OnInit {
 
   pageChangeEvent(event: { pageIndex: number; pageSize: number }) {
     this.statisticParams.pageSize = event.pageSize;
-    this.statisticParams.pageNumber = event.pageIndex + 1;
+    this.statisticParams.pageNumber = event.pageIndex
     this.getStatisticDetail();
-  }
-
-  
-  onTabClick(tab: any) {
-    this.selectedTab = tab;
-    switch (this.selectedTab.id) {
-      case 'chart':
-        this.getStatisticDetail();
-        break;
-      case 'table':
-        this.getStatisticTop();
-        break;
-    }
   }
 }

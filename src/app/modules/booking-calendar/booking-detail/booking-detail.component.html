@@ -1,9 +1,9 @@
 <app-dialog-template
   [title]="'Chi tiết lịch hẹn'"
   [saveButton]="
-    !this.data.infoDetail?.approveTime ? 'Xác nhận lịch hẹn' : 'Xác nhận đã gặp'
+    !this.data.infoDetail.approveTime ? 'Xác nhận lịch hẹn' : 'Xác nhận đã gặp'
   "
-  [showSaveButton]="!this.data.infoDetail?.met && !this.data.isViewMyBooking"
+  [showSaveButton]="!this.data.infoDetail.met && !this.data.isViewMyBooking"
   [cancelButton]="'Đóng'"
   (onSave)="handleSave()"
 >
@@ -43,4 +43,5 @@
       </p>
     </div>
   </div>
+  <p class="text-gray text-12">Ghi chú: {{ message }}</p>
 </app-dialog-template>

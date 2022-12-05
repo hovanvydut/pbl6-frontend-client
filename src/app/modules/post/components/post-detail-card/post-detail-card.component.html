@@ -9,16 +9,7 @@
       <app-svg-icon [name]="'home'"></app-svg-icon>
       <span> {{ post.category?.name }} </span>
     </div>
-    <ng-container *ngIf="isMyPost">
-      <div>
-        <app-svg-icon
-          matTooltip="Chỉnh sửa bài viết"
-          class="cursor-pointer"
-          [name]="'edit_nowrap'"
-          (click)="onEditPostButtonClicked(post.id)"
-        ></app-svg-icon>
-      </div>
-    </ng-container>
+
     <ng-container *ngIf="!isMyPost">
       <div>
         <app-svg-icon
@@ -159,11 +150,7 @@
       </div>
     </mat-card-title>
 
-    <div
-      id="review-region"
-      *ngIf="reviews?.length > 0"
-      class="flex flex-col gap-10"
-    >
+    <div *ngIf="reviews?.length > 0" class="flex flex-col gap-10">
       <span class="text-24 font-bold text-blue-800">
         {{ post.averageRating | number: "1.0-1" }}/4</span
       >
@@ -181,11 +168,7 @@
     </div>
 
     <div *ngFor="let review of reviews; index as index" class="w-full">
-      <div
-        [id]="review.id"
-        class="flex gap-10 w-full rounded-4 p-5"
-        [class.hightlightReview]="reviewId == review.id"
-      >
+      <div class="flex gap-10 w-full">
         <div class="avatar h-30 w-30 relative">
           <img
             class="w-full h-full rounded-15 object-cover"

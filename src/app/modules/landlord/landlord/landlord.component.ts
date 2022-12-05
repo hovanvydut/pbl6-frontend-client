@@ -26,7 +26,7 @@ export class LandlordComponent implements OnInit {
     })
   ];
   queryParams: QueryParams = new QueryParams({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 10,
     categoryId: null
   });
