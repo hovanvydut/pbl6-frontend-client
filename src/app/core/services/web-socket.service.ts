@@ -29,7 +29,7 @@ export class WebSocketService {
     setTimeout(() => {
       this.notificationService = injector.get(NotificationService);
     });
-
+    
     this.connect();
     
     // Auto restart WebSocket until it's connected
