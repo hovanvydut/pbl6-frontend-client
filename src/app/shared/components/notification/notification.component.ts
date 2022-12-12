@@ -14,6 +14,7 @@ import { NotificationService } from '@app/shared/services/notification.service';
 import { Router } from '@angular/router';
 import { NOTIFICATION_TABS } from '@app/shared/app.constants';
 import { BOOKING_TAB_TYPE } from '@app/modules/booking-calendar/enums/booking.enum';
+import { BaseService } from '@app/core/services/base.service';
 
 @Component({
   selector: 'app-notification',
@@ -45,12 +46,15 @@ export class NotificationComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private baseService: BaseService
   ) {}
 
   ngOnInit() {
     this.notificationFilterParams.pageSize = this.pageSize;
-    this.getNotifications();
+    if (this.baseService.isLoggedIn) {
+      this.getNotifications();
+    }
   }
 
   getTotalNotification() {
@@ -165,7 +169,7 @@ export class NotificationComponent implements OnInit {
           queryParams: {
             bookingId: notification.bookingId,
             selectedTab: BOOKING_TAB_TYPE.MY_BOOKING
-          }
+          },
         });
         break;
       case NotificationCode.BOOKING__HAS_BOOKING_ON_POST:
@@ -173,14 +177,14 @@ export class NotificationComponent implements OnInit {
           queryParams: {
             bookingId: notification.bookingId,
             selectedTab: BOOKING_TAB_TYPE.BOOKING
-          }
+          },
         });
         break;
 
       case NotificationCode.REVIEW__HAS_REVIEW_ON_POST:
         const url = ENDPOINTS.POST_DETAIL + '/' + notification.postId;
         this.router.navigate([url], {
-          queryParams: { reviewId: notification.reviewId }
+          queryParams: { reviewId: notification.reviewId },
         });
         break;
 

@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._subscribeNotificationBroadCastEvent();
+    // this._subscribeNotificationBroadCastEvent();
   }
 
   private _subscribeNotificationBroadCastEvent() {

@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PageComponent } from './page.component';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SidebarLayoutComponent } from '@app/modules/layout/components/sidebar-layout/sidebar-layout.component';
-import { PostModule } from '@app/modules/post/post.module';
-import { ProfileModule } from '@app/modules/profile/profile.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { ManagePostsComponent } from '@app/modules/post/components/manage-posts/manage-posts.component';
 export const routes: Routes = [
   {
     path: '',
@@ -14,12 +11,9 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () =>
-        import('@app/modules/dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'posts',
-        loadChildren: () =>
-          import('@app/modules/post/post.module').then(m => m.PostModule)
+          import('@app/modules/dashboard/dashboard.module').then(
+            m => m.DashboardModule
+          )
       },
       {
         path: 'statistics',
@@ -41,6 +35,10 @@ export const routes: Routes = [
           import('@app/modules/booking-calendar/booking-calendar.module').then(
             m => m.BookingCalendarModule
           )
+      },
+      {
+        path: 'manage-posts',
+        component: ManagePostsComponent
       }
     ]
   }
@@ -48,12 +46,7 @@ export const routes: Routes = [
 
 const COMPONENTS = [PageComponent];
 
-const MODULES = [
-  RouterModule.forChild(routes),
-  SharedModule,
-  PostModule,
-  ProfileModule
-];
+const MODULES = [RouterModule.forChild(routes)];
 
 @NgModule({
   declarations: [...COMPONENTS],

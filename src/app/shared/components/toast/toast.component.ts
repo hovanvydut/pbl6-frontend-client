@@ -26,7 +26,7 @@ import { NotifyService } from '@app/shared/services/notify.service';
   ]
 })
 export class ToastComponent {
-  toastMessage = 'This is a toast'; // This is the string the template is already bound to
+  toastMessage = ''; // This is the string the template is already bound to
   showsToast = false; // This is what toggles the component to show or hide
   toastClass = ['toast-class'];
 

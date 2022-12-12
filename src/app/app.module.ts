@@ -12,14 +12,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './modules/layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserTracing } from '@sentry/tracing';
-//// Add these two
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
-
-// Export this function
-export function playerFactory(): any {  
-  return import('lottie-web');
-}
 
 Sentry.init({
   dsn:
@@ -44,8 +36,6 @@ const MODULES = [
   LayoutModule,
   HttpClientModule,
   SharedModule,
-  // Add the module like so:    
-  LottieModule.forRoot({ player: playerFactory }),  
 ];
 @NgModule({
   declarations: [AppComponent],
@@ -54,7 +44,7 @@ const MODULES = [
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
-        showDialog: true
+        showDialog: false
       })
     },
     {

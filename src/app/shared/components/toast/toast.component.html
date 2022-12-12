@@ -15,6 +15,7 @@
 </div> -->
 
 <div
+  *ngIf="(toast.toastMessage$ | async) !== ''"
   [@toastTrigger]="(toast.showsToast$ | async) ? 'open' : 'close'"
   [class]="toast.toastState$ | async"
   class="toast-container p-4 bg-white border rounded-md shadow-sm shadow-blue-600 gap-10 items-center"

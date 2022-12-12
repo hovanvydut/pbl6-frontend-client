@@ -20,7 +20,7 @@ export class NotifyService {
 
   // The message string that'll bind and display on the toast  ﻿.
   public toastMessage$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    'Default Toast Message'
+    ''
   );
 
   // The state that will add a style class to the component  ﻿.

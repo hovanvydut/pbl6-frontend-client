@@ -32,24 +32,24 @@ export class WebSocketService {
     
     this.connect();
     
-    // Auto restart WebSocket until it's connected
-    setInterval(() => {
-      if (!this.baseService.currentUser || !this.baseService.isLoggedIn) {
-        return;
-      }
+    // // Auto restart WebSocket until it's connected
+    // setInterval(() => {
+    //   if (!this.baseService.currentUser || !this.baseService.isLoggedIn) {
+    //     return;
+    //   }
 
-      if (
-        this.webSocketClient &&
-        this.webSocketClient.readyState !== WebSocket.CLOSED
-      ) {
-        return;
-      }
+    //   if (
+    //     this.webSocketClient &&
+    //     this.webSocketClient.readyState !== WebSocket.CLOSED
+    //   ) {
+    //     return;
+    //   }
 
-      console.log('WebSocket Connecting...');
-      this.connectionDisconnectedSubject.next(false);
+    //   console.log('WebSocket Connecting...');
+    //   this.connectionDisconnectedSubject.next(false);
 
-      this.connect();
-    }, RECONNECT_SIGNAL_INTERVAL);
+    //   this.connect();
+    // }, RECONNECT_SIGNAL_INTERVAL);
   }
 
   private _connectionId: string;
