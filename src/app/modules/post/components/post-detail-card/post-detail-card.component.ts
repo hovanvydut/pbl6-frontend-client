@@ -32,6 +32,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { ReviewIcons } from '../../consts/review.const';
 
 
 @Component({
@@ -51,31 +52,7 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   reviewId: string;
   isScrollDone: boolean = false;
 
-  reviewIcons = [
-    {
-      id: 'POS',
-      icon: 'smile_plus',
-      image: '/assets/star.png',
-      text: 'Bình luận này mang tính chất tích cực'
-    },
-    {
-      id: 'NEU',
-      icon: 'smile',
-      image: '/assets/smile.png',
-      text: 'Bình luận này bình thường'
-    },
-    {
-      id: 'NEG',
-      icon: 'frown',
-      image: '/assets/sad.png',
-      text: 'Bình luận này mang tính chất tiêu cực'
-    },
-    {
-      id: null,
-      icon: 'question',
-      text: 'Chưa có đánh giá'
-    }
-  ];
+  reviewIcons = ReviewIcons
 
   constructor(
     private dialog: MatDialog,
