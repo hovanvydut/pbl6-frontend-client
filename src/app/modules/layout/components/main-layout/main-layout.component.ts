@@ -42,7 +42,7 @@ export class MainLayoutComponent implements OnInit {
 
   getTotalNotification() {
     this.notificationService.getTotalNotification().subscribe(res => {
-      this.hasNewNotification = res.allTime > 0;
+      this.hasNewNotification = res?.allTime > 0;
     });
   }
 

@@ -57,6 +57,7 @@ export class ManagePostsComponent implements OnInit {
     this.getPosts();
     const postId = this.route.snapshot.queryParamMap.get('postId');
     if (postId) {
+      this.dialog.closeAll();
       this.handleEditPost(postId);
     }
   }

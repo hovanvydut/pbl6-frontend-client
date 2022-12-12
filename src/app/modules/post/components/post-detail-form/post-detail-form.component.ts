@@ -18,11 +18,13 @@ import { FormControlBaseModel } from '@app/shared/models/form.model';
 import { PostService } from '@app/modules/post/services/post.service';
 import { CommonService } from '@app/core/services/common.service';
 import { NotifyService } from '@app/shared/services/notify.service';
+import { fadeInOut } from '@app/shared/app.constants';
 
 @Component({
   selector: 'app-post-detail-form',
   templateUrl: './post-detail-form.component.html',
-  styleUrls: ['./post-detail-form.component.scss']
+  styleUrls: ['./post-detail-form.component.scss'],
+  animations: [fadeInOut('fadeInOut', 0.2)]
 })
 export class PostDetailFormComponent implements OnInit {
   post: PostRequestModel = new PostRequestModel();
@@ -42,6 +44,8 @@ export class PostDetailFormComponent implements OnInit {
   districts: ItemModel[] = [];
   wards: ItemModel[] = [];
   streets: ItemModel[] = [];
+
+  isLoading = false;
 
   formControl: FormControlBaseModel[] = [
     {
@@ -257,10 +261,18 @@ export class PostDetailFormComponent implements OnInit {
   }
 
   getEditPostInfo(postId: string) {
-    this.postService.getPostById(postId).subscribe(res => {
-      this.postDetail = res;
-      this.convertPostToFormControl();
-    });
+    this.isLoading = true;
+    this.postService
+      .getPostById(postId)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(res => {
+        this.postDetail = res;
+        this.convertPostToFormControl();
+      });
   }
 
   handleFormFieldIndex() {
@@ -541,5 +553,9 @@ export class PostDetailFormComponent implements OnInit {
     let valFiltered = valArr.filter(x => !isNaN(x));
     let valProcessed = valFiltered.join('');
     return valProcessed;
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

@@ -47,12 +47,8 @@ export const routes: Routes = [
       {
         path: 'detail/:postId',
         component: PostDetailComponent
-      }
+      }, 
     ]
-  },
-  {
-    path: 'manage-posts',
-    component: ManagePostsComponent
   },
 ];
 

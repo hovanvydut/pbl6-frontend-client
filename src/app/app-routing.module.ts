@@ -27,7 +27,6 @@ const routes: Routes = [
       import('@app/modules/post/post.module').then(m => m.PostModule),
     data: { preload: false }
   },
-
   {
     path: 'admin',
     loadChildren: () =>
