@@ -1,17 +1,13 @@
-import { ViewportScroller } from '@angular/common';
-import { outputAst } from '@angular/compiler';
 import {
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  AfterViewInit,
-  AfterContentInit,
   AfterViewChecked
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BaseService } from '@app/core/services/base.service';
 import { CommonService } from '@app/core/services/common.service';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -24,16 +20,7 @@ import { PostBookingComponent } from '../post-booking/post-booking.component';
 import { PostReviewComponent } from '../post-review/post-review.component';
 import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
 //
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
 import { ReviewIcons } from '../../consts/review.const';
-
 
 @Component({
   selector: 'app-post-detail-card',
@@ -52,7 +39,7 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   reviewId: string;
   isScrollDone: boolean = false;
 
-  reviewIcons = ReviewIcons
+  reviewIcons = ReviewIcons;
 
   constructor(
     private dialog: MatDialog,
@@ -63,7 +50,14 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
     private commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.reviewId = this.route.snapshot.queryParamMap.get('reviewId');
+        this.isScrollDone = false;
+      }
+    });
+  }
 
   ngOnInit() {
     this.getReviews();

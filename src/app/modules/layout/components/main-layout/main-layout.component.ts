@@ -34,16 +34,16 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._subscribeNotificationBroadCastEvent();
-    this.getTotalNotification();
+    // this._subscribeNotificationBroadCastEvent();
+    if (this.baseService.isLoggedIn) {
+      this.getTotalNotification();
+    }
   }
 
   getTotalNotification() {
-    this.notificationService.getTotalNotification().subscribe(
-      (res) => {
-        this.hasNewNotification = res.allTime > 0;
-      },
-    );
+    this.notificationService.getTotalNotification().subscribe(res => {
+      this.hasNewNotification = res.allTime > 0;
+    });
   }
 
   toggleNotification() {
