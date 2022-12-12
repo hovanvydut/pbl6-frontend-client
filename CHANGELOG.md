@@ -1,3 +1,8 @@
+# 2.1.0
+- update UI 
+- feature: analysic sentiment  
+- add sentry
+- 
 # 2.0.0
 - update UI 
 - feature: push `Notification`
