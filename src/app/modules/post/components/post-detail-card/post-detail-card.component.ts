@@ -23,11 +23,25 @@ import { ReviewService } from '../../services/review.service';
 import { PostBookingComponent } from '../post-booking/post-booking.component';
 import { PostReviewComponent } from '../post-review/post-review.component';
 import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
+//
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
+import { ReviewIcons } from '../../consts/review.const';
+
 
 @Component({
   selector: 'app-post-detail-card',
   templateUrl: './post-detail-card.component.html',
-  styleUrls: ['./post-detail-card.component.scss']
+  styleUrls: ['./post-detail-card.component.scss'],
+  animations: [
+    // animation triggers go here
+  ]
 })
 export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   @Input() post: PostBaseModel;
@@ -38,6 +52,8 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   reviewId: string;
   isScrollDone: boolean = false;
 
+  reviewIcons = ReviewIcons
+
   constructor(
     private dialog: MatDialog,
     private reviewSerice: ReviewService,
@@ -46,7 +62,7 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
     private notifyService: NotifyService,
     private commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -75,6 +91,12 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   getReviews() {
     this.reviewSerice.getReviews(this.post.id).subscribe(res => {
       this.reviews = res.records;
+      // map sentiment of review to icon name
+      this.reviews.forEach((review: any) => {
+        review.sentimentIcon = this.reviewIcons.find(
+          icon => icon.id === review.sentiment
+        );
+      });
     });
   }
 

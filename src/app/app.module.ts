@@ -1,14 +1,41 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import * as Sentry from '@sentry/angular';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 //
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './modules/layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-//
+import { BrowserTracing } from '@sentry/tracing';
+//// Add these two
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+// Export this function
+export function playerFactory(): any {  
+  return import('lottie-web');
+}
+
+Sentry.init({
+  dsn:
+    'https://461b0138b96346eeb16efb5e5b0ba31a@o4504311019077632.ingest.sentry.io/4504311297867776',
+  integrations: [
+    new BrowserTracing({
+      tracePropagationTargets: ['localhost', 'https://yourserver.io/api'],
+      routingInstrumentation: Sentry.routingInstrumentation
+    })
+  ],
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0
+});
+
 
 const MODULES = [
   BrowserModule,
@@ -16,17 +43,37 @@ const MODULES = [
   BrowserAnimationsModule,
   LayoutModule,
   HttpClientModule,
-  SharedModule
-]
+  SharedModule,
+  // Add the module like so:    
+  LottieModule.forRoot({ player: playerFactory }),  
+];
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-   ...MODULES
-  ],
+  declarations: [AppComponent],
+  imports: [...MODULES],
   providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true
+      })
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+enableProdMode();
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .then(success => {})
+  .catch(err => {});
