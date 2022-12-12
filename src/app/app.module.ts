@@ -12,7 +12,14 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './modules/layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserTracing } from '@sentry/tracing';
-//
+//// Add these two
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+// Export this function
+export function playerFactory(): any {  
+  return import('lottie-web');
+}
 
 Sentry.init({
   dsn:
@@ -29,13 +36,16 @@ Sentry.init({
   tracesSampleRate: 1.0
 });
 
+
 const MODULES = [
   BrowserModule,
   AppRoutingModule,
   BrowserAnimationsModule,
   LayoutModule,
   HttpClientModule,
-  SharedModule
+  SharedModule,
+  // Add the module like so:    
+  LottieModule.forRoot({ player: playerFactory }),  
 ];
 @NgModule({
   declarations: [AppComponent],
@@ -65,5 +75,5 @@ export class AppModule {}
 enableProdMode();
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  .then(success => console.log('Bootstrap success'))
-  .catch(err => console.error(err));
+  .then(success => {})
+  .catch(err => {});

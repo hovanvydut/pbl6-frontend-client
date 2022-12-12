@@ -183,7 +183,7 @@
     <div *ngFor="let review of reviews; index as index" class="w-full">
       <div
         [id]="review.id"
-        class="flex gap-10 w-full rounded-4 p-5"
+        class="review flex gap-10 w-full rounded-4 p-5"
         [class.hightlightReview]="reviewId == review.id"
       >
         <div class="avatar h-30 w-30 relative">
@@ -195,7 +195,14 @@
             "
           />
         </div>
-        <div class="flex flex-col justify-center flex-grow">
+        <div class="flex flex-col justify-center flex-grow relative">
+          <div
+            *ngIf="review.sentimentIcon?.id"
+            [matTooltip]="review.sentimentIcon.text"
+            class="review-icon absolute top-0 right-0 m-5"
+          >
+           <img class="w-24 h-24" [src]="review.sentimentIcon.image">
+          </div>
           <div class="info">
             <b class="text-14 font-bold"> {{ review.userInfo.displayName }} </b>
           </div>
