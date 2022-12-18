@@ -15,6 +15,7 @@ import { NotifyService } from '@app/shared/services/notify.service';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  ENDPOINTS = ENDPOINTS;
   signUpFormControl = {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [

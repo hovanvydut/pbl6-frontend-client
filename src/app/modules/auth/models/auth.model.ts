@@ -34,3 +34,14 @@ export class AccountModel {
     Object.assign(this, init);
   }
 }
+
+
+export class RecoverPasswordModel {
+  userId: number;
+  code: string;
+  newPassword: string;
+
+  public constructor(init?: Partial<RecoverPasswordModel>) {
+    Object.assign(this, init);
+  }
+}
