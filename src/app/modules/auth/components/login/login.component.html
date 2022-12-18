@@ -3,7 +3,7 @@
   <p class="pt-20">Nếu bạn chưa có tài khoản</p>
   <p>
     Hãy đăng kí tại
-    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="'/auth/sign-up'">
+    <a class="text-blue-4882C7 font-weight-bold" [routerLink]="ENDPOINTS.SIGN_UP">
       đây!
     </a>
   </p>
@@ -34,9 +34,9 @@
     </app-input-field>
 
     <!-- more option -->
-    <div class="flex justify-end text-xs text-grey-777 mb-20">
+    <a class="flex justify-end text-xs text-grey-777 mb-20" [routerLink]="ENDPOINTS.FORGOT_PASSWORD">
       <span>Forgot Password ?</span>
-    </div>
+    </a>
 
     <!-- button -->
     <button mat-raised-button color="primary" (click)="onSignInButtonClicked()">

@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
 import { LogoutComponent } from './components/logout/logout.component';
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 
 const SVG_ICONS = completeIconSet;
 
@@ -40,6 +41,10 @@ export const routes: Routes = [
         component: ForgotPasswordComponent
       },
       {
+        path: 'recover-password',
+        component: RecoverPasswordComponent
+      },
+      {
         path: 'forbidden',
         component: ForbiddenComponent
       },
@@ -59,7 +64,8 @@ const COMPONENTS = [
   LoginComponent,
   ForgotPasswordComponent,
   ForbiddenComponent,
-  LogoutComponent
+  LogoutComponent,
+  RecoverPasswordComponent
 ];
 @NgModule({
   declarations: [...COMPONENTS],
