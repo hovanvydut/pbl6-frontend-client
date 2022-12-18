@@ -55,7 +55,6 @@ import { MatTreeModule } from '@angular/material/tree';
 // components
 import { SwiperTemplateComponent } from './components/swiper-template/swiper-template.component';
 import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
-import { ZoomImageComponent } from './components/zoom-image/zoom-image.component';
 import { CheckBoxListComponent } from './components/check-box-list/check-box-list.component';
 import { CategoryExpansionComponent } from './components/category-expansion/category-expansion.component';
 import { CategoryTreeComponent } from './components/category-tree/category-tree.component';
@@ -99,7 +98,6 @@ import { ToastComponent } from './components/toast/toast.component';
 const COMPONENTS: any[] = [
   SvgIconComponent,
   SwiperTemplateComponent,
-  ZoomImageComponent,
   CheckBoxListComponent,
   CategoryTreeComponent,
   CategoryExpansionComponent,

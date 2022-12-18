@@ -22,9 +22,9 @@
     *ngIf="!isLoading && posts?.length > 0"
     class="flex flex-col w-full"
   >
-    <div class="flex justify-start flex-wrap gap-15 my-20">
+    <div class="flex justify-between flex-wrap gap-15 my-20">
       <ng-container *ngIf="type === 'small'">
-        <app-post-card *ngFor="let post of posts" [post]="post">
+        <app-post-card class="post-item" *ngFor="let post of posts" [post]="post">
         </app-post-card>
       </ng-container>
       <ng-container *ngIf="type === 'large'">

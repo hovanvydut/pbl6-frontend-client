@@ -67,7 +67,7 @@ export class BaseService {
     });
   }
 
-  // Note: for file upload, dont add Content-Type
+  // Note: for file upload and form data, dont add Content-Type
   get formHeaders(): HttpHeaders {
     return new HttpHeaders({
       Authorization: this.bearerAuthentication
