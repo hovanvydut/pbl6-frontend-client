@@ -12,7 +12,7 @@
   </p>
   <div *ngIf="!isLoading && posts?.length > 0 " class="flex flex-col w-full">
     <div class="flex justify-start flex-wrap gap-15 my-20">
-      <app-post-card *ngFor="let post of posts" [post]="post">
+      <app-post-card class="post-item" *ngFor="let post of posts" [post]="post">
       </app-post-card>
     </div>
     <div class="flex w-full justify-end">
