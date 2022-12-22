@@ -15,6 +15,7 @@ import { completeIconSet } from 'src/assets/images/svg-icons.constants';
 import { SvgIconsRegistryService } from '@app/shared/services/svg-icon-registry.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { EmailConfirmComponent } from './components/email-confirm/email-confirm.component';
 
 const SVG_ICONS = completeIconSet;
 
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'confirm-email',
+        component: EmailConfirmComponent
       },
       {
         path: 'forgot-password',
@@ -65,7 +70,8 @@ const COMPONENTS = [
   ForgotPasswordComponent,
   ForbiddenComponent,
   LogoutComponent,
-  RecoverPasswordComponent
+  RecoverPasswordComponent,
+  EmailConfirmComponent,
 ];
 @NgModule({
   declarations: [...COMPONENTS],
