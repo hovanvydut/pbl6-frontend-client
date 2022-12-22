@@ -1,13 +1,14 @@
-<div>
-  <p class="text-36 font-weight-bold mt-15">Đăng kí</p>
-  <p class="pt-20">Bạn đã có tài khoản?</p>
-  <p>
-    Đăng nhập ở
+<div class="flex flex-col justify-center items-center text-center">
+  <p class="text-36 font-weight-bold mt-15 auth-header">
+    Chào mừng bạn đến với Homiee!
+  </p>
+  <p class="pt-20">
+    Bạn đã có tài khoản? Đăng nhập ở
     <a class="text-blue-4882C7 font-weight-bold" [routerLink]="ENDPOINTS.LOGIN">
       đây!
     </a>
   </p>
-  <div class="flex flex-col gap-5">
+  <div class="flex flex-col gap-5 w-full">
     <span *ngIf="errorMessage" class="text-11 text-red-700">
       {{ errorMessage }}
     </span>
@@ -90,11 +91,8 @@
 
       <div
         *ngSwitchCase="RegisterStep.selectRole"
-        class="shadow-lg flex flex-col justify-center p-20 my-20 rounded-12"
+        class="shadow-lg border border-gray-100 flex flex-col justify-center p-20 my-10 pb-30 rounded-12"
       >
-        <h3 class="text-lg font-bold text-blue-900 text-center mb-0">
-          Chọn quyền truy cập hệ thống
-        </h3>
         <ul class="grid gap-6 w-full md:grid-cols-2 mb-20">
           <li *ngFor="let role of roles" class="h-130">
             <input
