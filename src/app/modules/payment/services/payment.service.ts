@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
 import { QueryParams } from '@app/modules/post/models/post.model';
+import { BankCode, PaymentRequest } from '../models/payment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,11 @@ export class PaymentService {
   constructor(private baseService: BaseService) {}
 
   getBankCode() {
-    return this.baseService.get<any[]>('payment/bank-code');
+    return this.baseService.get<BankCode[]>('payment/bank-code');
   }
 
-  payment(data: any) {
-    return this.baseService.post<any>('payment', data);
+  payment(data: PaymentRequest) {
+    return this.baseService.post<string>('payment', data);
   }
 
   getPaymentTransaction(params: QueryParams) {

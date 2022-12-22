@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
 import { BaseModel } from '@app/shared/models/base.model';
-import { AccountModel, RecoverPasswordModel } from '../models/auth.model';
+import { AccountModel, LoginModel, RecoverPasswordModel, RegisterAccountModel, RegisterResponseModel } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +11,25 @@ import { AccountModel, RecoverPasswordModel } from '../models/auth.model';
 export class AuthService {
   constructor(private baseService: BaseService) {}
 
-  login(data: any):  Observable<AccountModel> {
+  login(data: LoginModel):  Observable<AccountModel> {
     return this.baseService.postForm<AccountModel>('auth/login', data);
   }
 
-  register(data: any): Observable<any> {
-    return this.baseService.post<any>('auth/register', data);
+  register(data: RegisterAccountModel): Observable<RegisterResponseModel> {
+    return this.baseService.post<RegisterResponseModel>('auth/register', data);
   }
 
-  forgotPassword(email: string):  Observable<any> {
+  forgotPassword(email: string):  Observable<null> {
     const data = encodeURIComponent(email);
-    console.log(data)
-    return this.baseService.get<any>(`auth/forgot-password?email=${data}`);
+    return this.baseService.get<null>(`auth/forgot-password?email=${data}`);
   }
 
   confirmEmail(data: any):  Observable<any> {
     return this.baseService.put<any>('auth/confirm-email', data);
   }
 
-  recoverPassword(data: RecoverPasswordModel): Observable<any> {
-    return this.baseService.put<any>(`auth/recover-password`, data);
+  recoverPassword(data: RecoverPasswordModel): Observable<null> {
+    return this.baseService.put<null>(`auth/recover-password`, data);
   }
 
   logout() {

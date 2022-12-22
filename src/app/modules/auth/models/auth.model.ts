@@ -35,6 +35,14 @@ export class AccountModel {
   }
 }
 
+export class RegisterResponseModel {
+  email: string;
+  roleName: string;
+
+  public constructor(init?: Partial<RegisterResponseModel>) {
+    Object.assign(this, init);
+  }
+}
 
 export class RecoverPasswordModel {
   userId: number;

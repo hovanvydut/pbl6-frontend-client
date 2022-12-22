@@ -1,44 +1,46 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/core/services/base.service';
+import { DatasourceBaseModel } from '@app/shared/models/base.model';
+import { CalendarEvent } from 'angular-calendar';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
+  constructor(private baseService: BaseService) {}
 
-  constructor(private baseService: BaseService) { }
-
-
-  getHostFreeTime(hostId: string): Observable<any>{
-    return this.baseService.get<any>(`booking/user/${hostId}/free-time`);
+  getHostFreeTime(hostId: string): Observable<CalendarEvent<any>[]> {
+    return this.baseService.get<CalendarEvent<any>[]>(
+      `booking/user/${hostId}/free-time`
+    );
   }
 
-  updateHostFreeTime(data: any): Observable<any>{
-    return this.baseService.post<any>(`booking/free-time`, data);
+  updateHostFreeTime(data: { data: any }): Observable<void> {
+    return this.baseService.post<void>(`booking/free-time`, data);
   }
 
-  getAllBooking() {
-    return this.baseService.get<any>('booking/personal');
+  getAllBooking(): Observable<DatasourceBaseModel<any>> {
+    return this.baseService.get<DatasourceBaseModel<any>>('booking/personal');
   }
 
-  getMyBookings() {
-    return this.baseService.get<any>('booking/booked-by-user');
+  getMyBookings(): Observable<DatasourceBaseModel<any>>{
+    return this.baseService.get<DatasourceBaseModel<any>>('booking/booked-by-user');
   }
 
   getDetailBooking(bookingId: string) {
     return this.baseService.get<any>(`booking/booked-by-user/${bookingId}`);
   }
 
-  createBooking(data:any) {
-    return this.baseService.post<any>('booking', data);
+  createBooking(data: any) {
+    return this.baseService.post<void>('booking', data);
   }
 
   approveBooking(bookingId: string) {
-    return this.baseService.put<any>(`booking/${bookingId}/approve`, null);
+    return this.baseService.put<void>(`booking/${bookingId}/approve`, null);
   }
 
   confirmMeeting(bookingId: string) {
-    return this.baseService.put<any>(`booking/${bookingId}/confirm-meet`, null);
+    return this.baseService.put<void>(`booking/${bookingId}/confirm-meet`, null);
   }
 }
