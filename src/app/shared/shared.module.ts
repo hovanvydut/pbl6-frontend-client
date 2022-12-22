@@ -94,6 +94,7 @@ import { PieChartComponent } from './components/chart/pie-chart/pie-chart.compon
 import { NotificationComponent } from './components/notification/notification.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { ToastComponent } from './components/toast/toast.component';
+import { CheckPermissionPipe } from './pipes/check-permission.pipe';
 
 const COMPONENTS: any[] = [
   SvgIconComponent,
@@ -190,6 +191,7 @@ const MODULES = [
 const PROVIDERS = [
   CurrencyPipe,
   DecimalPipe,
+  CheckPermissionPipe,
   SvgIconsRegistryService,
   { provide: MatDialogRef, useValue: {} },
   { provide: MAT_DIALOG_DATA, useValue: {} }

@@ -8,6 +8,7 @@ import { NotifyService } from '@app/shared/services/notify.service';
 import { ENDPOINTS } from '@app/shared/utilities';
 import { Subscription } from 'rxjs';
 import { menuItems } from '../../const/menu.const';
+import { CommonService } from '@app/core/services/common.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -26,11 +27,19 @@ export class MainLayoutComponent implements OnInit {
 
   constructor(
     private baseService: BaseService,
+    private commonService: CommonService,
     private webSocketService: WebSocketService,
     private notifyService: NotifyService,
     private notificationService: NotificationService
   ) {
     this.accountInfo = this.baseService.currentUser;
+    const permissions = this.baseService.permission;
+    this.menuItems.forEach( item => {
+      if (item.type) {
+        item.isVisible = this.commonService.checkPermission(permissions, item.type)
+      }
+    })
+    this.menuItems = menuItems.filter(_ => _.isVisible)
   }
 
   ngOnInit() {

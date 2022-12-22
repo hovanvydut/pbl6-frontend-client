@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //
 import { BaseService } from '@app/core/services/base.service';
-import { BaseModel } from '@app/shared/models/base.model';
-import { AccountModel, LoginModel, RecoverPasswordModel, RegisterAccountModel, RegisterResponseModel } from '../models/auth.model';
+import { AccountModel, LoginModel, RecoverPasswordModel, RegisterAccountModel, RegisterResponseModel, RoleModel } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +29,15 @@ export class AuthService {
 
   recoverPassword(data: RecoverPasswordModel): Observable<null> {
     return this.baseService.put<null>(`auth/recover-password`, data);
+  }
+
+  getPermission(): Observable<string[]> {
+    return this.baseService.get<string[]>('user/personal/permission');
+  }
+
+  getRoles(): Observable<RoleModel[]> {
+    return this.baseService.get<RoleModel[]>('role/all');
+
   }
 
   logout() {

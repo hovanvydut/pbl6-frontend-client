@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, throwError, map, of } from 'rxjs';
+import { Observable, ReplaySubject, map } from 'rxjs';
 //
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
@@ -11,11 +11,14 @@ import { AccountModel } from '@app/modules/auth/models/auth.model';
 export class BaseService {
   LOGGED_USER = 'userInfo';
   TOKEN = 'token';
+  PERMISSION = 'permission';
   public baseURL = environment.baseUrl;
   ERROR_SOMETHING_BAD_HAPPENED: string = 'Bạn thử lại nhen, có lỗi xảy ra rồi!';
   public _userInfo: ReplaySubject<AccountModel> = new ReplaySubject<
     AccountModel
   >();
+
+  public _permission: ReplaySubject<string[]> = new ReplaySubject<string[]>();
 
   public storeLoggedUser(accountModel: AccountModel) {
     localStorage.setItem(
@@ -25,11 +28,30 @@ export class BaseService {
     this._userInfo.next(accountModel);
   }
 
+  public storePermission(data: string[]) {
+    localStorage.setItem(
+      this.PERMISSION,
+      btoa(encodeURIComponent(JSON.stringify(data)))
+    );
+    this._permission.next(data);
+  }
+
+  get permission(): string[] {
+    const permission = localStorage.getItem(this.PERMISSION);
+    const permissionJson =
+      permission != null && JSON.parse(decodeURIComponent(atob(permission)));
+    if (permissionJson) {
+      let user = permissionJson;
+      return user;
+    } else return null;
+  }
+
   public storeToken(token: string) {
     localStorage.setItem(this.TOKEN, token);
   }
 
   public removeLoggedUser() {
+    localStorage.removeItem(this.PERMISSION);
     localStorage.removeItem(this.LOGGED_USER);
     this.removeToken();
   }

@@ -1,3 +1,4 @@
+import { finalize, switchMap } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
     private notifyService: NotifyService,
     private authService: AuthService,
     private baseService: BaseService,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.returnUrl = params['returnUrl'] || ENDPOINTS.HOME;
@@ -65,18 +66,24 @@ export class LoginComponent implements OnInit {
       email: this.loginFormControl.email.value,
       password: this.loginFormControl.password.value
     });
-    this.authService.login(data).subscribe(
-      res => {
-        if (res) {
+    this.authService
+      .login(data)
+      .pipe(
+        switchMap(res => {
           this.baseService.storeLoggedUser(res);
           this.baseService.storeToken(res.accessToken);
+          return this.authService.getPermission();
+        })
+      )
+      .subscribe({
+        next: permission => {
+          this.baseService.storePermission(permission);
           this.router.navigateByUrl(this.returnUrl).then();
+        },
+        error: err => {
+          this.notifyService.notify(err);
+          this.errorMessage = err.message;
         }
-      },
-      err => {
-        this.notifyService.notify(err);
-        this.errorMessage = err.message;
-      }
-    );
+      });
   }
 }

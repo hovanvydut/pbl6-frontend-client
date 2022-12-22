@@ -11,78 +11,120 @@
     <span *ngIf="errorMessage" class="text-11 text-red-700">
       {{ errorMessage }}
     </span>
-    <!-- email -->
-    <mat-form-field appearance="standard">
-      <mat-label>Nhập email</mat-label>
-      <input
-        matInput
-        required
-        placeholder="pat@example.com"
-        [formControl]="signUpFormControl.email"
-      />
-      <app-svg-icon [name]="'messages'" matPrefix> </app-svg-icon>
-      <mat-error *ngIf="signUpFormControl.email.invalid">
-        {{ getErrorMessage("email") }}
-      </mat-error>
-    </mat-form-field>
-    <!-- email -->
-    <mat-form-field appearance="standard">
-      <mat-label>Nhập tên</mat-label>
-      <input
-        matInput
-        required
-        placeholder="Trần A"
-        [formControl]="signUpFormControl.displayName"
-      />
-      <app-svg-icon [name]="'user'" matPrefix> </app-svg-icon>
-      <mat-error *ngIf="signUpFormControl.displayName.invalid">
-        {{ getErrorMessage("displayName") }}
-      </mat-error>
-    </mat-form-field>
-    <!-- pwd -->
-    <mat-form-field appearance="standard">
-      <mat-label>Nhập mật khẩu</mat-label>
-      <input
-        matInput
-        required
-        type="password"
-        [(formControl)]="signUpFormControl.password"
-      />
+    <ng-container [ngSwitch]="currentStep.id">
+      <ng-container *ngSwitchCase="RegisterStep.fillInfo">
+        <!-- email -->
+        <mat-form-field appearance="standard">
+          <mat-label>Nhập email</mat-label>
+          <input
+            matInput
+            required
+            placeholder="pat@example.com"
+            [formControl]="signUpFormControl.email"
+          />
+          <app-svg-icon [name]="'messages'" matPrefix> </app-svg-icon>
+          <mat-error *ngIf="signUpFormControl.email.invalid">
+            {{ getErrorMessage("email") }}
+          </mat-error>
+        </mat-form-field>
+        <!-- email -->
+        <mat-form-field appearance="standard">
+          <mat-label>Nhập tên</mat-label>
+          <input
+            matInput
+            required
+            placeholder="Trần A"
+            [formControl]="signUpFormControl.displayName"
+          />
+          <app-svg-icon [name]="'user'" matPrefix> </app-svg-icon>
+          <mat-error *ngIf="signUpFormControl.displayName.invalid">
+            {{ getErrorMessage("displayName") }}
+          </mat-error>
+        </mat-form-field>
+        <!-- pwd -->
+        <mat-form-field appearance="standard">
+          <mat-label>Nhập mật khẩu</mat-label>
+          <input
+            matInput
+            required
+            type="password"
+            [(formControl)]="signUpFormControl.password"
+          />
 
-      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
-      <mat-error *ngIf="signUpFormControl.password.invalid">
-        {{ getErrorMessage("password") }}
-      </mat-error>
-    </mat-form-field>
+          <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
+          <mat-error *ngIf="signUpFormControl.password.invalid">
+            {{ getErrorMessage("password") }}
+          </mat-error>
+        </mat-form-field>
 
-    <!--confirm pwd -->
-    <mat-form-field appearance="standard">
-      <mat-label class="">Xác nhận lại mật khẩu</mat-label>
-      <input
-        matInput
-        required
-        type="password"
-        [(formControl)]="signUpFormControl.confirmPassword"
-      />
-      <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
-      <mat-error *ngIf="signUpFormControl.confirmPassword.invalid">
-        {{ getErrorMessage("confirmPassword") }}
-      </mat-error>
-    </mat-form-field>
+        <!--confirm pwd -->
+        <mat-form-field appearance="standard">
+          <mat-label class="">Xác nhận lại mật khẩu</mat-label>
+          <input
+            matInput
+            required
+            type="password"
+            [(formControl)]="signUpFormControl.confirmPassword"
+          />
+          <app-svg-icon [name]="'lock'" matPrefix> </app-svg-icon>
+          <mat-error *ngIf="signUpFormControl.confirmPassword.invalid">
+            {{ getErrorMessage("confirmPassword") }}
+          </mat-error>
+        </mat-form-field>
 
-    <!-- button -->
-    <button
-      [disabled]="
-        signUpFormControl.confirmPassword.invalid ||
-        signUpFormControl.email.invalid ||
-        signUpFormControl.password.invalid
-      "
-      mat-raised-button
-      color="primary"
-      class="mt-20"
-      (click)="onSignUpButtonClicked()"
-    >
-      Sign up
-    </button>
+        <!-- button -->
+        <button
+          [disabled]="
+            signUpFormControl.confirmPassword.invalid ||
+            signUpFormControl.email.invalid ||
+            signUpFormControl.password.invalid
+          "
+          mat-raised-button
+          color="primary"
+          class="mt-20"
+          (click)="onSignUpButtonClicked()"
+        >
+          Đăng kí ngay
+        </button>
+      </ng-container>
+
+      <div
+        *ngSwitchCase="RegisterStep.selectRole"
+        class="shadow-lg flex flex-col justify-center p-20 my-20 rounded-12"
+      >
+        <h3 class="text-lg font-bold text-blue-900 text-center mb-0">
+          Chọn quyền truy cập hệ thống
+        </h3>
+        <ul class="grid gap-6 w-full md:grid-cols-2 mb-20">
+          <li *ngFor="let role of roles" class="h-130">
+            <input
+              type="radio"
+              [id]="role.id"
+              class="hidden peer"
+              [value]="role.id"
+              [(ngModel)]="selectedRole"
+              required
+            />
+            <label
+              [for]="role.id"
+              class="inline-flex justify-between items-start px-20 py-10 w-full h-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+            >
+              <div class="block">
+                <div class="w-full text-lg font-semibold">{{ role.name }}</div>
+                <div class="w-full">{{ role.description }}</div>
+              </div>
+            </label>
+          </li>
+        </ul>
+        <button
+          [disabled]="!selectedRole"
+          mat-raised-button
+          color="primary"
+          (click)="currentStep = steps[1]"
+        >
+          Tiếp theo
+        </button>
+      </div>
+    </ng-container>
   </div>
 </div>

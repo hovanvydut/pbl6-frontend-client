@@ -9,7 +9,7 @@ export class RegisterAccountModel extends AuthModel {
   identityNumber: string;
   address: string;
   addressWardId: string;
-  roleId: string;
+  roleId: number;
 
   public constructor(init?: Partial<RegisterAccountModel>) {
     super();
@@ -50,6 +50,17 @@ export class RecoverPasswordModel {
   newPassword: string;
 
   public constructor(init?: Partial<RecoverPasswordModel>) {
+    Object.assign(this, init);
+  }
+}
+
+
+export class RoleModel {
+  id: number;
+  name: string;
+  description: string;
+
+  public constructor(init?: Partial<RoleModel>) {
     Object.assign(this, init);
   }
 }

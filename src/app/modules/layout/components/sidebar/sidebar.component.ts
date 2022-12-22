@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseService } from '@app/core/services/base.service';
+import { CommonService } from '@app/core/services/common.service';
 import { WebSocketService } from '@app/core/services/web-socket.service';
 import { NotificationModel } from '@app/shared/models/notification.model';
 import { NotifyService } from '@app/shared/services/notify.service';
@@ -13,10 +15,11 @@ import { menuItems } from '../../const/menu.const';
 })
 export class SidebarComponent implements OnInit {
   ENDPOINTS = ENDPOINTS;
+  menuItems = menuItems;
   SIDEBAR_MENU = [
     {
       name: 'Dashboard',
-      items: menuItems
+      items: []
     }
   ];
   hasNewNotification: boolean = false;
@@ -24,8 +27,18 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private webSocketService: WebSocketService,
-    private notifyService: NotifyService
-  ) {}
+    private notifyService: NotifyService,
+    private baseService: BaseService,
+    private commonService: CommonService
+  ) {
+    const permissions = this.baseService.permission;
+    this.menuItems.forEach( item => {
+      if (item.type) {
+        item.isVisible = this.commonService.checkPermission(permissions, item.type)
+      }
+    })
+    this.SIDEBAR_MENU[0].items = this.menuItems.filter(_ => _.isVisible)
+  }
 
   ngOnInit() {
     // this._subscribeNotificationBroadCastEvent();

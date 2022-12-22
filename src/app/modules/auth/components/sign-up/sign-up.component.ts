@@ -1,12 +1,12 @@
+import { RegisterStep } from './../../../../shared/app.enum';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { isEqual } from 'lodash-es';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
 import { AuthService } from './../../services/auth.service';
-import { RegisterAccountModel } from '../../models/auth.model';
+import { RegisterAccountModel, RoleModel } from '../../models/auth.model';
 import { NotifyService } from '@app/shared/services/notify.service';
 
 @Component({
@@ -27,6 +27,32 @@ export class SignUpComponent implements OnInit {
   };
   signUp: RegisterAccountModel = new RegisterAccountModel();
   errorMessage: string;
+  roles: RoleModel[] = [
+    new RoleModel({
+      id: 2,
+      name: 'Chủ trọ',
+      description: 'Bạn có thể đăng bài về trọ, quản lý các bài đăng, xem thống kê về các bài viết,...'
+    }),
+    new RoleModel({
+      id: 3,
+      name: 'Tìm trọ',
+      description: 'Bạn có thể xem các bài đăng nhà trọ, lọc theo địa chỉ, các tiện ích, đặt lịch xem trọ, đánh giá trọ,...'
+    })
+  ];
+  selectedRole: number;
+  RegisterStep = RegisterStep;
+  steps = [
+    {
+      id: RegisterStep.selectRole,
+      name: 'Bạn là ?'
+    },
+    {
+      id: RegisterStep.fillInfo,
+      name: 'Nhập thông tin'
+    }
+  ];
+  currentStep = this.steps[0];
+
   constructor(
     private router: Router,
     private notifyService: NotifyService,
@@ -91,16 +117,16 @@ export class SignUpComponent implements OnInit {
         email: this.signUpFormControl.email.value,
         password: this.signUpFormControl.password.value,
         displayName: this.signUpFormControl.displayName.value,
-        address: 'Hà Nội',
+        address: 'Đà Nẵng',
         addressWardId: '6351',
         identityNumber: Math.floor(Math.random() * 1000000000) + '1',
         phoneNumber: Math.floor(Math.random() * 1000000000) + '1',
-        roleId: '1'
+        roleId: this.selectedRole
       });
       this.authService.register(this.signUp).subscribe(
         res => {
           if (res) {
-          this.notifyService.notify(
+            this.notifyService.notify(
               'Đăng ký thành công! Hãy kiểm tra email để xác nhận tài khoản trước khi đăng nhập!'
             );
             this.router.navigate([ENDPOINTS.LOGIN]);
