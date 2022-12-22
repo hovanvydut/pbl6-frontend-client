@@ -24,6 +24,10 @@ export class AuthService {
     return this.baseService.get<null>(`auth/forgot-password?email=${data}`);
   }
 
+  confirmEmail(data: any):  Observable<any> {
+    return this.baseService.put<any>('auth/confirm-email', data);
+  }
+
   recoverPassword(data: RecoverPasswordModel): Observable<null> {
     return this.baseService.put<null>(`auth/recover-password`, data);
   }
