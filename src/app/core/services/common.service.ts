@@ -104,13 +104,13 @@ export class CommonService {
           PermissionType.FreeTimeCreate,
           PermissionType.FreeTimeViewAll
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Notification:
         permission = [
           PermissionType.NotificationUpdate,
           PermissionType.NotificationViewAll
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Post:
         permission = [
           PermissionType.PostCheckDuplicateUptop,
@@ -121,17 +121,17 @@ export class CommonService {
           PermissionType.PostUpdate,
           PermissionType.PostViewAllPersonal
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Statistic:
         permission = [
           PermissionType.PostStatisticViewDetailInDate,
           PermissionType.PostStatisticViewInDateRange,
           PermissionType.PostStatisticViewTopInDate
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Payment:
         permission = [PermissionType.VNPCreatePayment];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.PaymentHistory:
         permission = [
           PermissionType.PaymentViewAllHistory,
@@ -139,13 +139,13 @@ export class CommonService {
           PermissionType.VNPViewAllHistory,
           PermissionType.VNPViewAllHistoryPersonal
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Review:
         permission = [
           PermissionType.ReviewCheckCanReview,
           PermissionType.ReviewCreate
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Uptop:
         permission = [
           PermissionType.BookingApproveMeeting,
@@ -154,7 +154,7 @@ export class CommonService {
           PermissionType.BookingViewAllBooked,
           PermissionType.BookingViewAllPersonal
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.AccountSetting:
         permission = [
           PermissionType.UserUpdateAccountAccess,
@@ -163,14 +163,17 @@ export class CommonService {
           PermissionType.UserViewAll,
           PermissionType.UserViewPersonal
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
       case moduleType.Bookmark:
         permission = [
           PermissionType.BookmarkCreate,
           PermissionType.BookmarkRemove,
           PermissionType.BookmarkView
         ];
-        return permissions.some(r => permission.includes(r));
+        break;
     }
+    return permissions?.length > 0
+      ? permissions.some(r => permission?.includes(r))
+      : false;
   }
 }

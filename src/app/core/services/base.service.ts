@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, throwError, map, of } from 'rxjs';
+import { Observable, ReplaySubject, map } from 'rxjs';
 //
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
-import { getDate } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +38,12 @@ export class BaseService {
 
   get permission(): string[] {
     const permission = localStorage.getItem(this.PERMISSION);
-    const permissionJson = JSON.parse(decodeURIComponent(atob(permission)));
-    return permissionJson;
+    const permissionJson =
+      permission != null && JSON.parse(decodeURIComponent(atob(permission)));
+    if (permissionJson) {
+      let user = permissionJson;
+      return user;
+    } else return null;
   }
 
   public storeToken(token: string) {
