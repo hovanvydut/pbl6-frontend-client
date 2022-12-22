@@ -6,6 +6,8 @@ import { ProfileService } from '../../services/profile.service';
 import { ProfileDetailFormComponent } from './../profile-detail-form/profile-detail-form.component';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { PaymentFormComponent } from '@app/modules/payment/payment-form/payment-form.component';
+import { CheckPermissionPipe } from '@app/shared/pipes/check-permission.pipe';
+import { PermissionType } from '@app/shared/app.enum';
 
 @Component({
   selector: 'app-general-profile',
@@ -15,25 +17,32 @@ import { PaymentFormComponent } from '@app/modules/payment/payment-form/payment-
 export class GeneralProfileComponent implements OnInit {
   private profileDetailFormComponent = ProfileDetailFormComponent;
   profileGeneralInfo: ProfileGeneralInfoModel = new ProfileGeneralInfoModel();
+  hasPaymentPermission: boolean = false;
 
   constructor(
     public dialog: MatDialog,
     private profileService: ProfileService,
-    private notifyService: NotifyService
-  ) {}
+    private notifyService: NotifyService,
+    private checkPermissionPipe: CheckPermissionPipe
+  ) {
+    this.hasPaymentPermission = this.checkPermissionPipe.transform(
+      PermissionType.VNPCreatePayment
+    );
+  }
 
   ngOnInit(): void {
     this.getProfile();
   }
 
   getProfile() {
-    this.profileService
-      .getProfileGeneralInfo()
-      .subscribe((res: ProfileGeneralInfoModel) => {
+    this.profileService.getProfileGeneralInfo().subscribe(
+      (res: ProfileGeneralInfoModel) => {
         this.profileGeneralInfo = res;
-      }, (err) => {
+      },
+      err => {
         this.notifyService.notify(err);
-      });
+      }
+    );
   }
 
   onEditProfileButtonClicked() {
@@ -49,7 +58,7 @@ export class GeneralProfileComponent implements OnInit {
   onRechargeButtonClicked() {
     let dialogRef = this.dialog.open(PaymentFormComponent, {
       width: '99vw',
-      maxHeight: '99vh',
+      maxHeight: '99vh'
     });
   }
 }

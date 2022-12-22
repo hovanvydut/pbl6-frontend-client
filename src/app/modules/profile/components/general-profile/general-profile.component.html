@@ -1,14 +1,21 @@
 <div class="h-160 w-full bg-blue-500 relative rounded-15 mb-67">
-  <div *ngIf="profileGeneralInfo" class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center">
+  <div
+    *ngIf="profileGeneralInfo"
+    class="profile-info h-100 p-10 rounded-15 absolute bg-white flex justify-between items-center"
+  >
     <div class="flex items-center gap-10">
       <div class="avatar h-80 w-80 relative">
-        <img class="w-full h-full rounded-15 object-cover" [src]="
+        <img
+          class="w-full h-full rounded-15 object-cover"
+          [src]="
             profileGeneralInfo.avatar ||
             'assets/images/default/default_avatar.png'
-          " />
+          "
+        />
         <div
           class="w-24 h-24 absolute -bottom-8 -right-8 rounded-5 shadow-sm flex justify-center items-center bg-white text-blue-700 p-5 cursor-pointer"
-          (click)="onEditProfileButtonClicked()">
+          (click)="onEditProfileButtonClicked()"
+        >
           <app-svg-icon [name]="'edit'"> </app-svg-icon>
         </div>
       </div>
@@ -19,11 +26,15 @@
         </p>
       </div>
     </div>
-    <div class="flex gap-10 flex-wrap">
+    <div *ngIf="hasPaymentPermission" class="flex gap-10 flex-wrap">
       <button mat-raised-button>
-        Tiền trong ví: {{ (profileGeneralInfo.currentCredit ) | price }}
+        Tiền trong ví: {{ profileGeneralInfo.currentCredit | price }}
       </button>
-      <button mat-raised-button color="primary" (click)="onRechargeButtonClicked()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onRechargeButtonClicked()"
+      >
         <app-svg-icon [name]="'billing'"></app-svg-icon> Nạp tiền
       </button>
     </div>
