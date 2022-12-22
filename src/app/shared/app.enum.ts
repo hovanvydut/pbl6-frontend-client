@@ -196,3 +196,8 @@ export enum moduleType {
   AccountSetting,
   Bookmark,
 }
+
+export enum RegisterStep {
+  selectRole = 1,
+  fillInfo
+}
