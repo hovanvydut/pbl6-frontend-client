@@ -107,27 +107,41 @@ export enum HttpCode {
   BAD_GATEWAY = 502
 }
 
-export enum Permissions {
+export enum PermissionType {
+  // done
   BookingApproveMeeting = 'Booking.Approve.Meeting',
   BookingConfirmMet = 'Booking.Confirm.Met',
   BookingCreateMeeting = 'Booking.Create.Meeting',
   BookingViewAllBooked = 'Booking.View.All.Booked',
   BookingViewAllPersonal = 'Booking.View.All.Personal',
+
   BookmarkCreate = 'Bookmark.Create',
   BookmarkRemove = 'Bookmark.Remove',
   BookmarkView = 'Bookmark.View',
+
+  // no
   ConfigSettingUpdate = 'ConfigSetting.Update',
   ConfigSettingViewAll = 'ConfigSetting.View.All',
   ConfigSettingViewOne = 'ConfigSetting.View.One',
+
+  // done
   FreeTimeCreate = 'FreeTime.Create',
   FreeTimeViewAll = 'FreeTime.View.All',
+
+  // done
   NotificationUpdate = 'Notification.Update',
   NotificationViewAll = 'Notification.View.All',
+
+  // done
   PaymentViewAllHistory = 'Payment.View.All.History',
   PaymentViewAllHistoryPersonal = 'Payment.View.All.History.Personal',
+  
+  // no
   PermissionCreate = 'Permission.Create',
   PermissionRemove = 'Permission.Remove',
   PermissionView = 'Permission.View',
+
+  // done
   PostCheckDuplicateUptop = 'Post.Check.Duplicate.Uptop',
   PostCreate = 'Post.Create',
   PostCreateUptop = 'Post.Create.Uptop',
@@ -135,24 +149,50 @@ export enum Permissions {
   PostGetUptop = 'Post.Get.Uptop',
   PostUpdate = 'Post.Update',
   PostViewAllPersonal = 'Post.View.All.Personal',
+
+  // done 
   PostStatisticViewDetailInDate = 'PostStatistic.View.Detail.In.Date',
   PostStatisticViewInDateRange = 'PostStatistic.View.In.Date.Range',
   PostStatisticViewTopInDate = 'PostStatistic.View.Top.In.Date',
+  
+  // done
   ReviewCheckCanReview = 'Review.Check.Can.Review',
   ReviewCreate = 'Review.Create',
+
+  // no
   RoleCreate = 'Role.Create',
   RoleUpdate = 'Role.Update',
   RoleViewAll = 'Role.View.All',
   RoleViewOne = 'Role.View.One',
+
+  // done
   UserUpdateAccountAccess = 'User.Update.Account.Access',
   UserUpdateProfile = 'User.Update.Profile',
   UserViewAccountAccess = 'User.View.Account.Access',
   UserViewAll = 'User.View.All',
   UserViewPersonal = 'User.View.Personal',
+
+  // no
   UserStatisticViewDetailInDate = 'UserStatistic.View.Detail.In.Date',
   UserStatisticViewInDateRange = 'UserStatistic.View.In.Date.Range',
   UserStatisticViewTopInDate = 'UserStatistic.View.Top.In.Date',
+
+  // done
   VNPCreatePayment = 'VNP.Create.Payment',
   VNPViewAllHistory = 'VNP.View.All.History',
   VNPViewAllHistoryPersonal = 'VNP.View.All.History.Personal'
+}
+
+
+export enum moduleType {
+  Booking = 1,
+  Notification,
+  Post,
+  Statistic,
+  Payment,
+  PaymentHistory,
+  Review,
+  Uptop,
+  AccountSetting,
+  Bookmark,
 }

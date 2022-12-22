@@ -37,7 +37,7 @@ export class BaseService {
     this._permission.next(data);
   }
 
-  get getPermission(): string[] {
+  get permission(): string[] {
     const permission = localStorage.getItem(this.PERMISSION);
     const permissionJson = JSON.parse(decodeURIComponent(atob(permission)));
     return permissionJson;

@@ -11,6 +11,7 @@ import { WardModel } from '@app/shared/models/address.model';
 import { PropertiesModel } from '@app/shared/models/property.model';
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
+import { moduleType, PermissionType } from '@app/shared/app.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,7 @@ export class CommonService {
     today.setHours(0, 0, 0, 0);
     return date < today;
   }
-  
+
   validateAuthentication() {
     if (!this.baseService.isLoggedIn) {
       this.router
@@ -88,5 +89,88 @@ export class CommonService {
     return true;
   }
   //#endregion
-  
+
+  // check Permission
+  checkPermission(permissions, type: moduleType) {
+    let permission = [];
+    switch (type) {
+      case moduleType.Booking:
+        permission = [
+          PermissionType.BookingApproveMeeting,
+          PermissionType.BookingConfirmMet,
+          PermissionType.BookingCreateMeeting,
+          PermissionType.BookingViewAllBooked,
+          PermissionType.BookingViewAllPersonal,
+          PermissionType.FreeTimeCreate,
+          PermissionType.FreeTimeViewAll
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Notification:
+        permission = [
+          PermissionType.NotificationUpdate,
+          PermissionType.NotificationViewAll
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Post:
+        permission = [
+          PermissionType.PostCheckDuplicateUptop,
+          PermissionType.PostCreate,
+          PermissionType.PostCreateUptop,
+          PermissionType.PostDelete,
+          PermissionType.PostGetUptop,
+          PermissionType.PostUpdate,
+          PermissionType.PostViewAllPersonal
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Statistic:
+        permission = [
+          PermissionType.PostStatisticViewDetailInDate,
+          PermissionType.PostStatisticViewInDateRange,
+          PermissionType.PostStatisticViewTopInDate
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Payment:
+        permission = [PermissionType.VNPCreatePayment];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.PaymentHistory:
+        permission = [
+          PermissionType.PaymentViewAllHistory,
+          PermissionType.PaymentViewAllHistoryPersonal,
+          PermissionType.VNPViewAllHistory,
+          PermissionType.VNPViewAllHistoryPersonal
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Review:
+        permission = [
+          PermissionType.ReviewCheckCanReview,
+          PermissionType.ReviewCreate
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Uptop:
+        permission = [
+          PermissionType.BookingApproveMeeting,
+          PermissionType.BookingConfirmMet,
+          PermissionType.BookingCreateMeeting,
+          PermissionType.BookingViewAllBooked,
+          PermissionType.BookingViewAllPersonal
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.AccountSetting:
+        permission = [
+          PermissionType.UserUpdateAccountAccess,
+          PermissionType.UserUpdateProfile,
+          PermissionType.UserViewAccountAccess,
+          PermissionType.UserViewAll,
+          PermissionType.UserViewPersonal
+        ];
+        return permissions.some(r => permission.includes(r));
+      case moduleType.Bookmark:
+        permission = [
+          PermissionType.BookmarkCreate,
+          PermissionType.BookmarkRemove,
+          PermissionType.BookmarkView
+        ];
+        return permissions.some(r => permission.includes(r));
+    }
+  }
 }
