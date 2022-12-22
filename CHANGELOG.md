@@ -1,3 +1,6 @@
+# 2.1.1
+- Email confirm page
+
 # 2.1.0
 - update UI 
 - feature: analysic sentiment  
