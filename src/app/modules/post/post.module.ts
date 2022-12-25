@@ -29,12 +29,14 @@ import { PostSwiperTemplateComponent } from './components/post-swiper-template/p
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 import { PostUptopComponent } from './components/post-uptop/post-uptop.component';
 import { PostDetailUptopComponent } from './components/post-detail-uptop/post-detail-uptop.component';
+import { UserGuard } from '@app/core/guards/user.guard';
 //
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
+    canActivate: [UserGuard],
     children: [
       {
         path: 'dashboard',
@@ -47,9 +49,9 @@ export const routes: Routes = [
       {
         path: 'detail/:postId',
         component: PostDetailComponent
-      }, 
+      }
     ]
-  },
+  }
 ];
 
 const COMPONENTS = [

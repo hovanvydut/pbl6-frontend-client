@@ -6,11 +6,13 @@ import { ProfileModule } from '../profile/profile.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { PostModule } from '../post/post.module';
 import { MainLayoutComponent } from '../layout/components/main-layout/main-layout.component';
+import { UserGuard } from '@app/core/guards/user.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
+    canActivate: [UserGuard],
     children: [
       {
         path: ':landlordId',
