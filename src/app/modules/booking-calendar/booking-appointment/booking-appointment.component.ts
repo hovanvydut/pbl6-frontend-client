@@ -9,7 +9,8 @@ import { MyAvailableCalendarComponent } from './../my-available-calendar/my-avai
 import { ActivatedRoute } from '@angular/router';
 import { BOOKING_TABS } from './../const/booking.const';
 import { BOOKING_TAB_TYPE } from '../enums/booking.enum';
-
+import { CheckPermissionPipe } from '@app/shared/pipes/check-permission.pipe';
+import { PermissionType } from '@app/shared/app.enum';
 @Component({
   selector: 'app-booking-appointment',
   templateUrl: './booking-appointment.component.html',
@@ -19,6 +20,7 @@ export class BookingAppointmentComponent implements OnInit {
   @ViewChild('myFreetime') myFreeTime;
   appointments: any[] = [];
   events: CalendarEvent[] = [];
+  hasLandlordPermission: boolean = false;
 
   tabs = BOOKING_TABS;
   selectedTab = this.tabs[0].id;
@@ -26,24 +28,34 @@ export class BookingAppointmentComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private bookingService: BookingService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private checkPermissionPipe: CheckPermissionPipe
+  ) {
+    this.hasLandlordPermission =
+      this.checkPermissionPipe.transform(
+        PermissionType.BookingApproveMeeting
+      ) || this.checkPermissionPipe.transform(PermissionType.BookingConfirmMet);
+
+    this.selectedTab = this.hasLandlordPermission
+      ? this.tabs[0].id
+      : this.tabs[1].id;
+  }
 
   ngOnInit(): void {
     const tab = this.route.snapshot.queryParamMap.get('selectedTab');
     if (tab) {
       this.selectedTab = tab;
-      
     }
 
     const bookingId = this.route.snapshot.queryParamMap.get('bookingId');
-    if( bookingId ) {
+    if (bookingId) {
       let dialogRef = this.dialog.open(BookingDetailComponent, {
         maxWidth: '99vw',
         maxHeight: '90vh',
         data: {
           bookingId: bookingId,
-          isViewMyBooking: this.selectedTab === BOOKING_TAB_TYPE.MY_BOOKING ? true : false,
+          isViewMyBooking:
+            this.selectedTab === BOOKING_TAB_TYPE.MY_BOOKING ? true : false
         }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -73,7 +85,7 @@ export class BookingAppointmentComponent implements OnInit {
                 this.events = this.events.filter(iEvent => iEvent !== event);
                 this.viewDetail(event);
               }
-            },
+            }
           ],
           resizable: {
             beforeStart: true,
@@ -81,11 +93,11 @@ export class BookingAppointmentComponent implements OnInit {
           },
           draggable: false
         };
-        
-        if( event.infoDetail?.approveTime ) {
+
+        if (event.infoDetail?.approveTime) {
           event.color = { ...BOOKING_COLORS['approved'] };
         }
-        if( event.infoDetail?.met ) {
+        if (event.infoDetail?.met) {
           event.color = { ...BOOKING_COLORS['done'] };
         }
         // {
@@ -124,7 +136,7 @@ export class BookingAppointmentComponent implements OnInit {
                 this.events = this.events.filter(iEvent => iEvent !== event);
                 this.viewDetail(event);
               }
-            },
+            }
           ],
           resizable: {
             beforeStart: true,
@@ -132,11 +144,11 @@ export class BookingAppointmentComponent implements OnInit {
           },
           draggable: false
         };
-        
-        if( event.infoDetail?.approveTime ) {
+
+        if (event.infoDetail?.approveTime) {
           event.color = { ...BOOKING_COLORS['approved'] };
         }
-        if( event.infoDetail?.met ) {
+        if (event.infoDetail?.met) {
           event.color = { ...BOOKING_COLORS['done'] };
         }
         // {
@@ -160,7 +172,7 @@ export class BookingAppointmentComponent implements OnInit {
       width: '99vw',
       maxHeight: '90vh',
       data: {
-        events: this.events,
+        events: this.events
       }
     });
   }
@@ -184,7 +196,7 @@ export class BookingAppointmentComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         infoDetail: event.infoDetail,
-        isViewMyBooking: this.selectedTab === 'my-booking' ? true : false,
+        isViewMyBooking: this.selectedTab === 'my-booking' ? true : false
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -197,7 +209,7 @@ export class BookingAppointmentComponent implements OnInit {
   }
 
   handleGetBookings() {
-    if( this.selectedTab === BOOKING_TAB_TYPE.BOOKING ) {
+    if (this.selectedTab === BOOKING_TAB_TYPE.BOOKING) {
       this.getBookings();
     } else {
       this.getMyBookings();

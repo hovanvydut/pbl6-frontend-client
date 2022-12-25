@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="flex flex-col justify-between items-end gap-10 min-w-1/4 bookmark-icon">
-        <div>
+        <div *ngIf="hasSavedPostPermission">
           <app-svg-icon
             [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"
             class="text-black cursor-pointer"

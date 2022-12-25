@@ -1,3 +1,4 @@
+import { ForbiddenComponent } from './modules/auth/components/forbidden/forbidden.component';
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
@@ -28,13 +29,6 @@ const routes: Routes = [
     data: { preload: false }
   },
   {
-    path: 'admin',
-    loadChildren: () =>
-      import('@app/modules/admin/admin.module').then(m => m.AdminModule),
-    data: { preload: false },
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'user',
     loadChildren: () =>
       import('@app/page/page.module').then(
@@ -45,6 +39,10 @@ const routes: Routes = [
   {
     path: 'styles/icons',
     component: ViewIconsComponent
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];

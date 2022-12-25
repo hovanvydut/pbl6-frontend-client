@@ -19,7 +19,7 @@
         ></app-svg-icon>
       </div>
     </ng-container>
-    <ng-container *ngIf="!isMyPost">
+    <ng-container *ngIf="!isMyPost && hasSavedPostPermission">
       <div>
         <app-svg-icon
           [name]="post.isBookmarked ? 'bookmarked' : 'bookmark'"

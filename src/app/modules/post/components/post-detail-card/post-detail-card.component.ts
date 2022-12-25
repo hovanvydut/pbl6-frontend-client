@@ -21,6 +21,8 @@ import { PostReviewComponent } from '../post-review/post-review.component';
 import { PostSwiperComponent } from '../post-swiper/post-swiper.component';
 //
 import { ReviewIcons } from '../../consts/review.const';
+import { CheckPermissionPipe } from '@app/shared/pipes/check-permission.pipe';
+import { PermissionType } from '@app/shared/app.enum';
 
 @Component({
   selector: 'app-post-detail-card',
@@ -38,6 +40,7 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
   reviews: [];
   reviewId: string;
   isScrollDone: boolean = false;
+  hasSavedPostPermission: boolean = false;
 
   reviewIcons = ReviewIcons;
 
@@ -49,7 +52,8 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
     private notifyService: NotifyService,
     private commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private checkPermissionPipe: CheckPermissionPipe
   ) {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
@@ -57,6 +61,9 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
         this.isScrollDone = false;
       }
     });
+    this.hasSavedPostPermission =
+      this.checkPermissionPipe.transform(PermissionType.BookmarkCreate) ||
+      this.checkPermissionPipe.transform(PermissionType.BookmarkRemove);
   }
 
   ngOnInit() {

@@ -4,6 +4,8 @@ import { Observable, ReplaySubject, map } from 'rxjs';
 //
 import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
+import { Router } from '@angular/router';
+import { ENDPOINTS } from '@app/shared/utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +102,7 @@ export class BaseService {
     return { headers: this.headers };
   }
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   //#region GET Methods
   get<T>(url: string): Observable<T> {
@@ -216,8 +218,11 @@ export class BaseService {
   handleError(res: any) {
     if (res.statusCode === 401) {
       this.removeLoggedUser();
-    } else {
-      throw new Error(res.message);
+      return;
+    };
+    if ( res.statusCode === 403) {
+      this.router.navigateByUrl(ENDPOINTS.FORBIDDEN)
     }
+    throw new Error(res.message);
   }
 }
