@@ -26,7 +26,7 @@
         </p>
       </div>
     </div>
-    <div *ngIf="hasPaymentPermission" class="flex gap-10 flex-wrap">
+    <div *ngIf="hasPaymentPermission; else gotoLandlordRole" class="flex gap-10 flex-wrap">
       <button mat-raised-button>
         Tiền trong ví: {{ profileGeneralInfo.currentCredit | price }}
       </button>
@@ -40,3 +40,14 @@
     </div>
   </div>
 </div>
+
+<ng-template #gotoLandlordRole>
+  <button
+        mat-raised-button
+        color="primary"
+        (click)="onUpgradeRole()"
+      >
+        <app-svg-icon [name]="'user_plus'" class="mr-10"></app-svg-icon> Đăng kí thành chủ trọ 
+      </button>
+</ng-template>
+

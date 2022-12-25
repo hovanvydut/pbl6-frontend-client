@@ -4,7 +4,7 @@
       Lịch hẹn xem trọ
     </b>
 
-    <div class="flex gap-10 justify-center items-end">
+    <div  *ngIf="hasLandlordPermission" class="flex gap-10 justify-center items-end">
       <mat-form-field appearance="outline">
         <mat-select
           disableRipple

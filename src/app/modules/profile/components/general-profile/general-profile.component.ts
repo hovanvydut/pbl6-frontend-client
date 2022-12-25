@@ -61,4 +61,8 @@ export class GeneralProfileComponent implements OnInit {
       maxHeight: '99vh'
     });
   }
+
+  onUpgradeRole() {
+    
+  }
 }

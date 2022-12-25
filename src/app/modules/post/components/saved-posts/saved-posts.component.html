@@ -1,4 +1,3 @@
-
 <div class="flex justify-between items-center mb-10">
   <b class="text-20">
     Bài viết đã lưu
@@ -6,24 +5,32 @@
 </div>
 
 <div class="w-full">
-  <p *ngIf="isLoading"
-    class="text-center h-100 flex items-center justify-center">
+  <p
+    *ngIf="isLoading"
+    class="text-center h-100 flex items-center justify-center"
+  >
     Đang tải bài viết
   </p>
-  <div *ngIf="!isLoading && posts?.length > 0 " class="flex flex-col w-full">
+  <div *ngIf="!isLoading && posts?.length > 0" class="flex flex-col w-full">
     <div class="flex justify-start flex-wrap gap-15 my-20">
       <app-post-card class="post-item" *ngFor="let post of posts" [post]="post">
       </app-post-card>
     </div>
     <div class="flex w-full justify-end">
       <mat-paginator
-          style-paginator
-          (page)="pageChangeEvent($event)"
-          [length]="totalPosts"
-          [pageSize]="queryParams.pageSize"
-          [pageIndex]="queryParams.pageNumber -1"
-          [hidePageSize]="true">
+        style-paginator
+        (page)="pageChangeEvent($event)"
+        [length]="totalPosts"
+        [pageSize]="queryParams.pageSize"
+        [pageIndex]="queryParams.pageNumber - 1"
+        [hidePageSize]="true"
+      >
       </mat-paginator>
+    </div>
+  </div>
+  <div *ngIf="!isLoading && posts?.length === 0">
+    <div class="py-30">
+      Bạn chưa lưu bài viết vào.
     </div>
   </div>
 </div>
