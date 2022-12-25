@@ -19,6 +19,7 @@
       />
     </div>
     <div
+      *ngIf="hasSavedPostPermission"
       class="absolute top-0 right-0 text-white px-15 bookmark-icon cursor-pointer"
       (click)="onBookmarkButtonClicked()"
     >

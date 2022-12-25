@@ -2,10 +2,11 @@ import { CommonService } from './../../../../core/services/common.service';
 import { Component, Input, OnInit } from '@angular/core';
 //
 import { ENDPOINTS } from '@app/shared/utilities';
-import { PostService } from '@app/modules/post/services/post.service';
 import { NotifyService } from '@app/shared/services/notify.service';
 import { BookmarkService } from '../../services/bookmark.service';
 import { DEFAULT_IMAGES } from '@app/shared/app.constants';
+import { CheckPermissionPipe } from '@app/shared/pipes/check-permission.pipe';
+import { PermissionType } from '@app/shared/app.enum';
 @Component({
   selector: 'app-post-card-horizontal',
   templateUrl: './post-card-horizontal.component.html',
@@ -15,12 +16,18 @@ export class PostCardHorizontalComponent implements OnInit {
   @Input() post: any;
   DEFAULT_IMAGES = DEFAULT_IMAGES;
   ENDPOINTS = ENDPOINTS;
+  hasSavedPostPermission: boolean = false;
 
   constructor(
     private bookmarkService: BookmarkService,
     private notifyService: NotifyService,
-    private commonService: CommonService
-  ) {}
+    private commonService: CommonService,
+    private checkPermissionPipe: CheckPermissionPipe
+  ) {
+    this.hasSavedPostPermission =
+      this.checkPermissionPipe.transform(PermissionType.BookmarkCreate) ||
+      this.checkPermissionPipe.transform(PermissionType.BookmarkRemove);
+  }
 
   ngOnInit() {}
 
