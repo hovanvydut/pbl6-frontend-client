@@ -100,14 +100,6 @@
               {{ item.description }}
             </p>
           </div>
-          <div
-            *ngIf="selectedTab === TransactionType.Payment"
-            class="w-100 line-clamp-2"
-          >
-            <p class="text-12">
-              {{ item.postId }}
-            </p>
-          </div>
           <div class="text-left">
             <p>
               <b>{{ item.codeType }}</b> | {{ item.code }}
