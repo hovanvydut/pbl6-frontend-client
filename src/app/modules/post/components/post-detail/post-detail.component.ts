@@ -68,9 +68,9 @@ export class PostDetailComponent implements OnInit {
       )
       .subscribe(res => {
         this.post = res;
-        this.post.createdAt = new Date(
-          new Date().getTime() - Math.random() * 10000000000
-        );
+        const time = new Date(res.createdAt);
+        time.setHours(time.getHours() + 7);
+        this.post.createdAt = time;
       });
   }
 
