@@ -1,12 +1,7 @@
 import { StatisticDetailComponent } from './../statistic-detail/statistic-detail.component';
 import { ChartTypes } from './../consts/chart-type.const';
 import { finalize } from 'rxjs';
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatisticTypes } from '../consts/statistic.const';
 import { StatisticKey } from '../enums/statistic.enum';
@@ -72,6 +67,7 @@ export class StatisticRevenueComponent implements OnInit {
 
   totalRecords: number;
   displayedColumns: string[] = ['title', 'value'];
+  totalValue = 0;
 
   isLoading = false;
   isLoadDetail = false;
@@ -107,6 +103,11 @@ export class StatisticRevenueComponent implements OnInit {
         this.label = res.map(item => {
           return item.statisticDate;
         });
+      });
+    this.statisticService
+      .getTotalStatistic(this.statisticParams)
+      .subscribe(res => {
+        this.totalValue = res;
       });
   }
 
