@@ -201,3 +201,10 @@ export enum RegisterStep {
   selectRole = 1,
   fillInfo
 }
+
+export enum Role {
+  Admin = 1,
+  Landlord,
+  Finder,
+  LandlordFinder
+}

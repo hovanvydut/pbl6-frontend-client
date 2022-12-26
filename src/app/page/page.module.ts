@@ -3,6 +3,7 @@ import { PageComponent } from './page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SidebarLayoutComponent } from '@app/modules/layout/components/sidebar-layout/sidebar-layout.component';
 import { ManagePostsComponent } from '@app/modules/post/components/manage-posts/manage-posts.component';
+import { LandlordGuard } from '@app/core/guards/landlord.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -38,7 +39,8 @@ export const routes: Routes = [
       },
       {
         path: 'manage-posts',
-        component: ManagePostsComponent
+        component: ManagePostsComponent,
+        canActivate: [LandlordGuard]
       }
     ]
   }

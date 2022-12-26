@@ -9,6 +9,6 @@ export class CheckPermissionPipe implements PipeTransform {
   constructor(private baseService: BaseService) {}
 
   transform(value: PermissionType | string, args?: any): any {
-    return this.baseService.permission.includes(value);
+    return this.baseService.permission?.includes(value);
   }
 }

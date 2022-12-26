@@ -1,6 +1,6 @@
 <app-general-profile></app-general-profile>
 
-<mat-card>
+<mat-card *ngIf="hasViewSavedPostPermission">
   <div class="p-20">
     <app-saved-posts></app-saved-posts>
   </div>

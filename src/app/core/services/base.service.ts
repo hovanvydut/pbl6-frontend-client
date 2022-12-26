@@ -6,6 +6,8 @@ import { environment } from '@environment';
 import { AccountModel } from '@app/modules/auth/models/auth.model';
 import { Router } from '@angular/router';
 import { ENDPOINTS } from '@app/shared/utilities';
+import { Role } from '@app/shared/app.enum';
+import { NotifyService } from '@app/shared/services/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +74,15 @@ export class BaseService {
     } else return null;
   }
 
+  get getCurrentRole() {
+    const user = this.currentUser;
+    if (user) {
+      return user.roleId;
+    } else {
+      return null;
+    }
+  }
+
   get isLoggedIn(): boolean {
     return localStorage.getItem(this.TOKEN) !== null;
   }
@@ -102,7 +113,11 @@ export class BaseService {
     return { headers: this.headers };
   }
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private notifyService: NotifyService
+  ) {}
 
   //#region GET Methods
   get<T>(url: string): Observable<T> {
@@ -219,9 +234,9 @@ export class BaseService {
     if (res.statusCode === 401) {
       this.removeLoggedUser();
       return;
-    };
-    if ( res.statusCode === 403) {
-      this.router.navigateByUrl(ENDPOINTS.FORBIDDEN)
+    }
+    if (res.statusCode === 403) {
+      this.router.navigateByUrl(ENDPOINTS.FORBIDDEN);
     }
     throw new Error(res.message);
   }
