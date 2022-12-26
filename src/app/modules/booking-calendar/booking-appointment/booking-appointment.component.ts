@@ -84,93 +84,96 @@ export class BookingAppointmentComponent implements OnInit {
   }
 
   getBookings() {
-    this.bookingService.getAllBooking().subscribe(
-      res => {
-        this.events = res.records.map(item => {
-          const time = new Date(item.time);
-          time.setHours(time.getHours() + 7);
-          const event = {
-            id: item.id,
-            start: time,
-            end: new Date(time.getTime() + 1000 * 60 * 60),
-            title: item.guestInfo.displayName,
-            color: { ...BOOKING_COLORS['new'] },
-            infoDetail: item,
-            actions: [
-              {
-                label: `👀`,
-                a11yLabel: 'Xem chi tiết',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.events = this.events.filter(iEvent => iEvent !== event);
-                  this.viewDetail(event);
-                }
+    this.bookingService.getAllBooking().subscribe(res => {
+      this.events = res.records.map(item => {
+        const time = new Date(item.time);
+        time.setHours(time.getHours() + 7);
+        const event = {
+          id: item.id,
+          start: time,
+          end: new Date(time.getTime() + 1000 * 60 * 60),
+          title: item.guestInfo.displayName,
+          color: { ...BOOKING_COLORS['new'] },
+          infoDetail: item,
+          actions: [
+            {
+              label: `👀`,
+              a11yLabel: 'Xem chi tiết',
+              onClick: ({ event }: { event: CalendarEvent }): void => {
+                this.events = this.events.filter(iEvent => iEvent !== event);
+                this.viewDetail(event);
               }
-            ],
-            resizable: {
-              beforeStart: true,
-              afterEnd: true
-            },
-            draggable: false
-          };
+            }
+          ],
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          draggable: false
+        };
 
-          if (event.infoDetail?.approveTime) {
-            event.color = { ...BOOKING_COLORS['approved'] };
-          }
-          if (event.infoDetail?.met) {
-            event.color = { ...BOOKING_COLORS['done'] };
-          }
-          return event;
-        });
-      },
-      err => {
-        this.notifyService.notify(err);
-      }
-    );
+        if (event.infoDetail?.approveTime) {
+          event.color = { ...BOOKING_COLORS['approved'] };
+        }
+        if (event.infoDetail?.met) {
+          event.color = { ...BOOKING_COLORS['done'] };
+        }
+        // {
+        //   label: `🆕`,
+        //   a11yLabel: 'Chưa xác nhận',
+        // },
+        // {
+        //   label: `✅`,
+        //   a11yLabel: 'Đã xác nhận',
+        // }, {
+        //   label: `🧑‍🤝‍🧑`,
+        //   a11yLabel: 'Đã gặp',
+        // }
+        return event;
+      });
+    });
   }
 
   getMyBookings() {
-    this.bookingService.getMyBookings().subscribe(
-      res => {
-        this.events = res.records.map(item => {
-          const time = new Date(item.time);
-          time.setHours(time.getHours() + 7);
-          const event = {
-            id: item.id,
-            start: time,
-            end: new Date(time.getTime() + 1000 * 60 * 60),
-            title: item.guestInfo.displayName,
-            color: { ...BOOKING_COLORS['new'] },
-            infoDetail: item,
-            actions: [
-              {
-                label: `👀`,
-                a11yLabel: 'Xem chi tiết',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.events = this.events.filter(iEvent => iEvent !== event);
-                  this.viewDetail(event);
-                }
+    this.bookingService.getMyBookings().subscribe(res => {
+      this.events = res.records.map(item => {
+        const data = item;
+        const time = new Date(item.time);
+        time.setHours(time.getHours() + 7);
+        data.time = time;
+        const event = {
+          id: item.id,
+          start: time,
+          end: new Date(time.getTime() + 1000 * 60 * 60),
+          title: item.guestInfo.displayName,
+          color: { ...BOOKING_COLORS['new'] },
+          infoDetail: data,
+          actions: [
+            {
+              label: `👀`,
+              a11yLabel: 'Xem chi tiết',
+              onClick: ({ event }: { event: CalendarEvent }): void => {
+                this.events = this.events.filter(iEvent => iEvent !== event);
+                this.viewDetail(event);
               }
-            ],
-            resizable: {
-              beforeStart: true,
-              afterEnd: true
-            },
-            draggable: false
-          };
+            }
+          ],
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          draggable: false
+        };
 
-          if (event.infoDetail?.approveTime) {
-            event.color = { ...BOOKING_COLORS['approved'] };
-          }
-          if (event.infoDetail?.met) {
-            event.color = { ...BOOKING_COLORS['done'] };
-          }
-          return event;
-        });
-      },
-      err => {
-        this.notifyService.notify(err);
-      }
-    );
+        if (event.infoDetail?.approveTime) {
+          event.color = { ...BOOKING_COLORS['approved'] };
+        }
+        if (event.infoDetail?.met) {
+          event.color = { ...BOOKING_COLORS['done'] };
+        }
+        return event;
+      });
+    });
   }
 
   onEditFreeTimeButtonClicked() {
@@ -197,6 +200,8 @@ export class BookingAppointmentComponent implements OnInit {
   }
 
   viewDetail(event) {
+    event.infoDetail.time = new Date(event.infoDetail.time);
+    event.infoDetail.time.setHours( event.infoDetail.time.getHours() + 7);
     let dialogRef = this.dialog.open(BookingDetailComponent, {
       maxWidth: '99vw',
       maxHeight: '90vh',
