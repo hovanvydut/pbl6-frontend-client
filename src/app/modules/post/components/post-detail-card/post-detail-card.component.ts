@@ -94,6 +94,9 @@ export class PostDetailCardComponent implements OnInit, AfterViewChecked {
       this.reviews = res.records;
       // map sentiment of review to icon name
       this.reviews.forEach((review: any) => {
+        const time = new Date(review.createdAt);
+        time.setHours(time.getHours() + 7);
+        review.createdAt = time;
         review.sentimentIcon = this.reviewIcons.find(
           icon => icon.id === review.sentiment
         );
