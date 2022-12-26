@@ -42,6 +42,7 @@ export class ItemBaseModel {
 export class ItemModel extends ItemBaseModel {
   displayName: string;
   propertyGroupId?: string;
+  isVisible?: boolean;
 
   constructor(init?: Partial<ItemModel>) {
     super();

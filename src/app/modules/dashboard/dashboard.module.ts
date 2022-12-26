@@ -12,13 +12,11 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
 export const routes: Routes = [
   {
     path: 'my-dashboard',
-    pathMatch: 'full',
     component: MainDashboardComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'notification',
-    pathMatch: 'full',
     component: NotificationBoardComponent,
     canActivate: [AuthGuard],
   }

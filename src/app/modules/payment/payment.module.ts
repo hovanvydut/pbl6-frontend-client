@@ -1,3 +1,4 @@
+import { LandlordGuard } from './../../core/guards/landlord.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
@@ -20,7 +21,7 @@ export const routes: Routes = [
   {
     path: '',
     component: PaymentComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, LandlordGuard],
     children: [
       {
         path: '',

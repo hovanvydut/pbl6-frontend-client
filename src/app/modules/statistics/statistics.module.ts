@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserGuard } from '@app/core/guards/user.guard';
+import { LandlordGuard } from '@app/core/guards/landlord.guard';
 
 const COMPONENTS = [
   StatisticsComponent,
@@ -19,7 +19,7 @@ export const routes: Routes = [
   {
     path: '',
     component: StatisticsComponent,
-    canActivate: [AuthGuard, UserGuard],
+    canActivate: [AuthGuard, LandlordGuard],
     children: [
       {
         path: '',

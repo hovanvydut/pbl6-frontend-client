@@ -1,4 +1,4 @@
-import { PermissionType } from '@app/shared/app.enum';
+import { PermissionType, Role } from '@app/shared/app.enum';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -29,19 +29,16 @@ export class UserGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const hasPermission = this._baseService.permission?.includes(
-      PermissionType.PostCreate
-    );
-    if (hasPermission) {
+    const currentRole = this._baseService.getCurrentRole;
+    if (currentRole === Role.Admin || currentRole === Role.Landlord) {
       this._router
         .navigate([ENDPOINTS.DASHBOARD], {
           queryParams: { returnUrl: state.url }
         })
         .then();
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -51,18 +48,15 @@ export class UserGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const hasPermission = this._baseService.permission?.includes(
-      PermissionType.PostCreate
-    );
-    if (hasPermission) {
+    const currentRole = this._baseService.getCurrentRole;
+    if (currentRole === Role.Admin || currentRole === Role.Landlord) {
       this._router
         .navigate([ENDPOINTS.DASHBOARD], {
           queryParams: { returnUrl: state.url }
         })
         .then();
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
 }
