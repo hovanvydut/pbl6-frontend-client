@@ -31,10 +31,9 @@ export class BookingDetailComponent implements OnInit {
         .subscribe(res => {
           this.data.infoDetail = res;
           if (res?.time) {
-            this.data.infoDetail.time = this.datePipe.transform(
-              this.data.infoDetail?.time,
-              'dd/MM/yyyy HH:mm'
-            );
+            const time = new Date(res?.time);
+            time.setHours(time.getHours() + 7);
+            this.data.infoDetail.time = time;
           }
 
           this.generateMessage();

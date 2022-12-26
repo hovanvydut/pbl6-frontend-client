@@ -36,7 +36,7 @@
         {{ this.data.infoDetail?.guestInfo.phoneNumber }}
       </p>
       <p class="h-20">
-        {{ this.data.infoDetail?.time }}
+        {{ this.data.infoDetail?.time | date: 'short'}}
       </p>
       <p class="h-20">
         {{ this.data.infoDetail?.met ? "Đã gặp" : "Chưa gặp" }}
