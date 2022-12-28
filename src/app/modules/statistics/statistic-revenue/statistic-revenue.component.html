@@ -1,9 +1,13 @@
-<div class="flex justify-between items-center mb-10 sticky top-0">
-  <b class="text-20">
+<div
+  class="bg-gray-50 xl:bg-transparent flex justify-between flex-col xl:flex-row items-center mb-10 sticky top-0 z-50"
+>
+  <b class="text-20 mb-10">
     Thống kê
   </b>
 
-  <div class="flex gap-10">
+  <div
+    class="flex flex-wrap xl:flex-nowrap justify-center xl:justify-end gap-10"
+  >
     <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>Chọn thời gian</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="rangePicker">
@@ -45,16 +49,18 @@
         }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="shadow-md text-12 px-10 pt-12 mt-3 mb-20 rounded-6 border text-blue-700 border-gray-300 font-bold">
+    <div
+      class="shadow-md w-1/2 text-12 px-10 pt-12 mt-3 pb-12 text-center mb-20 rounded-6 border text-blue-700 border-gray-300 font-bold"
+    >
       Tổng: {{ totalValue }} lượt
     </div>
   </div>
 </div>
 
 <ng-container *ngIf="value && label">
-  <div class="flex gap-10">
+  <div class="flex flex-col xl:flex-row gap-10">
     <div
-      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-1/2"
+      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-full xl:w-1/2"
     >
       <b class="text-16">
         Thống kê chung
@@ -69,7 +75,7 @@
       ></app-bar-chart>
     </div>
     <div
-      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-1/2"
+      class="chart-container bg-white px-15 py-20 rounded-12 shadow-md w-full xl:w-1/2"
     >
       <div class="flex gap-10 items-start justify-between">
         <b class="text-16">
@@ -96,22 +102,25 @@
         <ng-container *ngIf="isViewDetail">
           <div class="h-full">
             <nav
-                mat-tab-nav-bar
-                [tabPanel]="tabPanel"
-                class="notification-nav-container"
+              mat-tab-nav-bar
+              [tabPanel]="tabPanel"
+              class="notification-nav-container"
+            >
+              <a
+                mat-tab-link
+                *ngFor="let tab of tabs"
+                (click)="onTabClick(tab)"
+                [active]="selectedTab === tab"
+                class="gap-10"
               >
-                <a
-                  mat-tab-link
-                  *ngFor="let tab of tabs"
-                  (click)="onTabClick(tab)"
-                  [active]="selectedTab === tab"
-                  class="gap-10"
-                >
-                  {{ tab.name }}
-                </a>
-              </nav>
-            <mat-tab-nav-panel #tabPanel mat-align-tabs="start"></mat-tab-nav-panel>
-        
+                {{ tab.name }}
+              </a>
+            </nav>
+            <mat-tab-nav-panel
+              #tabPanel
+              mat-align-tabs="start"
+            ></mat-tab-nav-panel>
+
             <div *ngIf="selectedTab.id === 'table'" class="table-container">
               <div class="p-10 h-full">
                 <div
@@ -139,7 +148,7 @@
                         </p>
                       </td>
                     </ng-container>
-  
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr
                       mat-row
@@ -152,7 +161,7 @@
                 </p>
               </div>
             </div>
-        
+
             <div *ngIf="selectedTab.id === 'chart' && !isLoadDetail">
               <div class="flex justify-center h-full items-center">
                 <app-pie-chart

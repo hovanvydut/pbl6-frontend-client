@@ -16,14 +16,14 @@ import { FilterService } from './filter.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  private _addressWardId: string;
-  @Input() get addressWardId() {
-    return this._addressWardId;
+  private _addressDistrictId: string;
+  @Input() get addressDistrictId() {
+    return this._addressDistrictId;
   }
-  set addressWardId(value) {
-    this._addressWardId = value;
+  set addressDistrictId(value) {
+    this._addressDistrictId = value;
     if (value) {
-      this.queryParams.addressWardId = value;
+      this.queryParams.addressDistrictId = value;
       this.filterService.setQueryParams(this.queryParams);
     }
   }
@@ -51,6 +51,7 @@ export class FilterComponent implements OnInit {
     minPrice: new FormControl(0),
     searchValue: new FormControl('')
   };
+  districts: ItemModel[] = [];
 
   private subscription: Subscription = new Subscription();
   private filterParams$: Subject<void> = new Subject();
@@ -77,8 +78,17 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAddress();
     this.getRoomCategory();
     this.getProperties();
+  }
+
+  getAddress() {
+    this.commonService
+      .getDistricts('32')
+      .subscribe(val => {
+        this.districts = val.addressDistricts;
+      });
   }
 
   getRoomCategory() {
@@ -106,6 +116,12 @@ export class FilterComponent implements OnInit {
     }
   }
 
+  onAddressChanged(id: any) {
+    console.log(id);
+    this.queryParams.addressDistrictId = id;
+    this.onValueChanged();
+  }
+
   onCategorySelected(id: string) {
     this.queryParams.categoryId = id;
     this.onValueChanged();
@@ -115,13 +131,17 @@ export class FilterComponent implements OnInit {
     this.properties.forEach(property => {
       property.value = [];
     });
+    this.queryParams = new QueryParams();
     this.filterParams = {
       maxArea: new FormControl(100),
       minArea: new FormControl(0),
-      maxPrice: new FormControl(30000000),
+      maxPrice: new FormControl(10000000),
       minPrice: new FormControl(0),
       searchValue: new FormControl('')
     };
+    this.addressDistrictId = null;
+    this.selectedProperties = [];
+    this.queryParams.categoryId = null;
     this.filterService.setQueryParams(this.queryParams);
   }
 
