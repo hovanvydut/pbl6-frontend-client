@@ -453,7 +453,13 @@ export class PostDetailFormComponent implements OnInit {
             item.value.setValue(this.postDetail.fullAddress['ward'].id);
             break;
           case PostFieldNameEnum.Province:
+            this.handleCitySelected('32');
+            break;
           case PostFieldNameEnum.District:
+            this.handleDistrictSelected(
+              this.postDetail.fullAddress[item.name].id.toString()
+            );
+
             item.value.setValue(this.postDetail.fullAddress[item.name].id);
             break;
           case PostFieldNameEnum.CategoryId:

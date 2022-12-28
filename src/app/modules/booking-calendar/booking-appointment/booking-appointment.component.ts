@@ -201,7 +201,6 @@ export class BookingAppointmentComponent implements OnInit {
 
   viewDetail(event) {
     event.infoDetail.time = new Date(event.infoDetail.time);
-    event.infoDetail.time.setHours( event.infoDetail.time.getHours() + 7);
     let dialogRef = this.dialog.open(BookingDetailComponent, {
       maxWidth: '99vw',
       maxHeight: '90vh',
