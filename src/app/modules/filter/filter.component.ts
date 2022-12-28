@@ -84,11 +84,9 @@ export class FilterComponent implements OnInit {
   }
 
   getAddress() {
-    this.commonService
-      .getDistricts('32')
-      .subscribe(val => {
-        this.districts = val.addressDistricts;
-      });
+    this.commonService.getDistricts('32').subscribe(val => {
+      this.districts = val.addressDistricts;
+    });
   }
 
   getRoomCategory() {

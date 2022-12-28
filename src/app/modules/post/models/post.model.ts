@@ -69,6 +69,7 @@ export class QueryParams {
   minArea?: number = 0;
   maxArea?: number = 100;
   addressDistrictId?: string;
+  addressWardId?: string;
   categoryId?: string;
   searchValue?: string;
   fromDate?: string;
