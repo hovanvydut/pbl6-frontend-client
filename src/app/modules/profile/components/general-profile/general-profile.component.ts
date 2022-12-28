@@ -7,7 +7,8 @@ import { ProfileDetailFormComponent } from './../profile-detail-form/profile-det
 import { NotifyService } from '@app/shared/services/notify.service';
 import { PaymentFormComponent } from '@app/modules/payment/payment-form/payment-form.component';
 import { CheckPermissionPipe } from '@app/shared/pipes/check-permission.pipe';
-import { PermissionType } from '@app/shared/app.enum';
+import { PermissionType, Role } from '@app/shared/app.enum';
+import { BaseService } from '@app/core/services/base.service';
 
 @Component({
   selector: 'app-general-profile',
@@ -23,11 +24,13 @@ export class GeneralProfileComponent implements OnInit {
     public dialog: MatDialog,
     private profileService: ProfileService,
     private notifyService: NotifyService,
-    private checkPermissionPipe: CheckPermissionPipe
+    private checkPermissionPipe: CheckPermissionPipe,
+    private baseSerivce: BaseService
   ) {
-    this.hasPaymentPermission = this.checkPermissionPipe.transform(
-      PermissionType.VNPCreatePayment
-    );
+    this.hasPaymentPermission =
+      this.checkPermissionPipe.transform(PermissionType.VNPCreatePayment) ||
+      this.baseSerivce.currentUser.roleId === Role.Landlord ||
+      this.baseSerivce.currentUser.roleId === Role.LandlordFinder;
   }
 
   ngOnInit(): void {
@@ -62,7 +65,5 @@ export class GeneralProfileComponent implements OnInit {
     });
   }
 
-  onUpgradeRole() {
-    
-  }
+  onUpgradeRole() {}
 }

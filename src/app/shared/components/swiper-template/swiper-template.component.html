@@ -12,7 +12,7 @@
       <img
         *ngIf="!onlyText"
         [style]="imageStyle"
-        class="swiper-lazy h-full w-full m-auto"
+        class="swiper-lazy h-full w-full m-auto cursor-pointer"
         [class.object-contain]="imageContain"
         [class.object-cover]="!imageContain"
         [src]="item.url || 'assets/images/default/default_avatar.png'"
@@ -27,7 +27,7 @@
         </p>
       </div>
     </div>
-    <div *ngIf="onlyText" class="h-130 w-149 p-5">
+    <div *ngIf="onlyText" class="h-130 w-149 p-5 cursor-pointer">
       <div
       [style.background-image]="'url(' + item.image + ')'"
       (click)="onItemClicked(item)"
