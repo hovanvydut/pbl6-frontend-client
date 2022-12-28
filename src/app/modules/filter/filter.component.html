@@ -1,4 +1,19 @@
-<div *ngIf="filterParams && queryParams" class="text-left filter-container bg-white rounded-12 p-15 mt-18">
+<div
+  *ngIf="filterParams && queryParams"
+  class="text-left filter-container bg-white rounded-12 p-15 mt-18"
+>
+  <div class="my-15 flex flex-col">
+    <span class="text-16 font-bold text-left text-gray-700">
+      Quận
+    </span>
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="addressDistrictId">
+        <mat-option *ngFor="let item of districts" [value]="item.id">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div class="my-15">
     <span class="text-16 font-bold text-left text-gray-700">
       Phân loại phòng

@@ -1,7 +1,7 @@
 import { ProfileBaseModel } from '@app/modules/profile/models/profile.model';
 import { ItemBaseModel, TimeBaseModel } from '@app/shared/models/base.model';
 import { AddressModel } from './../../../shared/models/address.model';
-export class PostBaseModel extends TimeBaseModel{
+export class PostBaseModel extends TimeBaseModel {
   id: string;
   title: string;
   description: string;
@@ -31,7 +31,6 @@ export class PostBaseModel extends TimeBaseModel{
 }
 
 export class PostRequestModel extends PostBaseModel {
-
   public constructor(init?: Partial<PostRequestModel>) {
     super();
     Object.assign(this, init);
@@ -61,16 +60,15 @@ export class Review {
   }
 }
 
-
 export class QueryParams {
   pageNumber: number = 1;
   pageSize: number = 12;
 
-  minPrice?: number;
-  maxPrice?: number;
-  minArea?: number;
-  maxArea?: number;
-  addressWardId?: string;
+  minPrice?: number = 0;
+  maxPrice?: number = 10000000;
+  minArea?: number = 0;
+  maxArea?: number = 100;
+  addressDistrictId?: string;
   categoryId?: string;
   searchValue?: string;
   fromDate?: string;

@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
   @ViewChild('postBanner', { static: true }) postBanner: PostBannerComponent;
 
   images = [];
-  addressWardId: string;
+  addressDistrictId: string;
   imageUrl = 'assets/images/district/';
 
   constructor(private commonService: CommonService) {}
@@ -41,6 +41,6 @@ export class PostComponent implements OnInit {
   }
 
   onItemClicked(id: string) {
-    this.addressWardId = id;
+    this.addressDistrictId = id;
   }
 }
